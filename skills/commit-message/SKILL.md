@@ -1,6 +1,6 @@
 ---
 name: commit-message
-description:
+description: >
   Create commit messages following the Conventional Commits specification based
   on the actual diff and staged files. Use only when you are asked to create a
   commit message. Do not use this skill for any other purpose.

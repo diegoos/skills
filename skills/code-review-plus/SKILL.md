@@ -1,6 +1,6 @@
 ---
 name: code-review-plus
-description:
+description: >
   Use when the user requests a code review, PR review, diff review, or feedback
   on changed code and wants independent analysis across correctness, security,
   architecture, quality, and performance synthesized into a prioritized report.

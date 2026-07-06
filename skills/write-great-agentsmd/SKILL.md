@@ -1,6 +1,6 @@
 ---
 name: write-great-agentsmd
-description:
+description: >
   Generate, update, or lint an AGENTS.md file — the operational policy that
   orchestrates an AI agent inside a repo. Use when the user asks to create,
   write, generate, scaffold, refresh, update, fix, audit, or review an
