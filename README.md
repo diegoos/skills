@@ -1,4 +1,4 @@
-# The skills for agents
+# Skills
 
 My collection of AI agent skills — to work with safety and quality as a real software engineer.
 
