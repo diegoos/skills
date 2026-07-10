@@ -251,7 +251,7 @@ When reviewing AI-generated changes, prioritize:
 - **Invoke directly when:** the user asks for a review of a specific change,
   file, or PR.
 - **Invoke via:** `/review` (single-perspective review). For deep parallel
-  reviews with sub-agents, use `code-review-plus` instead.
+  reviews with sub-agents, use `code-review-plus` skill.
 - **Do not invoke from another persona.** Orchestration belongs to slash
   commands, not personas.
 ```

@@ -142,6 +142,8 @@ For deeper security analysis, also use `security-review-deep` when available.
 - Abstractions justified by actual reuse (don't generalize before third use
   case)
 - Comments only for non-obvious business logic — not for self-explanatory code
+- Determine if the project has a test, lint, type checking, and formatting rules - if so, run
+  them and report any violations.
 
 **Dead code / redundancy rules:**
 
@@ -195,15 +197,12 @@ Drop or downgrade any item that fails verification.
 
 After all subagents complete:
 
-1. **Verify** — run Phase 2.5 checklist on every item; drop or downgrade
-   failures
+1. **Verify** — run Phase 2.5 checklist on every item; drop or downgrade failures
 2. **Deduplicate** — merge overlapping findings from multiple perspectives
 3. **Categorize** — assign each finding to exactly one category (table below)
 4. **Prioritize** — map category + impact to P0/P1/P2/P3
-5. **Self-consistency check** — no contradictions between findings and "What
-   Looks Good"
-6. **Identify gaps** — anything no perspective covered? Fill only if clearly
-   warranted and verified
+5. **Self-consistency check** — no contradictions between findings and "What Looks Good"
+6. **Identify gaps** — anything no perspective covered? Fill only if clearly warranted and verified
 7. **Acknowledge strengths** — note 1-2 specific things done well
 
 ### Finding categories (assign before severity)

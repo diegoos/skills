@@ -28,14 +28,12 @@ Three operation branches:
 ## Principles every output must hold
 
 - **Command-first** — every instruction is a runnable command, not prose.
-- **Closure-defined** — exit codes + proof artifact (failing test now passing,
-  snapshot, demo).
+- **Closure-defined** — exit codes + proof artifact (failing test now passing, snapshot, demo).
 - **Task-organized** — grouped by task (`When Writing / Reviewing / Releasing`).
 - **Permission boundaries** — `READ` / `WRITE` / `NEVER` / `HUMAN_CHECKPOINT`.
 - **Escalation** — what to do when blocked; what never to do to "recover".
 - **Precedence** — numbered tradeoffs; the agent never guesses which wins.
-- **Minimal-high-leverage** — only what the agent cannot infer from code
-  (decisions, tradeoffs, non-functional constraints).
+- **Minimal-high-leverage** — only what the agent cannot infer from code (decisions, tradeoffs, non-functional constraints).
 - **Link, don't copy** — point at source; duplication drifts.
 
 ## Usage

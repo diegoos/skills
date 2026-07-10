@@ -29,7 +29,7 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`,
   Wrap at 72 chars, bullets with `-`.
 - Footers: `Closes #123`, `Refs #456`, `BREAKING CHANGE: ...`.
 - Breaking change: `feat!:` or `BREAKING CHANGE:` footer.
-- Match the project's language and style — check `git log` (en or pt-br).
+- Match the project's language and style — determine by checking `git log --format=%B -5`.
 
 ## Workflow
 
