@@ -1,15 +1,20 @@
 ---
 name: commit-message
-description: >
-  Create commit messages following the Conventional Commits specification based
-  on the actual diff and staged files. Use only when you are asked to create a
-  commit message. Do not use this skill for any other purpose.
+description: >-
+  Create commit messages following the Conventional Commits specification based on the actual diff and staged files. Use only when you are asked to create a commit message. Do not use this skill for any other purpose.
+metadata:
+  version: 0.1.0
+  author: "Diego Oliveira"
+  tags:
+    - git
+    - commit
+    - conventional commits
+    - commit message
 ---
 
 # Git Commit with Conventional Commits
 
-Operate in "Low Reasoning Effort" mode: focus on generating the commit message
-from the diff and staged files. Terse and exact — no fluff. Why over what.
+Operate in "Low Reasoning Effort" mode: focus on generating the commit message from the diff and staged files. Terse and exact — no fluff. Why over what.
 
 ## Format
 
@@ -21,8 +26,7 @@ from the diff and staged files. Terse and exact — no fluff. Why over what.
 [optional footer(s)]
 ```
 
-Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`,
-`ci`, `chore`, `revert`.
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
 
 - Subject ≤72 chars, imperative mood ("add" not "added"), no trailing period.
 - Body only when the why is non-obvious, or for breaking changes / migrations.
@@ -65,33 +69,27 @@ EOF
 )
 ```
 
-Single-line fallback: `git commit -m "<type>[scope]: <description>"`. Avoid
-`dquote>` interactive prompts and never use `-i`.
+Single-line fallback: `git commit -m "<type>[scope]: <description>"`. Avoid `dquote>` interactive prompts and never use `-i`.
 
 ## What never goes in
 
 - "This commit does X", "I", "we", "now", "currently" — the diff says what.
-- AI attribution ("Generated with Claude", "Co-authored-by Claude") unless the
-  project's own rule requires an AI-attribution trailer.
+- AI attribution ("Generated with Claude", "Co-authored-by Claude") unless the project's own rule requires an AI-attribution trailer.
 - Restating the filename when scope already says it.
 - Emoji (unless project convention requires).
 - Trailing notes like "All changes committed locally; no push performed."
 
 ## Safety protocol
 
-- NEVER update git config, force push, or run destructive commands (`--force`,
-  hard reset) without explicit request.
+- NEVER update git config, force push, or run destructive commands (`--force`, hard reset) without explicit request.
 - NEVER skip hooks (`--no-verify`) unless the user asks.
-- NEVER push or offer to push / open a PR — create the commit locally for
-  review.
+- NEVER push or offer to push / open a PR — create the commit locally for review.
 - NEVER commit secrets or sensitive files.
-- If a commit fails (hook rejection, etc.), fix the issue and create a NEW
-  commit — do not amend on the first attempt.
+- If a commit fails (hook rejection, etc.), fix the issue and create a NEW commit — do not amend on the first attempt.
 
 ## Auto-Clarity
 
-Always include a body for: breaking changes, security fixes, data migrations, or
-reverts of prior commits. Never compress these into subject-only.
+Always include a body for: breaking changes, security fixes, data migrations, or reverts of prior commits. Never compress these into subject-only.
 
 ## Examples
 

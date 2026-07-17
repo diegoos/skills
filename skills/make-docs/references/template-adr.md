@@ -1,7 +1,6 @@
 # ADR-NNNN: <title>
 
-Date: <ISO date>
-Status: proposed | accepted | deprecated | superseded by [ADR-MMMM]
+Date: <ISO date> Status: proposed | accepted | deprecated | superseded by [ADR-MMMM]
 
 ## Context
 

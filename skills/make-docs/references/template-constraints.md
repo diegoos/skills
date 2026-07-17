@@ -1,7 +1,6 @@
 # Constraints
 
-> Numbers and policies the system must meet. Cut any section the survey did
-> not earn. Prefer measurable targets over adjectives.
+> Numbers and policies the system must meet. Cut any section the survey did > not earn. Prefer measurable targets over adjectives.
 
 ## Runtime
 
@@ -35,8 +34,7 @@
 
 ## Technical
 
-> Cut any rule the survey did not earn. Examples only — replace with what
-> the codebase actually enforces:
+> Cut any rule the survey did not earn. Examples only — replace with what > the codebase actually enforces:
 
 - <e.g. parameterized queries; no string-built SQL>
 - <e.g. secrets via env / secret manager; `.env.example` checked in, never `.env`>

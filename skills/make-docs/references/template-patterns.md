@@ -1,7 +1,6 @@
 # Patterns
 
-> Architectural or design patterns the code actually uses. Problem, where,
-> cost — skip patterns that are only aspirational.
+> Architectural or design patterns the code actually uses. Problem, where, > cost — skip patterns that are only aspirational.
 
 | Pattern | Problem | Where | Cost |
 | ------- | ------- | ----- | ---- |

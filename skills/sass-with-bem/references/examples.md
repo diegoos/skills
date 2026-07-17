@@ -1,7 +1,6 @@
 # BEM + Sass — examples
 
-Shapes only. Rules: [`SKILL.md`](../SKILL.md),
-[`conventions.md`](conventions.md).
+Shapes only. Rules: [`SKILL.md`](../SKILL.md), [`conventions.md`](conventions.md).
 
 ## Card + button (composition, flat `&`)
 
@@ -66,8 +65,7 @@ Shapes only. Rules: [`SKILL.md`](../SKILL.md),
 }
 ```
 
-→ `.card__title--large`, `.button.is-loading`, `.nav__link:hover` — still
-**flat** class chains.
+→ `.card__title--large`, `.button.is-loading`, `.nav__link:hover` — still **flat** class chains.
 
 ## Form field (axiom: tight vs composed)
 

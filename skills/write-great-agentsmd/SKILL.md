@@ -2,6 +2,14 @@
 name: write-great-agentsmd
 description: >-
   Generate, update, or lint an AGENTS.md file — the operational policy that orchestrates an AI agent inside a repo. Use when the user asks to create, write, generate, scaffold, refresh, update, fix, audit, or review an AGENTS.md (or tool-mirror files like CLAUDE.md / .cursor/rules / GEMINI.md), wants to make an existing one more agent-effective, or mentions reducing agent drift, token cost, or false "done" reports. Branches: bootstrap (new), update (post-change sync), lint (health-check), slim (refactor bloated file).
+metadata:
+  version: 0.2.0
+  author: "Diego Oliveira"
+  tags:
+    - agentsmd
+    - agentsmd-bootstrap
+    - agentsmd-update
+    - agentsmd-lint
 ---
 
 # Write a great AGENTS.md

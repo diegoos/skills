@@ -1,8 +1,6 @@
 # make-docs
 
-Generates and maintains project documentation for humans and AI agents:
-**architecture** (how the system is structured) and **behavioral specs**
-(what it does — observable outcomes an agent can implement or verify).
+Generates and maintains project documentation for humans and AI agents: **architecture** (how the system is structured) and **behavioral specs** (what it does — observable outcomes an agent can implement or verify).
 
 Works for any project shape: services, CLIs, libraries, workers, monorepos.
 
@@ -28,8 +26,7 @@ docs/
     <domain>.md       # requirements + Given/When/Then scenarios
 ```
 
-Scope scales with the repo: small projects get README + architecture +
-decisions; larger ones earn the full set. Unearned sections are cut.
+Scope scales with the repo: small projects get README + architecture + decisions; larger ones earn the full set. Unearned sections are cut.
 
 ## Files
 
@@ -39,5 +36,4 @@ decisions; larger ones earn the full set. Unearned sections are cut.
 
 ## Out of scope (default)
 
-Data model, observability, CI/CD — ask before generating if present;
-otherwise skip.
+Data model, observability, CI/CD — ask before generating if present; otherwise skip.
