@@ -8,9 +8,7 @@ Shapes only. Rules: [`SKILL.md`](../SKILL.md), [`conventions.md`](conventions.md
 <article class="card card--highlight">
   <h2 class="card__title card__title--large">Title</h2>
   <p class="card__body">Supporting text.</p>
-  <button class="button button--primary is-loading" type="button">
-    Submit
-  </button>
+  <button class="button button--primary is-loading" type="button">Submit</button>
 </article>
 ```
 
@@ -73,10 +71,7 @@ Tight — input/label only make sense together:
 
 ```html
 <div class="form-field">
-  <input
-    class="form-field__input form-field__input--checkbox"
-    type="checkbox"
-    id="agree" />
+  <input class="form-field__input form-field__input--checkbox" type="checkbox" id="agree" />
   <label class="form-field__label" for="agree">I agree</label>
 </div>
 ```

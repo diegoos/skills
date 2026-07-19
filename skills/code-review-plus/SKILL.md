@@ -1,7 +1,8 @@
 ---
 name: code-review-plus
 description: >-
-  Use when the user requests a code review, PR review, diff review, or feedback on changed code and wants independent analysis across correctness, security, architecture, quality, and performance synthesized into a prioritized report. Calibrates severity to avoid false positives, inflated P0s, and findings that contradict project design or global middleware.
+  Multi-perspective code review with parallel subagents and a prioritized P0–P3 report. Invoke by name only (e.g. /code-review-plus).
+disable-model-invocation: true
 metadata:
   version: 0.1.0
   author: "Diego Oliveira"
@@ -96,7 +97,7 @@ Do not review outside your perspective. Do not assign final P0/P1/P2/P3 severity
 
 #### 2. Security
 
-For deeper security analysis, also use `security-review-deep` when available.
+For a deeper security pass, tell the user to invoke `/deep-security-review` (user-invoked only — do not auto-start it).
 
 - SQL/command/path injection, XSS, CSRF
 - Hardcoded secrets, API keys, credentials in code or logs
