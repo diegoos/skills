@@ -13,6 +13,7 @@ My collection of AI agent skills — to work with safety and quality as a real s
 | **[`code-review-plus`](skills/code-review-plus/)**         | Code review across 5 dimensions (correctness, security, architecture, quality, performance) with parallel subagents and anti-false-positive checks. Prioritized report (P0–P3), calibrated to avoid inflated severity. |
 | **[`deep-security-review`](skills/deep-security-review/)** | Deep security review: phased router (plan → hunt → verify → report), parallel domain subagents, each with at most one domain + one shape checklist. Findings table (P0–P3 + CRITICAL–LOW).                             |
 | **[`make-docs`](skills/make-docs/)**                       | Generates and maintains architecture docs and behavioral specs in `docs/`. Branches: **explore** (survey → propose → generate), **update** (commits since the `Updated on` stamp), **adr** (decision record).          |
+| **[`markdown-editor`](skills/markdown-editor/)**           | Creates and updates Markdown (`.md`/`.mdc`/`.mdx`) with Google Style Guide formatting, YAML frontmatter editing, and no prose hard line breaks.                                                                        |
 | **[`sass-with-bem`](skills/sass-with-bem/)**               | Writes and reviews BEM CSS with Sass/SCSS — flat selectors via `&` nesting, block/element/modifier, `is-`/`has-` states, 7-1 partials. Branches: **write**, **review**.                                                |
 
 > Each skill has a `SKILL.md` (source of truth for the agent).
@@ -65,6 +66,8 @@ skills/
 │   ├── SKILL.md
 │   ├── README.md
 │   └── references/         # Templates (architecture, ADR, specs, …)
+├── markdown-editor/        # Markdown + frontmatter (Google Style Guide)
+│   └── SKILL.md
 └── sass-with-bem/          # BEM + Sass/SCSS
     ├── SKILL.md
     └── references/
