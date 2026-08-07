@@ -10,15 +10,15 @@ My collection of AI agent skills — to work with safety and quality as a real s
 
 ## Available skills
 
-| Skill                                                      | What it does                                                                                                                                                                                                           |
-| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **[`write-great-agentsmd`](skills/write-great-agentsmd/)** | Creates, updates, and audits `AGENTS.md` — the policy that orchestrates the agent in the repo. Branches: **bootstrap** (from scratch), **update** (sync after changes), **lint** (health audit).                       |
-| **[`commit-message`](skills/commit-message/)**             | Generates [Conventional Commits](https://www.conventionalcommits.org/) from the real status/diff. Default: one atomic commit per concern; single commit only when asked. No force-push, hook skip, or secrets.         |
-| **[`code-review-plus`](skills/code-review-plus/)**         | Code review across 5 dimensions (correctness, security, architecture, quality, performance) with parallel subagents and anti-false-positive checks. Prioritized report (P0–P3), calibrated to avoid inflated severity. |
-| **[`deep-security-review`](skills/deep-security-review/)** | Deep security review: phased router (plan → hunt → verify → report), parallel domain subagents, each with at most one domain + one shape checklist. Findings table (P0–P3 + CRITICAL–LOW).                             |
-| **[`make-docs`](skills/make-docs/)**                       | Generates and maintains architecture docs and behavioral specs in `docs/`. Branches: **explore** (survey → propose → generate), **update** (commits since the `Updated on` stamp), **adr** (decision record).          |
-| **[`markdown-editor`](skills/markdown-editor/)**           | Creates and updates Markdown (`.md`/`.mdc`/`.mdx`) with Google Style Guide formatting, YAML frontmatter editing, and no prose hard line breaks.                                                                        |
-| **[`sass-with-bem`](skills/sass-with-bem/)**               | Writes and reviews BEM CSS with Sass/SCSS — flat selectors via `&` nesting, block/element/modifier, `is-`/`has-` states, 7-1 partials. Branches: **write**, **review**.                                                |
+| Skill                                                      | What it does                                                                                                                                                                                                   |
+| ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **[`write-great-agentsmd`](skills/write-great-agentsmd/)** | Creates, updates, and audits `AGENTS.md` — the policy that orchestrates the agent in the repo. Branches: **bootstrap** (from scratch), **update** (sync after changes), **lint** (health audit).               |
+| **[`commit-message`](skills/commit-message/)**             | Generates [Conventional Commits](https://www.conventionalcommits.org/) from the real status/diff. Default: one atomic commit per concern; single commit only when asked. No force-push, hook skip, or secrets. |
+| **[`code-review-plus`](skills/code-review-plus/)**         | Code review across 5 pipelines with parallel subagents, double-verify anti-FP checks, and a P0–P3 report. Branches: **review** (default), **fix** / **apply** / **implement** (regression-safe fixes).         |
+| **[`deep-security-review`](skills/deep-security-review/)** | Deep security review: phased router (plan → hunt → verify → report), parallel domain subagents, each with at most one domain + one shape checklist. Findings table (P0–P3 + CRITICAL–LOW).                     |
+| **[`make-docs`](skills/make-docs/)**                       | Generates and maintains architecture docs and behavioral specs in `docs/`. Branches: **explore** (survey → propose → generate), **update** (commits since the `Updated on` stamp), **adr** (decision record).  |
+| **[`markdown-editor`](skills/markdown-editor/)**           | Creates and updates Markdown (`.md`/`.mdc`/`.mdx`) with Google Style Guide formatting, YAML frontmatter editing, and no prose hard line breaks.                                                                |
+| **[`sass-with-bem`](skills/sass-with-bem/)**               | Writes and reviews BEM CSS with Sass/SCSS — flat selectors via `&` nesting, block/element/modifier, `is-`/`has-` states, 7-1 partials. Branches: **write**, **review**.                                        |
 
 > Each skill has a `SKILL.md` (source of truth for the agent).
 >
@@ -57,7 +57,11 @@ skills/
 ├── commit-message/         # Conventional Commits
 │   └── SKILL.md
 ├── code-review-plus/       # Multi-perspective code review
-│   └── SKILL.md
+│   ├── SKILL.md            # Thin router — review vs fix|apply|implement
+│   └── references/
+│       ├── phases/         # scope, dispatch, verify, synthesize, fix
+│       ├── perspectives/   # correctness, security, architecture, quality, performance
+│       └── templates/      # final report
 ├── deep-security-review/   # Deep security review (subagents + findings table)
 │   ├── SKILL.md            # Thin router — phases load on demand
 │   └── references/
