@@ -4,6 +4,10 @@ My collection of AI agent skills — to work with safety and quality as a real s
 
 ---
 
+## Rules (guidelines)
+
+- [Rules (guidelines)](global-rules.md) _(A.K.A. AGENTS.md or CLAUDE.md, GEMINI.md, etc.)_ is a file that contains the rules and guidelines for the agent.
+
 ## Available skills
 
 | Skill                                                      | What it does                                                                                                                                                                                                           |
