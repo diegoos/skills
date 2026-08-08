@@ -14,7 +14,7 @@ My collection of AI agent skills — to work with safety and quality as a real s
 | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **[`write-great-agentsmd`](skills/write-great-agentsmd/)** | Creates, updates, and audits `AGENTS.md` — the policy that orchestrates the agent in the repo. Branches: **bootstrap** (from scratch), **update** (sync after changes), **lint** (health audit).               |
 | **[`commit-message`](skills/commit-message/)**             | Generates [Conventional Commits](https://www.conventionalcommits.org/) from the real status/diff. Default: one atomic commit per concern; single commit only when asked. No force-push, hook skip, or secrets. |
-| **[`code-review-plus`](skills/code-review-plus/)**         | Code review across 5 pipelines with parallel subagents, double-verify anti-FP checks, and a P0–P3 report. Branches: **review** (default), **fix** / **apply** / **implement** (regression-safe fixes).         |
+| **[`code-review-plus`](skills/code-review-plus/)**         | Adaptive multi-pipeline review (up to 5) with optional light stack shapes, double-verify anti-FP checks, and a P0–P3 report. Branches: **review**, **fix** / **apply** / **implement**.                        |
 | **[`deep-security-review`](skills/deep-security-review/)** | Deep security review: phased router (plan → hunt → verify → report), parallel domain subagents, each with at most one domain + one shape checklist. Findings table (P0–P3 + CRITICAL–LOW).                     |
 | **[`make-docs`](skills/make-docs/)**                       | Generates and maintains architecture docs and behavioral specs in `docs/`. Branches: **explore** (survey → propose → generate), **update** (commits since the `Updated on` stamp), **adr** (decision record).  |
 | **[`markdown-editor`](skills/markdown-editor/)**           | Creates and updates Markdown (`.md`/`.mdc`/`.mdx`) with Google Style Guide formatting, YAML frontmatter editing, and no prose hard line breaks.                                                                |
@@ -61,6 +61,10 @@ skills/
 │   └── references/
 │       ├── phases/         # scope, dispatch, verify, synthesize, fix
 │       ├── perspectives/   # correctness, security, architecture, quality, performance
+│       ├── shapes/         # web, api, typescript-javascript-node, python, go, rust (optional, ≤1 per hunter)
+│       ├── examples/       # kept-vs-dropped (on Pass B doubt)
+│       ├── dependency-review.md
+│       ├── remedies.md
 │       └── templates/      # final report
 ├── deep-security-review/   # Deep security review (subagents + findings table)
 │   ├── SKILL.md            # Thin router — phases load on demand
@@ -125,4 +129,4 @@ In some cases the agent loads the skill from intent — you don't need to name i
 
 Or invoke by skill name/command (e.g. `/make-docs explore`), depending on the harness.
 
-**`code-review-plus` vs `deep-security-review`:** use the first for multi-perspective PR/diff review (correctness + security + quality…). Use the second when security is the primary goal — threat model, domain hunts (`1 domain + 1 shape` per subagent), and a security-calibrated findings table. Do not run both Security perspectives on the same scope in parallel; `deep-security-review` **replaces** the shallow security pass. `code-review-plus` may suggest you run `/deep-security-review`, but will not start it automatically.
+**`code-review-plus` vs `deep-security-review`:** use the first for multi-perspective PR/diff review (correctness + security + quality…), with adaptive pipeline tiers and optional light stack shapes (`1 perspective + 0|1 shape` per hunter). Use the second when security is the primary goal — threat model, domain hunts (`1 domain + 1 shape` per subagent), and a security-calibrated findings table. Do not run both Security perspectives on the same scope in parallel; `deep-security-review` **replaces** the shallow security pass. `code-review-plus` may suggest you run `/deep-security-review`, but will not start it automatically.

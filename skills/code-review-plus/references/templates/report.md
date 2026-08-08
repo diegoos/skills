@@ -1,6 +1,6 @@
 # Phase 4 — Report template
 
-Render the review report from synthesized findings. Skip empty severity sections. Only `kept` / adjusted `downgraded` findings appear.
+Render the review report from synthesized findings. Skip empty severity sections. Only `kept` / adjusted `downgraded` findings appear. Report secrets as `file:line` + type only.
 
 ## Template
 
@@ -8,6 +8,8 @@ Render the review report from synthesized findings. Skip empty severity sections
 ## Review Summary
 
 [2-3 sentences. Direct assessment: ship it, minor fixes needed, or serious issues. State how many findings were verified vs downgraded/dropped.]
+
+Pipelines: [list] (tier: trivial | normal | large/sensitive)[; shapes: …]
 
 ### Findings Overview
 
@@ -41,21 +43,29 @@ List candidates only after verifying all consumers. Ask: "Should I remove these 
 
 ### What Looks Good
 
-1-2 specific positives. Not generic praise. Must not contradict findings above.
+1-2 specific positives (e.g. stable vocabulary, no unshipped compat stubs, no PR-history comments). Must not contradict findings above.
 
 ### Verification
 
-- [ ] Tests pass and cover the change
-- [ ] Build succeeds
-- [ ] Manual verification done (UI: screenshots if applicable)
+Author claimed:
+
+- …
+
+Agent confirmed:
+
+- [ ] Tests — ran / not run (list commands if ran)
+- [ ] Build — ran / not run
+- [ ] Manual / UI — done / not done
 
 State what was **not** verified. "I did not run the build" is better than an unproven "tests pass".
 
 ### Verdict
 
-- **Approve** — ready to merge
+- **Approve** — ready to merge (no verified P0)
 - **Approve with follow-ups** — no verified P0; hardening/style items listed by priority
 - **Request changes** — at least one **verified** P0 exists
+
+If Scope marked the diff oversized, ask for a split before further review rounds.
 
 To apply fixes: `/code-review-plus fix` (aliases: `apply`, `implement`).
 ```
@@ -64,7 +74,9 @@ To apply fixes: `/code-review-plus fix` (aliases: `apply`, `implement`).
 
 ### Review Summary
 
-Solid webhook handler implementation. One verified P0 correctness issue before merging. Two hardening items deferred as P2 follow-ups. Verified 3, dropped 1 (CSRF covered by global middleware), downgraded 0.
+Webhook handler. One verified P0 correctness issue before merging. Two hardening items deferred as P2 follow-ups. Verified 3, dropped 1 (CSRF covered by global middleware), downgraded 0.
+
+Pipelines: Correctness, Security, Architecture, Quality, Performance (tier: normal)
 
 ### Findings Overview
 
@@ -97,8 +109,14 @@ Idempotency key check at line 35 prevents duplicate processing during retries.
 
 ### Verification
 
-- [ ] Tests pass — not run in this review
-- [ ] Build succeeds — not run in this review
+Author claimed:
+
+- (none in context)
+
+Agent confirmed:
+
+- [ ] Tests — not run
+- [ ] Build — not run
 
 ### Verdict
 
@@ -108,4 +126,4 @@ To apply fixes: `/code-review-plus fix` (aliases: `apply`, `implement`).
 
 ## Completion criterion
 
-Findings Overview, verdict, verified-vs-dropped counts, and explicit unverified claims are present. Apply hint included when actionable findings remain.
+Findings Overview, verdict, pipelines/tier line, verified-vs-dropped counts, and explicit unverified claims are present. Apply hint included when actionable findings remain.
