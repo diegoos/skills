@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `code-review-plus`: hunter reference budget (`1` perspective + `0|1` shape); Pass A canonicalized in the dispatch prompt; pipeline/shape Pass A limited to domain-specific reminders.
 - `code-review-plus`: English-only tier label `large/sensitive` (replaces Portuguese `grande/sensível`).
 - `code-review-plus`: prose cleanup for agent docs (less duplication, clearer regression-gate wording, single pointer to `/deep-security-review`).
-- Root `README.md`: skills table and structure tree updated for adaptive review, shapes, remedies, and dependency review.
+- Root `README.md`: clearer `global-rules.md`, link to `CHANGELOG.md`, root layout in the structure tree, tighter skill blurbs, and `/code-review-plus fix` in How to use.
 
 ### Fixed
 
