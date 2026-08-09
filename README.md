@@ -18,7 +18,7 @@ Personal collection of AI agent skills. Each skill is Markdown the agent reads t
 | ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [`write-great-agentsmd`](skills/write-great-agentsmd/) | Create, update, or lint an `AGENTS.md` (or tool mirrors). Branches: `bootstrap`, `update`, `lint`, `slim`.                                                                                                             |
 | [`commit-message`](skills/commit-message/)             | Draft [Conventional Commits](https://www.conventionalcommits.org/) from the real git status and diff. One atomic commit per concern by default; a single commit only when you ask.                                     |
-| [`code-review-plus`](skills/code-review-plus/)         | Multi-pipeline PR/diff review (up to five hunters) with optional stack shapes, double verify against false positives, and a P0-P3 report. Branches: `review` (default), `fix` / `apply` / `implement`. Invoke by name. |
+| [`code-review-plus`](skills/code-review-plus/)         | Multi-pipeline PR/diff review (≤5 hunters), optional shapes (`llm`; single-tag on `normal`), optional P0 verifier, P0-P3 report. Branches: `review`, `fix`/`apply`/`implement`. Invoke by name.                        |
 | [`deep-security-review`](skills/deep-security-review/) | Security-first review: plan, parallel domain hunts, verify, findings table (P0-P3 and CRITICAL-LOW). Invoke by name.                                                                                                   |
 | [`make-docs`](skills/make-docs/)                       | Architecture docs and behavioral specs under `docs/`. Branches: `explore`, `update` (since the `Updated on` stamp), `adr`.                                                                                             |
 | [`markdown-editor`](skills/markdown-editor/)           | Create or edit `.md` / `.mdc` / `.mdx` with Google Markdown Style Guide rules and YAML frontmatter. No prose hard line breaks.                                                                                         |
@@ -89,7 +89,7 @@ Harnesses also accept forms like `/make-docs explore`.
 │   │   └── references/
 │   │       ├── phases/         # scope, dispatch, verify, synthesize, fix
 │   │       ├── perspectives/   # correctness, security, architecture, quality, performance
-│   │       ├── shapes/         # web, api, ts/js/node, python, go, rust (optional, ≤1 per hunter)
+│   │       ├── shapes/         # web, api, ts/js/node, python, go, rust, llm (optional, ≤1 per hunter)
 │   │       ├── examples/       # kept-vs-dropped (on Pass B doubt)
 │   │       ├── dependency-review.md
 │   │       ├── remedies.md
@@ -134,7 +134,7 @@ Optional agents under `.opencode/agents/`. They are not part of the skills insta
 
 ### `code-review-plus` vs `deep-security-review`
 
-Use `code-review-plus` for a balanced PR/diff review (correctness, security, architecture, quality, performance), with adaptive tiers and optional stack shapes (`1` perspective + `0` or `1` shape per hunter).
+Use `code-review-plus` for a balanced PR/diff review (correctness, security, architecture, quality, performance), with adaptive tiers and optional stack shapes including `llm` (`1` perspective + `0` or `1` shape per hunter; on `normal`, only when a single eligible tag is obvious).
 
 Use `deep-security-review` when security is the main goal: threat model, domain hunts (`1` domain + `1` shape per subagent), security-calibrated severity.
 

@@ -1,7 +1,7 @@
 ---
 name: code-review-plus
 description: >-
-  Multi-perspective code review with parallel subagents, adaptive pipeline tiers, optional stack shapes, and a prioritized P0–P3 report. Branches: review (default), fix / apply / implement (apply findings without regressions). Invoke by name only (e.g. /code-review-plus, /code-review-plus fix).
+  Multi-perspective code review with parallel subagents, adaptive pipeline tiers, optional stack shapes (including llm; shapes on normal when the stack is a single obvious tag), optional P0 verifier, and a prioritized P0–P3 report. Branches: review (default), fix / apply / implement (apply findings without regressions). Invoke by name only (e.g. /code-review-plus, /code-review-plus fix).
 disable-model-invocation: true
 metadata:
   version: 0.4.0
@@ -37,13 +37,13 @@ metadata:
 
 ### Branch review
 
-| Phase        | Done when                                                      | READ                                |
-| ------------ | -------------------------------------------------------------- | ----------------------------------- |
-| 1 Scope      | Scope + intent + tier + stack tags + context summary ready     | `./references/phases/scope.md`      |
-| 2 Dispatch   | Tier pipelines returned candidates                             | `./references/phases/dispatch.md`   |
-| 2.5 Verify   | Every candidate has `kept` \| `dropped` \| `downgraded` + note | `./references/phases/verify.md`     |
-| 3 Synthesize | Surviving findings have required fields + severity             | `./references/phases/synthesize.md` |
-| 4 Report     | Report delivered with verdict + drop counts + pipelines line   | `./references/templates/report.md`  |
+| Phase        | Done when                                                                                   | READ                                |
+| ------------ | ------------------------------------------------------------------------------------------- | ----------------------------------- |
+| 1 Scope      | Scope + intent + tier + stack tags + context summary ready                                  | `./references/phases/scope.md`      |
+| 2 Dispatch   | Tier pipelines returned candidates; shapes recorded when attached                           | `./references/phases/dispatch.md`   |
+| 2.5 Verify   | Every candidate has kept/dropped/downgraded + note; optional P0 verifier applied or skipped | `./references/phases/verify.md`     |
+| 3 Synthesize | Surviving findings have required fields + severity                                          | `./references/phases/synthesize.md` |
+| 4 Report     | Report delivered with verdict + drop counts + pipelines/shapes line                         | `./references/templates/report.md`  |
 
 Do not open a later phase file until the current phase completion criterion is met.
 
@@ -73,7 +73,7 @@ Prerequisite: a prior report in this conversation (or an explicit finding list).
 
 **READ:** `./references/phases/verify.md`
 
-**Completion criterion:** Every candidate has status + `verification_note`; drop/downgrade counts recorded.
+**Completion criterion:** Every candidate has status + `verification_note`; drop/downgrade counts recorded; optional P0 verifier ran or skipped per its triggers.
 
 ### Phase 3 — Synthesize
 
@@ -85,7 +85,7 @@ Prerequisite: a prior report in this conversation (or an explicit finding list).
 
 **READ:** `./references/templates/report.md`
 
-**Completion criterion:** Findings Overview, verdict, pipelines line, verified-vs-dropped counts, and explicit unverified claims are present.
+**Completion criterion:** Findings Overview, verdict, pipelines line (with shapes when used), verified-vs-dropped counts, and explicit unverified claims are present.
 
 ## Branch fix
 
@@ -105,7 +105,8 @@ Prerequisite: a prior report in this conversation (or an explicit finding list).
 - Ask before deleting dead code; never recommend blind removal
 - State unverified claims explicitly
 - Verdict needs evidence; do not soften a verified bug
+- Optional P0 verifier: at most one subagent after Pass B; never reopens the five pipelines; does not assign final severity
 
 ## Relation to `deep-security-review`
 
-Both skills are user-invoked. Use this skill for multi-perspective PR/diff review (optional stack shapes). Use `/deep-security-review` when security is the primary goal. Do not run both Security perspectives on the same scope in parallel; that skill replaces this skill's shallow security pass. Tell the user to invoke it; do not auto-start it.
+Both skills are user-invoked. Use this skill for multi-perspective PR/diff review (optional stack shapes, including `llm`). Use `/deep-security-review` when security is the primary goal. Do not run both Security perspectives on the same scope in parallel; that skill replaces this skill's shallow security pass. Tell the user to invoke it; do not auto-start it.

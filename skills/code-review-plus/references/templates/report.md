@@ -70,6 +70,10 @@ If Scope marked the diff oversized, ask for a split before further review rounds
 To apply fixes: `/code-review-plus fix` (aliases: `apply`, `implement`).
 ```
 
+## Calibration (optional)
+
+If the user asks to calibrate after the report, follow `../examples/eval-notes.md` in the conversation. Do not preload it during Phase 4. Do not create that file in the reviewed target repo unless they ask.
+
 ## Sample output
 
 ### Review Summary
