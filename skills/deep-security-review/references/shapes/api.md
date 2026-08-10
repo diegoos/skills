@@ -1,13 +1,13 @@
 # Shape — API
 
 REST, GraphQL, WebSocket, RPC, webhook, and public/internal API probes.
-Pair with a domain file; do not re-hunt AuthZ/Injection generics already there.
+Pair with a domain file. JWT verification defects → `domains/authz.md` (do not restate).
 
 ## AuthN / token surface
 
-- JWT: pin algorithms; verify iss, aud, exp, nbf, signature; no secrets in payload
 - API keys hashed at rest, scoped, rate-limited, revocable
 - Refresh tokens server-side or rotated; logout revokes them
+- Stack-specific JWT wiring only (library calls, middleware order) — defect rules live in authz
 
 ## API-specific AuthZ probes
 
@@ -24,6 +24,5 @@ Pair with a domain file; do not re-hunt AuthZ/Injection generics already there.
 
 ## SSRF / callbacks
 
-- Import, avatar, link-preview, webhook callback, proxy destinations
-- Block `169.254.169.254` and private ranges after DNS + redirects
+- Import, avatar, link-preview, webhook callback, proxy destinations (SSRF policy → injection.md)
 - Timeouts, size, and content-type limits on fetches

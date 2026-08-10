@@ -1,6 +1,7 @@
 # Shape — PHP
 
 Laravel, Symfony, WordPress, Composer APIs. Pair with a domain file.
+Crypto policy → `domains/secrets.md`.
 
 ## Configuration
 
@@ -16,6 +17,7 @@ Laravel, Symfony, WordPress, Composer APIs. Pair with a domain file.
 - CSRF tokens on cookie-authenticated state changes
 - Session rotate after login; logout invalidates server session
 - Passwords via `password_hash` / `password_verify`
+- Tokens/secrets/nonces: `random_bytes` / `random_int` — not `rand()` / `mt_rand()` / `uniqid`
 
 ## Filesystem & RCE
 

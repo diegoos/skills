@@ -3,26 +3,32 @@
 Dispatch only when `llm` / `sensitive` tags or high-value flows exist.
 Shape file adds LLM or payment/wallet probes.
 
+## Leading word
+
+**boundary-crossing** — a finding names attacker → session/identity → a gain that identity did not already have.
+
 ## Hunt
 
 - Race conditions, idempotency gaps, state-machine skips
-- Payment/wallet bypass, anti-automation gaps
-- Prompt injection (direct/indirect); tool permission boundaries
+- Payment/wallet bypass, anti-automation gaps, scarce-inventory abuse
+- Prompt injection (direct/indirect); tool permission boundaries; confused deputy
 - Sensitive context leakage; LLM deciding access without server enforcement
 
 ## Business-logic checks
 
 - Server computes prices, totals, discounts, credits, entitlements
 - Client amounts, roles, plans, feature flags, status ignored or re-derived
-- State transitions explicit and validated
+- State transitions explicit and validated; fail-closed rollback on partial failure
 - Idempotency keys for payments, payouts, webhooks, retries
 - Concurrency handled with transactions, locks, unique constraints
 - Refunds, cancellations, upgrades have explicit authorization and audit
+- Recovery Q&A / anti-bot / scarce inventory: abuse paths considered
 
 ## LLM / agent checks
 
-- Tool calls authorized for current user/tenant in server code
-- Tool schemas narrow; arguments validated
+- Every **boundary-crossing** finding states attacker, identity, and new gain
+- Confused deputy: (a) no per-resource check for the user **and** (b) action the user cannot take via the normal API
+- Tool calls authorized for current user/tenant in server code; schemas narrow; arguments validated
 - Model cannot choose arbitrary URLs, SQL, shell, paths, or account IDs
 - Sensitive tools require confirmation or human approval
 - Tool/RAG results treated as untrusted data (not new instructions)

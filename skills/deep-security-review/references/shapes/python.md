@@ -1,12 +1,12 @@
 # Shape — Python
 
 Django, FastAPI, Flask, scripts, jobs. Pair with a domain file.
-Type hints are not runtime validation.
+Type hints are not runtime validation. Crypto policy → `domains/secrets.md`.
 
 ## Validation & injection
 
 - Pydantic / Marshmallow / Django forms / FastAPI models at boundaries
-- Parameterized SQL/ORM; no string-built query fragments or sort fields
+- Parameterized SQL/ORM; no string-built query fragments; `ORDER BY`/identifiers allowlisted
 - No user input into `eval`, `exec`, dynamic imports, or expression evaluators
 - Template escaping on by default
 
@@ -24,6 +24,7 @@ Type hints are not runtime validation.
 - Session cookies `HttpOnly` / `Secure` / `SameSite`
 - Secret keys per environment, not framework defaults
 - Passwords: Argon2 / bcrypt / PBKDF2 / framework hashers
+- Tokens/secrets/nonces: `secrets` module or `os.urandom` — not `random.random()` / `random.randint`
 - TLS verification not disabled in HTTP clients
 
 ## Dependencies

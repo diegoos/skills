@@ -85,7 +85,7 @@ Prerequisite: a prior report in this conversation (or an explicit finding list).
 
 **READ:** `./references/templates/report.md`
 
-**Completion criterion:** Findings Overview, verdict, pipelines line (with shapes when used), verified-vs-dropped counts, and explicit unverified claims are present.
+**Completion criterion:** Findings Overview, verdict, pipelines line (with shapes when used), verified-vs-dropped counts, and explicit unverified claims are present. Zero kept findings is a valid outcome (state that nothing was found).
 
 ## Branch fix
 
@@ -101,7 +101,7 @@ Prerequisite: a prior report in this conversation (or an explicit finding list).
 - Clarity findings measure comprehension speed; a valid fix preserves behavior and error paths
 - Preference without a codebase inconsistency → skip (not a finding)
 - Report secrets as `file:line` + secret type only; redact values in the report and in fixes
-- Short approval is valid when warranted; skip empty sections
+- When verification yields zero kept findings, say so and Approve — empty Findings Overview is valid; skip empty sections; do not fabricate issues to fill the report
 - Ask before deleting dead code; never recommend blind removal
 - State unverified claims explicitly
 - Verdict needs evidence; do not soften a verified bug
