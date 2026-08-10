@@ -18,7 +18,7 @@ Render Phase 4 using this template. Omit empty severity sections. Findings, Hard
 
 ### Findings Overview
 
-Kept vulnerabilities only (`category = vulnerability`). Severity/category cells use: 🚨 vulnerability · 🔴 P0 · 🟠 P1 · 🟡 P2 · ⚪️ P3.
+Kept vulnerabilities only (`category = vulnerability`). Severity/category cells use: 🚨 vulnerability · 🔴 P0 · 🟠 P1 · 🟡 P2 · ⚪️ P3. Security column is the 1:1 map of P (P0→CRITICAL · P1→HIGH · P2→MEDIUM · P3→LOW).
 
 | ID  | Severity | Security | Category | Domain | File            | Issue             |
 | --- | -------- | -------- | -------- | ------ | --------------- | ----------------- |
@@ -63,6 +63,7 @@ Only what blocks stronger claims. List what must be verified at runtime.
 - [ ] AuthZ fail-open: auth dependency error → deny
 - [ ] Validation: malformed input → 400, no mutation
 - [ ] Secrets: none in logs/errors/client bundles
+- [ ] Audit/alert: auth failures and high-risk actions leave an auditable trail (else Gaps)
 - [ ] Tooling: secret scan / SCA / SAST status (if in scope)
 - [ ] needs-runtime claims listed below (no P0–P3 assigned)
 

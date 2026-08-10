@@ -20,7 +20,8 @@ Hunt secrets leakage, crypto policy, and sensitive-data exposure. Browser exploi
 - Sensitive fields encrypted/tokenized/redacted where appropriate
 - Exports authenticated, authorized, scoped, and audited
 - Cache headers prevent private pages/API responses in shared caches
-- Incomplete security headers without an exploit path → hardening (see verify gates)
+- Incomplete security headers without an exploit path → hardening note, not a vulnerability
+- Missing security audit/alert on auth failures or high-risk actions without an exploit path → Verification Gaps (not Findings P0–P3)
 - On any secret leak: rotate-first, then investigate scope
 
 ## Red flags

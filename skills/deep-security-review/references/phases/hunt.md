@@ -5,7 +5,11 @@ Dispatch domain hunters. Orchestrator reads this file to build prompts; each sub
 ## Dispatch
 
 - Always: AuthZ, Injection, Secrets, Infra — **in parallel**
-- Optional 5th: BusinessLLM when `llm` / `sensitive` tags or high-value flows
+- Optional 5th: BusinessLLM when **any** signal is true:
+  - shape tags include `llm` or `sensitive`
+  - hotspots or `abuse_goals` name payment, wallet, billing, payout, refund, or checkout
+  - threat model or hotspots name LLM tools, RAG, MCP, agents, or prompt pipelines
+  - scoped surface includes admin/privileged agent tools or package-publish flows
 - No shared findings until Phase 3
 - Pass: scope, threat-model summary (compact), hotspots, bypasses, auth_model, exact reference paths
 
@@ -36,6 +40,7 @@ Raise a vulnerability candidate only when all are true:
 - Middleware / shared guards / validators were read before flagging a route
 - Data provenance is classified (user / llm / backend)
 - Speculative "if in the future" risks are omitted or marked hardening — not vulnerability
+- A control you would praise as working is not also flagged as missing on the same path
 
 Drop the candidate yourself if Pass A fields are missing or the claim is speculative. Default `category_hint` to `vulnerability`; Phase 3 owns hardening downgrades.
 
@@ -64,6 +69,7 @@ Before flagging anything (Pass A):
 - Classify data provenance: direct user input, LLM content, or backend value.
 - Raise vulnerability candidates only at evidence_level proven or likely with a pointable line today.
 - Omit speculative "if in the future" paths; hardening gaps wait for Phase 3.
+- If a control works on the path, leave it unflagged (self-consistency with strengths).
 - Default category_hint to vulnerability; Phase 3 owns hardening downgrades.
 
 Return CandidateFinding list (YAML or bullets):

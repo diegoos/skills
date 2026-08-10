@@ -1,8 +1,8 @@
 # Phase 3 — Verify & Synthesize
 
-Reject false positives after all hunters return. Single source of truth for severity, confirmation gates, and required finding fields. Only candidates that survive disprove (and optional re-verify) enter the report as Findings.
+Reject false positives after all hunters return. Single source of truth for severity, status routing, and required finding fields. Only candidates that survive disprove (and re-verify when required) enter the report as Findings.
 
-When keep/drop is unclear, read `../examples/kept-vs-dropped.md` (do not preload).
+**Gates and FP patterns:** when keep/drop is unclear, or before keep when a confirmation gate or recurring FP pattern applies, read `../examples/kept-vs-dropped.md` (do not preload). That file is SSOT for gates, the FP table, and worked keep/drop cases.
 
 ## Leading words
 
@@ -29,7 +29,7 @@ Before disprove, drop immediately if a candidate is missing `location`, `exploit
 - [ ] Evidence level stated (proven / likely / needs-runtime)?
 ```
 
-Drop or downgrade any item that fails. Future-only risks become hardening, not Findings blockers.
+Drop or downgrade any item that fails. Future-only risks become hardening, not Findings blockers. Apply confirmation gates and the recurring FP table from `kept-vs-dropped.md` when a pattern matches.
 
 ## Disprove
 
@@ -39,55 +39,14 @@ Before keep, falsify each candidate on: (1) exploitation at lowest practical pri
 
 A candidate may become P0 only if disprove is complete and the exploit path is reconfirmed today with a pointable `file:line`. `needs-runtime` without code proof is never P0.
 
-## Confirmation gates (SSOT)
-
-| Gate                                | Keep only when                                                                |
-| ----------------------------------- | ----------------------------------------------------------------------------- |
-| Parser / framing disagreement       | Two components + divergent parse with concrete cross-boundary effect          |
-| Token / JWT claim                   | Verify line present **and** a required claim missing or unchecked             |
-| Host / cache                        | Cross-user or cross-tenant impact demonstrated                                |
-| Mitigating layer already blocks     | Downgrade to hardening (not keep as vuln)                                     |
-| Unknown library / framework default | `needs-runtime` or unverifiable — do not invent P0/P1                         |
-| AuthZ fail-open on error path       | Reachable error path **and** concrete privilege or data consequence           |
-| Second-order / chained injection    | Both store and later sink proven; otherwise one finding or drop the weak half |
-
-## Recurring false positives
-
-| Pattern                                                                           | Why it is usually wrong                                                              |
-| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| Route "missing auth" when global middleware covers it                             | Check middleware / shared guards / matcher first                                     |
-| "Missing CSRF" without framework defaults + cookie `SameSite`                     | Verify the actual CSRF strategy                                                      |
-| ORM use treated as always-safe                                                    | Flag only when raw/dynamic queries are unsafe                                        |
-| Schema/allowlist already strips privileged fields                                 | Mass-assignment FP — confirm the field reaches persistence                           |
-| TypeScript types as runtime validation                                            | Types are not a control                                                              |
-| LLM system prompt as access control                                               | Server must enforce tool/data permissions                                            |
-| Helper named `auth()` treated as authorization                                    | AuthN ≠ AuthZ; require ownership/tenant proof                                        |
-| XSS while final output escapes and unescapes only fixed literals                  | Not exploitable today — hardening at most                                            |
-| Self-XSS only (attacker must paste into own session)                              | Drop unless it becomes stored/reflected for another user                             |
-| `credentials: "include"` as cross-origin cookie leak                              | Browser sends cookies only for the destination origin                                |
-| CORS `*` without credentials                                                      | Often intentional for public reads — keep only with credentialed or sensitive impact |
-| Incomplete security headers / missing CSP with no exploit path                    | Hardening note, not vulnerability                                                    |
-| Open redirect when redirect URI/host is allowlisted                               | Confirm allowlist is enforced server-side                                            |
-| SSRF when URL is constant or allowlisted after DNS+redirects                      | Confirm rebind/TOCTOU actually bypasses the check                                    |
-| GraphQL introspection "enabled" without checking production config                | Verify the deployed/prod path                                                        |
-| Dependency CVE / advisory without reachability                                    | Triage via call graph / prod vs devDependency — else process/gap                     |
-| IDOR when query already scopes by owner/tenant                                    | Re-read the data access line before keep                                             |
-| Missing rate limit without an abuse-prone flow                                    | Hardening unless stuffing/spray path is concrete                                     |
-| Missing cookie flags on a non-session / non-sensitive cookie                      | Drop or hardening                                                                    |
-| JWT claim nit (`nbf` only) without forge/escalation path                          | Downgrade unless verify is missing or alg/key confused                               |
-| Scanner finding (SAST/DAST) without a code-backed exploit path                    | Cite `file:line` or drop                                                             |
-| P0 from "if in the future" / "any evolution could"                                | Future risk is hardening                                                             |
-| Praise a global control in "What Looks Good" and flag the same control as missing | Self-consistency — drop one of them                                                  |
-| suggested_fix that relaxes auth, validation, or error handling                    | Over-simplify — rewrite the fix fail-closed                                          |
-
 ## Synthesize steps
 
-1. Verify — Pass A intake + checklist + disprove; drop or downgrade failures
+1. Verify — Pass A intake + checklist + disprove + gates/FP file when applicable; drop or downgrade failures
 2. Deduplicate — merge overlapping findings across domains
 3. Categorize — assign exactly one category
-4. Prioritize — map kept vulns to P0–P3 and CRITICAL–LOW
+4. Prioritize — map kept vulns to P0–P3 (security level follows 1:1)
 5. Self-consistency — no contradictions with "What Looks Good"
-6. Gaps — skipped domains / needs-runtime / fail-open AuthZ called out
+6. Gaps — skipped domains / needs-runtime / fail-open AuthZ / missing security audit-or-alert on high-risk paths called out
 7. Strengths — note 1–2 specific controls done well
 8. Re-verify (conditional) — see below
 
@@ -111,21 +70,14 @@ One item appears in exactly one report section. Record counts `{kept, downgraded
 
 ## Severity (kept vulnerabilities only)
 
-Likelihood × impact in prose feeds these tables — not a third scale.
+Assign **P0–P3** from likelihood × impact in prose. Security level is derived 1:1 — never invent a mismatch:
 
-| Prefix | Meaning                                                                       | Author action                    |
-| ------ | ----------------------------------------------------------------------------- | -------------------------------- |
-| P0     | Verified critical — account/tenant/secret/payment compromise or RCE **today** | Must fix before ship             |
-| P1     | Real vuln with lower blast radius, or clear authz/injection gap               | Should fix; defer only with plan |
-| P2     | Real vuln with limited impact                                                 | Optional follow-up               |
-| P3     | Current low-risk issue (not speculative hardening)                            | Can ignore                       |
-
-| Level    | Meaning                                                 | Typical P |
-| -------- | ------------------------------------------------------- | --------- |
-| CRITICAL | Exploitable in production with high impact **today**    | P0        |
-| HIGH     | Significant risk with a concrete path; needs prompt fix | P1        |
-| MEDIUM   | Limited-impact vuln                                     | P2        |
-| LOW      | Low-risk current issue                                  | P3        |
+| P   | Security level | Meaning                                                                       | Author action                    |
+| --- | -------------- | ----------------------------------------------------------------------------- | -------------------------------- |
+| P0  | CRITICAL       | Verified critical — account/tenant/secret/payment compromise or RCE **today** | Must fix before ship             |
+| P1  | HIGH           | Real vuln with lower blast radius, or clear authz/injection gap               | Should fix; defer only with plan |
+| P2  | MEDIUM         | Real vuln with limited impact                                                 | Optional follow-up               |
+| P3  | LOW            | Current low-risk issue (not speculative hardening)                            | Can ignore                       |
 
 **Calibration:** P0 blocks ship — demonstrated only after the P0 bar. Prefer one well-supported High over many speculative Mediums. Explicit AuthZ boundary defeat with concrete consequence → minimum HIGH / P1+. `needs-runtime` never receives P0–P3 — route to Verification Gaps.
 
@@ -135,7 +87,7 @@ Likelihood × impact in prose feeds these tables — not a third scale.
 2. **Category** (vulnerability / hardening / process)
 3. **Why it is exploitable** — concrete attacker path
 4. **Data provenance**
-5. **Severity** (P0–P3) and **security level** (CRITICAL–LOW) — kept vulns only
+5. **Severity** (P0–P3) — kept vulns only; report may show the derived CRITICAL–LOW label
 6. **Evidence level** (proven / likely / needs-runtime)
 7. **Proposed fix** — local when possible; say if unverified to compile/pass
 8. **verification_note** — confidence reason in prose (e.g. "middleware verified at file:line") or why it failed
@@ -155,12 +107,14 @@ trigger_sketch: optional # required for kept P0/P1 vulns
 
 ## Re-verify (inside Phase 3 — not a new phase)
 
-After disprove, if **≥1** remaining candidate could still be P0 (P0 bar met), the orchestrator **may** dispatch **one** independent verifier when either trigger is true:
+After disprove, if **≥1** remaining candidate could still be P0 (P0 bar met), the orchestrator **dispatches** **one** independent verifier when either trigger is true:
 
 1. Residual ambiguity (middleware vs route, framework/parser default, `needs-runtime` borderline), or
 2. **≥2** candidates still look like P0 after disprove
 
-**Skip when:** zero P0-capable candidates remain, or disprove settled every P0-capable candidate without residual ambiguity and there is at most one such candidate. Also dispatch when a kept P1 depends on an unknown framework/parser default. Record `reverify: skipped` (reason) when neither path fires.
+**Also dispatch** when a kept P1 depends on an unknown framework/parser default.
+
+**Skip when:** zero P0-capable candidates remain, or disprove settled every P0-capable candidate without residual ambiguity and there is at most one such candidate, and no kept P1 depends on an unknown framework/parser default. Record `reverify: skipped` (reason) when no dispatch trigger fires.
 
 Verifier re-reads cited files and applies the same gates; returns only `status` + `verification_note` (+ `drop_reason`); may only drop or downgrade; does not invent findings or assign final severity.
 
@@ -173,6 +127,7 @@ Verifier re-reads cited files and applies the same gates; returns only `status` 
 - Injection: payload treated as data
 - Rate limit: abuse-prone flows → `429`
 - Secrets: none in logs/errors/client bundles
+- Audit/alert: auth failures and high-risk actions leave an auditable trail (gap → Verification Gaps, not Findings, without an exploit path)
 - LLM tools: prompt cannot call unauthorized tools or cross-tenant data
 
 ## Completion criterion

@@ -19,7 +19,7 @@ metadata:
 
 **Invariants:** Each domain runs as a separate subagent. Every finding must be reproducible by reading the code. Keep only `proven` or `likely` issues with a pointable line today; reject false positives in Phase 3 before severity. Prefer proven exploit paths over speculative Mediums. Leading question: what can an attacker do from the lowest practical privilege?
 
-**Reference budget:** The orchestrator selects paths; subagents read them. Never preload `references/`. Each hunter gets at most **1 domain + 1 shape**. Orchestrator-only `examples/` are not hunter paths.
+**Reference budget:** The orchestrator selects paths; subagents read them. Never preload `references/`. Each hunter gets at most **1 domain + 1 shape**. Orchestrator-only `examples/` (gates / FPs / worked cases) are not hunter paths.
 
 ## Commands
 
@@ -36,12 +36,12 @@ metadata:
 
 ### Branch review
 
-| Phase    | Done when                                                                                                       | READ                                           |
-| -------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| 1 Plan   | Threat model (incl. hotspots, bypasses, auth_model) + tags + manifest paths written                             | `./references/phases/plan.md`                  |
-| 2 Hunt   | All domains returned; each candidate has location, domain, exploit path, provenance, evidence                   | `./references/phases/hunt.md`                  |
-| 3 Verify | Candidates disproved/verified; FPs dropped; status routed; P0/P1 fields set; counts recorded; re-verify settled | `./references/phases/verify-and-synthesize.md` |
-| 4 Report | Findings + Hardening notes + Verification Gaps + verdict delivered                                              | `./references/templates/report.md`             |
+| Phase    | Done when                                                                                     | READ                                           |
+| -------- | --------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| 1 Plan   | Threat model (incl. hotspots, bypasses, auth_model) + tags + manifest paths written           | `./references/phases/plan.md`                  |
+| 2 Hunt   | All domains returned; each candidate has location, domain, exploit path, provenance, evidence | `./references/phases/hunt.md`                  |
+| 3 Verify | Disprove done; FPs dropped; P0–P3 set (CRITICAL–LOW 1:1); counts; re-verify ran or skipped    | `./references/phases/verify-and-synthesize.md` |
+| 4 Report | Findings + Hardening notes + Verification Gaps + verdict delivered                            | `./references/templates/report.md`             |
 
 Do not open a later phase file until the current phase completion criterion is met.
 
@@ -67,7 +67,7 @@ Capture threat model (assets, actors, entry points, trust boundaries, abuse_goal
 
 **READ:** `./references/phases/hunt.md`
 
-Dispatch **four** subagents in parallel (AuthZ, Injection, Secrets, Infra). Add BusinessLLM when tags include `llm` / `sensitive` or the threat model shows high-value flows.
+Dispatch **four** subagents in parallel (AuthZ, Injection, Secrets, Infra). Add BusinessLLM when any dispatch signal below is true (see Phase 2).
 
 Each subagent prompt includes: scope, threat-model summary, hotspots, bypasses, auth_model, and the **exact** paths from the manifest. Subagents assign no final P0–P3.
 
@@ -77,7 +77,7 @@ Each subagent prompt includes: scope, threat-model summary, hotspots, bypasses, 
 
 **READ:** `./references/phases/verify-and-synthesize.md`
 
-Disprove and verify every candidate against code, drop/downgrade false positives (Pass A intake, checklist, confirmation gates, FP table), dedupe, categorize, assign P0–P3 + CRITICAL–LOW to kept vulns, run conditional re-verify.
+Disprove and verify every candidate against code, drop/downgrade false positives (Pass A intake, checklist, gates/FP file when needed), dedupe, categorize, assign P0–P3 to kept vulns (CRITICAL–LOW follows 1:1), run re-verify when its triggers fire.
 
 **Completion criterion:** Every candidate has `status` + `verification_note` (`drop_reason` when dropped/downgraded); surviving Findings have required fields (P0/P1 include `trace`, `intended_behavior`, `trigger_sketch`); `{kept, downgraded, dropped}` recorded; re-verify ran or skipped.
 
@@ -99,15 +99,15 @@ Render the security review report. Skip empty severity sections. Keep Findings, 
 
 - Orchestrator opens phase/template files only when that phase or branch starts
 - Subagents open only the paths in their manifest slot (≤2)
-- File:line required; concrete attacker path for every P0/P1
-- Findings keep only `proven`/`likely` with a pointable line today; `needs-runtime` is never P0 and stays out of Findings P0–P3
-- Drop or downgrade when middleware, schema, allowlists, or encoders already block the path
-- When verification yields zero kept findings, say so and Approve — empty Findings Overview is valid; omit empty severity sections; do not fabricate issues to fill the report
+- Every P0/P1 cites `file:line` and a concrete attacker path readable today
+- Findings keep only `proven`/`likely` with a pointable line today; route `needs-runtime` to Verification Gaps (never P0–P3)
+- Prefer drop/downgrade when middleware, schema, allowlists, or encoders already block the path
+- Zero kept findings → Approve with an empty Findings Overview; omit empty severity sections; report only what survived verify
 - State unverified claims explicitly
 - Stop and ask when legal scope or testing boundaries are unclear
-- Never echo secrets found during the review or while applying fixes
-- Fix branch: never relax auth or validation to make checks pass; prefer fail-closed
-- Optional re-verify: at most one subagent; never reopens domain hunts; does not assign final severity
+- Report secrets as `file:line` + type only; redact values in the report and in fixes
+- Fix branch: close exploit paths fail-closed; keep auth, validation, CSRF, and rate limits intact
+- Re-verify: at most one subagent when its triggers fire; skips otherwise; never reopens domain hunts; does not assign final severity
 
 ## Limitations
 

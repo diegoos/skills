@@ -27,3 +27,4 @@ Load only when the user asks for an OWASP map, or the stack is unknown and the s
 - Injection payloads treated as data; output encoded for context
 - Lockfiles + CI reproducible installs; secrets not in artifacts
 - Auth dependency errors deny on protected paths (fail-closed)
+- Missing security audit/alert without exploit path → Verification Gaps (secrets domain)

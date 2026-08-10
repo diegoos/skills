@@ -104,7 +104,7 @@ Harnesses also accept forms like `/make-docs explore`.
 │   │       ├── templates/      # final report
 │   │       ├── domains/        # authz, injection, secrets, infra, business-llm
 │   │       ├── shapes/         # api, web, languages, cloud, llm, …
-│   │       ├── examples/       # kept-vs-dropped (on Phase 3 doubt)
+│   │       ├── examples/       # gates, FP table, kept-vs-dropped (Phase 3)
 │   │       └── optional/       # OWASP map (on request)
 │   ├── make-docs/              # Architecture + observable specs
 │   │   ├── SKILL.md

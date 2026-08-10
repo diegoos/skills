@@ -50,24 +50,24 @@ Pick **at most one** language tag (`ts-js-node` | `python` | `php`). If polyglot
 
 ## Catalog (paths only)
 
-| Tag / role                   | File                                                |
-| ---------------------------- | --------------------------------------------------- |
-| Domain AuthZ                 | `./references/domains/authz.md`                     |
-| Domain Injection             | `./references/domains/injection.md`                 |
-| Domain Secrets               | `./references/domains/secrets.md`                   |
-| Domain Infra                 | `./references/domains/infrastructure.md`            |
-| Domain Business & LLM        | `./references/domains/business-llm.md`              |
-| Shape `api`                  | `./references/shapes/api.md`                        |
-| Shape `web`                  | `./references/shapes/web.md`                        |
-| Shape `ts-js-node`           | `./references/shapes/typescript-javascript-node.md` |
-| Shape `python`               | `./references/shapes/python.md`                     |
-| Shape `php`                  | `./references/shapes/php.md`                        |
-| Shape `cloud`                | `./references/shapes/cloud.md`                      |
-| Shape `llm`                  | `./references/shapes/llm.md`                        |
-| Shape `sensitive`            | `./references/shapes/sensitive-flows.md`            |
-| Shape `tooling`              | `./references/shapes/tooling.md`                    |
-| Optional OWASP               | `./references/optional/owasp-map.md`                |
-| Examples (orchestrator only) | `./references/examples/kept-vs-dropped.md`          |
+| Tag / role             | File                                                |
+| ---------------------- | --------------------------------------------------- |
+| Domain AuthZ           | `./references/domains/authz.md`                     |
+| Domain Injection       | `./references/domains/injection.md`                 |
+| Domain Secrets         | `./references/domains/secrets.md`                   |
+| Domain Infra           | `./references/domains/infrastructure.md`            |
+| Domain Business & LLM  | `./references/domains/business-llm.md`              |
+| Shape `api`            | `./references/shapes/api.md`                        |
+| Shape `web`            | `./references/shapes/web.md`                        |
+| Shape `ts-js-node`     | `./references/shapes/typescript-javascript-node.md` |
+| Shape `python`         | `./references/shapes/python.md`                     |
+| Shape `php`            | `./references/shapes/php.md`                        |
+| Shape `cloud`          | `./references/shapes/cloud.md`                      |
+| Shape `llm`            | `./references/shapes/llm.md`                        |
+| Shape `sensitive`      | `./references/shapes/sensitive-flows.md`            |
+| Shape `tooling`        | `./references/shapes/tooling.md`                    |
+| Optional OWASP         | `./references/optional/owasp-map.md`                |
+| Gates / FPs / examples | `./references/examples/kept-vs-dropped.md`          |
 
 ## Reference Plan algorithm
 
@@ -91,7 +91,7 @@ Each dispatched domain gets **slot 1 = its domain file** and **slot 2 = one shap
 2. Each hunter reads at most the two paths listed for its domain.
 3. No matching tag for slot 2 → `"none"`.
 4. Do not merge domains to save reads.
-5. `examples/` is orchestrator-only (Phase 3 doubt) — never a hunter path.
+5. `examples/` is orchestrator-only (Phase 3 gates/FPs/worked cases) — never a hunter path.
 
 ## Codebase sweeps (only `scope.type: codebase`)
 
