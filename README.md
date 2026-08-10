@@ -8,21 +8,23 @@ Personal collection of AI agent skills. Each skill is Markdown the agent reads t
 
 ## Agent rules
 
-[global-rules.md](global-rules.md) is a reusable template you can copy into other projects as `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, and similar files.
+[global-rules.md](global-rules.md) is the global judgment layer. The operating stack is always: **this file → repository** `AGENTS.md` **→ workflow skills**. Use it layered (tool loads the file globally; the repo keeps its own operational `AGENTS.md`) or fused (fold the base into the project's `AGENTS.md` with Commands, Permissions, and done criteria — do not keep two competing policy files in the same scope).
+
+The global rules can be defined in the `~/.codex/AGENTS.md` for Codex, `~/.claude/CLAUDE.md` for Claude, `~/.config/opencode/AGENTS.md` for OpenCode or `~/.cursor/rules/agent-rules.md` for Cursor.
 
 ---
 
 ## Available skills
 
-| Skill                                                  | What it does                                                                                                                                                                                                           |
-| ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`write-great-agentsmd`](skills/write-great-agentsmd/) | Create, update, or lint an `AGENTS.md` (or tool mirrors). Branches: `bootstrap`, `update`, `lint`, `slim`.                                                                                                             |
-| [`commit-message`](skills/commit-message/)             | Draft [Conventional Commits](https://www.conventionalcommits.org/) from the real git status and diff. One atomic commit per concern by default; a single commit only when you ask.                                     |
-| [`code-review-plus`](skills/code-review-plus/)         | Multi-pipeline PR/diff review (≤5 hunters), optional shapes (`llm`; single-tag on `normal`), optional P0 verifier, P0-P3 report. Branches: `review`, `fix`/`apply`/`implement`. Invoke by name.                        |
-| [`deep-security-review`](skills/deep-security-review/) | Security-first review: plan, parallel domain hunts, verify, findings table (P0-P3 and CRITICAL-LOW). Invoke by name.                                                                                                   |
-| [`make-docs`](skills/make-docs/)                       | Architecture docs and behavioral specs under `docs/`. Branches: `explore`, `update` (since the `Updated on` stamp), `adr`.                                                                                             |
-| [`markdown-editor`](skills/markdown-editor/)           | Create or edit `.md` / `.mdc` / `.mdx` with Google Markdown Style Guide rules and YAML frontmatter. No prose hard line breaks.                                                                                         |
-| [`sass-with-bem`](skills/sass-with-bem/)               | Write or review BEM with Sass/SCSS (flat compiled selectors, `is-` / `has-` states, 7-1 partials). Branches: `write`, `review`.                                                                                        |
+| Skill                                                  | What it does                                                                                                                                                                                    |
+| ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `[write-great-agentsmd](skills/write-great-agentsmd/)` | Create, update, or lint an `AGENTS.md` (or tool mirrors). Branches: `bootstrap`, `update`, `lint`, `slim`.                                                                                      |
+| `[commit-message](skills/commit-message/)`             | Draft [Conventional Commits](https://www.conventionalcommits.org/) from the real git status and diff. One atomic commit per concern by default; a single commit only when you ask.              |
+| `[code-review-plus](skills/code-review-plus/)`         | Multi-pipeline PR/diff review (≤5 hunters), optional shapes (`llm`; single-tag on `normal`), optional P0 verifier, P0-P3 report. Branches: `review`, `fix`/`apply`/`implement`. Invoke by name. |
+| `[deep-security-review](skills/deep-security-review/)` | Security-first review: plan, parallel domain hunts, verify, findings table (P0-P3 and CRITICAL-LOW). Invoke by name.                                                                            |
+| `[make-docs](skills/make-docs/)`                       | Architecture docs and behavioral specs under `docs/`. Branches: `explore`, `update` (since the `Updated on` stamp), `adr`.                                                                      |
+| `[markdown-editor](skills/markdown-editor/)`           | Create or edit `.md` / `.mdc` / `.mdx` with Google Markdown Style Guide rules and YAML frontmatter. No prose hard line breaks.                                                                  |
+| `[sass-with-bem](skills/sass-with-bem/)`               | Write or review BEM with Sass/SCSS (flat compiled selectors, `is-` / `has-` states, 7-1 partials). Branches: `write`, `review`.                                                                 |
 
 Each skill's `SKILL.md` is what the agent follows. Some skills also ship a human `README.md`, a `PATTERNS.md`, or templates under `references/`.
 
@@ -75,7 +77,7 @@ Harnesses also accept forms like `/make-docs explore`.
 .
 ├── AGENTS.md               # Policy for agents working in this repo
 ├── CHANGELOG.md            # Keep a Changelog
-├── global-rules.md         # Reusable agent-rules template for other repos
+├── global-rules.md         # Global agent defaults (layered or fused with repo AGENTS.md)
 ├── README.md
 ├── skills/
 │   ├── write-great-agentsmd/   # AGENTS.md: bootstrap / update / lint / slim
