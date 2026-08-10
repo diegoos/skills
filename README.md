@@ -21,7 +21,7 @@ The global rules can be defined in the `~/.codex/AGENTS.md` for Codex, `~/.claud
 | `[write-great-agentsmd](skills/write-great-agentsmd/)` | Create, update, or lint an `AGENTS.md` (or tool mirrors). Branches: `bootstrap`, `update`, `lint`, `slim`.                                                                                      |
 | `[commit-message](skills/commit-message/)`             | Draft [Conventional Commits](https://www.conventionalcommits.org/) from the real git status and diff. One atomic commit per concern by default; a single commit only when you ask.              |
 | `[code-review-plus](skills/code-review-plus/)`         | Multi-pipeline PR/diff review (≤5 hunters), optional shapes (`llm`; single-tag on `normal`), optional P0 verifier, P0-P3 report. Branches: `review`, `fix`/`apply`/`implement`. Invoke by name. |
-| `[deep-security-review](skills/deep-security-review/)` | Security-first review: plan, parallel domain hunts, verify, findings table (P0-P3 and CRITICAL-LOW). Invoke by name.                                                                            |
+| `[deep-security-review](skills/deep-security-review/)` | Security-first review: threat model with hotspots, parallel domain hunts, disprove/verify, findings + hardening notes (P0-P3). Branches: review, `fix`/`apply`/`implement`. Invoke by name.     |
 | `[make-docs](skills/make-docs/)`                       | Architecture docs and behavioral specs under `docs/`. Branches: `explore`, `update` (since the `Updated on` stamp), `adr`.                                                                      |
 | `[markdown-editor](skills/markdown-editor/)`           | Create or edit `.md` / `.mdc` / `.mdx` with Google Markdown Style Guide rules and YAML frontmatter. No prose hard line breaks.                                                                  |
 | `[sass-with-bem](skills/sass-with-bem/)`               | Write or review BEM with Sass/SCSS (flat compiled selectors, `is-` / `has-` states, 7-1 partials). Branches: `write`, `review`.                                                                 |
@@ -65,6 +65,7 @@ User-invoked only (`disable-model-invocation`). Call by name:
 /code-review-plus              → multi-perspective PR/diff review
 /code-review-plus fix          → apply findings from the last report (aliases: apply, implement)
 /deep-security-review          → deep security review (domain + shape hunts)
+/deep-security-review fix      → apply review findings (aliases: apply, implement)
 ```
 
 Harnesses also accept forms like `/make-docs explore`.
@@ -99,10 +100,11 @@ Harnesses also accept forms like `/make-docs explore`.
 │   ├── deep-security-review/   # Deep security review
 │   │   ├── SKILL.md
 │   │   └── references/
-│   │       ├── phases/         # plan, hunt, verify-and-synthesize
+│   │       ├── phases/         # plan, hunt, verify-and-synthesize, fix
 │   │       ├── templates/      # final report
 │   │       ├── domains/        # authz, injection, secrets, infra, business-llm
 │   │       ├── shapes/         # api, web, languages, cloud, llm, …
+│   │       ├── examples/       # gates, FP table, kept-vs-dropped (Phase 3)
 │   │       └── optional/       # OWASP map (on request)
 │   ├── make-docs/              # Architecture + observable specs
 │   │   ├── SKILL.md
@@ -138,6 +140,6 @@ Optional agents under `.opencode/agents/`. They are not part of the skills insta
 
 Use `code-review-plus` for a balanced PR/diff review (correctness, security, architecture, quality, performance), with adaptive tiers and optional stack shapes including `llm` (`1` perspective + `0` or `1` shape per hunter; on `normal`, only when a single eligible tag is obvious).
 
-Use `deep-security-review` when security is the main goal: threat model, domain hunts (`1` domain + `1` shape per subagent), security-calibrated severity.
+Use `deep-security-review` when security is the main goal: threat model with hotspots/bypasses, domain hunts (`1` domain + `1` shape per subagent), disprove gates, and security-calibrated severity with separate hardening notes. Apply findings with `/deep-security-review fix` (aliases: `apply`, `implement`).
 
 Do not run both Security perspectives on the same scope at once. `deep-security-review` replaces the shallow security pass. `code-review-plus` may tell you to run `/deep-security-review`; it will not start that skill by itself.

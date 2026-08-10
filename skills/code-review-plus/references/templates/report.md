@@ -1,6 +1,6 @@
 # Phase 4 — Report template
 
-Render the review report from synthesized findings. Skip empty severity sections. Only `kept` / adjusted `downgraded` findings appear. Report secrets as `file:line` + type only.
+Render the review report from synthesized findings. Skip empty severity sections. Only `kept` / adjusted `downgraded` findings appear. Report secrets as `file:line` + type only. When kept count is **0**, state that nothing was found, Approve (or Approve with follow-ups if only hardening remains), and leave Findings Overview empty — do not invent rows.
 
 ## Template
 
@@ -13,9 +13,11 @@ Pipelines: [list] (tier: trivial | normal | large/sensitive)[; shapes: …]
 
 ### Findings Overview
 
+Severity/category cells use: 🚨 vulnerability · 🔴 P0 · 🟠 P1 · 🟡 P2 · ⚪️ P3. Use 🚨 only when `category` is vulnerability/vuln.
+
 | ID  | Severity | Category | Perspective | File            | Issue             |
 | --- | -------- | -------- | ----------- | --------------- | ----------------- |
-| 1   | P0       | vuln     | Security    | path/file.ts:42 | Brief description |
+| 1   | 🔴 P0    | 🚨 vuln  | Security    | path/file.ts:42 | Brief description |
 
 ### P0 — Critical (must fix before merge)
 
@@ -86,9 +88,9 @@ Pipelines: Correctness, Security, Architecture, Quality, Performance (tier: norm
 
 | ID  | Severity | Category  | Perspective | File                  | Issue                       |
 | --- | -------- | --------- | ----------- | --------------------- | --------------------------- |
-| 1   | P0       | bug       | Correctness | webhook-handler.ts:42 | Unhandled JSON.parse crash  |
-| 2   | P2       | hardening | Performance | webhook-handler.ts:67 | Fixed retry delay           |
-| 3   | P2       | style     | Quality     | webhook-handler.ts:89 | Mixed validation/processing |
+| 1   | 🔴 P0    | bug       | Correctness | webhook-handler.ts:42 | Unhandled JSON.parse crash  |
+| 2   | 🟡 P2    | hardening | Performance | webhook-handler.ts:67 | Fixed retry delay           |
+| 3   | 🟡 P2    | style     | Quality     | webhook-handler.ts:89 | Mixed validation/processing |
 
 ### P0 — Critical
 

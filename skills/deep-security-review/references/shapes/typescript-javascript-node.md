@@ -1,7 +1,7 @@
 # Shape — TypeScript / JavaScript / Node
 
 TS/JS/Node/npm/browser/serverless. Pair with a domain file.
-TypeScript types are not a security boundary.
+TypeScript types are not a security boundary. Crypto policy → `domains/secrets.md`.
 
 ## Runtime validation
 
@@ -16,16 +16,18 @@ TypeScript types are not a security boundary.
 - Prefer libraries over shell; if `child_process`, no shell interpolation
 - No `eval` / `Function` / unsafe `vm` / unsafe templates
 - Regex on user input checked for catastrophic backtracking
-- URL fetchers block private/metadata networks and unsafe redirects
+- URL fetchers block private/metadata networks and unsafe redirects (SSRF policy → injection.md)
 
 ## Prototype pollution
 
 - Deep merges reject `__proto__`, `constructor`, `prototype`
+- Recursive write into prototypes + reachable gadget required before reporting
 - User JSON not merged into config, session, or AuthZ objects
 - Query/body parsers configured safely
 
-## Browser / secrets (JS-specific)
+## CSPRNG / secrets (JS-specific)
 
+- Tokens, secrets, and nonces use `crypto.randomBytes` / `crypto.getRandomValues` — not `Math.random()`
 - No long-lived tokens in `localStorage` / `sessionStorage`
 - React `dangerouslySetInnerHTML` and dynamic script creation reviewed
 - `NEXT_PUBLIC_*` / `VITE_*` / similar are public — never secrets
