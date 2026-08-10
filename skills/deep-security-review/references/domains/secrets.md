@@ -1,13 +1,14 @@
 # Domain — Secrets & Data Exposure
 
-Hunt secrets leakage and sensitive-data exposure only. Shape adds stack probes.
+Hunt secrets leakage, crypto policy, and sensitive-data exposure. Browser exploitation (DOM XSS, postMessage, clickjacking, CORS attack paths) lives in `shapes/web.md`.
 
 ## Hunt
 
 - Hardcoded secrets; secrets in logs, errors, client bundles, or artifacts
 - PII/payment minimization, encryption, retention boundaries
-- Cookie flags (`HttpOnly`, `Secure`, `SameSite`); CORS; CSP; clickjacking
-- Cache leakage; verbose stack traces to clients
+- Cookie flags (`HttpOnly`, `Secure`, `SameSite`); transport/header hygiene
+- Cache leakage of private responses; verbose stack traces to clients
+- Crypto: AEAD preferred; unique IV/nonce; no MD5/SHA1/ECB for security properties
 
 ## Checks
 
@@ -19,8 +20,9 @@ Hunt secrets leakage and sensitive-data exposure only. Shape adds stack probes.
 - Sensitive fields encrypted/tokenized/redacted where appropriate
 - Exports authenticated, authorized, scoped, and audited
 - Cache headers prevent private pages/API responses in shared caches
-- CORS is not `*` with credentials; origins allowlisted
-- `frame-ancestors` / `X-Frame-Options`, `nosniff`, HSTS in production
+- Incomplete security headers without an exploit path → hardening note, not a vulnerability
+- Missing security audit/alert on auth failures or high-risk actions without an exploit path → Verification Gaps (not Findings P0–P3)
+- On any secret leak: rotate-first, then investigate scope
 
 ## Red flags
 
@@ -28,3 +30,4 @@ Hunt secrets leakage and sensitive-data exposure only. Shape adds stack probes.
 - Debug mode or verbose errors in production
 - Private responses cached without tenant/user in the cache key
 - PII or tokens sent to analytics or model providers unnecessarily
+- Static IV/nonce reuse, ECB mode, or MD5/SHA1 used as a security control

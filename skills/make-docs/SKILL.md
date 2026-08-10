@@ -24,7 +24,7 @@ Produces a documentation suite in `docs/`: **architecture** (how it's structured
 
 ## Layout
 
-```
+```text
 docs/
   README.md              # includes `> Updated on <ISO-date>`
   architecture/

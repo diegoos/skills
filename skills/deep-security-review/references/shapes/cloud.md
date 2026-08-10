@@ -1,6 +1,6 @@
 # Shape — Cloud & Infrastructure
 
-IAM, CI/CD, containers, IaC, CDN. Pair with domain-infrastructure.
+IAM, CI/CD, containers, IaC, CDN. Pair with domain-infrastructure. Policy lives in the domain; this file holds concrete probes.
 
 ## IAM
 
@@ -23,11 +23,12 @@ IAM, CI/CD, containers, IaC, CDN. Pair with domain-infrastructure.
 - Minimal images; non-root; read-only FS where practical
 - CDN cache keys include auth/tenant; private `Cache-Control`
 - Host-header constrained for password-reset / absolute URL generation
+- SRI (or equivalent) for third-party CDN scripts; private buckets by default
 
 ## CI/CD
 
 - Branch protection + required reviews for production
-- Deploy permissions separated by environment
+- Deploy permissions separated by environment (SoD)
 - Workflows avoid shelling untrusted PR data
-- Third-party actions pinned to SHA/version when risk warrants
-- Encryption at rest for DBs/object storage; private buckets by default
+- Third-party actions pinned to SHA; attestations verified before deploy when available
+- Encryption at rest for DBs/object storage; unsigned update channels flagged

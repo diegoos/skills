@@ -1,10 +1,10 @@
 ---
 name: code-review-plus
 description: >-
-  Multi-perspective code review with parallel subagents and a prioritized P0–P3 report. Branches: review (default), fix / apply / implement (apply findings without regressions). Invoke by name only (e.g. /code-review-plus, /code-review-plus fix).
+  Multi-perspective code review with parallel subagents, adaptive pipeline tiers, optional stack shapes (including llm; shapes on normal when the stack is a single obvious tag), optional P0 verifier, and a prioritized P0–P3 report. Branches: review (default), fix / apply / implement (apply findings without regressions). Invoke by name only (e.g. /code-review-plus, /code-review-plus fix).
 disable-model-invocation: true
 metadata:
-  version: 0.2.0
+  version: 0.4.0
   author: "Diego Oliveira"
   tags:
     - code
@@ -16,11 +16,11 @@ metadata:
 
 # Code Review Plus
 
-**Branches:** review (default) → parallel pipelines → **double verify** → synthesize → report. Fix branch applies findings with a **regression gate**.
+**Branches:** review (default) → parallel pipelines → double verify → synthesize → report. Fix branch applies findings with a **regression gate**.
 
-**Invariants:** Each pipeline runs as a separate subagent. Every finding must be reproducible by reading the code. Keep only proven/likely issues with a pointable line **today**. Prefer minimal local fixes over broad refactors.
+**Invariants:** Each pipeline runs as a separate hunter (subagent). Every finding is reproducible from the code. Keep only `proven` or `likely` issues with a pointable line today. Prefer a minimal local fix over a broad refactor.
 
-**Reference budget:** The orchestrator selects paths; subagents read them. Never preload `references/`. Each review subagent gets exactly **1** perspective file.
+**Reference budget:** The orchestrator selects paths; never preload `references/`. Each hunter gets exactly **1** perspective plus **0 or 1** shape (`≤2` paths). Orchestrator-only refs (`dependency-review`, `remedies`, `examples`) are not hunter paths.
 
 ## Commands
 
@@ -31,19 +31,19 @@ metadata:
 | `/code-review-plus apply`     | **fix**    | Alias of `fix`                    |
 | `/code-review-plus implement` | **fix**    | Alias of `fix`                    |
 
-`fix`, `apply`, and `implement` are synonyms. Without a subcommand, never open `fix.md`. The fix branch never re-dispatches the five pipelines.
+`fix`, `apply`, and `implement` are synonyms. Without a subcommand, never open `fix.md`. The fix branch never re-dispatches review pipelines.
 
 ## Definition of Done
 
 ### Branch review
 
-| Phase        | Done when                                                      | READ                                |
-| ------------ | -------------------------------------------------------------- | ----------------------------------- |
-| 1 Scope      | Scope + intent + what-must-not-change answered                 | `./references/phases/scope.md`      |
-| 2 Dispatch   | Five subagents returned candidates                             | `./references/phases/dispatch.md`   |
-| 2.5 Verify   | Every candidate has `kept` \| `dropped` \| `downgraded` + note | `./references/phases/verify.md`     |
-| 3 Synthesize | Surviving findings have required fields + severity             | `./references/phases/synthesize.md` |
-| 4 Report     | Report delivered with verdict + drop counts                    | `./references/templates/report.md`  |
+| Phase        | Done when                                                                                   | READ                                |
+| ------------ | ------------------------------------------------------------------------------------------- | ----------------------------------- |
+| 1 Scope      | Scope + intent + tier + stack tags + context summary ready                                  | `./references/phases/scope.md`      |
+| 2 Dispatch   | Tier pipelines returned candidates; shapes recorded when attached                           | `./references/phases/dispatch.md`   |
+| 2.5 Verify   | Every candidate has kept/dropped/downgraded + note; optional P0 verifier applied or skipped | `./references/phases/verify.md`     |
+| 3 Synthesize | Surviving findings have required fields + severity                                          | `./references/phases/synthesize.md` |
+| 4 Report     | Report delivered with verdict + drop counts + pipelines/shapes line                         | `./references/templates/report.md`  |
 
 Do not open a later phase file until the current phase completion criterion is met.
 
@@ -53,7 +53,7 @@ Do not open a later phase file until the current phase completion criterion is m
 | ----- | ----------------------------------------------------------- | ---------------------------- |
 | Fix   | Findings applied or deferred without new demonstrable P0/P1 | `./references/phases/fix.md` |
 
-Prerequisite: a prior report in this conversation (or an explicit finding list). If missing, ask — do not invent findings.
+Prerequisite: a prior report in this conversation (or an explicit finding list). If missing, ask; do not invent findings.
 
 ## Branch review — phases
 
@@ -61,31 +61,23 @@ Prerequisite: a prior report in this conversation (or an explicit finding list).
 
 **READ:** `./references/phases/scope.md`
 
-Answer intent, expected behavior, and what must not change. Identify the review source (files, diff, branch, paste).
-
-**Completion criterion:** Scope answers written; review source identified.
+**Completion criterion:** Scope answers written; review source, tier, and stack tags identified; context summary ready.
 
 ### Phase 2 — Dispatch
 
 **READ:** `./references/phases/dispatch.md`
 
-Dispatch **five** subagents in parallel (Correctness, Security, Architecture, Quality, Performance). Each prompt includes scope context and exactly one `./references/perspectives/<name>.md` path. Subagents assign no final P0–P3.
-
-**Completion criterion:** Every pipeline returned; each candidate has `file:line`, `exploit_or_break_path`, and `evidence_level`.
+**Completion criterion:** Every dispatched pipeline returned; each candidate has `file:line`, `exploit_or_break_path`, and `evidence_level`.
 
 ### Phase 2.5 — Double verify
 
 **READ:** `./references/phases/verify.md`
 
-Re-read cited code for every candidate. Assign `kept` \| `dropped` \| `downgraded` with notes. Only `kept` and adjusted `downgraded` enter synthesis.
-
-**Completion criterion:** Every candidate has status + `verification_note`; drop/downgrade counts recorded.
+**Completion criterion:** Every candidate has status + `verification_note`; drop/downgrade counts recorded; optional P0 verifier ran or skipped per its triggers.
 
 ### Phase 3 — Synthesize
 
 **READ:** `./references/phases/synthesize.md`
-
-Dedupe, categorize, assign P0–P3, attach `regression_risk` on every kept finding's suggested fix.
 
 **Completion criterion:** Every surviving finding has all required fields; P2/P3 capped per calibration.
 
@@ -93,26 +85,28 @@ Dedupe, categorize, assign P0–P3, attach `regression_risk` on every kept findi
 
 **READ:** `./references/templates/report.md`
 
-Render the review report. Skip empty severity sections. End with apply hint when findings remain.
-
-**Completion criterion:** Findings Overview, verdict, verified-vs-dropped counts, and explicit unverified claims are present.
+**Completion criterion:** Findings Overview, verdict, pipelines line (with shapes when used), verified-vs-dropped counts, and explicit unverified claims are present. Zero kept findings is a valid outcome (state that nothing was found).
 
 ## Branch fix
 
 **READ:** `./references/phases/fix.md`
 
-Apply findings from the last report with the fix acceptance gate. Do not open scope, dispatch, or perspective files.
+**Completion criterion:** Every targeted finding is closed (gate passed) or explicitly deferred. No new demonstrable P0/P1 left by the fixes.
 
 ## Rules
 
 - Orchestrator opens phase/template files only when that phase or branch starts
-- Review subagents open only their one perspective path
+- Hunters open only their assigned perspective and optional shape (`≤2` paths)
 - File:line required; concrete break/exploit path for every P0/P1
-- Short approval is valid when warranted; skip empty sections
+- Clarity findings measure comprehension speed; a valid fix preserves behavior and error paths
+- Preference without a codebase inconsistency → skip (not a finding)
+- Report secrets as `file:line` + secret type only; redact values in the report and in fixes
+- When verification yields zero kept findings, say so and Approve — empty Findings Overview is valid; skip empty sections; do not fabricate issues to fill the report
 - Ask before deleting dead code; never recommend blind removal
-- Fail loud on verification — state unverified claims explicitly
-- For a deeper security pass, tell the user to invoke `/deep-security-review` (do not auto-start it)
+- State unverified claims explicitly
+- Verdict needs evidence; do not soften a verified bug
+- Optional P0 verifier: at most one subagent after Pass B; never reopens the five pipelines; does not assign final severity
 
 ## Relation to `deep-security-review`
 
-Both skills are user-invoked. Use this skill for multi-perspective PR/diff review. Use `/deep-security-review` when security is the primary goal. Do not run both Security perspectives on the same scope in parallel — that skill **replaces** the shallow security pass.
+Both skills are user-invoked. Use this skill for multi-perspective PR/diff review (optional stack shapes, including `llm`). Use `/deep-security-review` when security is the primary goal. Do not run both Security perspectives on the same scope in parallel; that skill replaces this skill's shallow security pass. Tell the user to invoke it; do not auto-start it.

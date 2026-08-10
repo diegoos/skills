@@ -1,10 +1,10 @@
 # Shape — Sensitive Flows & Supply Chain
 
-Payments, billing, wallets, package publish. Pair with Business/LLM or Infra.
+Payments, billing, wallets, package publish. Pair with BusinessLLM or Infra.
+Payment/workflow **policy** lives in `domains/business-llm.md` — this file holds shape probes.
 
 ## High-value flows
 
-- Server computes prices, totals, discounts, credits, entitlements
 - Explicit validated state transitions; idempotency on payments/webhooks/retries
 - Concurrency: transactions, locks, unique constraints
 - Parallel submit, webhook replay, out-of-order steps, cross-tenant attempts
