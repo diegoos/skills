@@ -1,6 +1,6 @@
 # Phase 2.5 — Double verify
 
-Reject false positives after all pipelines return. Only candidates that survive Pass B enter synthesis.
+Reject false positives after all pipelines return. Only candidates that survive Pass B (and optional P0 verifier) enter synthesis.
 
 When keep/drop is unclear, read `../examples/kept-vs-dropped.md` (do not preload).
 
@@ -38,6 +38,36 @@ Drop or downgrade any item that fails. Future-only risks become hardening (downg
 ### P0 bar
 
 A candidate may become P0 in synthesize only if Pass B is complete and the exploit/break path is reconfirmed today with a pointable `file:line`. Claims that need deployed config or runtime observation (`needs-runtime`) are never P0 without proof in code; mark them unverified or hardening.
+
+## Optional P0 verifier (one subagent)
+
+After Pass B, if **≥1** remaining candidate still could be P0 (Pass B complete + exploit/break path today + pointable `file:line`), the orchestrator **may** dispatch **one** verifier subagent. This is not required on every review.
+
+**Trigger (dispatch when either is true):**
+
+1. Real ambiguity remains (middleware vs route, framework return shape, `needs-runtime` borderline), or
+2. **≥2** candidates still look like P0 after Pass B
+
+**Skip when:** zero P0-capable candidates remain, or Pass B already settled every P0-capable candidate without residual ambiguity and there is at most one such candidate. Pass B + P0 bar alone are enough; record `verifier: skipped` (reason) in working notes if useful for the report.
+
+**Do not:** re-dispatch the five review pipelines; give the verifier a perspective or shape; ask the verifier for final P0–P3 severity.
+
+**Verifier prompt (minimal):**
+
+```txt
+Re-verify these P0-capable candidates only. No perspective or shape files.
+
+For each item, re-read the cited file:line plus callers / middleware / shared helpers as needed.
+Return only status + verification_note (and drop_reason when dropped/downgraded). Do not assign P0–P3.
+
+Candidates:
+- location: …
+  exploit_or_break_path: …
+  evidence_level: …
+  [optional: one-line Pass B doubt]
+```
+
+Apply verifier outcomes to the verification artifacts before synthesis. Verifier does not invent new findings.
 
 ## Verification artifact (required per candidate)
 
@@ -78,6 +108,10 @@ verification_note: # why it survived or failed
 | Reviewer bias: "tests pass => good", "agent code => fine", "clean later"    | Still verify the path today.                                                                                                                           |
 | "Refactor is cleaner" when it only relocated the same concept count         | Relocate != reduce.                                                                                                                                    |
 
+## Post-report calibration (optional)
+
+If the user asks to calibrate this review, follow the pattern in `../examples/eval-notes.md` in the conversation. Do not create that file in the reviewed target repo unless they ask. Do not preload eval-notes during verify.
+
 ## Completion criterion
 
-Every candidate has `status` and `verification_note`. Dropped/downgraded counts are recorded for the summary. P0 candidates that fail the P0 bar are downgraded or marked unverified.
+Every candidate has `status` and `verification_note`. Dropped/downgraded counts are recorded for the summary. P0 candidates that fail the P0 bar are downgraded or marked unverified. If the optional P0 verifier ran, its outcomes are applied; if skipped, Pass B + P0 bar stand alone.

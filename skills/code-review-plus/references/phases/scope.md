@@ -43,15 +43,21 @@ Also watch **file size**: a small diff that grows an already-huge file may need 
 
 Pick exactly one tier:
 
-| Tier                | When                                                                 | Pipelines                                                                                                   |
-| ------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| **trivial**         | Docs-only, formatting-only, or rename with no logic                  | Correctness + Quality; add Security only if auth, input boundary, secrets, deps, or security config touched |
-| **normal**          | Default feature/bugfix/refactor                                      | All five: Correctness, Security, Architecture, Quality, Performance                                         |
-| **large/sensitive** | ≥~300 logic lines, or touches auth, payments, secrets, raw user HTML | All five + up to one shape per hunter when stack tags match                                                 |
+| Tier                | When                                                                 | Pipelines                                                                                                   | Shapes                                                                                       |
+| ------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| **trivial**         | Docs-only, formatting-only, or rename with no logic                  | Correctness + Quality; add Security only if auth, input boundary, secrets, deps, or security config touched | None                                                                                         |
+| **normal**          | Default feature/bugfix/refactor                                      | All five: Correctness, Security, Architecture, Quality, Performance                                         | At most **1** per hunter only when exactly one eligible tag applies (see Phase 2); else None |
+| **large/sensitive** | ≥~300 logic lines, or touches auth, payments, secrets, raw user HTML | All five                                                                                                    | At most **1** per hunter when tags match (majority / tie rules in Phase 2)                   |
 
 ## Stack tags
 
-From paths/extensions in the review source, record zero or more: `web`, `api`, `ts` (TypeScript/JavaScript/Node), `py` (Python), `go` (Go), `rs` (Rust). These select optional shapes in Phase 2.
+From paths/extensions and content cues in the review source, record zero or more:
+
+- `web`, `api`
+- `ts` (TypeScript/JavaScript/Node), `py` (Python), `go` (Go), `rs` (Rust)
+- `llm` when the diff touches prompts, tool/function calling, agent loops, or RAG context assembly
+
+These select optional shapes in Phase 2.
 
 Also note if the diff touches a **documentable surface** (public API, CLI, contract, build/test/release, user-facing behavior) so Quality can check docs sync.
 
@@ -75,7 +81,7 @@ Intent: …
 Must NOT change: …
 Source: …
 Tier: trivial | normal | large/sensitive
-Stack tags: web | api | ts | py | go | rs | (none)
+Stack tags: web | api | ts | py | go | rs | llm | (none)
 Documentable surface: yes | no
 Tests observed: …
 Sizing: small | medium | large

@@ -4,15 +4,16 @@ Dispatch pipelines per Phase 1 tier. Orchestrator builds prompts; each hunter re
 
 ## Dispatch by tier
 
-| Tier            | Pipelines to run                                                        | Shapes                                       |
-| --------------- | ----------------------------------------------------------------------- | -------------------------------------------- |
-| trivial         | Correctness + Quality (+ Security only per Scope rule)                  | None                                         |
-| normal          | Correctness, Security, Architecture, Quality, Performance (in parallel) | None                                         |
-| large/sensitive | All five (in parallel)                                                  | At most **1** shape per hunter if tags match |
+| Tier            | Pipelines to run                                                        | Shapes                                                                              |
+| --------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| trivial         | Correctness + Quality (+ Security only per Scope rule)                  | None                                                                                |
+| normal          | Correctness, Security, Architecture, Quality, Performance (in parallel) | At most **1** per hunter only if exactly one eligible tag applies; multi-tag → omit |
+| large/sensitive | All five (in parallel)                                                  | At most **1** shape per hunter if tags match (majority / tie below)                 |
 
 - No shared findings until Phase 2.5
 - Each prompt includes: scope summary (compact) + perspective path + optional shape path
 - Hunters assign no final P0–P3
+- Report which shapes were attached (for the report `shapes:` line), including on `normal`
 
 ## Perspective paths
 
@@ -24,7 +25,7 @@ Dispatch pipelines per Phase 1 tier. Orchestrator builds prompts; each hunter re
 | Quality      | `./references/perspectives/quality.md`      |
 | Performance  | `./references/perspectives/performance.md`  |
 
-## Shape selection (large/sensitive only)
+## Shape selection
 
 Pick at most one shape for a hunter from Phase 1 stack tags:
 
@@ -36,11 +37,22 @@ Pick at most one shape for a hunter from Phase 1 stack tags:
 | py  | `./references/shapes/python.md`                     |
 | go  | `./references/shapes/go.md`                         |
 | rs  | `./references/shapes/rust.md`                       |
+| llm | `./references/shapes/llm.md`                        |
+
+### Tier `trivial`
+
+Omit shapes.
+
+### Tier `normal` (single obvious stack only)
+
+Eligible tags for the hunter's pipeline (same sets as below). If **exactly one** tag is present in that eligible set, attach its shape. If **zero or more than one** compete, omit the shape (do not run majority/tie on `normal`).
+
+### Tier `large/sensitive` (majority / tie)
 
 Count changed paths per tag. At most **one** shape per hunter:
 
-1. **Security / Quality:** if `web` or `api` is present, pick the majority between those two; else pick the majority among language tags (`ts` \| `py` \| `go` \| `rs`).
-2. **Correctness / Architecture / Performance:** pick the majority among language tags only; omit when none apply (do not attach `web`/`api`).
+1. **Security / Quality:** build the eligible set from `web`, `api`, and `llm` when present. If none of those, use language tags (`ts` \| `py` \| `go` \| `rs`). Pick the majority in the eligible set. If only `llm` is present among surface tags, attach `llm`.
+2. **Correctness / Architecture / Performance:** language tags only (`ts` \| `py` \| `go` \| `rs`). Omit when none apply. Do **not** attach `web`, `api`, or `llm`.
 3. **Tie** on the eligible set → omit the shape.
 
 ## Subagent prompt template
@@ -98,7 +110,8 @@ regression_risk: Error response shape for this route; existing happy-path tests
 
 - If `package.json` / lockfile is in the review source, read `./references/dependency-review.md` during Phase 3 synthesize (after hunters return).
 - Structural `suggested_fix` values may name a move from `./references/remedies.md` (orchestrator / Architecture / Quality authors may open it; hunters need not).
+- `./references/examples/*` are orchestrator-only (Pass B doubt, optional eval notes). Never give them to hunters.
 
 ## Completion criterion
 
-Every pipeline required by the tier has returned. Each candidate includes `location`, `exploit_or_break_path`, and `evidence_level` (`proven` or `likely`). Record which pipelines ran for the report summary.
+Every pipeline required by the tier has returned. Each candidate includes `location`, `exploit_or_break_path`, and `evidence_level` (`proven` or `likely`). Record which pipelines ran and which shapes were attached for the report summary.
