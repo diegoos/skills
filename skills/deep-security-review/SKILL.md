@@ -4,7 +4,7 @@ description: >-
   Deep security review with parallel domain hunts and a prioritized findings table (P0–P3). Branches: review (default), fix / apply / implement (apply findings without new P0/P1). Invoke by name only (e.g. /deep-security-review, /deep-security-review fix).
 disable-model-invocation: true
 metadata:
-  version: 0.2.0
+  version: 0.2.1
   author: "Diego Oliveira"
   tags:
     - security

@@ -4,7 +4,7 @@ description: >-
   Multi-perspective code review with parallel subagents, adaptive pipeline tiers, optional stack shapes (including llm; shapes on normal when the stack is a single obvious tag), optional P0 verifier, and a prioritized P0–P3 report. Branches: review (default), fix / apply / implement (apply findings without regressions). Invoke by name only (e.g. /code-review-plus, /code-review-plus fix).
 disable-model-invocation: true
 metadata:
-  version: 0.4.0
+  version: 0.4.1
   author: "Diego Oliveira"
   tags:
     - code
