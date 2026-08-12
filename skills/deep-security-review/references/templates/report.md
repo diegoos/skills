@@ -1,6 +1,16 @@
-# Security Review Report Template
+# Phase 4 — Security review report template
 
-Render Phase 4 using this template. Omit empty severity sections. Findings, Hardening notes, and Verification Gaps are mutually exclusive — one item in exactly one section. When kept count is **0**, state that nothing was found, Approve (residual risk documented if any), and leave Findings Overview empty — do not invent rows.
+Fill the Template skeleton below with verified findings. The skeleton is the deliverable shape — emit those headings and the Findings Overview pipe table in the user-facing reply. Omit empty severity sections. Findings, Hardening notes, and Verification Gaps are mutually exclusive — one item in exactly one section. Report secrets as `file:line` + type only. When kept count is **0**, state that nothing was found, Approve (residual risk documented if any), and leave Findings Overview with header + separator only (no invented data rows).
+
+## Render rules
+
+1. **Skeleton fill** — paste the Template headings in order; put content under each heading. Severity detail sections expand Findings rows; they do not replace Findings Overview. Hardening notes and Verification Gaps stay separate buckets.
+2. **Findings Overview is a Markdown pipe table** — seven columns exactly: `ID | Severity | Security | Category | Domain | File | Issue`. One data row per kept vulnerability (`category = vulnerability`) only. Severity/category cells use: 🚨 vulnerability · 🔴 P0 · 🟠 P1 · 🟡 P2 · ⚪️ P3. Security column is the 1:1 map of P (P0→CRITICAL · P1→HIGH · P2→MEDIUM · P3→LOW).
+3. **Heading strings** — keep the Template's English heading text (`## Security Review Summary`, `### Threat Model (brief)`, `### Findings Overview`, `### P0 — Critical (must fix before ship)`, `### P1 — Important (should fix)`, `### P2 — Limited-impact vulnerabilities`, `### P3 — Low-risk current issues`, `### Hardening notes`, `### Open Questions / Assumptions`, `### What Looks Good`, `### Verification Gaps`, `### Verdict`). Translate prose inside sections when the user language differs; keep these heading strings so the shape stays stable.
+4. **Counts** — Security Review Summary states kept / downgraded / dropped and residual runtime risk when present.
+5. **Verdict** — end with one of Approve / Approve with follow-ups / Request changes per the Template rules, plus the fix hint when actionable findings remain.
+
+## Template
 
 ```markdown
 ## Security Review Summary
@@ -77,3 +87,7 @@ State what was **not** verified. Route `needs-runtime` candidates here — not i
 
 To apply fixes: `/deep-security-review fix` (aliases: `apply`, `implement`).
 ```
+
+## Completion criterion
+
+Phase 4 is done when the user-facing reply is a skeleton fill of this Template: English heading strings above, a Findings Overview pipe table with columns `ID | Severity | Security | Category | Domain | File | Issue` (header + separator always; one data row per kept vulnerability, or header-only when kept is 0), Threat Model brief, Hardening notes or explicit none, Verification Gaps, Verdict, and kept/downgraded/dropped counts in Security Review Summary. Apply hint included when actionable findings remain.
