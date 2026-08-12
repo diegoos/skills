@@ -1,3 +1,7 @@
 # MD013 (line-length) is intentionally off — do not soft-wrap Markdown to satisfy a column limit.
 # Aligns with `.editorconfig` `[*.md] max_line_length = off`.
 MD013: false
+
+# Keep a Changelog repeats Added/Changed/Fixed under each version heading.
+MD024:
+  siblings_only: true

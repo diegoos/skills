@@ -43,7 +43,7 @@ metadata:
 | 2 Dispatch   | Tier pipelines returned candidates; shapes recorded when attached                           | `./references/phases/dispatch.md`   |
 | 2.5 Verify   | Every candidate has kept/dropped/downgraded + note; optional P0 verifier applied or skipped | `./references/phases/verify.md`     |
 | 3 Synthesize | Surviving findings have required fields + severity                                          | `./references/phases/synthesize.md` |
-| 4 Report     | Report delivered with verdict + drop counts + pipelines/shapes line                         | `./references/templates/report.md`  |
+| 4 Report     | Skeleton fill of `report.md` (Findings Overview pipe table + verdict + drop counts)         | `./references/templates/report.md`  |
 
 Do not open a later phase file until the current phase completion criterion is met.
 
@@ -85,7 +85,7 @@ Prerequisite: a prior report in this conversation (or an explicit finding list).
 
 **READ:** `./references/templates/report.md`
 
-**Completion criterion:** Findings Overview, verdict, pipelines line (with shapes when used), verified-vs-dropped counts, and explicit unverified claims are present. Zero kept findings is a valid outcome (state that nothing was found).
+**Completion criterion:** User-facing reply is a skeleton fill of that template — English heading strings, Findings Overview as a Markdown pipe table (`ID | Severity | Category | Perspective | File | Issue`), verdict, pipelines line (shapes when used), verified-vs-dropped counts, and explicit unverified claims. Zero kept findings is valid (state that nothing was found; table header only).
 
 ## Branch fix
 
@@ -101,7 +101,8 @@ Prerequisite: a prior report in this conversation (or an explicit finding list).
 - Clarity findings measure comprehension speed; a valid fix preserves behavior and error paths
 - Preference without a codebase inconsistency → skip (not a finding)
 - Report secrets as `file:line` + secret type only; redact values in the report and in fixes
-- When verification yields zero kept findings, say so and Approve — empty Findings Overview is valid; skip empty sections; do not fabricate issues to fill the report
+- When verification yields zero kept findings, say so and Approve — Findings Overview keeps header + separator only; skip empty severity sections; do not fabricate issues to fill the report
+- Phase 4 deliverable is a skeleton fill of `report.md`: keep its English headings; Findings Overview is always the six-column pipe table (detail sections expand rows, they do not replace the table); translate prose inside sections when the user language differs
 - Ask before deleting dead code; never recommend blind removal
 - State unverified claims explicitly
 - Verdict needs evidence; do not soften a verified bug
