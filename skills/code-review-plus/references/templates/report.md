@@ -1,6 +1,14 @@
 # Phase 4 — Report template
 
-Render the review report from synthesized findings. Skip empty severity sections. Only `kept` / adjusted `downgraded` findings appear. Report secrets as `file:line` + type only. When kept count is **0**, state that nothing was found, Approve (or Approve with follow-ups if only hardening remains), and leave Findings Overview empty — do not invent rows.
+Fill the Template skeleton below with synthesized findings. The skeleton is the deliverable shape — emit those headings and the Findings Overview pipe table in the user-facing reply. Skip empty severity sections. Only `kept` / adjusted `downgraded` findings appear. Report secrets as `file:line` + type only. When kept count is **0**, state that nothing was found, Approve (or Approve with follow-ups if only hardening remains), and leave Findings Overview with header + separator only (no invented data rows).
+
+## Render rules
+
+1. **Skeleton fill** — paste the Template headings in order; put content under each heading. Severity detail sections expand findings; they do not replace Findings Overview.
+2. **Findings Overview is a Markdown pipe table** — six columns exactly: `ID | Severity | Category | Perspective | File | Issue`. One data row per kept/downgraded finding. Severity/category cells use: 🚨 vulnerability · 🔴 P0 · 🟠 P1 · 🟡 P2 · ⚪️ P3. Use 🚨 only when `category` is vulnerability/vuln.
+3. **Heading strings** — keep the Template's English heading text (`## Review Summary`, `### Findings Overview`, `### P0 — Critical (must fix before merge)`, `### P1 — Important (should fix)`, `### P2 — Suggestions (optional improvements)`, `### P3 — Nits (optional)`, `### Dead Code (if any)`, `### What Looks Good`, `### Verification`, `### Verdict`). Translate prose inside sections when the user language differs; keep these heading strings so the shape stays stable.
+4. **Pipelines line** — under Review Summary, include `Pipelines: … (tier: …)` and `shapes:` when shapes were attached.
+5. **Verdict** — end with one of Approve / Approve with follow-ups / Request changes per the Template rules, plus the fix hint when actionable findings remain.
 
 ## Template
 
@@ -12,8 +20,6 @@ Render the review report from synthesized findings. Skip empty severity sections
 Pipelines: [list] (tier: trivial | normal | large/sensitive)[; shapes: …]
 
 ### Findings Overview
-
-Severity/category cells use: 🚨 vulnerability · 🔴 P0 · 🟠 P1 · 🟡 P2 · ⚪️ P3. Use 🚨 only when `category` is vulnerability/vuln.
 
 | ID  | Severity | Category | Perspective | File            | Issue             |
 | --- | -------- | -------- | ----------- | --------------- | ----------------- |
@@ -132,4 +138,4 @@ To apply fixes: `/code-review-plus fix` (aliases: `apply`, `implement`).
 
 ## Completion criterion
 
-Findings Overview, verdict, pipelines/tier line, verified-vs-dropped counts, and explicit unverified claims are present. Apply hint included when actionable findings remain.
+Phase 4 is done when the user-facing reply is a skeleton fill of this Template: English heading strings above, a Findings Overview pipe table with columns `ID | Severity | Category | Perspective | File | Issue` (header + separator always; one data row per kept finding, or header-only when kept is 0), pipelines/tier line (shapes when used), verified-vs-dropped counts in Review Summary, Verification with explicit unverified claims, and Verdict. Apply hint included when actionable findings remain.

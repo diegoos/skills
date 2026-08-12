@@ -4,7 +4,7 @@ description: >-
   Deep security review with parallel domain hunts and a prioritized findings table (P0–P3). Branches: review (default), fix / apply / implement (apply findings without new P0/P1). Invoke by name only (e.g. /deep-security-review, /deep-security-review fix).
 disable-model-invocation: true
 metadata:
-  version: 0.2.0
+  version: 0.2.1
   author: "Diego Oliveira"
   tags:
     - security
@@ -41,7 +41,7 @@ metadata:
 | 1 Plan   | Threat model (incl. hotspots, bypasses, auth_model) + tags + manifest paths written           | `./references/phases/plan.md`                  |
 | 2 Hunt   | All domains returned; each candidate has location, domain, exploit path, provenance, evidence | `./references/phases/hunt.md`                  |
 | 3 Verify | Disprove done; FPs dropped; P0–P3 set (CRITICAL–LOW 1:1); counts; re-verify ran or skipped    | `./references/phases/verify-and-synthesize.md` |
-| 4 Report | Findings + Hardening notes + Verification Gaps + verdict delivered                            | `./references/templates/report.md`             |
+| 4 Report | Skeleton fill of `report.md` (Findings Overview pipe table + Hardening + Gaps + verdict)      | `./references/templates/report.md`             |
 
 Do not open a later phase file until the current phase completion criterion is met.
 
@@ -85,9 +85,7 @@ Disprove and verify every candidate against code, drop/downgrade false positives
 
 **READ:** `./references/templates/report.md`
 
-Render the security review report. Skip empty severity sections. Keep Findings, Hardening notes, and Verification Gaps mutually exclusive.
-
-**Completion criterion:** Findings Overview (kept only; empty table when kept is 0 and the summary states that nothing was found), Hardening notes or explicit none, Verification Gaps, verdict, and counts are present.
+**Completion criterion:** User-facing reply is a skeleton fill of that template — English heading strings, Findings Overview as a Markdown pipe table (`ID | Severity | Security | Category | Domain | File | Issue`; kept vulns only), Threat Model brief, Hardening notes or explicit none, Verification Gaps, verdict, and kept/downgraded/dropped counts. Zero kept findings is valid (state that nothing was found; table header only). Findings, Hardening notes, and Verification Gaps stay mutually exclusive.
 
 ## Branch fix
 
@@ -102,7 +100,8 @@ Render the security review report. Skip empty severity sections. Keep Findings, 
 - Every P0/P1 cites `file:line` and a concrete attacker path readable today
 - Findings keep only `proven`/`likely` with a pointable line today; route `needs-runtime` to Verification Gaps (never P0–P3)
 - Prefer drop/downgrade when middleware, schema, allowlists, or encoders already block the path
-- Zero kept findings → Approve with an empty Findings Overview; omit empty severity sections; report only what survived verify
+- Zero kept findings → Approve — Findings Overview keeps header + separator only; omit empty severity sections; report only what survived verify
+- Phase 4 deliverable is a skeleton fill of `report.md`: keep its English headings; Findings Overview is always the seven-column pipe table (detail sections expand rows, they do not replace the table; Hardening notes and Verification Gaps stay separate); translate prose inside sections when the user language differs
 - State unverified claims explicitly
 - Stop and ask when legal scope or testing boundaries are unclear
 - Report secrets as `file:line` + type only; redact values in the report and in fixes
