@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `frontend-design-plus`: ship working web UI (component / app UI / marketing) with origin `greenfield` or `redesign`, Design Read + Lock before markup, routed `reference/` files, anti-slop, and pre-flight tiers A / A+B / A+C.
 
+### Changed
+
+- `makefile-expert`: process skill (branches `write` / `review`, kinds `glue` / `compile`) with completion criteria; depth in `references/` (`glue.md`, `graph.md`, `variables.md`); `metadata.version` → `0.1.0`. Root `README.md` lists the skill.
+- `makefile-expert`: prose pass on `SKILL.md` and `references/` (cut puffery, em dashes, and binary contrast where the rule already stood).
+- `.markdownlint.yaml`: `MD010.code_blocks` off so GNU Make recipe examples may use real tabs.
+
 ## [0.1.1] - 2026-08-12
 
 ### Changed
