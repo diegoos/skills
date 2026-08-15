@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `frontend-design-plus`: ship working web UI (component / app UI / marketing) with origin `greenfield` or `redesign`, Design Read + Lock before markup, routed `reference/` files, anti-slop, and pre-flight tiers A / A+B / A+C.
+
 ## [0.1.1] - 2026-08-12
 
 ### Changed

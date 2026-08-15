@@ -2,6 +2,14 @@
 name: frontend-design-plus
 description: >-
   Build or restyle web UI: components, pages, landings, dashboards, posters, HTML/CSS layouts. Use when the work is visual frontend (layout, type, color, motion, a11y) and the output must pass anti-slop craft. Classify each task as greenfield (new UI) or redesign (existing page). Skip backend-only, SQL, CI, or docs-only tasks.
+metadata:
+  version: 0.0.1
+  author: "Diego Oliveira"
+  tags:
+    - frontend
+    - design
+    - ui
+    - ux
 ---
 
 # Frontend Design Plus
@@ -46,28 +54,28 @@ Product chrome stays consistent. Ask one clarifying question when the read diver
 
 Work top-down. Pre-flight is the ship gate; this table is work order.
 
-| # | Focus | Check | Anti-pattern | Read |
-| --- | --- | --- | --- | --- |
-| 1 | A11y | Contrast 4.5:1, visible focus, keyboard | Removing focus rings | [preflight A](reference/preflight-checklist.md) |
-| 2 | Touch | Targets ≥44px, 8px gap, press feedback | Hover-only actions | [production-engineering.md](reference/production-engineering.md) |
-| 3 | Perf | LCP/CLS, reserved space | Layout shift | [performance.md](reference/performance.md) |
-| 4 | Direction | Design Read + Lock with origin | Markup without Lock or origin | this file |
-| 5 | Layout | Mobile-first, no horizontal scroll | Fixed-px cages on every surface | [layout-patterns.md](reference/layout-patterns.md) / [product-register.md](reference/product-register.md) |
-| 6 | Type/color | Named strategy, tokens | Raw hex, gray-on-gray | [color.md](reference/color.md), [typography.md](reference/typography.md) |
-| 7 | Motion | Recipe matches the Lock band | One duration for everything | [motion.md](reference/motion.md) |
-| 8 | Forms | Visible labels, blur+submit, error summary | Placeholder-as-label; error per keystroke | [production-engineering.md](reference/production-engineering.md#forms) |
-| 9 | Nav | Predictable back, one primary per view | Overloaded chrome | [ux-principles.md](reference/ux-principles.md) |
-| 10 | Data | Chart matches the question | Chart gallery, color-only encoding | [ux-principles.md](reference/ux-principles.md#dashboards-and-data-ui) |
+| #   | Focus      | Check                                      | Anti-pattern                              | Read                                                                                                      |
+| --- | ---------- | ------------------------------------------ | ----------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| 1   | A11y       | Contrast 4.5:1, visible focus, keyboard    | Removing focus rings                      | [preflight A](reference/preflight-checklist.md)                                                           |
+| 2   | Touch      | Targets ≥44px, 8px gap, press feedback     | Hover-only actions                        | [production-engineering.md](reference/production-engineering.md)                                          |
+| 3   | Perf       | LCP/CLS, reserved space                    | Layout shift                              | [performance.md](reference/performance.md)                                                                |
+| 4   | Direction  | Design Read + Lock with origin             | Markup without Lock or origin             | this file                                                                                                 |
+| 5   | Layout     | Mobile-first, no horizontal scroll         | Fixed-px cages on every surface           | [layout-patterns.md](reference/layout-patterns.md) / [product-register.md](reference/product-register.md) |
+| 6   | Type/color | Named strategy, tokens                     | Raw hex, gray-on-gray                     | [color.md](reference/color.md), [typography.md](reference/typography.md)                                  |
+| 7   | Motion     | Recipe matches the Lock band               | One duration for everything               | [motion.md](reference/motion.md)                                                                          |
+| 8   | Forms      | Visible labels, blur+submit, error summary | Placeholder-as-label; error per keystroke | [production-engineering.md](reference/production-engineering.md#forms)                                    |
+| 9   | Nav        | Predictable back, one primary per view     | Overloaded chrome                         | [ux-principles.md](reference/ux-principles.md)                                                            |
+| 10  | Data       | Chart matches the question                 | Chart gallery, color-only encoding        | [ux-principles.md](reference/ux-principles.md#dashboards-and-data-ui)                                     |
 
 ## Task routing
 
 Read only what the task needs.
 
-| Task type | Examples | Read | Pre-flight |
-| --- | --- | --- | --- |
-| **Component** | Button, modal, card, form field | [production-engineering.md](reference/production-engineering.md) | A |
-| **App UI** | Dashboard, settings, admin, tool | [product-register.md](reference/product-register.md), [ux-principles.md](reference/ux-principles.md), [production-engineering.md](reference/production-engineering.md) | A + C |
-| **Marketing** | Landing, portfolio, campaign, about | [brand-register.md](reference/brand-register.md), [layout-patterns.md](reference/layout-patterns.md), [assets.md](reference/assets.md). Add [color.md](reference/color.md) when the Lock is committed, full, or drenched, or the scene is dark. Add [motion.md](reference/motion.md) when entrance or scroll choreography is in scope. Add [material-craft.md](reference/material-craft.md) when the Lock names a nested enclosure, hairline, or island CTA. | A + B |
+| Task type     | Examples                            | Read                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Pre-flight |
+| ------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |
+| **Component** | Button, modal, card, form field     | [production-engineering.md](reference/production-engineering.md)                                                                                                                                                                                                                                                                                                                                                                                             | A          |
+| **App UI**    | Dashboard, settings, admin, tool    | [product-register.md](reference/product-register.md), [ux-principles.md](reference/ux-principles.md), [production-engineering.md](reference/production-engineering.md)                                                                                                                                                                                                                                                                                       | A + C      |
+| **Marketing** | Landing, portfolio, campaign, about | [brand-register.md](reference/brand-register.md), [layout-patterns.md](reference/layout-patterns.md), [assets.md](reference/assets.md). Add [color.md](reference/color.md) when the Lock is committed, full, or drenched, or the scene is dark. Add [motion.md](reference/motion.md) when entrance or scroll choreography is in scope. Add [material-craft.md](reference/material-craft.md) when the Lock names a nested enclosure, hairline, or island CTA. | A + B      |
 
 **Redesign** (`origin=redesign`): also [redesign.md](reference/redesign.md) before changing tokens, IA, or copy. Skip that file on greenfield.
 
@@ -75,11 +83,11 @@ Read only what the task needs.
 
 ## Production baseline
 
-| Requirement | Minimum |
-| --- | --- |
-| **States** | Default, hover, focus, active, disabled; loading, error, empty when async |
-| **Accessibility** | Semantic HTML, labels, keyboard nav, visible focus, WCAG 2.2 AA contrast |
-| **Responsive** | Mobile-first; touch targets ≥44px with ≥8px gap; no horizontal overflow on 320px; viewport allows zoom |
-| **Design system** | Reuse project tokens and components |
+| Requirement       | Minimum                                                                                                |
+| ----------------- | ------------------------------------------------------------------------------------------------------ |
+| **States**        | Default, hover, focus, active, disabled; loading, error, empty when async                              |
+| **Accessibility** | Semantic HTML, labels, keyboard nav, visible focus, WCAG 2.2 AA contrast                               |
+| **Responsive**    | Mobile-first; touch targets ≥44px with ≥8px gap; no horizontal overflow on 320px; viewport allows zoom |
+| **Design system** | Reuse project tokens and components                                                                    |
 
 Patterns: [production-engineering.md](reference/production-engineering.md).
