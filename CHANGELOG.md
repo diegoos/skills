@@ -10,6 +10,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `frontend-design-plus`: ship working web UI (component / app UI / marketing) with origin `greenfield` or `redesign`, Design Read + Lock before markup, routed `reference/` files, anti-slop, and pre-flight tiers A / A+B / A+C.
+- `frontend-design-plus`: one-batch *briefing* that **stops the turn** on blanks (name, job, audience, success, use, look, stack) unless the user said invent-all; follow or generate `DESIGN.md` (Google Labs spec); default file split `index.html` + `main.css` + `main.js`; written *crit* (common AI layout + UX-expert structural fix) before pre-flight.
+
+### Changed
+
+- `frontend-design-plus`: Lock includes `name=` and explicit default stack; anti-slop slop test adds common-layout and UX-expert checks; pre-flight Tier A covers briefing, DESIGN.md, file split, and crit; *crit* is fail-closed (layout family, no edit during the silent pass, praise does not ship).
+- `frontend-design-plus` README Sources: five publications. Briefing field **Use** maps context of use onto Lock `density=`.
+- `frontend-design-plus` README: cut binary contrast, the "two jobs" fragment, and the dropped-sources recap.
+
+### Fixed
+
+- `frontend-design-plus`: briefing no longer treats inference as an owner. "Unique" / a bio is not invent-all. Unanswered blanks end the turn (no DESIGN.md, Lock, or markup). Worked example for the personal-work-page prompt. Marketing field **Look**. Anti-slop and color category-reflex cover the dark+git-diff developer-portfolio default.
 
 ## [0.1.1] - 2026-08-12
 
@@ -47,7 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `deep-security-review` and `code-review-plus`: empty-review guardrail — when verification yields zero kept findings, state that nothing was found and Approve; do not fabricate report rows (report templates + Rules; CRP replaces the weaker "short approval" line).
 - `deep-security-review`: SSOT prune across domains/shapes (JWT → authz, browser exploitation → web, LLM rules → business-llm, supply-chain policy → infrastructure); severity routing (`kept` vulns only get P0–P3; `needs-runtime` → Verification Gaps); `SKILL.md` completion criteria synced to phase files; `metadata.version` → `0.2.0`.
 - Root `README.md`: `deep-security-review` blurb and comparison note updated for hotspots, disprove, hardening notes, and `/deep-security-review fix`.
-- `global-rules.md`: _tight_ ladder (build-or-not → reuse → stdlib → platform → dep → one-line → min); edge-case-correct at equal size; `ceiling:`/`upgrade:` marker; surgical fix-once / wrong-place warning; challenge X-vs-Y; a11y and data-loss-safe errors; _red_ proof allows assert/self-check; durable still wins for structure; stack and done checklist unchanged.
+- `global-rules.md`: *tight* ladder (build-or-not → reuse → stdlib → platform → dep → one-line → min); edge-case-correct at equal size; `ceiling:`/`upgrade:` marker; surgical fix-once / wrong-place warning; challenge X-vs-Y; a11y and data-loss-safe errors; *red* proof allows assert/self-check; durable still wins for structure; stack and done checklist unchanged.
 - Root `README.md`: operating stack for agent rules (global → repo `AGENTS.md` → skills); layered or fused deploy.
 - `code-review-plus`: thinner `SKILL.md` (READ + completion criteria per phase); denser perspectives, verify, synthesize, fix, and report template.
 - `code-review-plus`: hunter reference budget (`1` perspective + `0|1` shape); Pass A canonicalized in the dispatch prompt; pipeline/shape Pass A limited to domain-specific reminders.

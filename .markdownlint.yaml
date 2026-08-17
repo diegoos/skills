@@ -5,3 +5,8 @@ MD013: false
 # Keep a Changelog repeats Added/Changed/Fixed under each version heading.
 MD024:
   siblings_only: true
+
+# MD049/emphasis-style : Emphasis style : https://github.com/DavidAnson/markdownlint/blob/v0.41.1/doc/md049.md
+MD049:
+  # Emphasis style
+  style: asterisk

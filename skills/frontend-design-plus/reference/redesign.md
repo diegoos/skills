@@ -32,7 +32,7 @@ If preserve vs overhaul is ambiguous, ask once: keep the existing brand, or star
 
 Document the current state:
 
-- Brand tokens: color, type, logo treatment, radii
+- Brand tokens: color, type, logo treatment, radii. Prefer `DESIGN.md` when it exists ([design-md.md](design-md.md))
 - Information architecture: page tree, primary nav, conversion paths
 - Content blocks: what works, what is filler
 - Patterns to keep: signature interactions, recognisable hero, copy voice

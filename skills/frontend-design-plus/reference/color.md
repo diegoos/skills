@@ -67,6 +67,7 @@ After the scene sentence, check the category. If the palette in your head matche
 | Creative / agency | Pink+cyan, stacked glitch/CRT | One thesis — brutalist **or** motion **or** editorial |
 | Fitness | OLED + sports orange, game rings | Condensed type and photo; dark only if the scene is a night session |
 | Devtools / docs | Dark glass HUD, mono body | Product register: one sans; mono on code only |
+| Developer portfolio | Dark charcoal + orange + fake git-diff / terminal hero | Scene from the work, not "tools look dark"; a metaphor that is not a code editor |
 
 ## Building a palette
 
