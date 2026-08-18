@@ -1,5 +1,7 @@
 # File architecture
 
+Load after briefing answers (or invent-all) when origin is greenfield. Classify detects stack with a disk glance (`package.json`, lockfiles, framework config); this file binds the tree at Implement. Redesign and polish skip this file and stay on the current stack ([redesign.md](redesign.md)).
+
 Bind the stack and file tree before the first markup. A *cold reader* who opens the repo after this pass can name where HTML, CSS, and JS live.
 
 ## Detect
@@ -8,11 +10,11 @@ Read `package.json`, lockfiles, and framework config (`next.config.*`, `astro.co
 
 If a README or skill note cites a path that is not on disk, **disk wins**; then ask. Do not rebuild a palette, button, or layout the repo already has.
 
-Redesign stays on that stack (patch existing files). Greenfield with no stack uses the default below. Migrating framework or CSS library needs explicit user approval ([redesign.md](redesign.md#never-change-silently)). Two live conventions (BEM vs modules, Vite vs static): ask once; do not coin-flip.
+Redesign and polish stay on that stack (patch existing files). Greenfield with no stack uses the default below. Migrating framework or CSS library needs explicit user approval ([redesign.md](redesign.md#never-change-silently)). Two live conventions (BEM vs modules, Vite vs static): ask once; do not coin-flip.
 
 ## Ask
 
-Greenfield with no detectable stack and no invent-all: include **Stack** in the *briefing* batch. Offer at least: simple HTML+CSS+JS, Next.js, React, Vue, Astro, Svelte, Tailwind, Material UI. The user may name another.
+Greenfield with no detectable stack and no invent-all: ask **Stack** with `AskQuestion` when it is the current blank ([briefing.md](briefing.md)). Offer at least: simple HTML+CSS+JS, Next.js, React, Vue, Astro, Svelte, Tailwind, Material UI. Other is a stack the list missed.
 
 Do not default in the same turn as that ask. If they pick nothing after answering, or the run is invent-all with no stack named, use the **default**.
 

@@ -9,18 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `frontend-design-plus`: ship working web UI (component / app UI / marketing) with origin `greenfield` or `redesign`, Design Read + Lock before markup, routed `reference/` files, anti-slop, and pre-flight tiers A / A+B / A+C.
-- `frontend-design-plus`: one-batch *briefing* that **stops the turn** on blanks (name, job, audience, success, use, look, stack) unless the user said invent-all; follow or generate `DESIGN.md` (Google Labs spec); default file split `index.html` + `main.css` + `main.js`; written *crit* (common AI layout + UX-expert structural fix) before pre-flight.
+- `frontend-design-plus`: ship working web UI (component / app UI / marketing). Classify origin from disk as `greenfield`, `redesign`, or `polish`. Unanswered fields use `AskQuestion` one per turn unless invent-all; greenfield Look prints the Catalog as a table then four job-fitting styles plus specify; redesign and polish leave the catalog closed (`style=none`). After answers: Design Read + Lock, refs via `load-map.md`, DESIGN.md follow-or-generate, default `index.html` + `main.css` + `main.js`, written *crit*, then pre-flight A / A+B / A+C. Thirty named style paths; occupancy N items → N cells at 768/1024; form field-group grids keep an inline error on its row.
 
 ### Changed
 
-- `frontend-design-plus`: Lock includes `name=` and explicit default stack; anti-slop slop test adds common-layout and UX-expert checks; pre-flight Tier A covers briefing, DESIGN.md, file split, and crit; *crit* is fail-closed (layout family, no edit during the silent pass, praise does not ship).
-- `frontend-design-plus` README Sources: five publications. Briefing field **Use** maps context of use onto Lock `density=`.
-- `frontend-design-plus` README: cut binary contrast, the "two jobs" fragment, and the dropped-sources recap.
-
-### Fixed
-
-- `frontend-design-plus`: briefing no longer treats inference as an owner. "Unique" / a bio is not invent-all. Unanswered blanks end the turn (no DESIGN.md, Lock, or markup). Worked example for the personal-work-page prompt. Marketing field **Look**. Anti-slop and color category-reflex cover the dark+git-diff developer-portfolio default.
+- Root `README.md` and `frontend-design-plus` README: skill blurb leads with the job; How it works states each briefing/Lock/anti-slop rule once.
 
 ## [0.1.1] - 2026-08-12
 

@@ -1,5 +1,7 @@
 # Color
 
+Load at Declare when palette or theme is in play ([load-map.md](load-map.md)). Unanswered blanks: [briefing.md](briefing.md).
+
 Choose a strategy, build a palette, and ship a dark theme that is a designed palette. Tells: [anti-slop.md](anti-slop.md).
 
 ## Scene sentence (decide theme before picking colors)
@@ -67,7 +69,7 @@ After the scene sentence, check the category. If the palette in your head matche
 | Creative / agency | Pink+cyan, stacked glitch/CRT | One thesis — brutalist **or** motion **or** editorial |
 | Fitness | OLED + sports orange, game rings | Condensed type and photo; dark only if the scene is a night session |
 | Devtools / docs | Dark glass HUD, mono body | Product register: one sans; mono on code only |
-| Developer portfolio | Dark charcoal + orange + fake git-diff / terminal hero | Scene from the work, not "tools look dark"; a metaphor that is not a code editor |
+| Developer portfolio | Dark charcoal + orange + spec sheet / title block / fake git-diff / terminal hero | Scene from the work, not "tools look dark"; a metaphor that is not a drawing, a terminal, or a code editor |
 
 ## Building a palette
 
@@ -102,7 +104,7 @@ Never rely on hue alone to carry meaning — pair with icon, label, or weight fo
 When you do build it, a dark theme is a designed palette, not `filter: invert()`.
 
 - **Base off-black, not `#000`.** Start around `#0d0e12`–`#16181d`; pure black crushes elevation and feels cheap.
-- **Elevation by lightness, not shadow.** Closer/raised surfaces get _lighter_, not a drop shadow. Shadows barely read on dark.
+- **Elevation by lightness, not shadow.** Closer/raised surfaces get *lighter*, not a drop shadow. Shadows barely read on dark.
 - **Soften text.** Don't use pure `#fff` for body — slightly dimmed off-white reduces glare. Add 0.05–0.1 to line-height for light-on-dark ([typography.md](typography.md#line-length-and-spacing)).
 - **Re-tune the accent.** A mid accent that pops on light often muddies on dark — raise lightness/chroma for the dark token rather than reusing the same hex.
 - **Re-check every contrast pair.** Light-mode ratios do not transfer; verify text and state colors against dark surfaces (≥4.5:1 body, ≥3:1 large).

@@ -1,5 +1,7 @@
 # Production engineering
 
+Load after briefing on component and app UI ([load-map.md](load-map.md)). Marketing: only when the surface has forms or async. Unanswered blanks: [briefing.md](briefing.md).
+
 Build UIs that look designed and ship reliably.
 
 Patterns below are shown in HTML/CSS for clarity. Translate the syntax to the project's framework (JSX, Vue/Svelte SFCs, template engines, native components) while preserving the semantics: native elements, state separation, and accessibility behavior carry across all of them.
@@ -164,6 +166,8 @@ Field contract — every control:
 - Password fields include a show/hide toggle
 - Auth: paste allowed; never `autocomplete="off"` on username/password
 
+**Layout.** Field groups are CSS Grid cells (one group = label + control + error/helper). An inline error may grow its row; the next row's labels share a y. Paint one error on the first field of a paired row to prove it. An odd last field spans remaining columns. Two stacked columns of fields fail this. Recheck at 768 and 1024.
+
 Validate **on blur and on submit**. Do not paint errors on every keystroke.
 
 After a failed submit: a focusable error summary at the top with links to each invalid field, **and** inline errors. Focus the summary (or the first invalid field if there is no summary). Messages state cause + how to fix. Use `aria-live="polite"` or `role="alert"` on the error; toasts must not steal focus.
@@ -220,6 +224,8 @@ Auto-fit grids without breakpoints:
 ```css
 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 ```
+
+An `auto-fit` / `minmax` track that sits empty at 768 is a fail — span the odd item or pick explicit breakpoints.
 
 Rules:
 

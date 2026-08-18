@@ -1,5 +1,7 @@
 # Assets
 
+Load after briefing when Constraints or Look name photo, video, or illustration ([load-map.md](load-map.md)). Unanswered blanks: [briefing.md](briefing.md).
+
 Images, video, icons, and other media are design language. Treat them with the same care as type and color.
 
 ## Images

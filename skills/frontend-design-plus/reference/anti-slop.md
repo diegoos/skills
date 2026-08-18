@@ -1,20 +1,28 @@
 # Anti-slop
 
+Run after markup, before the *crit* ([crit.md](crit.md)). Unanswered blanks: [briefing.md](briefing.md).
+
 Patterns that signal "AI made this." Rewrite matches. Keep a listed pattern when the brief names it, the existing product already ships it, or the sequence is real (01, 02, 03). Document why.
 
 ## The slop test
 
-Run this before the _crit_ ([crit.md](crit.md)). Layout and copy each have to pass.
+Run this before the *crit* ([crit.md](crit.md)). Layout and copy each have to pass.
 
 **Cross-register (always):** If someone could identify the output as AI-generated without hesitation, it failed.
 
-**Common-layout check:** "Is this a layout a model ships by default?" Centered hero, three equal feature cards, dark mesh, purple glow, cream-and-brass craft, Inter-on-slate, dark charcoal + one orange accent + fake git-diff or terminal card (developer portfolio). If yes, pick a different family from [layout-patterns.md](layout-patterns.md) before adding polish.
+**Common-layout check:** "Is this a layout a model ships by default?" Centered hero, three equal feature cards, dark mesh, purple glow, cream-and-brass craft, Inter-on-slate, dark charcoal + one orange accent, spec-sheet / drawing title block (REV, DOC NO, SHEET, dashed PORTRAIT), fake git-diff or terminal card, years-as-handle wordmark. If yes, pick a different family from [layout-patterns.md](layout-patterns.md) before adding polish.
 
 **UX-expert check:** "How would a UX expert improve this for the briefing job?" Name one **layout family** (editorial split, magazine, sticky chrome), not a palette tweak.
 
 **Category-reflex check:** If someone could guess the palette and layout from the product category alone ("SaaS landing", "fintech app", "restaurant site", "developer portfolio"), rework until the answer is not obvious from the domain. Vectors: [color.md](color.md#category-reflex-rework-if-this-was-the-first-idea).
 
 **Second-order check:** The next saturated move ("not SaaS-purple, so editorial serif with mono labels") also fails. Rework until both levels pass.
+
+**Interchangeability check:** Swap the wordmark for another company's. If the first viewport still reads, rewrite copy and composition until the job is visible without the name.
+
+**Deletion check:** Name three competing blocks. Cut until Job + Success still hold. Extra chrome (parallax, custom cursor, uniform fade-in, 3D blobs) fails unless the brief named it. What remains after the cut is the composition.
+
+**Code-floor check:** A component kit (Shadcn, Material, the project library) supplies states and structure. Theme, type, radius, and copy come from DESIGN.md. Default kit chrome as the look fails unless that look is already on disk.
 
 ## Absolute bans
 
@@ -61,7 +69,7 @@ Geist, Clash Display, and PP Editorial New are the next Inter. Skip them as a pr
 
 - Centered hero + dark mesh gradient (default LLM landing)
 - 6-line wrapped H1 in a narrow container (use a wide container, fewer lines)
-- Empty cells in bento grids
+- Empty cells or empty bordered shells in any grid
 - `border-t` + `border-b` on every row of long lists
 - Zigzag image+text split repeated 3+ times consecutively
 - Split-header: left big headline + right floating explainer paragraph
@@ -70,7 +78,8 @@ Geist, Clash Display, and PP Editorial New are the next Inter. Skip them as a pr
 - Locale/weather strips (`LIS 14:23 · 18°C`) without a place-focused brief
 - Version labels in hero (`V0.6`, `BETA`) unless a launch brief
 - Pills overlaid on images (`Plate · Brand`)
-- Developer-portfolio default: dark charcoal + coral/orange + fake git-diff or terminal window in the hero
+- Developer-portfolio default: dark charcoal + coral/orange + spec-sheet / drawing title block (REV, DOC NO, SHEET, dashed PORTRAIT) or fake git-diff / terminal in the hero
+- Years-as-handle wordmark (`SW-ENG-013`, `swe-13`) unless the user said that word
 
 ## Copy tells
 
@@ -85,6 +94,7 @@ Empty, error, and loading shapes: [ux-principles.md](ux-principles.md#microcopy-
 | Pattern                 | Example                                                                                                                                                                                                                                                                                                          | Do instead                                                 |
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
 | Banned words            | elevate, seamless, unleash, next-gen, revolutionize, empower, delve, foster, leverage, utilize, facilitate, streamline, robust, cutting-edge, game changer, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, transformative, embark, supercharge, harness, ever-evolving, paradigm shift | Plain verb + object: "Save the invoice", "Ship on Tuesday" |
+| Portable slogan         | "Build the future", "all-in-one platform", "Scale without limits", "transform your workflow"                                                                                                                                                                                                                     | Verb + object that fails a logo-swap                       |
 | Throat-clearing         | "Here's the thing.", "Welcome to the future of X.", "Let's dive in."                                                                                                                                                                                                                                             | Start with the claim or the CTA                            |
 | Binary contrast         | "This is not a tool. It's a partner." / "Not just X, but Y."                                                                                                                                                                                                                                                     | State Y                                                    |
 | Faux-insight            | "What most teams get wrong", "The part everyone misses"                                                                                                                                                                                                                                                          | Make the claim with no setup                               |
@@ -100,7 +110,7 @@ Empty, error, and loading shapes: [ux-principles.md](ux-principles.md#microcopy-
 | Fake-profound kicker    | closing metaphor or mic-drop under the CTA                                                                                                                                                                                                                                                                       | End on the action or the next step                         |
 | Chatbot residue         | "Oops!", "Great question!", "I hope this helps!"                                                                                                                                                                                                                                                                 | Direct error or empty copy                                 |
 | Title Case Headlines    | "Strategic Insights For Modern Teams"                                                                                                                                                                                                                                                                            | Sentence case, except proper nouns                         |
-| Emoji as voice          | headings or buttons with 🚀✨                                                                                                                                                                                                                                                                                    | Words only, unless the brief is playful/social             |
+| Emoji as voice          | headings or buttons with rocket or sparkle emoji                                                                                                                                                                                                                                                                 | Words only, unless the brief is playful/social             |
 | Generic people/brands   | John Doe, Sarah Chan, Acme, Nexus, SmartFlow                                                                                                                                                                                                                                                                     | Names that fit the domain and locale                       |
 | Fake-precise stats      | `92%`, `4.1×`, `99.99%` with no source                                                                                                                                                                                                                                                                           | Real data, or qualitative proof, or cut                    |
 | Poetic craftsman labels | "Field notes", "On our desks", "Quietly in use at"                                                                                                                                                                                                                                                               | Ordinary section names                                     |
@@ -129,6 +139,8 @@ Filler adverbs (`just`, `literally`, `simply`, `actually`, `truly`, `fundamental
 - Two+ horizontal marquees on one page
 - Infinite loops on every card
 - Bounce/elastic easing on product UI
+- Uniform fade-in on every section (same duration, same easing)
+- Parallax or animated background as default "craft"
 
 ## Color strategy anti-patterns
 
@@ -147,6 +159,7 @@ Filler adverbs (`just`, `literally`, `simply`, `actually`, `truly`, `fundamental
 | Purple gradients               | Project palette or committed single accent     |
 | Big rounded corners everywhere | Token radius system with intentional variation |
 | Stock card grid                | Varied layout families                         |
+| Default kit chrome as the look | DESIGN.md tokens wrapping the kit              |
 | Lorem ipsum                    | Realistic copy at realistic lengths            |
 | Spinner in content area        | Skeleton matching layout                       |
 | Gray muted body on tinted bg   | Darker text for contrast                       |

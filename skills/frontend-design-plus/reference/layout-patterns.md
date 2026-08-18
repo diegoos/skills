@@ -1,5 +1,7 @@
 # Layout patterns
 
+Load after briefing on marketing ([load-map.md](load-map.md)). Unanswered blanks: [briefing.md](briefing.md).
+
 Vocabulary and rules for marketing layouts. Implement what the Design Read supports.
 
 ## Hero paradigms
@@ -19,6 +21,7 @@ Vocabulary and rules for marketing layouts. Implement what the Design Read suppo
 - Fits initial viewport: headline ≤2 lines desktop, subtext ≤20 words
 - CTA visible without scroll
 - Max 4 text elements: eyebrow OR strip, headline, subtext, CTAs
+- Stacked CTAs below `md` fill the content column. A short button with an unused track to its right fails
 - Top padding cap: `6rem` (`96px`) max at desktop
 - No trust logos, feature bullets, or taglines below CTAs inside hero
 - H1 container wide enough (`max-width: 64rem` / `1024px`+) to prevent 4–6 line wraps
@@ -46,14 +49,6 @@ Magazine and container-free are the constructive exits from a card farm.
 - Sticky header is the marketing default. **Island / floating pill nav** only when motion is `cinematic` **and** the brief is a one-pager or portfolio
 - Search top, footer with company/contact links (user expectations)
 
-## Bento grids
-
-- Asymmetric CSS Grid with mixed `col-span` / `row-span`
-- Apply `grid-flow-dense` to avoid empty cells
-- **N items → N cells** — reshape grid, don't leave voids
-- 3–5 intentional cells often beats 8 messy ones
-- At least 2–3 cells need visual variation — not all white text cards
-
 ## Section layout diversity
 
 - Each layout family appears **at most once** per page
@@ -69,6 +64,8 @@ Magazine and container-free are the constructive exits from a card farm.
 | **Spec / comparison** | Side-by-side plans or attributes, not three identical cards |
 
 ## Grids and lists
+
+**N items → N cells.** Reshape the grid. A bordered empty shell is a void. An odd last item spans remaining columns (`grid-column: 1 / -1` or equivalent). Apply `grid-flow-dense` when spans mix. 3–5 intentional cells often beats 8 messy ones.
 
 | List size | Prefer |
 | --- | --- |
@@ -111,6 +108,7 @@ No implementation sketches here. Pin/scrub failure modes: [motion.md](motion.md#
 
 - Overlap: negative margins, layered z-index with purpose
 - **Airy brand:** `6rem`–`10rem` padding **between** sections; hero top padding still ≤`6rem`
+- Intra-fold stack (headline → subtext → CTAs → media) uses the Lock density band in [design-systems.md](design-systems.md#density-bands), not the between-section scale
 - One intentional grid break per section max — the memorable irregularity named in the Lock
 - Density band `dense` uses the compact spacing scale in [design-systems.md](design-systems.md#density-bands)
 
@@ -121,7 +119,7 @@ No implementation sketches here. Pin/scrub failure modes: [motion.md](motion.md#
 
 ## Responsive collapse
 
-For every multi-column layout, declare `<768px` behavior in the same component. If the desktop layout uses overlap or rotation, **turn those off** below `768px` (touch targets). Bento `col-span` / `row-span` reset to one column.
+For every multi-column layout, declare `<768px` behavior in the same component. If the desktop layout uses overlap or rotation, **turn those off** below `768px` (touch targets). Mixed `col-span` / `row-span` reset to one column. Recheck occupancy at `768px` and `1024px` ([grids and lists](#grids-and-lists)). `auto-fit` / `minmax` that leaves a hole at tablet fails.
 
 Example:
 

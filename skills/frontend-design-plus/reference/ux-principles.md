@@ -1,5 +1,7 @@
 # UX principles
 
+Load after briefing on app UI ([load-map.md](load-map.md)). Unanswered blanks: [briefing.md](briefing.md).
+
 Foundational UX for frontend. Apply with the register (brand vs product) in SKILL.md.
 
 ## UI vs UX
@@ -117,7 +119,7 @@ Field contract, validation, error summary, and control choice live in [productio
 - **Product:** one filled primary per **view**; secondary and tertiary quieter; destructive separated
 - **Marketing:** one filled primary per **fold**; AIDA may repeat the same CTA later; two competing filled buttons in one fold fail
 - Verb + object labels; 3 words max on the primary when it would wrap
-- Whitespace around CTAs — clutter kills conversion
+- Keep the CTA cluster tight; separate it from competing blocks. A short button with an unused column beside it fails
 - Concrete verbs; no em dashes in copy
 
 ## Microcopy and sample content
@@ -150,7 +152,7 @@ Format, srcset, photography selection, SVG, and delivery: [assets.md](assets.md)
 ## Error handling
 
 - Errors explain what happened and how to recover
-- Avoid blame ("Invalid input" → "Enter an email like name@example.com")
+- Avoid blame ("Invalid input" → "Enter an email like `name@example.com`")
 - Preserve user input on failed submission
 - Network errors: retry path when applicable
 

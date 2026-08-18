@@ -1,6 +1,6 @@
 # Pre-Flight Checklist
 
-Run the tier that matches [task routing](../SKILL.md#task-routing). Fix failures before shipping. Skip tiers that do not apply.
+Run after *crit*. Unanswered blanks: [briefing.md](briefing.md). Run the tier that matches [task routing](../SKILL.md#task-routing). Fix failures before shipping. Skip tiers that do not apply.
 
 Tier B and C are **mechanical**: count in the DOM. A failed count means the page is not done.
 
@@ -9,13 +9,13 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 ### Direction
 
 - [ ] Task type identified (component / app UI / marketing)
-- [ ] Origin named: `greenfield` (new UI) or `redesign` (existing page). Redesign: [redesign.md](redesign.md) read; audit listed; `mode=preserve|overhaul` in the Lock
-- [ ] Briefing: every blank asked and answered this run, or *invent-all*. Inferred wordmark, audience, or CTA fails — [briefing.md](briefing.md)
+- [ ] Origin named: `greenfield` (new UI), `redesign` (existing page from the briefing), or `polish` (improve existing UI). Existing surface: [redesign.md](redesign.md) read; audit listed; Lock `style=none`; Catalog closed
+- [ ] Briefing: every blank asked and answered this run via `AskQuestion` (one field per turn), or *invent-all*. A chat dump of questions fails. Skipping Look, Behave, or Stack while still blank fails. Greenfield Look blank required the Catalog table in chat plus four fitting ids and a specify option ([briefing.md](briefing.md#look)). Greenfield `you-decide` / invent-all: Pick written; median cluster refused ([design-styles.md](design-styles.md#pick)). Redesign and polish: Catalog closed; Look is disk. Inferred wordmark, audience, CTA, or style-from-job fails — [briefing.md](briefing.md)
 - [ ] `DESIGN.md` followed or created; CSS tokens match — [design-md.md](design-md.md)
 - [ ] Files match [file-architecture.md](file-architecture.md) (default: `index.html` + `main.css` + `main.js`; no stylesheet dumped into HTML)
 - [ ] Design Read declared (required for app UI and marketing)
 - [ ] Lock line present: origin, name, scene, color strategy, layout/motion/density bands, stack
-- [ ] *Crit* written (frame + triad + scan); P0 fixed; common-layout = no; alternative is a layout family in the DOM or rejected with a user-goal reason — [crit.md](crit.md)
+- [ ] *Crit* written (frame + triad + scan including logo-swap); P0 fixed; common-layout = no; first viewport fails a logo-swap; alternative is a layout family in the DOM or rejected with a user-goal reason — [crit.md](crit.md)
 - [ ] Register correct when not an isolated component (brand vs product)
 
 ### Viewport and type
@@ -30,7 +30,7 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 
 ### Anti-slop
 
-- [ ] Does not read as generic AI output (purple gradient hero, 3 equal cards, etc.) — slop test including common-layout and UX-expert checks ([anti-slop.md](anti-slop.md#the-slop-test))
+- [ ] Does not read as generic AI output (purple gradient hero, 3 equal cards, charcoal + orange spec sheet, default kit chrome, portable slogans) — slop test including common-layout, interchangeability, deletion, and code-floor checks ([anti-slop.md](anti-slop.md#the-slop-test))
 - [ ] No em dashes (`—`) in visible copy
 
 ### Color
@@ -63,7 +63,12 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 
 ### Responsive
 
-- [ ] Works at 320px without horizontal scroll
+- [ ] Works at 320px, 768px, and 1024px without horizontal scroll
+- [ ] At 768 and 1024, a multi-column grid has N items in N cells (odd last item spans remaining columns; an empty bordered shell fails) — [layout-patterns.md](layout-patterns.md#grids-and-lists)
+
+### Forms (when the surface has a form)
+
+- [ ] Field groups follow [production-engineering.md](production-engineering.md#forms) (visible label + control + error in one grid cell). One inline error on a paired row: the next row's labels share a y. Odd last field spans remaining columns.
 
 ### Honesty
 
@@ -81,7 +86,9 @@ Add when building landing pages, portfolios, or campaigns. Also read [layout-pat
 - [ ] Logo / "used by" wall lives **under** the hero, not inside it
 - [ ] Eyebrows: count `uppercase` + wide tracking above section headlines; count ≤ `ceil(sectionCount / 3)`; hero counts as 1
 - [ ] Each layout family appears at most once; no 3 consecutive image+text zigzags
-- [ ] Bento: N items → N cells; ≥2 cells have real visual variation (image, tint, pattern)
+- [ ] Mixed-span grids: ≥2 cells have real visual variation (image, tint, pattern)
+- [ ] Stacked CTAs below `md` fill the content column (no unused track beside a short button)
+- [ ] Intra-fold gaps follow Lock `density=` ([design-systems.md](design-systems.md#density-bands)); `6rem`–`10rem` is between sections only
 - [ ] Horizontal marquee ≤1 per page
 - [ ] Nav: one line at desktop `lg`; height ≤80px
 - [ ] One filled primary per fold (same CTA may repeat later in AIDA; two competing filled buttons in one fold fail)
@@ -106,7 +113,7 @@ Add when building dashboards, settings, admin, or dense tools. Also read [produc
 
 ### Product UI
 
-- [ ] Follows project design system; consistent component vocabulary
+- [ ] Follows project design system; consistent component vocabulary. Kit theme, type, and radius match DESIGN.md (code floor, not a look)
 - [ ] Display fonts not used on labels, buttons, or table data
 - [ ] Modals not used when inline or progressive patterns suffice
 - [ ] One filled primary action per view; secondary/tertiary visually quieter; destructive separated from the primary and from main nav

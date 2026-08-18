@@ -1,5 +1,7 @@
 # Product register
 
+Load after briefing on app UI ([load-map.md](load-map.md)). Unanswered blanks: [briefing.md](briefing.md).
+
 When design serves the product: app UI, dashboards, admin, settings, data tables, tools, authenticated surfaces.
 
 Stance: transact. The interface disappears into the task.

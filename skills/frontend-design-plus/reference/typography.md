@@ -1,5 +1,7 @@
 # Typography
 
+Load when type pairing is still blank after the style file and DESIGN.md ([load-map.md](load-map.md)). Unanswered blanks: [briefing.md](briefing.md).
+
 Type controls what users read first, how long they stay, and whether they trust the product.
 
 ## Core rule

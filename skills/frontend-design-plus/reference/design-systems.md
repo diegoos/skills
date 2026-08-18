@@ -31,13 +31,13 @@ The Lock `density` value selects the spacing range. Use the project's token name
 | **regular** | 1rem–4rem | Default product and most landings |
 | **dense** | 0.5rem–2rem | Daily-use dashboards, data tools |
 
-`wild` layout + `airy` density is the usual brand combination. Product defaults to `regular` or `dense`. Macro brand padding does not apply to the hero top (cap `6rem`).
+`wild` layout + `airy` density is the usual brand combination. Product defaults to `regular` or `dense`. Macro brand padding does not apply to the hero top (cap `6rem`). Intra-fold stack (headline, CTAs, media in one fold) uses this band; `6rem`–`10rem` is **between** brand sections on `airy` only.
 
 ## Z-index scale
 
 Define semantic layers — never arbitrary `z-9999`:
 
-```
+```text
 dropdown → sticky → modal-backdrop → modal → toast → tooltip
 ```
 

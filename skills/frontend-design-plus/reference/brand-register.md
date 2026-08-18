@@ -1,5 +1,7 @@
 # Brand register
 
+Load after briefing on marketing ([load-map.md](load-map.md)). Unanswered blanks: [briefing.md](briefing.md).
+
 When design is the product: landing pages, marketing sites, campaigns, portfolios, long-form content, about pages.
 
 The visitor's impression is the deliverable. Stance: communicate. A luxury hotel, a devtools landing, and a restaurant each get their own lane.

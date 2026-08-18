@@ -1,5 +1,7 @@
 # DESIGN.md
 
+Load after briefing ([load-map.md](load-map.md)). Unanswered blanks: [briefing.md](briefing.md).
+
 Visual identity for this product lives in `DESIGN.md` at the project root (or the path the repo already uses). Tokens in YAML are normative. Prose tells the agent why those values exist. Spec: [DESIGN.md Format](https://github.com/google-labs-code/design.md/blob/main/docs/spec.md).
 
 ## UX-context framing
@@ -22,12 +24,12 @@ Visual identity for this product lives in `DESIGN.md` at the project root (or th
 
 ## Follow vs generate
 
-| Repo state         | Action                                                                                                                                                                                                                |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `DESIGN.md` exists | Read it before the Lock. Use its `name`, colors, type, spacing, rounded, components. Change tokens only when the user asked, or when a11y contrast fails; then patch DESIGN.md in the same change and say what moved. |
-| Missing            | Create `DESIGN.md` after briefing *answers* (or invent-all Lock), **before** markup. Values must match the Lock and the CSS you will write. Unanswered blanks: no DESIGN.md this turn.                                |
+| Repo state         | Action                                                                                                                                                                                                                                                                                                                          |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DESIGN.md` exists | Read it before the Lock. Use its `name`, colors, type, spacing, rounded, components. Change tokens only when the user asked, or when a11y contrast fails; then patch DESIGN.md in the same change and say what moved.                                                                                                           |
+| Missing            | Greenfield: create `DESIGN.md` after briefing *answers* (or invent-all Lock), **before** markup. Values must match the Lock and the CSS you will write. Unanswered blanks: no DESIGN.md this turn. Redesign and polish: extract tokens from the current CSS; do not invent a palette from [design-styles.md](design-styles.md). |
 
-Do not keep a second palette in CSS comments or Tailwind config that contradicts DESIGN.md. CSS custom properties map 1:1 to token names (`--color-primary` ← `colors.primary`). When the file exists, map new UI onto existing token names; do not add colors, fonts, or radii to look complete. Missing `primary` or typography is a gap to fill from the current palette or to ask about, not a license to freestyle.
+Do not keep a second palette in CSS comments or Tailwind config that contradicts DESIGN.md. CSS custom properties map 1:1 to token names (`--color-primary` ← `colors.primary`). When the file exists, map new UI onto existing token names; do not add colors, fonts, or radii to look complete. Missing `primary` or typography is a gap to fill from the current palette or to ask about, not a license to freestyle. A component kit is a code floor; wrap it with these tokens.
 
 ## Front matter (normative)
 
@@ -82,7 +84,7 @@ Present sections stay in spec order. Skip a section only via `omitted`.
 1. **Overview** (alias Brand & Style): personality, audience, what the UI should feel like
 2. **Colors**: each token with the hex and the job (ink, accent, surface)
 3. **Typography**: families, roles, weights
-4. **Layout** (alias Layout & Spacing): grid, spacing rhythm
+4. **Layout** (alias Layout & Spacing): grid, gutter, max column occupancy, type-scale jump, spacing rhythm, motion recipe (`150–250ms ease-out` unless the Lock is `cinematic`)
 5. **Elevation & Depth** (alias Elevation): shadow vs tonal layers vs hairline
 6. **Shapes**: radius language
 7. **Components**: buttons, inputs, cards as used on this surface

@@ -1,5 +1,7 @@
 # Motion
 
+Load when Behave or Lock is `fluid` or `cinematic` ([load-map.md](load-map.md)). Behave `still` / `none` leaves this file closed. Unanswered blanks: [briefing.md](briefing.md).
+
 Motion shows state, hierarchy, and feedback. One orchestrated entrance.
 
 ## Core principles
