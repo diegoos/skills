@@ -76,7 +76,7 @@ Product UI: 150–250ms. Brand surfaces can be more expressive when the brief su
 
 ## User control
 
-- Theme preference (light/dark/system) when brand allows
+- Theme switch when Lock `theme=system`: [color.md](color.md#system-theme)
 - Dismissible modals, popovers, banners — always provide exit
 - Undo for destructive actions when feasible
 
@@ -158,7 +158,7 @@ Format, srcset, photography selection, SVG, and delivery: [assets.md](assets.md)
 
 ## Dashboards and data UI
 
-Dashboards are **decision tools**, not chart galleries. Design for the audience:
+Dashboards are **decision tools**, not chart galleries. CMS / admin / operator **home** is a work queue ([product-register.md](product-register.md#dashboards)), not an executive KPI wall. Design remaining analytics views for the audience:
 
 | Audience   | Needs                              |
 | ---------- | ---------------------------------- |
@@ -171,14 +171,14 @@ Dashboards are **decision tools**, not chart galleries. Design for the audience:
 - Define dashboard type (overview, operational, analytical) — one primary type per view
 - Prioritize KPIs; group related data; plain-language labels
 - Color encodes meaning (status, alerts) — not rainbow decoration
-- **Question → chart family:** trend over time → line/area; compare categories → bar (sorted); part-to-whole → waffle/stacked (pie only ≤5 slices with a visible difference); correlation → scatter; KPI vs target → number + bullet, not a gauge gallery; no question → table
+- **Question → chart family:** trend over time → line/area; compare categories → bar (sorted); part-to-whole → waffle/stacked (pie/donut only ≤3 slices with a visible difference); correlation → scatter; KPI vs target → number + bullet, not a gauge gallery; no question → table
 - **Cardinality:** <4 points → stat card; >6 series → noise; >15 categories → table/search
 - Dual encoding: never hue alone (pattern, direct label, dashed vs solid). Provide a table or a one-sentence insight as fallback
 - `font-variant-numeric: tabular-nums` on prices, columns, timers
 - Widget loading/error/empty states required
 - Lazy-load heavy widgets; virtualize lists/tables with **≥50** visible rows; collapse to single column on mobile
 
-**Anti-patterns:** identical metric card grids with no hierarchy; decorative charts; too many real-time streams competing for attention.
+**Anti-patterns:** identical metric card grids with no hierarchy; decorative charts; too many real-time streams competing for attention. Home-as-analytics on a CMS IA: [anti-slop.md](anti-slop.md#dashboard-tells).
 
 Use established systems for enterprise patterns (Fluent, Carbon, Polaris). TanStack Table / AG Grid for large data.
 

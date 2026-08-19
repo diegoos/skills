@@ -264,8 +264,8 @@ Motion rules:
 ## Interaction gotchas
 
 - Dropdowns inside `overflow: hidden` get clipped → use `<dialog>`, popover API, `position: fixed`, or portal
-- Animate `transform` and `opacity` only — not width/height/top/left. Press states must not shift layout bounds
-- `will-change: transform` sparingly
+- Animate `transform` and `opacity` only — not width/height/top/left. Press states must not shift layout bounds. Name the properties that change; zero `transition: all` / `transition-all` ([surfaces.md](surfaces.md#css-budget))
+- `will-change` only on `transform`, `opacity`, or `filter`, and only while the element is animating
 - Scroll/mouse-driven animation: use CSS `scroll-timeline` or compositor-only transforms — never update layout-triggering properties on every frame
 - Drag/sort: provide a keyboard and simple-pointer alternative; do not rely on drag alone
 - Prefer native interactive elements (`button`, `a`, `select`) over clickable `div`s

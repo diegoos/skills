@@ -22,7 +22,7 @@ One sans family for headings, body, labels, and data. Fixed rem scale (fluid cla
 
 ## Color
 
-Default: **Restrained** (tinted neutrals + accent ≤10%). Semantic states carry status. Accent for primary actions and selection. Strategy, states, dark mode: [color.md](color.md).
+Default: **Restrained** (near-neutral surfaces + accent ≤10%). Semantic states carry status. Accent for primary actions and selection. Mode from briefing Theme. Hue from briefing Palette when it applied. Strategy, states, dark canvas: [color.md](color.md).
 
 ## Layout
 
@@ -40,6 +40,8 @@ Responsive means structure (collapse sidebar, responsive tables). Dense when use
 - Persistent nav in a predictable place; collapse the side nav to icons or a drawer below `lg`, with an affordance. Bottom nav ≤5, icon+label, top-level only. Mark where the user is. Back restores scroll and filters.
 - One primary work area per view; secondary panels (filters, inspectors) dock.
 - One filled primary per view.
+- Controls stay inside the rail ([surfaces.md](surfaces.md#chrome-containment)).
+- Lock `theme=system`: labeled theme control in the top bar; not the filled primary ([color.md](color.md#system-theme)).
 
 ### Density
 
@@ -64,7 +66,7 @@ Full state cycle: `default → hover → focus → active → disabled → loadi
 
 ## Motion
 
-150–250ms transitions. Motion shows state. Skip orchestrated page-load sequences. Reduced motion: instant or crossfade.
+150–250ms transitions. Motion shows state. Skip orchestrated page-load sequences. Reduced motion: instant or crossfade. Product micro (press `0.96`, interruptible, row restraint): [motion.md](motion.md#product-micro).
 
 ## Forms
 
@@ -82,6 +84,18 @@ Labels, buttons, and table data stay on the product family. Motion tells: [anti-
 
 ## Dashboards
 
-Audience types and chart rules: [ux-principles.md](ux-principles.md#dashboards-and-data-ui).
+CMS, admin, editorial tools, and operator homes are **functional product-homes**. Chart families: [ux-principles.md](ux-principles.md#dashboards-and-data-ui). Scaffold tells: [anti-slop.md](anti-slop.md#dashboard-tells).
+
+- **Type from Job.** One type per view. CMS / admin / editorial = work queue, not analytical BI, not a marketing landing.
+- **Home = work queue.** Main answers "what needs me now?" (drafts, scheduled, failing, assigned). Prompted site metrics sit in an optional KPI strip, not as the composition.
+- **List is the CMS dashboard.** Table or dense list is the ops spine. Filters visible in the view (not overflow-only).
+- **Create = editor. Users = accounts.** One chrome across list, create, edit, and users: same nav, tokens, and control vocabulary.
+- **Ten seconds.** Before layout, write three operator questions this view answers. Every KPI or chart maps to one of them or is cut.
+- **KPI anatomy** (when a KPI exists): Label → Value → Delta → Time window. Missing a part: cut or fix.
+- **Stack (analytics-type views):** KPIs top if any → charts middle only with a question → tables/queue bottom. CMS home stays queue-first.
+- **Color:** legend and status; the same meaning across pages. Restrained. "Professional" is density and predictability, not catalog `id=professional`.
+- **States:** empty, loading (skeleton), and error on every widget and on the list.
+- **Pareto:** Lock names 1–2 screens. Extra craft only there. For a CMS: list + editor.
+- Lock `style=none`. Leave [design-styles.md](design-styles.md) closed unless the user named a catalog `id`.
 
 Apply brand register only to marketing/about surfaces within the same product.

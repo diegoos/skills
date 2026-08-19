@@ -10,7 +10,7 @@ Run this before the *crit* ([crit.md](crit.md)). Layout and copy each have to pa
 
 **Cross-register (always):** If someone could identify the output as AI-generated without hesitation, it failed.
 
-**Common-layout check:** "Is this a layout a model ships by default?" Centered hero, three equal feature cards, dark mesh, purple glow, cream-and-brass craft, Inter-on-slate, dark charcoal + one orange accent, spec-sheet / drawing title block (REV, DOC NO, SHEET, dashed PORTRAIT), fake git-diff or terminal card, years-as-handle wordmark. If yes, pick a different family from [layout-patterns.md](layout-patterns.md) before adding polish.
+**Common-layout check:** "Is this a layout a model ships by default?" Centered hero, three equal feature cards, dark mesh, purple glow, cream-and-brass craft, Inter-on-slate, dark charcoal + one orange accent, spec-sheet / drawing title block (REV, DOC NO, SHEET, dashed PORTRAIT), fake git-diff or terminal card, years-as-handle wordmark, four equal KPI cards + donut + area/line + Welcome back. If yes, pick a different family from [layout-patterns.md](layout-patterns.md) (marketing) or [product-register.md](product-register.md) (app UI) before adding polish.
 
 **UX-expert check:** "How would a UX expert improve this for the briefing job?" Name one **layout family** (editorial split, magazine, sticky chrome), not a palette tweak.
 
@@ -81,6 +81,23 @@ Geist, Clash Display, and PP Editorial New are the next Inter. Skip them as a pr
 - Developer-portfolio default: dark charcoal + coral/orange + spec-sheet / drawing title block (REV, DOC NO, SHEET, dashed PORTRAIT) or fake git-diff / terminal in the hero
 - Years-as-handle wordmark (`SW-ENG-013`, `swe-13`) unless the user said that word
 
+## Dashboard tells
+
+App UI only. Rewrite if present. Keep only if the brief named that scaffold or disk already ships it. Do-instead: [product-register.md](product-register.md#dashboards). Chrome: [surfaces.md](surfaces.md).
+
+| Tell                                                      | Fail when                                                            |
+| --------------------------------------------------------- | -------------------------------------------------------------------- |
+| Four equal KPI cards + donut + area/line + "Welcome back" | Any 3 of those 4 in the first viewport                               |
+| Interchangeable KPI row                                   | Same card chrome; Users / Sessions / Views / Bounce; no ranking      |
+| Decorative traffic chart                                  | Line/area with no written question beside it                         |
+| Device/browser donut                                      | Pie/donut >3 slices, or composition is not the job                   |
+| Greeting as the main heading                              | "Welcome back" / "Good morning" as `h1` in `main`                    |
+| Duplicate chrome                                          | Filled CTA in nav and header, or avatar in sidebar and header        |
+| Control overflowing the rail                              | Sidebar or toolbar button kisses or crosses the chrome edge          |
+| Workflow objects only in the sidebar                      | Draft / scheduled / inbox exist as nav only; `main` is charts        |
+| Domain only in the logotype                               | Sports / CMS / desk nouns missing from rows, filters, and empty copy |
+| Chart gallery                                             | 3+ chart types, no question per chart                                |
+
 ## Copy tells
 
 Every visible string is in scope: headlines, subtext, CTAs, nav, empty/error/success, quotes, sample data, alt text, `aria-label`, meta title/description.
@@ -148,8 +165,10 @@ Filler adverbs (`just`, `literally`, `simply`, `actually`, `truly`, `fundamental
 | ----------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | Default warm cream body for "traditional" brief | Carry warmth via accent, type, imagery                                                     |
 | New accent color per section                    | One accent locked for whole page                                                           |
-| Dark because tools look cool                    | [Scene sentence](color.md#scene-sentence-decide-theme-before-picking-colors) decides theme |
-| Light to be safe                                | [Scene sentence](color.md#scene-sentence-decide-theme-before-picking-colors) decides theme |
+| Dark because tools look cool                    | [briefing.md](briefing.md#theme) owns mode; scene owns temperature                         |
+| Light to be safe                                | [briefing.md](briefing.md#theme) owns mode; scene owns temperature                         |
+| Both / system shipped as one locked mode        | Two palettes plus a chrome control ([color.md](color.md#system-theme))                     |
+| Tinted dark canvas (green/navy field)           | Charcoal surfaces; accent on actions ([color.md](color.md#dark-mode-construct-dont-invert))|
 
 ## AI aesthetic table (quick reference)
 

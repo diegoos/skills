@@ -9,11 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `frontend-design-plus`: ship working web UI (component / app UI / marketing). Classify origin from disk as `greenfield`, `redesign`, or `polish`. Unanswered fields use `AskQuestion` one per turn unless invent-all; greenfield Look prints the Catalog as a table then four job-fitting styles plus specify; redesign and polish leave the catalog closed (`style=none`). After answers: Design Read + Lock, refs via `load-map.md`, DESIGN.md follow-or-generate, default `index.html` + `main.css` + `main.js`, written *crit*, then pre-flight A / A+B / A+C. Thirty named style paths; occupancy N items → N cells at 768/1024; form field-group grids keep an inline error on its row.
-
-### Changed
-
-- Root `README.md` and `frontend-design-plus` README: skill blurb leads with the job; How it works states each briefing/Lock/anti-slop rule once.
+- `frontend-design-plus`: ship working web UI (component, app UI, marketing). Origin from disk (`greenfield`, `redesign`, `polish`). Unanswered fields use `AskQuestion` one per turn unless invent-all. Greenfield marketing Look prints the style Catalog then four job-fitting ids; app UI skips Look (`style=none`) unless the user named an `id`. Theme is Light / Dark / Both (`system` ships two modes and a chrome switch). Palette asks when hue has no owner; dark `--surface` stays charcoal unless the user named a tinted field. After answers: Design Read + Lock, refs via `load-map.md`, DESIGN.md follow-or-generate, default `index.html` + `main.css` + `main.js`, written *crit*, pre-flight A / A+B / A+C. App UI home is a work queue; chrome follows `surfaces.md`. Thirty named style paths for marketing craft.
 
 ## [0.1.1] - 2026-08-12
 

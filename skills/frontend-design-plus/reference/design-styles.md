@@ -6,13 +6,13 @@ Keep, in this order: briefing answers, Look, DESIGN.md, project tokens. Then use
 
 ## Load
 
-Open this file at Briefing only when the current blank is Look, origin is greenfield, and Look is blank (print the Catalog table, then four fitting `AskQuestion` options). Open **one** file from [design-styles/](design-styles/) at Direction after answers. Hex and typefaces in that file are fallbacks for empty color and type slots. Do not open this folder at Classify.
+Open this file at Briefing only when the current blank is Look, origin is greenfield, task type is **marketing**, and Look is blank (print the Catalog table, then four fitting `AskQuestion` options). Open **one** file from [design-styles/](design-styles/) at Direction after answers. Hex and typefaces in that file are fallbacks for empty color and type slots. Do not open this folder at Classify.
 
-On `redesign` or `polish`, follow DESIGN.md, project tokens, and the current CSS. Leave this folder closed. Lock `style=none`. Origin detection: SKILL.md Classify; existing-surface rules: [redesign.md](redesign.md).
+On app UI, leave this folder closed and Lock `style=none`, unless Look is a named catalog `id` (craft blanks only; layout stays [product-register.md](product-register.md)). On `redesign` or `polish`, follow DESIGN.md, project tokens, and the current CSS. Leave this folder closed. Lock `style=none`. Origin detection: SKILL.md Classify; existing-surface rules: [redesign.md](redesign.md).
 
 ## Pick
 
-Greenfield only, after briefing answers (or invent-all). Unanswered Look belongs to [briefing.md](briefing.md#look); do not pick an id in that turn.
+Greenfield **marketing** only, after briefing answers (or invent-all). Skip this section on app UI except a named catalog `id` (step 1 only; do not match When on skipped `none`). Unanswered Look belongs to [briefing.md](briefing.md#look); do not pick an id in that turn.
 
 **Median cluster** (you-decide and invent-all skip these unless the user named the id): `saas`, `enterprise`, `material-design`, `modern-dark`, `professional`, `flat-design`. Job = "SaaS product" or "B2B tool" is not a When.
 
@@ -36,7 +36,7 @@ A second style's tokens in CSS fail this step.
 
 ## Catalog
 
-Print this table in chat at Look (columns: Item, Style, Default Theme Mode, Short description). Style is the `id` in Title Case. Default Theme Mode is Mode. Short description is Description. Keep Item numbers stable so "item 13" maps to that row.
+Print this table in chat at marketing Look (columns: Item, Style, Default Theme Mode, Short description). Style is the `id` in Title Case. Default Theme Mode is Mode. Short description is Description. Keep Item numbers stable so "item 13" maps to that row. Do not print this table on app UI.
 
 | Item| id                 | Mode | Font | Description                                                                                                      |
 | --- | ------------------ | ---- | ---- | ---------------------------------------------------------------------------------------------------------------- |

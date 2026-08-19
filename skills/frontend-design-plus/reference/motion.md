@@ -1,8 +1,19 @@
 # Motion
 
-Load when Behave or Lock is `fluid` or `cinematic` ([load-map.md](load-map.md)). Behave `still` / `none` leaves this file closed. Unanswered blanks: [briefing.md](briefing.md).
+Load when Behave or Lock is `fluid` or `cinematic`, or when task type is **app UI** ([load-map.md](load-map.md)). Marketing with Behave `still` / `none` leaves this file closed. Unanswered blanks: [briefing.md](briefing.md).
 
 Motion shows state, hierarchy, and feedback. One orchestrated entrance.
+
+## Product micro
+
+Always on app UI, including Lock `still`. Chrome already at rest does not play a mount entrance.
+
+- Interactive state (hover, open/close, press): CSS **transitions**. Keyframes only for one-shot sequences (empty → data, skeleton).
+- Product `:active` on buttons: `scale(0.96)`. Interruptible. Never below `0.95`. Brand island CTA stays `0.98` ([material-craft.md](material-craft.md#island-cta)).
+- High-frequency rows, tabs, and filter chips: background or opacity ≤150ms. No stagger, bounce, or entrance replay on every hover.
+- Motion is never the only cue. Keep color, icon, or label. `prefers-reduced-motion`: keep that cue; cut movement.
+
+List stagger 30–50ms is for one-shot empty → data only.
 
 ## Core principles
 
@@ -84,7 +95,7 @@ Use at most what the Lock asked for. Sticky 64–72px nav remains the default.
 
 ## Hover and interaction states
 
-- Buttons: `transform: translateY(-1px)` or `scale(0.98)` on `:active` — compositor only; padding/width stay put.
+- Buttons: `transform: translateY(-1px)` or `scale(0.96)` on product `:active` — compositor only; padding/width stay put. Brand island CTA: `scale(0.98)` ([material-craft.md](material-craft.md#island-cta)).
 - Cards: `scale(1.01)` or shadow elevation — never color inversion unless it signals selection.
 - Links: underline animation (`background-size` transition) or color shift — not generic opacity dim.
 

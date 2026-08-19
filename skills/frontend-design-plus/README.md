@@ -2,7 +2,7 @@
 
 Tells an agent how to ship working web UI: landings, dashboards, components, posters, HTML/CSS layouts. Skip backend, SQL, CI, or docs-only work.
 
-The agent follows [`SKILL.md`](SKILL.md). After Classify it opens [`briefing.md`](reference/briefing.md) before scoring fields and asks each blank with `AskQuestion`. After answers, [`after-briefing.md`](reference/after-briefing.md) owns Design Read, Lock, and markup. Extra rules in [`reference/`](reference/) load then, only for the origin, task type, and answers of that run.
+The agent follows [`SKILL.md`](SKILL.md). Briefing, Lock, load map, crit, and pre-flight live in [`reference/`](reference/).
 
 ## What it is for
 
@@ -14,17 +14,11 @@ The output is code. Touch targets, contrast, and real copy are part of done.
 
 ## How it works
 
-The agent names the surface (component, app UI, or marketing) and the origin from a disk glance: `greenfield` (new UI), `redesign` (existing UI from the user briefing), or `polish` (improve existing UI). Classify fills type and origin only.
+Classify names the surface (component, app UI, or marketing) and the origin from a disk glance: `greenfield`, `redesign`, or `polish`.
 
-Unless the user said invent-all, each remaining blank is one `AskQuestion` call (name, audience, success, use, look, behave, stack when the repo has none). A bio or "unique" does not skip the form. Options come from the prompt; Other is a typed answer. Greenfield Look blank: it prints the [style catalog](reference/design-styles.md) as a table, then asks four styles that fit the job plus a specify option. `you-decide` matches the briefing to one catalog When and skips the median cluster (`saas`, `enterprise`, `modern-dark`, and the other trap ids). Redesign and polish follow DESIGN.md, tokens, and current CSS; they leave the catalog closed and lock `style=none`. It invents no product name. A prompt that already named Audience, Look, and Success skips leftover blanks only.
+Unless the user said invent-all, each remaining blank is one `AskQuestion` call. After answers: follow or write `DESIGN.md`, then a Design Read and a Lock, then markup. A written *crit* and a DOM pre-flight close the pass.
 
-It follows `DESIGN.md` when the repo has one, or writes one to the [DESIGN.md spec](https://github.com/google-labs-code/design.md/blob/main/docs/spec.md) before markup. CSS tokens map to that file.
-
-Before markup it writes the H1 and primary CTA, then a one-line Design Read and a Lock: origin, name, scene, style id, color strategy, layout, motion, density, stack. Greenfield style is a craft path; layout still comes from the briefing and the layout refs. Greenfield with no stack uses `index.html`, `main.css`, and `main.js` unless the user picked a framework.
-
-A new UI gets new files on that split. Redesign and polish patch what is already there, on the current stack, after a short audit. Polish stops at craft (spacing, contrast, states, deletion); redesign may recompose from the briefing. A component kit is a code floor: theme and type come from DESIGN.md.
-
-It finishes with a written *crit* (common AI layout, logo-swap, one alternative layout family), then by counting things in the DOM (pre-flight A always, B on marketing, C on app UI) and by checking layout and copy against [`anti-slop.md`](reference/anti-slop.md). The first viewport has to match that Lock and Look.
+Greenfield marketing can pick a named style from the catalog. App UI skips that catalog and uses the [product register](reference/product-register.md). Both themes means two modes and a switch in the chrome ([color.md](reference/color.md#system-theme)). Unnamed hue: the agent asks Palette before picking hex.
 
 Ask for a landing, a settings page, or a restyle, or invoke `/frontend-design-plus`. Put this folder in whatever directory your harness uses for skills.
 
@@ -37,4 +31,7 @@ Ask for a landing, a settings page, or a restyle, or invoke `/frontend-design-pl
 - [How to Run a UX Design Critique (UX Tigers)](https://www.uxtigers.com/post/design-crit): frame, silent written crit, prioritize, fix; user problem, not widget recipe.
 - [Top 10 UI trends (IxDF)](https://ixdf.org/literature/article/top-10-ui-trends-every-designer-should-know): named style as craft path; Flat 2.0; neumorphism contrast; motion that guides.
 - [50 Design Styles (UX Planet)](https://uxplanet.org/50-design-styles-every-designer-should-know-for-better-prompting-56c09d55db62): Look and Direction vocabulary; core elements without locking layout.
+- [Dashboard Design UX Patterns (Pencil & Paper)](https://www.pencilandpaper.io/articles/ux-pattern-analysis-data-dashboards): app UI as a decision tool; work queue over chart gallery.
+- [Effective Dashboard Design (DataCamp)](https://www.datacamp.com/tutorial/dashboard-design-tutorial): inverted pyramid; chart from a question; KPI needs comparison and time.
+- [Details that make interfaces feel better](https://github.com/jakubkrehel/make-interfaces-feel-better): app UI chrome containment, concentric radius, tabular numbers, interruptible product micro.
 - [Design Prompts](https://www.designprompts.dev/): sample systems the style guides distill. Hex and typefaces in those samples are fallbacks when the user left color and type blank.

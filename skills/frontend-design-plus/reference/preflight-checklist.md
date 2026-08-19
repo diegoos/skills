@@ -10,11 +10,11 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 
 - [ ] Task type identified (component / app UI / marketing)
 - [ ] Origin named: `greenfield` (new UI), `redesign` (existing page from the briefing), or `polish` (improve existing UI). Existing surface: [redesign.md](redesign.md) read; audit listed; Lock `style=none`; Catalog closed
-- [ ] Briefing: every blank asked and answered this run via `AskQuestion` (one field per turn), or *invent-all*. A chat dump of questions fails. Skipping Look, Behave, or Stack while still blank fails. Greenfield Look blank required the Catalog table in chat plus four fitting ids and a specify option ([briefing.md](briefing.md#look)). Greenfield `you-decide` / invent-all: Pick written; median cluster refused ([design-styles.md](design-styles.md#pick)). Redesign and polish: Catalog closed; Look is disk. Inferred wordmark, audience, CTA, or style-from-job fails — [briefing.md](briefing.md)
+- [ ] Briefing: every blank asked and answered this run via `AskQuestion` (one field per turn), or *invent-all*. A chat dump of questions fails. Skipping Theme, Palette, Behave, or Stack while still blank (when those apply) fails. App UI: Look skipped as `none`; a Catalog table in chat fails. Marketing Look blank required the Catalog table in chat plus four fitting ids and a specify option ([briefing.md](briefing.md#look)). Greenfield marketing `you-decide` / invent-all: Pick written; median cluster refused ([design-styles.md](design-styles.md#pick)). Redesign, polish, and app UI: Catalog closed; app UI Look is `none` unless the user named an `id`. Inferred wordmark, audience, CTA, style-from-job, theme-from-job, or palette-from-job fails — [briefing.md](briefing.md)
 - [ ] `DESIGN.md` followed or created; CSS tokens match — [design-md.md](design-md.md)
 - [ ] Files match [file-architecture.md](file-architecture.md) (default: `index.html` + `main.css` + `main.js`; no stylesheet dumped into HTML)
 - [ ] Design Read declared (required for app UI and marketing)
-- [ ] Lock line present: origin, name, scene, color strategy, layout/motion/density bands, stack
+- [ ] Lock line present: origin, name, scene, theme (`light` / `dark` / `system`), color strategy, layout/motion/density bands, stack
 - [ ] *Crit* written (frame + triad + scan including logo-swap); P0 fixed; common-layout = no; first viewport fails a logo-swap; alternative is a layout family in the DOM or rejected with a user-goal reason — [crit.md](crit.md)
 - [ ] Register correct when not an isolated component (brand vs product)
 
@@ -36,7 +36,9 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 ### Color
 
 - [ ] One color strategy chosen; single accent locked page-wide (not a new accent per section)
-- [ ] Theme (light/dark) matches the scene, not a reflex default
+- [ ] Lock `theme=light` or `theme=dark`: that one palette on `html`; theme-control count = 0
+- [ ] Lock `theme=system`: light tokens and dark tokens both in CSS; labeled theme control count ≥ 1 in chrome; activating it sets `data-theme` or a class on `html` and surface tokens change. Media-query-only (control count = 0) fails. Dark-only or light-only CSS fails — [color.md](color.md#system-theme)
+- [ ] Dark `--surface` / `--surface-raised` are near-neutral charcoal unless Palette named a tinted field or Lock `color=drenched` — [color.md](color.md#dark-mode-construct-dont-invert)
 
 ### Typography and contrast
 
@@ -109,7 +111,7 @@ Add when building landing pages, portfolios, or campaigns. Also read [layout-pat
 
 ## Tier C — App UI and dashboards only
 
-Add when building dashboards, settings, admin, or dense tools. Also read [product-register.md](product-register.md).
+Add when building dashboards, settings, admin, or dense tools. Also read [product-register.md](product-register.md) and [surfaces.md](surfaces.md).
 
 ### Product UI
 
@@ -131,10 +133,19 @@ Add when building dashboards, settings, admin, or dense tools. Also read [produc
 
 ### Dashboard (if applicable)
 
-- [ ] Audience and dashboard type clear (overview vs operational vs analytical)
-- [ ] KPIs prioritized; color encodes meaning, not decoration
-- [ ] Widget loading/error/empty states present
-- [ ] Charts match the question; dual encoding (not hue alone); table or text fallback
+- [ ] Lock `style=none` unless Look is a named catalog `id`. Zero Catalog table in this run's chat
+- [ ] `h1` in `main` is not a greeting ("Welcome back", "Good morning"). Greeting nodes in `main` = 0
+- [ ] If KPI cards exist: they are not 4 equal siblings. Each KPI node has four text roles: label, value, delta, time
+- [ ] If a pie/donut exists: slice count ≤ 3. Each chart has an adjacent title that is a question or a decision, not a noun ("Traffic", "Devices")
+- [ ] CMS/admin home: ≥1 table or work-queue list in `main` (not charts-only)
+- [ ] List view with ≥8 rows: ≥1 visible filter control (not only a "Filters" overflow)
+- [ ] Each widget and the main list: empty, loading/skeleton, and error exist in markup
+- [ ] One primary nav pattern. Destinations include the Job objects (list, create/edit, users), not Analytics-only
+- [ ] Avatar control count in chrome ≤ 1. Filled primary count per view = 1
+- [ ] Chrome containment: every nav and toolbar control sits inside the rail padding box at 1024 and 1440 ([surfaces.md](surfaces.md#chrome-containment))
+- [ ] KPI Value and Delta, live counters, and numeric table columns use `tabular-nums`
+- [ ] Zero `transition: all` / `transition-all` in shipped CSS
+- [ ] One icon family and one stroke weight in sidebar, header, and row actions
 
 ### Performance (page-level app shells)
 

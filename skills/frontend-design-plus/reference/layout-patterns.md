@@ -146,7 +146,7 @@ Example:
 
 ## Page theme lock
 
-One theme (light, dark, or `prefers-color-scheme`) for whole page. Mid-page flip to warm paper on dark site is broken unless brief requires a deliberate color-block story.
+One visible mode (light or dark) for the whole page. Lock `theme=system` still one mode at a time; the chrome control changes the page ([color.md](color.md#system-theme)). Mid-page flip to a second mode is broken unless the brief names a color-block story.
 
 ## Footer
 
