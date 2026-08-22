@@ -13,7 +13,8 @@ If manifest/lockfile is in scope, read `../dependency-review.md` and fold depend
 5. Attach **regression_risk** on every kept finding's suggested fix
 6. Self-consistency: no contradictions with "What Looks Good"
 7. Gaps: fill only if clearly warranted and verified
-8. Strengths: note 1–2 specific things done well
+8. Strengths: if 1–2 specific things were done well and they do not contradict findings, they go in What Looks Good; otherwise omit that section
+9. Tests in source: answer the three Test quality questions for the report (useful / efficient / removable). Use Quality candidates plus the test diff.
 
 ## Categories
 

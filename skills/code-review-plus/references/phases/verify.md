@@ -41,7 +41,7 @@ A candidate may become P0 in synthesize only if Pass B is complete and the explo
 
 ## Optional P0 verifier (one subagent)
 
-After Pass B, if **≥1** remaining candidate still could be P0 (Pass B complete + exploit/break path today + pointable `file:line`), the orchestrator **may** dispatch **one** verifier subagent. This is not required on every review.
+After Pass B, if **≥1** remaining candidate still could be P0 (Pass B complete + exploit/break path today + pointable `file:line`), the orchestrator **may** dispatch **one** verifier subagent.
 
 **Trigger (dispatch when either is true):**
 
@@ -74,9 +74,11 @@ Apply verifier outcomes to the verification artifacts before synthesis. Verifier
 ```yaml
 status: kept | dropped | downgraded
 drop_reason: # required when dropped or downgraded
-verification_note: # why it survived or failed
+verification_note: # files and callers/middleware re-read, then why it survived or failed
 # keep original CandidateFinding fields when kept/downgraded
 ```
+
+Pass B is complete only when `verification_note` cites what was re-read (`file` plus callers / middleware / helpers as needed). A note with no citation is not Pass B.
 
 **Report bar:** only `kept` and `downgraded` (with severity already adjusted in Phase 3) enter the report. Record verified vs dropped/downgraded counts for the summary.
 
@@ -114,4 +116,4 @@ If the user asks to calibrate this review, follow the pattern in `../examples/ev
 
 ## Completion criterion
 
-Every candidate has `status` and `verification_note`. Dropped/downgraded counts are recorded for the summary. P0 candidates that fail the P0 bar are downgraded or marked unverified. If the optional P0 verifier ran, its outcomes are applied; if skipped, Pass B + P0 bar stand alone.
+Every candidate has `status` and a `verification_note` that cites the files/callers re-read. Dropped/downgraded counts are recorded for the summary. P0 candidates that fail the P0 bar are downgraded or marked unverified. If the optional P0 verifier ran, its outcomes are applied; if skipped, Pass B + P0 bar stand alone.

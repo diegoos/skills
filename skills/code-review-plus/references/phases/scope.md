@@ -46,8 +46,8 @@ Pick exactly one tier:
 | Tier                | When                                                                 | Pipelines                                                                                                   | Shapes                                                                                       |
 | ------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | **trivial**         | Docs-only, formatting-only, or rename with no logic                  | Correctness + Quality; add Security only if auth, input boundary, secrets, deps, or security config touched | None                                                                                         |
-| **normal**          | Default feature/bugfix/refactor                                      | All five: Correctness, Security, Architecture, Quality, Performance                                         | At most **1** per hunter only when exactly one eligible tag applies (see Phase 2); else None |
-| **large/sensitive** | ≥~300 logic lines, or touches auth, payments, secrets, raw user HTML | All five                                                                                                    | At most **1** per hunter when tags match (majority / tie rules in Phase 2)                   |
+| **normal**          | Default feature/bugfix/refactor                                      | All five: Correctness, Security, Architecture, Quality, Performance                                         | At most **1** per hunter (priority in Phase 2)                                               |
+| **large/sensitive** | ≥~300 logic lines, or touches auth, payments, secrets, raw user HTML | All five                                                                                                    | At most **1** per hunter (same priority as `normal`)                                         |
 
 ## Stack tags
 
@@ -61,14 +61,27 @@ These select optional shapes in Phase 2.
 
 Also note if the diff touches a **documentable surface** (public API, CLI, contract, build/test/release, user-facing behavior) so Quality can check docs sync.
 
+## Prior memory
+
+If `docs/code-review/` exists in the reviewed repo:
+
+1. Read `docs/code-review/knowns.md` when present.
+2. Read the latest timestamped review file (`YYYY-MM-DD-HH-MM.md`, not `knowns.md`).
+
+Skip a known false-positive or won't-fix unless the cited path's behavior changed. When a prior review recorded HEAD, focus this pass on the delta since that commit.
+
+Record `Knowns` and `Prior review` in the context summary (or `none`).
+
 ## Tests first
 
-Tests reveal intent and coverage gaps:
+Tests reveal intent and coverage gaps (missing tests → Correctness signal, not Quality):
 
 - Are there tests for the change?
 - Do they test behavior, not implementation details?
 - Are edge cases covered?
 - Would tests catch a regression?
+
+Mark **tests in source** when the review source includes test paths (`**/*test*`, `**/*.spec.*`, `**/tests/**`, `**/__tests__/**`, `*_test.go`, `*_spec.rb`, and equivalents). Quality then opens `test-quality.md`.
 
 If the repo documents test/lint scripts, the orchestrator may run them readonly and record results; never claim they passed if they did not run.
 
@@ -83,10 +96,13 @@ Source: …
 Tier: trivial | normal | large/sensitive
 Stack tags: web | api | ts | py | go | rs | llm | (none)
 Documentable surface: yes | no
+Tests in source: yes | no
 Tests observed: …
 Sizing: small | medium | large
+Knowns: … | none
+Prior review: stem / HEAD / none
 ```
 
 ## Completion criterion
 
-Scope answers written; review source, tier, and stack tags identified; sizing noted; context summary ready for Phase 2.
+Scope answers written; review source, sizing, tier, and stack tags identified; knowns and prior review read or recorded as none; context summary ready for Phase 2.

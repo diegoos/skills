@@ -9,17 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `code-review-plus`: `/code-review-plus prune` counts timestamped files under `docs/code-review/` first, then asks whether to keep the last 3, the last 5, delete all, or keep a typed N; never deletes `knowns.md`.
+- `code-review-plus`: persist each review under `docs/code-review/` in the reviewed repo (`YYYY-MM-DD-HH-MM.md` with Findings and `## Fix`); `knowns.md` when the user marks a false positive or won't-fix; Scope reads knowns and the latest review; `metadata.version` → `0.5.0`.
+- `code-review-plus`: Quality `test-quality.md` when tests are in the diff (name-the-break, real SUT, mutation check, AI-slop / utility questions); `### Test quality` on the report.
+- `code-review-plus`: human `README.md` with commands, memory layout, and a mermaid flow of review vs fix.
 - `frontend-design-plus`: ship working web UI (component / app UI / marketing) with origin `greenfield` or `redesign`, Design Read + Lock before markup, routed `reference/` files, anti-slop, and pre-flight tiers A / A+B / A+C.
 - `markdown-writer`: human `README.md` with the CommonMark 0.31.2, GFM, and markdownlint Rules URLs used to write the skill.
 
 ### Changed
 
+- `code-review-plus`: report and persist emit a heading only when the section has content (P0–P3, Dead Code, Test quality, What Looks Good, Author claimed, Manual/UI); `## Fix` is created on first apply, not as an empty placeholder.
+- `code-review-plus`: serial fallback (no subagent) restates a running CandidateFinding carry list after each pipeline so auto-compact does not drop earlier hunts.
+- `code-review-plus`: fix loads findings from this conversation or `docs/code-review/` memory, reads `## Fix` to skip or re-open stale Closed IDs, and merges the section after apply.
+- `code-review-plus`: thinner `SKILL.md` (human-facing one-line description, Commands aliases, Rules cut to secrets); knowns dismiss lives in `references/phases/knowns.md`; test-quality, fix, and prune.
+- `code-review-plus`: shape selection on `normal` and `large/sensitive` uses priority (`llm` > `web` > `api` > language for Security/Quality; majority language for Correctness/Architecture/Performance) instead of omitting shapes on multi-tag `normal`.
+- `code-review-plus`: report carries `Must NOT change`; Phase 4 fills the skeleton and Phase 4.5 persists before emit; Done criteria live in the phase files (SKILL.md table is the index); Pass B `verification_note` cites files re-read; hunters fall back to serial when the harness has no subagent; report sample moved to `references/examples/report-sample.md`.
 - `markdown-writer`: write bar is _scan_ (headings + first sentence) and _parse_ (lists, tables, fences, links as structure); house style and YAML frontmatter stay; `metadata.version` → `0.2.0`.
-- `markdown-writer`: prose pass on `SKILL.md`, `README.md`, and `references/frontmatter.md` (cut slogan, duplicated Prove restatement, em dashes, and pointer identity the body already carries).
+- `markdown-writer`: rewriting pass on `SKILL.md`, `README.md`, and `references/frontmatter.md` (cut slogan, duplicated Prove restatement, em dashes, and pointer identity the body already carries).
 - `markdown-writer`: write-process skill (house style in `SKILL.md`, YAML in `references/frontmatter.md`); renamed from `markdown-editor`; `metadata.version` → `0.1.0`. Root `README.md` lists the skill.
-- `markdown-writer`: one-line prose by default; _prose wrap_ only when dest requires it (MD013, EditorConfig `max_line_length`, or the file already wraps).
+- `markdown-writer`: one-line by default; _prose wrap_ only when dest requires it (MD013, EditorConfig `max_line_length`, or the file already wraps).
 - `makefile-expert`: process skill (branches `write` / `review`, kinds `glue` / `compile`) with completion criteria; depth in `references/` (`glue.md`, `graph.md`, `variables.md`); `metadata.version` → `0.1.0`. Root `README.md` lists the skill.
-- `makefile-expert`: prose pass on `SKILL.md` and `references/` (cut puffery, em dashes, and binary contrast where the rule already stood).
+- `makefile-expert`: rewriting pass on `SKILL.md` and `references/` (cut puffery, em dashes, and binary contrast where the rule already stood).
 - `.markdownlint.yaml`: `MD010.code_blocks` off so GNU Make recipe examples may use real tabs.
 
 ## [0.1.1] - 2026-08-12
