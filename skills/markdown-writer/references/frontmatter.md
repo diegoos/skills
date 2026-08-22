@@ -1,6 +1,6 @@
 # YAML frontmatter
 
-Load when the file has or needs a YAML block at the top.
+A YAML block at the top of a Markdown file.
 
 ## Shape
 
@@ -29,12 +29,11 @@ Add or update a block when the user asks, dest convention requires it (SSG, CMS,
 - **Key-value pairs** only. Meaningful keys (`description`, not `desc`). Match dest naming (camelCase, snake_case, or kebab-case).
 - **Arrays** for multi-values:
 
-  ```yaml
-  authors:
-    - Ada Lovelace
-    - Grace Hopper
-  ```
+    ```yaml
+    authors:
+      - Ada Lovelace
+      - Grace Hopper
+    ```
 
 - **Explicit types**: `year: 2026`, `published: true`. Quote a string that would parse as another type (`"on"`, `"null"`, `"2026-08-16"`).
 - **Spaces** for YAML indent (2 spaces is conventional). Fold with `>` or keep newlines with `|`. `#` comments are fine.
-- A later `---` in the body needs a blank line above it so the previous line stays a paragraph.

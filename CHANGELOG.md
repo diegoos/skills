@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `markdown-writer`: write bar is _scan_ (headings + first sentence) and _parse_ (lists, tables, fences, links as structure); house style and YAML frontmatter stay; `metadata.version` → `0.2.0`.
+- `markdown-writer`: prose pass on `SKILL.md`, `README.md`, and `references/frontmatter.md` (cut slogan, duplicated Prove restatement, em dashes, and pointer identity the body already carries).
 - `markdown-writer`: write-process skill (house style in `SKILL.md`, YAML in `references/frontmatter.md`); renamed from `markdown-editor`; `metadata.version` → `0.1.0`. Root `README.md` lists the skill.
 - `markdown-writer`: one-line prose by default; _prose wrap_ only when dest requires it (MD013, EditorConfig `max_line_length`, or the file already wraps).
 - `makefile-expert`: process skill (branches `write` / `review`, kinds `glue` / `compile`) with completion criteria; depth in `references/` (`glue.md`, `graph.md`, `variables.md`); `metadata.version` → `0.1.0`. Root `README.md` lists the skill.

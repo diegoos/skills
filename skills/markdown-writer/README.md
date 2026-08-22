@@ -12,5 +12,5 @@ Dest `.markdownlint.yaml` / `.editorconfig` win when they exist. Default in `SKI
 
 ## Files
 
-- [`SKILL.md`](SKILL.md) — write process
-- [`references/frontmatter.md`](references/frontmatter.md) — YAML at the top of a Markdown file
+- [`SKILL.md`](SKILL.md): write process
+- [`references/frontmatter.md`](references/frontmatter.md): YAML at the top of a Markdown file
