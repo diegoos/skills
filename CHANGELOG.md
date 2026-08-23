@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `write-great-instructions`: now a writing guide only; dropped bootstrap/update/lint/slim pipelines. `SKILL.md` has principles, always-on floor, and edit steps. `formats.md` holds harness adapters and caps; `patterns.md` lists smells. Invokes on create or edit. `metadata.version` → `0.3.0`.
 - `make-docs`: confirm brief headings are English (`Understood`, `Is this correct?`, `Unknowns`); bullets and questions follow the user's chat language.
 - `make-docs` and root `README.md`: opening sentences name the job, without mid-sentence bold.
 - `make-docs`: spec keywords follow BCP 14 ([RFC 2119](https://www.rfc-editor.org/rfc/rfc2119.html) as updated by [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174.html)). They are ALL CAPS only. Each spec file includes the incorporation sentence.
@@ -36,6 +37,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `makefile-expert`: process skill (branches `write` / `review`, kinds `glue` / `compile`) with completion criteria; depth in `references/` (`glue.md`, `graph.md`, `variables.md`); `metadata.version` → `0.1.0`. Root `README.md` lists the skill.
 - `makefile-expert`: rewriting pass on `SKILL.md` and `references/` (cut puffery, em dashes, and binary contrast where the rule already stood).
 - `.markdownlint.yaml`: `MD010.code_blocks` off so GNU Make recipe examples may use real tabs.
+
+### Removed
+
+- Skill name `write-great-agentsmd`. `npx skills add diegoos/skills --skill write-great-agentsmd` no longer resolves; use `--skill write-great-instructions`.
+- `write-great-instructions`: `references/phases/` (`bootstrap.md`, `update.md`, `lint.md`, `slim.md`), `references/lint-checks.md`, and `references/harnesses.md` (merged into `formats.md`).
 
 ## [0.1.1] - 2026-08-12
 
