@@ -1,10 +1,36 @@
 # Product register
 
-Load after briefing on app UI ([load-map.md](load-map.md)). Unanswered blanks: [briefing.md](briefing.md).
+Load when [load-map.md](load-map.md) attaches this file to the current slot. Unanswered blanks belong to the Packet.
 
 When design serves the product: app UI, dashboards, admin, settings, data tables, tools, authenticated surfaces.
 
-Stance: transact. The interface disappears into the task.
+Stance: transact. The interface disappears into the task. No three visual occupancy cards. No catalog Pick.
+
+## Job before recipe
+
+Before Lock `recipe=`, write from the Briefing card:
+
+1. *job* — “The user is here to ______.” No hero, card, sidebar.
+2. *objects* — domain nouns + verb (know / do / compare / monitor / decide). At most 7. Success stays.
+3. P0 — one perception, one action. Everything-is-P0 fails.
+
+Done when Packet `job=` and `P0=` exist and Primary is an *object*, not “the dashboard.” Then pick one recipe when the view is a CMS/admin/CRM home, list, editor, or accounts. Settings and other tools stay on the [app shell](#app-shell).
+
+## Surface map
+
+One recipe per view. No fifth id.
+
+| Surface | Recipe |
+| --- | --- |
+| CMS / admin / editorial home | `queue-home` (`main` = what needs me now) |
+| CRM home (deals, tickets, pipeline that asks for action) | `queue-home` |
+| Record catalog, inbox, ops list, CRM list | `list-filter` |
+| Deal / post / record / deep settings that edit | `editor` |
+| People and roles | `accounts` |
+| Settings and tools outside those four | app shell only |
+| *Job* is BI, not a queue | Shared analytics-type: KPI Label→Value→Delta→Time; chart only with a question; table or queue below |
+
+A CMS/CRM/list/editor/accounts view with `recipe=` missing fails Direction.
 
 ## Product slop test
 
@@ -26,7 +52,7 @@ Default: **Restrained** (near-neutral surfaces + accent ≤10%). Semantic states
 
 ## Layout
 
-Responsive means structure (collapse sidebar, responsive tables). Dense when users need it. Cards only for independent clickable units. Nested cards fail here. Details: [layout-patterns.md](layout-patterns.md#cards).
+Responsive means structure (collapse sidebar, responsive tables). Dense when users need it. Spacing and alignment group first; a border or card is last. Cards only for independent clickable units. Nested cards fail here. Details: [layout-patterns.md](layout-patterns.md#cards).
 
 ### App shell
 
@@ -84,18 +110,65 @@ Labels, buttons, and table data stay on the product family. Motion tells: [anti-
 
 ## Dashboards
 
-CMS, admin, editorial tools, and operator homes are **functional product-homes**. Chart families: [ux-principles.md](ux-principles.md#dashboards-and-data-ui). Scaffold tells: [anti-slop.md](anti-slop.md#dashboard-tells).
+CMS, admin, editorial tools, and operator homes are **functional product-homes**. Chart families: [ux-principles.md](ux-principles.md#dashboards-and-data-ui). Scaffold tells: [anti-slop.md](anti-slop.md#dashboard-tells). Familiar chrome is the bar (Linear, Figma, Notion) — not a unique poster.
 
-- **Type from Job.** One type per view. CMS / admin / editorial = work queue, not analytical BI, not a marketing landing.
-- **Home = work queue.** Main answers "what needs me now?" (drafts, scheduled, failing, assigned). Prompted site metrics sit in an optional KPI strip, not as the composition.
-- **List is the CMS dashboard.** Table or dense list is the ops spine. Filters visible in the view (not overflow-only).
-- **Create = editor. Users = accounts.** One chrome across list, create, edit, and users: same nav, tokens, and control vocabulary.
-- **Ten seconds.** Before layout, write three operator questions this view answers. Every KPI or chart maps to one of them or is cut.
+Pick **one recipe per view** from Job when the surface is a CMS/admin/CRM home, list, editor, or accounts. Settings and other tools stay on the [app shell](#app-shell). Write the *job* phrase, *objects*, and P0 first ([Job before recipe](#job-before-recipe)), then the three operator questions. Lock `recipe=` to that id when a recipe applies. Extra craft only on the 1–2 Pareto screens.
+
+**Scan 10s.** Headlines are the three operator questions this view answers in `main`. Primary is an *object*, not “the dashboard.”
+
+**Read.** Ranked rows. Tabular numbers. Every KPI that exists has Label → Value → Delta → Time. Filters on the same plane as the list (≥8 rows → ≥1 visible filter).
+
+**Edit.** One filled primary = the persist verb (Save / Book / Assign), visible. Back restores scroll and filters. Empty, loading, and error on the list or the canvas.
+
+**Chrome.** Top bar + side nav, or master-detail. One work area. Controls inside the rail. Command palette may pair. Island nav, display face on labels, and landing motion fail here.
+
+### queue-home
+
+CMS / admin / editorial **home**. `main` answers "what needs me now?"
+
+- `h1` names the queue (Drafts, Scheduled, Failing, Assigned) — not a greeting
+- Filters visible in `main` (not overflow-only)
+- One filled primary in the view header
+- KPI optional: one strip, 1 hero number + at most 2 ranked siblings. Never 4 equal cards
+- Workflow objects exist as rows in `main`, not only as nav
+
+Done when greeting nodes in `main` = 0, filled primary count = 1, ≥1 list or table in `main`, and each KPI (if any) has Label → Value → Delta → Time.
+
+### list-filter
+
+Ops list, inbox, catalog of records. The table or dense list is the spine.
+
+- Search plus 2–4 filters on the same plane as the list
+- Empty, loading (skeleton rows), and error on the list
+- Same chrome as editor and accounts
+
+Done when a view with ≥8 rows has ≥1 visible filter, and the three list states exist in markup.
+
+### editor
+
+Create and edit. Same nav, tokens, and control vocabulary as the list.
+
+- Content canvas + meta panel
+- Save is the filled primary and stays visible
+- Do not invent a second nav
+
+Done when filled primary count = 1 and that control is Save (or the Job's persist verb).
+
+### accounts
+
+People and roles. Not a second analytics wall.
+
+- Rows are people or seats; filters are role / status
+- Same chrome as list and editor
+
+Done when `main` is a people list or table, not a KPI gallery.
+
+### Shared
+
 - **KPI anatomy** (when a KPI exists): Label → Value → Delta → Time window. Missing a part: cut or fix.
-- **Stack (analytics-type views):** KPIs top if any → charts middle only with a question → tables/queue bottom. CMS home stays queue-first.
+- **Analytics-type views** (when Job is BI, not CMS home): KPIs top if any → charts middle only with a question → tables/queue bottom.
 - **Color:** legend and status; the same meaning across pages. Restrained. "Professional" is density and predictability, not catalog `id=professional`.
-- **States:** empty, loading (skeleton), and error on every widget and on the list.
-- **Pareto:** Lock names 1–2 screens. Extra craft only there. For a CMS: list + editor.
 - Lock `style=none`. Leave [design-styles.md](design-styles.md) closed unless the user named a catalog `id`.
+- Chrome stays inside the rail ([surfaces.md](surfaces.md#chrome-containment)).
 
 Apply brand register only to marketing/about surfaces within the same product.

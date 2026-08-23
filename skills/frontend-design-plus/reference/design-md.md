@@ -1,6 +1,6 @@
 # DESIGN.md
 
-Load after briefing ([load-map.md](load-map.md)). Unanswered blanks: [briefing.md](briefing.md).
+Load when [load-map.md](load-map.md) attaches this file to the current slot. Unanswered blanks belong to the Packet.
 
 Visual identity for this product lives in `DESIGN.md` at the project root (or the path the repo already uses). Tokens in YAML are normative. Prose tells the agent why those values exist. Spec: [DESIGN.md Format](https://github.com/google-labs-code/design.md/blob/main/docs/spec.md).
 
@@ -84,7 +84,7 @@ Present sections stay in spec order. Skip a section only via `omitted`.
 1. **Overview** (alias Brand & Style): personality, audience, what the UI should feel like
 2. **Colors**: each token with the hex and the job (ink, accent, surface)
 3. **Typography**: families, roles, weights
-4. **Layout** (alias Layout & Spacing): grid, gutter, max column occupancy, type-scale jump, spacing rhythm, motion recipe (`150–250ms ease-out` unless the Lock is `cinematic`)
+4. **Layout** (alias Layout & Spacing): on marketing greenfield/redesign ([composition.md](composition.md)) — the *thesis* (this product's experience) plus the occupancy sentence (*enter* / *rest* / *break* with numbers, or two masses and `break=none`) plus the Sketch from Frame (the drawing does not reopen occupancy); grid, gutter, type-scale jump, spacing rhythm, motion recipe (`150–250ms ease-out` unless the Lock is `cinematic`). A style id as the *thesis* fails. Sketch absent on that origin fails. App UI and polish: no Sketch.
 5. **Elevation & Depth** (alias Elevation): shadow vs tonal layers vs hairline
 6. **Shapes**: radius language
 7. **Components**: buttons, inputs, cards as used on this surface
@@ -97,4 +97,4 @@ Unknown extra `##` headings are allowed; duplicate `## Colors` is not.
 - Tokens win over adjectives in chat. Prefer `{colors.primary}` over duplicated hex.
 - After edits, if `npx` can reach the public npm registry, `npx -y @google/design.md lint DESIGN.md` is optional proof. Lint errors (`broken-ref`) block ship. Warnings (contrast, missing `primary`, missing type) get fixed when they apply to this surface.
 
-Done when DESIGN.md exists, `name` matches the Lock, and the CSS theme reads the same tokens.
+Done when DESIGN.md exists, `name` matches the Lock, and the CSS theme reads the same tokens. On generate (file was missing): if palette + type pairing would pass on any similar page, retune **one** role (display, accent, or the *break*) and say what changed.

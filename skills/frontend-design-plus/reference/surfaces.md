@@ -1,6 +1,6 @@
 # Surfaces
 
-Load after briefing on app UI ([load-map.md](load-map.md)). Unanswered blanks: [briefing.md](briefing.md).
+Load when [load-map.md](load-map.md) attaches this file to the current slot. Unanswered blanks belong to the Packet.
 
 In-flow product chrome: dashboard, admin, CMS, settings. Marketing enclosure stays [material-craft.md](material-craft.md). Layout and queues stay [product-register.md](product-register.md). Motion technique stays [motion.md](motion.md#product-micro).
 

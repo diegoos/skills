@@ -1,6 +1,6 @@
 # Production engineering
 
-Load after briefing on component and app UI ([load-map.md](load-map.md)). Marketing: only when the surface has forms or async. Unanswered blanks: [briefing.md](briefing.md).
+Load when [load-map.md](load-map.md) attaches this file (component and app UI; marketing only when the surface has forms or async). Unanswered blanks belong to the Packet.
 
 Build UIs that look designed and ship reliably.
 
@@ -123,6 +123,8 @@ The skip link may be visually hidden until `:focus`. Isolated components skip th
   <span class="icon-close" aria-hidden="true"></span>
 </button>
 ```
+
+**Label-in-Name (WCAG 2.5.3).** Visible text is the accessible name, or `aria-label` contains that visible text. An `aria-label` that replaces visible words fails. Icon-only controls keep `aria-label`. Omit `aria-label` when the visible label already names the control.
 
 ### Focus management
 

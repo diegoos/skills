@@ -1,44 +1,8 @@
 # UX principles
 
-Load after briefing on app UI ([load-map.md](load-map.md)). Unanswered blanks: [briefing.md](briefing.md).
+Load when [load-map.md](load-map.md) attaches this file to the current slot. Unanswered blanks belong to the Packet.
 
-Foundational UX for frontend. Apply with the register (brand vs product) in SKILL.md.
-
-## UI vs UX
-
-| Layer | Focus | Delivers |
-| --- | --- | --- |
-| **UI** | Visual and interactive surface — buttons, layout, color, type | Input acceptance and result display |
-| **UX** | End-to-end journey — usability, flow, satisfaction | Task completion with minimal friction |
-
-UI is what users touch; UX is how the whole experience feels. Strong UI supports UX but cannot fix broken flows. Plan UX before polishing visuals.
-
-## Six UI pillars
-
-Apply on every surface:
-
-1. **Consistency** — same patterns, tokens, and affordances across pages
-2. **Clarity** — descriptive labels; purpose obvious without explanation
-3. **Accessibility** — inclusive by default (contrast, keyboard, semantics)
-4. **Visual hierarchy** — size, weight, color, and space guide attention
-5. **User control** — theme, language, dismissible overlays, reversible actions
-6. **Flexibility** — responsive across devices; touch-friendly; adapts to context
-
-## User-centered discovery
-
-Before designing, answer the **three Ws**:
-
-- **Who** uses this? (role, context, frequency, technical fluency)
-- **Why** are they here? (goal, emotional state — rushed, exploring, anxious)
-- **What** must they accomplish? (single primary outcome per screen)
-
-Map the user journey: entry → task → success/error → exit. One **primary action** per screen beats three competing CTAs.
-
-## Core UX goals
-
-Good UX makes interfaces **usable, consistent, accessible, and efficient**. Users should accomplish tasks with minimal friction and cognitive load.
-
-The **aesthetic-usability effect**: users perceive attractive interfaces as more usable and tolerate minor friction longer — but **only minor friction**. Large usability failures are not forgiven by polish.
+Apply with the register (brand vs product) in SKILL.md.
 
 ## Consistency builds trust
 
@@ -158,7 +122,7 @@ Format, srcset, photography selection, SVG, and delivery: [assets.md](assets.md)
 
 ## Dashboards and data UI
 
-Dashboards are **decision tools**, not chart galleries. CMS / admin / operator **home** is a work queue ([product-register.md](product-register.md#dashboards)), not an executive KPI wall. Design remaining analytics views for the audience:
+Dashboards are **decision tools**, not chart galleries. CMS / admin / operator **home** is a work queue. Pick one named recipe per view ([product-register.md](product-register.md#dashboards)). Scaffold tells: [anti-slop.md](anti-slop.md#dashboard-tells). Design remaining analytics views for the audience:
 
 | Audience   | Needs                              |
 | ---------- | ---------------------------------- |

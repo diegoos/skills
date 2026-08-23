@@ -2,7 +2,7 @@
 
 `id=flat-design` · `mode=light` · `font=sans`
 
-Agent style guide. Keep the user's briefing, Look, DESIGN.md, and project tokens. Fill blanks only: type attitude, material, motion, density, and the cliché to refuse. The user's palette, typeface, radius, and layout stay as chosen. Layout families still come from the briefing and from layout-patterns.md (marketing) or product-register.md (app UI).
+Agent style guide. Keep the user's briefing, Look, DESIGN.md, and project tokens. Fill blanks only: type attitude, material, motion, density, and the cliché to refuse. The user's palette, typeface, radius, and layout stay as chosen. Occupancy is Packet Frame; this file vests craft. Fold vocabulary at Implement only.
 
 ## When
 
@@ -50,7 +50,7 @@ Secondary sits on `#F3F4F6` and darkens on hover. Outline buttons use a thick so
 
 Done criteria that name a hex apply only when that fallback token is in use. Prefer the user's mapped token.
 
-1. Keep the layout family the user named. If none, name one from layout-patterns.md or product-register.md. Done when that name is in the Lock.
+1. Keep Frame occupancy and Packet folds when task is marketing. If occupancy is missing, stop and open [composition.md](../composition.md). Do not name a hero family here. App UI: keep the recipe in [product-register.md](../product-register.md). Done when occupancy (marketing) or recipe (app UI) is already in the Lock.
 2. Keep the user's tokens. Fill empty DESIGN.md slots from Craft. Done when CSS uses the named user palette when one exists.
 3. If the user named a control language, keep it. Otherwise treat primary controls as solid primary rectangles with white labels. Done when the primary uses `#3B82F6` (or the mapped primary), radius `6-8px`, height at least 56px, no box-shadow, and hover is a darker fill plus scale (or color only under reduced-motion).
 4. Run anti-slop + crit. Done when the common-layout check fails for this style's own cliché: Material floating cards or a Bootstrap three-column icon grid with drop shadows.

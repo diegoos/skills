@@ -2,41 +2,46 @@
 
 Named styles are agent guides. They describe how a look behaves: type attitude, material, motion, density, and the cliché to refuse. The design the user already chose stays in charge.
 
-Keep, in this order: briefing answers, Look, DESIGN.md, project tokens. Then use this folder to fill leftover blanks. Layout families still come from the briefing, DESIGN.md, and [layout-patterns.md](layout-patterns.md) (marketing) or [product-register.md](product-register.md) (app UI).
+Keep, in this order: briefing answers, Scene occupancy, Look, DESIGN.md, project tokens. Then use this folder to fill leftover blanks. Marketing folds: [composition.md](composition.md) *map* lists leftover *objects*; [layout-patterns.md](layout-patterns.md#first-three-folds) is an Implement lookup, not a menu. App UI recipes: [product-register.md](product-register.md#dashboards). A named style vests craft after *tension* and occupancy exist.
 
 ## Load
 
-Open this file at Briefing only when the current blank is Look, origin is greenfield, task type is **marketing**, and Look is blank (print the Catalog table, then four fitting `AskQuestion` options). Open **one** file from [design-styles/](design-styles/) at Direction after answers. Hex and typefaces in that file are fallbacks for empty color and type slots. Do not open this folder at Classify.
+Open this file in the Direction slot when Look is a catalog `id`, or when Look is `you-decide` / `none` / invent-all on greenfield marketing ([dispatch.md](dispatch.md), [load-map.md](load-map.md)). Hex and typefaces in the matching style file are fallbacks for empty color and type slots. Do not open this folder at Classify or Briefing. Printing the Catalog table in the parent chat fails [briefing.md](briefing.md). The parent orchestrator does not open this file.
 
 On app UI, leave this folder closed and Lock `style=none`, unless Look is a named catalog `id` (craft blanks only; layout stays [product-register.md](product-register.md)). On `redesign` or `polish`, follow DESIGN.md, project tokens, and the current CSS. Leave this folder closed. Lock `style=none`. Origin detection: SKILL.md Classify; existing-surface rules: [redesign.md](redesign.md).
 
 ## Pick
 
-Greenfield **marketing** only, after briefing answers (or invent-all). Skip this section on app UI except a named catalog `id` (step 1 only; do not match When on skipped `none`). Unanswered Look belongs to [briefing.md](briefing.md#look); do not pick an id in that turn.
+Greenfield **marketing** only, after briefing answers (or invent-all). Skip this section on app UI except a named catalog `id` (step 1 only; do not match When on skipped `none`). Unnamed greenfield marketing Look is `you-decide` ([briefing.md](briefing.md#look)); run this Pick after Frame.
 
-**Median cluster** (you-decide and invent-all skip these unless the user named the id): `saas`, `enterprise`, `material-design`, `modern-dark`, `professional`, `flat-design`. Job = "SaaS product" or "B2B tool" is not a When.
+**Quiet-chrome cluster** (`saas`, `enterprise`, `material-design`, `modern-dark`, `professional`, `flat-design`): not a default because the job is a SaaS product or a B2B tool. Match only when Packet *tension* is quiet chrome (the interface should recede).
 
-1. If Look or the prompt names an `id` from the catalog, use that id. Authorship wins. The slop test still runs ([anti-slop.md](anti-slop.md)).
-2. Else if Look is `you-decide` or `none`, or invent-all skipped the form: match job + audience + success + use + behave to one **When**. Write 2–3 sentences that name which When matched which fields. Open only that file. Refuse the median cluster. Refuse the [anti-slop.md](anti-slop.md) category default (developer portfolio is not `terminal` / `cyberpunk` / `web3` / `industrial` spec sheet; fintech is not navy-teal `saas`). If two Whens fit, take the farther from Inter + indigo + 16px radius. Behave may break ties (`cinematic` → `kinetic`, not `saas`).
+**Second-hop cluster** (`kinetic`, `organic`, `swiss-minimalist`, `newsprint`, `monochrome`, `bold-typography`): not the automatic next pick after refusing quiet chrome. Match only when *tension* names that axis (acid type, editorial serif, visible Swiss grid). “Then editorial” without *tension* fails.
+
+**Model-default triad** (cream ~`#F4F1EA` + high-contrast serif + terracotta; near-black + one acid or vermilion; broadsheet hairline, radius 0, dense columns): not a first Pick on `you-decide` / invent-all. Match only when Packet *tension* names that axis (paper field + serif + clay accent; phosphor on black; news columns). Brief names it, brief wins. `newsprint` only when *tension* asks for columns, not as “not SaaS.” Authorship (`id` named) is still step 1.
+
+1. If Look or the prompt names an `id` from the catalog, use that id. Authorship wins. QA still runs the slop test.
+2. Else if Look is `you-decide` or `none` (including unnamed greenfield marketing Look), or invent-all skipped the form: match Packet *tension* + *job* + audience + success + use + behave + **scene** occupancy to one **When**. Write 2–3 sentences that name which When matched *tension* **and** which *frame* mass (`enter` / `rest` / *break*) the Path vests. Open only that file. A named look without *tension* fails — leave `style=none` and fill craft from DESIGN.md. Scene occupancy is not a license for `newsprint`, `botanical`, or `cyberpunk`. Refuse the id whose Path cliché **is** the occupancy (a newspaper front page as costume when Frame did not put type in columns). If two Whens fit, take the one whose Path vests the P0 mass. Behave may break ties (`cinematic` → a When that names cinematic motion). Do not pick “the farther from Inter.”
 3. Else if Look names sites or a metaphor without an id: one clause of *why* maps to one **When**. Do not blend two files. Cap 1–3 refs.
-4. Write `style=<id>` on the Lock. Done when that id is in the Lock, the matching file is in context, and (you-decide / invent-all) the Pick sentences exist.
+4. Write `style=<id>` on the Lock, or `style=none` when *tension* does not require a named look. Done when that value is in the Lock, the matching file is in context when not `none`, and (you-decide / unnamed / invent-all) the Pick sentences exist and name a *frame* mass.
 
 Skip this folder when the user named a live component library to follow as-is (Polaris, Carbon, USWDS). `style=none`. Quiet constraints still override Lock bands.
 
 ## Commit
 
-After the one file is in context, write these into DESIGN.md **Layout** and the Lock before markup. Extract from that file's Craft and Path. Do not invent a second id.
+After the one file is in context, map Craft onto the *thesis* already in DESIGN.md **Layout**. Extract type, material, motion, radius, and shadow from that file's Craft and Path. Do not invent a second id. Do not choose a hero family here. Craft does not rewrite Frame occupancy. A Path that names a hero family loses to the *frame*.
 
-- **Spatial** — grid stance, gutters, max column occupancy, type-scale jump, radius set, shadow recipe, motion `150–250ms ease-out` ([motion.md](motion.md)).
-- **One loud thing** — numeric contrast: display type ≥3× body, or one block ≥8/12 columns, or radius `0` against `4px` controls. Marketing Lock already names this break.
+- **Spatial** — confirm occupancy numbers and type-scale jump from the *frame* / *thesis*; fill gutters, radius set, shadow recipe, motion `150–250ms ease-out` only where DESIGN.md left them blank (cinematic Lock may exceed that band).
+- **One loud thing** — numeric contrast that serves the *break* mass when one exists: display type ≥3× body, or one block spanning most of the first viewport, or radius `0` against `4px` controls. Two-mass page: enter/rest contrast is the loud thing. Marketing Lock already names this break.
+- **Folds** — confirm `folds=` from the *map* ([composition.md](composition.md)). Missing folds or a family name that rewrites occupancy: stop and open that file.
 - **Subtraction** — the Path cliché to delete until Job + Success still hold.
-- **Forbids** — that Path cliché plus [anti-slop.md](anti-slop.md). Pair each with the do-instead already in those files.
+- **Forbids** — that Path cliché. Pair it with the do-instead already in this file's Path.
 
 A second style's tokens in CSS fail this step.
 
 ## Catalog
 
-Print this table in chat at marketing Look (columns: Item, Style, Default Theme Mode, Short description). Style is the `id` in Title Case. Default Theme Mode is Mode. Short description is Description. Keep Item numbers stable so "item 13" maps to that row. Do not print this table on app UI.
+Direction reads this table for Pick. Keep Item numbers stable so "item 13" maps to that row. Do not print this table in the parent chat. Do not print it on app UI.
 
 | Item| id                 | Mode | Font | Description                                                                                                      |
 | --- | ------------------ | ---- | ---- | ---------------------------------------------------------------------------------------------------------------- |
@@ -71,4 +76,4 @@ Print this table in chat at marketing Look (columns: Item, Style, Default Theme 
 | 29  | `maximalism`       | dark | sans | Drenched chroma, one CTA. Excess with a single action.                                                           |
 | 30  | `retro`            | light| sans | Bevel, 0 radius, system primaries. Early-web honesty, not nostalgia stickers.                                    |
 
-Sample systems from [Design Prompts](https://www.designprompts.dev/) sit in this repo under `_/design-styles/prompts/`. Lock names an id. Page structure comes from the briefing and layout-patterns.md / product-register.md.
+Sample systems from [Design Prompts](https://www.designprompts.dev/) sit in this repo under `_/design-styles/prompts/`. Lock names an id. Page structure comes from [composition.md](composition.md) (marketing) or [product-register.md](product-register.md) (app UI). Fold-shape vocabulary at Implement: [layout-patterns.md](layout-patterns.md).

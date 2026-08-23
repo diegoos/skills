@@ -1,28 +1,46 @@
 # Anti-slop
 
-Run after markup, before the *crit* ([crit.md](crit.md)). Unanswered blanks: [briefing.md](briefing.md).
+Run from the QA slot ([dispatch.md](dispatch.md#qa)) after markup, before the *crit* ([crit.md](crit.md)). Isolated component: this window. Unanswered blanks: the Packet, not [briefing.md](briefing.md).
 
-Patterns that signal "AI made this." Rewrite matches. Keep a listed pattern when the brief names it, the existing product already ships it, or the sequence is real (01, 02, 03). Document why.
+Patterns that signal "AI made this." QA records matches as P0. Implement rewrites. Keep a listed pattern when the brief names it, the existing product already ships it, or the sequence is real (01, 02, 03). Document why.
 
 ## The slop test
 
-Run this before the *crit* ([crit.md](crit.md)). Layout and copy each have to pass.
+Run this before the *crit* ([crit.md](crit.md)). Layout and copy each have to pass. Start with what must be on screen, then **Always**, then the branch for this task type. Isolated component: Always only, unless the component is a KPI strip or chart ([Dashboard tells](#dashboard-tells)).
 
-**Cross-register (always):** If someone could identify the output as AI-generated without hesitation, it failed.
+**On screen (marketing greenfield/redesign):** Sketch masses at measured `tracks=`. Logo-swap breaks the read. Skip the object-swap fail when Packet `object-swap=n/a`; when the line is not `n/a`, still-reads fails ([composition.md](composition.md#frame)).
 
-**Common-layout check:** "Is this a layout a model ships by default?" Centered hero, three equal feature cards, dark mesh, purple glow, cream-and-brass craft, Inter-on-slate, dark charcoal + one orange accent, spec-sheet / drawing title block (REV, DOC NO, SHEET, dashed PORTRAIT), fake git-diff or terminal card, years-as-handle wordmark, four equal KPI cards + donut + area/line + Welcome back. If yes, pick a different family from [layout-patterns.md](layout-patterns.md) (marketing) or [product-register.md](product-register.md) (app UI) before adding polish.
+**On screen (app UI):** Packet `recipe=` (or `none` on settings) occupies `main`. Greeting nodes in `main` = 0. Implement returned `main=` / `proof=`.
 
-**UX-expert check:** "How would a UX expert improve this for the briefing job?" Name one **layout family** (editorial split, magazine, sticky chrome), not a palette tweak.
+### Always
 
-**Category-reflex check:** If someone could guess the palette and layout from the product category alone ("SaaS landing", "fintech app", "restaurant site", "developer portfolio"), rework until the answer is not obvious from the domain. Vectors: [color.md](color.md#category-reflex-rework-if-this-was-the-first-idea).
+**Cross-register:** If someone could identify the output as AI-generated without hesitation, it failed.
 
-**Second-order check:** The next saturated move ("not SaaS-purple, so editorial serif with mono labels") also fails. Rework until both levels pass.
+**Model-default triad:** Greenfield marketing with Look `you-decide` or Lock `style=none`: cream ~`#F4F1EA` + high-contrast serif + terracotta, near-black + one acid or vermilion, or broadsheet (hairline, radius 0, dense columns) fails unless Packet *tension* named that axis. A named catalog `id` or a brief that asked for one of these looks still passes. Skip on origin `polish` / `redesign` (disk owns the look). Pick clusters: [design-styles.md](design-styles.md#pick).
 
-**Interchangeability check:** Swap the wordmark for another company's. If the first viewport still reads, rewrite copy and composition until the job is visible without the name.
-
-**Deletion check:** Name three competing blocks. Cut until Job + Success still hold. Extra chrome (parallax, custom cursor, uniform fade-in, 3D blobs) fails unless the brief named it. What remains after the cut is the composition.
+**Deletion check:** *Cut* already ran in Direction on marketing greenfield/redesign. Confirm Packet Cut competitors stayed off the page. Then name **one** remaining craft accessory the brief did not ask for (grain overlay, overlap-badge, `01` markers, a second card family, marquee) and fail if it is still on the page. Isolated component and app UI: name three competing blocks; remove extra until Job + Success still hold. Extra chrome (parallax, custom cursor, uniform fade-in, 3D blobs) fails unless the brief named it. What remains after the *cut* is the composition.
 
 **Code-floor check:** A component kit (Shadcn, Material, the project library) supplies states and structure. Theme, type, radius, and copy come from DESIGN.md. Default kit chrome as the look fails unless that look is already on disk.
+
+### Marketing
+
+**Common-layout check:** First viewport shows the Sketch masses at measured `tracks=` ([crit.md](crit.md) Q1). Origin `polish`: name an in-place craft fix; keep the current family. Missing Sketch, missing `tracks=`, or missing *thesis* on greenfield or redesign: fail this check; the parent re-dispatches. `object-swap=` against measured enter still reads, or the line is missing: re-dispatch Direction — skip this fail when the line is `n/a`. A media-column + CTA-rail split without *kinship* of two sibling tasks: unjustified split; rewrite until Sketch masses are on screen. Centered hero + three equal feature cards, dark mesh, purple glow, cream-and-brass craft, Inter-on-slate, dark charcoal + one orange accent, spec-sheet title block, fake git-diff or terminal card, years-as-handle wordmark: rewrite until the Sketch masses are on screen.
+
+**UX-expert check:** Name the *map* (first viewport + remaining folds from Packet *objects*, matched to Sketch `tracks=`), not a palette tweak. Origin `polish`: name an in-place craft fix.
+
+**Category-reflex check:** Logo-swap breaks the read, and each first-viewport mass is a Packet *object*. Matching the domain is validation when occupancy traces to those *objects* (a studio site whose enter mass *is* the kiln). Rework when the first viewport is the category default *scaffold* with no *object* in the lead rectangle. Palette first-idea vectors: [color.md](color.md#category-reflex-rework-if-this-was-the-first-idea). A *scene* written on `you-decide` / invent-all is occupancy from *kinship*, not the category-default place ("desk at night" for a developer portfolio). Skip on origin `polish`.
+
+**Second-order check:** The hop “not SaaS-purple, so editorial serif with mono labels” fails unless Packet *tension* names that axis. Rework the hop; do not invent a farther costume. Skip on origin `polish`.
+
+**Interchangeability check:** Swap the wordmark for another company's. If the first viewport still reads, rewrite copy and composition until the job is visible without the name. Origin `greenfield` and `redesign`: this must fail (logo-swap breaks the read). Origin `polish`: skip as a composition gate; still rewrite portable slogans ([Copy tells](#copy-tells)).
+
+### App UI
+
+**Common-layout check:** Four equal KPI cards + donut + area/line + "Welcome back", or default kit chrome as the look. If yes, pick the matching recipe from [product-register.md](product-register.md#dashboards) (queue vs gallery) before adding polish. Origin `polish`: retire the tells in place; do not invent a new recipe. Do not pick a novel layout family.
+
+**UX-expert check:** Name the product recipe (queue home, list+filter, editor, accounts) or an in-place craft fix if that recipe is already on screen. Not a marketing spine.
+
+Skip category-reflex, second-order, and interchangeability on chrome. A CMS that still reads after a logo-swap **passes**. Sample data and empty copy still need domain nouns ([Dashboard tells](#dashboard-tells)).
 
 ## Absolute bans
 
@@ -77,7 +95,9 @@ Geist, Clash Display, and PP Editorial New are the next Inter. Skip them as a pr
 - Scroll cues (`Scroll to explore`, animated mouse icons)
 - Locale/weather strips (`LIS 14:23 · 18°C`) without a place-focused brief
 - Version labels in hero (`V0.6`, `BETA`) unless a launch brief
-- Pills overlaid on images (`Plate · Brand`)
+- Pills overlaid on images (`Plate · Brand`) — overlap-badge in the gutter; the *break* can leave without killing P0
+- Stock photo added to satisfy a “real visual” check when Packet P0 perception is type
+- A *break* mass that can be removed without killing P0
 - Developer-portfolio default: dark charcoal + coral/orange + spec-sheet / drawing title block (REV, DOC NO, SHEET, dashed PORTRAIT) or fake git-diff / terminal in the hero
 - Years-as-handle wordmark (`SW-ENG-013`, `swe-13`) unless the user said that word
 
@@ -88,14 +108,14 @@ App UI only. Rewrite if present. Keep only if the brief named that scaffold or d
 | Tell                                                      | Fail when                                                            |
 | --------------------------------------------------------- | -------------------------------------------------------------------- |
 | Four equal KPI cards + donut + area/line + "Welcome back" | Any 3 of those 4 in the first viewport                               |
-| Interchangeable KPI row                                   | Same card chrome; Users / Sessions / Views / Bounce; no ranking      |
+| Unranked equal KPIs                                       | Same card chrome; Users / Sessions / Views / Bounce; no ranking      |
 | Decorative traffic chart                                  | Line/area with no written question beside it                         |
 | Device/browser donut                                      | Pie/donut >3 slices, or composition is not the job                   |
 | Greeting as the main heading                              | "Welcome back" / "Good morning" as `h1` in `main`                    |
 | Duplicate chrome                                          | Filled CTA in nav and header, or avatar in sidebar and header        |
 | Control overflowing the rail                              | Sidebar or toolbar button kisses or crosses the chrome edge          |
 | Workflow objects only in the sidebar                      | Draft / scheduled / inbox exist as nav only; `main` is charts        |
-| Domain only in the logotype                               | Sports / CMS / desk nouns missing from rows, filters, and empty copy |
+| Domain only in sample data                                | Sports / CMS / desk nouns missing from rows, filters, and empty copy |
 | Chart gallery                                             | 3+ chart types, no question per chart                                |
 
 ## Copy tells
@@ -111,7 +131,7 @@ Empty, error, and loading shapes: [ux-principles.md](ux-principles.md#microcopy-
 | Pattern                 | Example                                                                                                                                                                                                                                                                                                          | Do instead                                                 |
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
 | Banned words            | elevate, seamless, unleash, next-gen, revolutionize, empower, delve, foster, leverage, utilize, facilitate, streamline, robust, cutting-edge, game changer, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, transformative, embark, supercharge, harness, ever-evolving, paradigm shift | Plain verb + object: "Save the invoice", "Ship on Tuesday" |
-| Portable slogan         | "Build the future", "all-in-one platform", "Scale without limits", "transform your workflow"                                                                                                                                                                                                                     | Verb + object that fails a logo-swap                       |
+| Portable slogan         | "Build the future", "all-in-one platform", "Scale without limits", "transform your workflow"                                                                                                                                                                                                                     | Verb + object from this job (marketing: fail a logo-swap)  |
 | Throat-clearing         | "Here's the thing.", "Welcome to the future of X.", "Let's dive in."                                                                                                                                                                                                                                             | Start with the claim or the CTA                            |
 | Binary contrast         | "This is not a tool. It's a partner." / "Not just X, but Y."                                                                                                                                                                                                                                                     | State Y                                                    |
 | Faux-insight            | "What most teams get wrong", "The part everyone misses"                                                                                                                                                                                                                                                          | Make the claim with no setup                               |
@@ -169,16 +189,3 @@ Filler adverbs (`just`, `literally`, `simply`, `actually`, `truly`, `fundamental
 | Light to be safe                                | [briefing.md](briefing.md#theme) owns mode; scene owns temperature                         |
 | Both / system shipped as one locked mode        | Two palettes plus a chrome control ([color.md](color.md#system-theme))                     |
 | Tinted dark canvas (green/navy field)           | Charcoal surfaces; accent on actions ([color.md](color.md#dark-mode-construct-dont-invert))|
-
-## AI aesthetic table (quick reference)
-
-| AI default                     | Replace with                                   |
-| ------------------------------ | ---------------------------------------------- |
-| Inter everywhere               | Brand-appropriate font from brief              |
-| Purple gradients               | Project palette or committed single accent     |
-| Big rounded corners everywhere | Token radius system with intentional variation |
-| Stock card grid                | Varied layout families                         |
-| Default kit chrome as the look | DESIGN.md tokens wrapping the kit              |
-| Lorem ipsum                    | Realistic copy at realistic lengths            |
-| Spinner in content area        | Skeleton matching layout                       |
-| Gray muted body on tinted bg   | Darker text for contrast                       |

@@ -1,6 +1,6 @@
 # Motion
 
-Load when Behave or Lock is `fluid` or `cinematic`, or when task type is **app UI** ([load-map.md](load-map.md)). Marketing with Behave `still` / `none` leaves this file closed. Unanswered blanks: [briefing.md](briefing.md).
+Load when [load-map.md](load-map.md) attaches this file (Behave or Lock `fluid` / `cinematic`, or task type **app UI**). Marketing with Behave `still` / `none` leaves this file closed. Unanswered blanks belong to the Packet.
 
 Motion shows state, hierarchy, and feedback. One orchestrated entrance.
 

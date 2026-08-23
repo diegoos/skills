@@ -1,6 +1,6 @@
 # Pre-Flight Checklist
 
-Run after *crit*. Unanswered blanks: [briefing.md](briefing.md). Run the tier that matches [task routing](../SKILL.md#task-routing). Fix failures before shipping. Skip tiers that do not apply.
+Run from the QA slot ([dispatch.md](dispatch.md#qa)) after *crit*. Isolated component: this window. Unanswered blanks: the Packet. Run the tier that matches [task routing](../SKILL.md#task-routing). QA records each box pass or fail and does not edit. The parent resumes Implement with failed boxes as P0. Skip tiers that do not apply.
 
 Tier B and C are **mechanical**: count in the DOM. A failed count means the page is not done.
 
@@ -9,13 +9,13 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 ### Direction
 
 - [ ] Task type identified (component / app UI / marketing)
-- [ ] Origin named: `greenfield` (new UI), `redesign` (existing page from the briefing), or `polish` (improve existing UI). Existing surface: [redesign.md](redesign.md) read; audit listed; Lock `style=none`; Catalog closed
-- [ ] Briefing: every blank asked and answered this run via `AskQuestion` (one field per turn), or *invent-all*. A chat dump of questions fails. Skipping Theme, Palette, Behave, or Stack while still blank (when those apply) fails. App UI: Look skipped as `none`; a Catalog table in chat fails. Marketing Look blank required the Catalog table in chat plus four fitting ids and a specify option ([briefing.md](briefing.md#look)). Greenfield marketing `you-decide` / invent-all: Pick written; median cluster refused ([design-styles.md](design-styles.md#pick)). Redesign, polish, and app UI: Catalog closed; app UI Look is `none` unless the user named an `id`. Inferred wordmark, audience, CTA, style-from-job, theme-from-job, or palette-from-job fails — [briefing.md](briefing.md)
+- [ ] Origin named: `greenfield` (new UI), `redesign` (existing page from the briefing), or `polish` (improve existing UI). Existing surface: [redesign.md](redesign.md) read; audit listed (redesign: keep/retire vs Aim; polish: [craft audit](redesign.md#craft-audit) with P0/P1 closed); Lock `style=none`; Catalog closed
+- [ ] Briefing: every remaining blank asked and answered this run via `AskQuestion` (one field per turn), or *invent-all*. A chat dump of questions fails. Skipping Scene, Theme, Palette, Use, or Stack while still blank (when those apply) fails. Unnamed Behave and Constraints are owner `none`; asking them when the prompt did not name motion, states, artifacts, or restrictions fails. App UI: Scene and Look skipped as `none`; a Catalog table in chat fails. Greenfield marketing Scene blank required `You decide from the brief` plus two occupancy readings ([briefing.md](briefing.md#scene)). Greenfield marketing Look was not asked: unnamed Look is owner `you-decide`; a Catalog table in the parent chat fails ([briefing.md](briefing.md#look)). Greenfield marketing Scene `you-decide` / invent-all: occupancy from *objects* and *kinship* in [composition.md](composition.md); `fallback=yes` only with “fallback, not thesis”. Greenfield marketing Look `you-decide` (including silence) / invent-all: Pick written and matched to Packet *tension* ([design-styles.md](design-styles.md#pick)). Redesign: Aim, Keep, and Scope have owners ([briefing.md](briefing.md#redesign)); Scene was not asked; Use asked if still blank; Behave and Constraints not asked unless Aim named them. Polish: form skipped, or one Focus ask when the goal was mute ([briefing.md](briefing.md#polish)). Redesign, polish, and app UI: Catalog closed; app UI Look is `none` unless the user named an `id`. Inferred wordmark, audience, CTA, style-from-job, theme-from-job, palette-from-job, or occupancy-from-job fails — [briefing.md](briefing.md)
 - [ ] `DESIGN.md` followed or created; CSS tokens match — [design-md.md](design-md.md)
 - [ ] Files match [file-architecture.md](file-architecture.md) (default: `index.html` + `main.css` + `main.js`; no stylesheet dumped into HTML)
 - [ ] Design Read declared (required for app UI and marketing)
-- [ ] Lock line present: origin, name, scene, theme (`light` / `dark` / `system`), color strategy, layout/motion/density bands, stack
-- [ ] *Crit* written (frame + triad + scan including logo-swap); P0 fixed; common-layout = no; first viewport fails a logo-swap; alternative is a layout family in the DOM or rejected with a user-goal reason — [crit.md](crit.md)
+- [ ] Lock line present: origin, name, scene (quoted Scene or composition sentence; owner exists), theme (`light` / `dark` / `system`), color strategy, layout/motion/density bands, stack. Marketing greenfield/redesign: Sketch; `folds=`; Packet `job=`, `P0=`, `tension=`, `object-swap=` (foreign P0 + because, or `n/a` per [composition.md](composition.md#frame)), `fallback=` (`yes` includes “fallback, not thesis”). CMS/admin/CRM/list/editor/accounts: `recipe=` and `Pareto=`. Other app UI: `Pareto=`; `recipe=none` valid on settings. Redesign: `aim=`, `keep=`, `scope=`
+- [ ] *Crit* written; that file's done criterion holds for this task type and origin — [crit.md](crit.md)
 - [ ] Register correct when not an isolated component (brand vs product)
 
 ### Viewport and type
@@ -30,7 +30,7 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 
 ### Anti-slop
 
-- [ ] Does not read as generic AI output (purple gradient hero, 3 equal cards, charcoal + orange spec sheet, default kit chrome, portable slogans) — slop test including common-layout, interchangeability, deletion, and code-floor checks ([anti-slop.md](anti-slop.md#the-slop-test))
+- [ ] Does not read as generic AI output — slop test for this task type ([anti-slop.md](anti-slop.md#the-slop-test))
 - [ ] No em dashes (`—`) in visible copy
 
 ### Color
@@ -59,6 +59,7 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 - [ ] Loading, error, empty states where the flow needs them
 - [ ] Async submit: control disabled (or second click ignored) with a loading label
 - [ ] Keyboard navigable; semantic HTML; visible focus
+- [ ] Visible control text is in the accessible name (`aria-label` contains it, or there is no `aria-label`) — [production-engineering.md](production-engineering.md#labels)
 - [ ] Sticky/fixed chrome and overlays do not cover the focused control (`scroll-padding` matches chrome height)
 - [ ] Primary actions work on click/tap — hover is enhancement, not the only path
 - [ ] `prefers-reduced-motion` respected when motion is used
@@ -74,7 +75,7 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 
 ### Honesty
 
-- [ ] State what was NOT verified (build, axe, real devices, screen reader)
+- [ ] State what was NOT verified (build, axe, real devices, screen reader, screenshot/browser). An unverified visual tell is not a fail. Missing Sketch or missing `tracks=` on marketing greenfield/redesign is a fail, not unverified. Missing `main=` / `proof=` on app UI is a fail, not unverified.
 
 ---
 
@@ -87,6 +88,7 @@ Add when building landing pages, portfolios, or campaigns. Also read [layout-pat
 - [ ] Hero: headline ≤2 lines desktop; subtext ≤20 words; stack ≤4 text elements; top padding ≤6rem; primary CTA visible without scroll
 - [ ] Logo / "used by" wall lives **under** the hero, not inside it
 - [ ] Eyebrows: count `uppercase` + wide tracking above section headlines; count ≤ `ceil(sectionCount / 3)`; hero counts as 1
+- [ ] Greenfield/redesign: DESIGN.md **Layout** contains the *thesis*, occupancy, and the Sketch ([composition.md](composition.md#frame)). Implement returned `tracks=`; Q1 in [crit.md](crit.md) holds. Packet `object-swap=`: skip the still-reads fail when the line is `n/a`; otherwise a foreign P0 in measured enter still reading fails. Lock `scene=` has an owner. Packet `fallback=yes` is visible and includes “fallback, not thesis”. Packet `folds=` names leftover *objects*; those sections exist; each fold shows its *object*. A two-fold page is valid when P0 cut removed the third object. Polish: current family kept; no new folds; `Sketch=none`
 - [ ] Each layout family appears at most once; no 3 consecutive image+text zigzags
 - [ ] Mixed-span grids: ≥2 cells have real visual variation (image, tint, pattern)
 - [ ] Stacked CTAs below `md` fill the content column (no unused track beside a short button)
@@ -97,9 +99,9 @@ Add when building landing pages, portfolios, or campaigns. Also read [layout-pat
 
 ### Visual
 
-- [ ] Marketing surface uses real imagery (gen-tool first, then real/seed photo, then labeled `TODO` slots) — not div fake screenshots; zero images is a fail unless the brief is abstract-only
+- [ ] Marketing surface uses real imagery when the lead *object* is an asset (gen-tool first, then real/seed photo, then labeled `TODO` slots) — not div fake screenshots. Type as P0: zero images in the first viewport is valid; do not add a stock photo to pass this box. Abstract-only brief: zero images is valid.
 - [ ] Alt text on content images
-- [ ] Memorable detail named in the Lock exists in the DOM (one material or spatial break — not a bezel on every card)
+- [ ] Memorable detail named in the Lock exists in the DOM (the *break* mass when one exists — not a bezel on every card; two-mass page: enter/rest contrast). First viewport matches the Sketch masses and measured `tracks=` in DESIGN.md Layout
 
 ### Copy
 
@@ -111,7 +113,7 @@ Add when building landing pages, portfolios, or campaigns. Also read [layout-pat
 
 ## Tier C — App UI and dashboards only
 
-Add when building dashboards, settings, admin, or dense tools. Also read [product-register.md](product-register.md) and [surfaces.md](surfaces.md).
+Add when building dashboards, settings, admin, or dense tools. Count from the Packet and the DOM. Dashboard tells: [anti-slop.md](anti-slop.md#dashboard-tells).
 
 ### Product UI
 
@@ -137,7 +139,7 @@ Add when building dashboards, settings, admin, or dense tools. Also read [produc
 - [ ] `h1` in `main` is not a greeting ("Welcome back", "Good morning"). Greeting nodes in `main` = 0
 - [ ] If KPI cards exist: they are not 4 equal siblings. Each KPI node has four text roles: label, value, delta, time
 - [ ] If a pie/donut exists: slice count ≤ 3. Each chart has an adjacent title that is a question or a decision, not a noun ("Traffic", "Devices")
-- [ ] CMS/admin home: ≥1 table or work-queue list in `main` (not charts-only)
+- [ ] If the view is CMS/admin/CRM home, list, editor, or accounts: Lock `recipe=` matches that view. Home (`recipe=queue-home`): ≥1 table or work-queue list in `main` (not charts-only)
 - [ ] List view with ≥8 rows: ≥1 visible filter control (not only a "Filters" overflow)
 - [ ] Each widget and the main list: empty, loading/skeleton, and error exist in markup
 - [ ] One primary nav pattern. Destinations include the Job objects (list, create/edit, users), not Analytics-only

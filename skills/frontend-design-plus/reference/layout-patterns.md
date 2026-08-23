@@ -1,22 +1,21 @@
 # Layout patterns
 
-Load after briefing on marketing ([load-map.md](load-map.md)). Unanswered blanks: [briefing.md](briefing.md).
+Load when [load-map.md](load-map.md) attaches this file to the current slot. Unanswered blanks belong to the Packet.
 
 Vocabulary and rules for marketing layouts. Implement what the Design Read supports.
 
-## Hero paradigms
+## Frame tracks
 
-| Pattern | When |
+If the Packet has a Sketch, map `enter` / `rest` / `break` (or two masses when `break=none`) to CSS tracks. Do not pick a named hero family. Track sizes come from Sketch `tracks=`, not `1fr 1fr`.
+
+| Join | DOM |
 | --- | --- |
-| **Asymmetric split** | Strong asset + strong message; bold layout brief |
-| **Editorial manifesto** | Message IS the design; minimal asset |
-| **Cinematic center** | Wide container, centered type, full-bleed bg |
-| **Kinetic type** | Typography as primary visual |
-| **Scroll-pinned hero** | Content scrolls over fixed hero (high-motion brief) |
-| **Magazine** | Columned editorial, pull-quote, text wrapping an image |
-| **Container-free** | Full-bleed, no `max-width` cage; one idea per fold |
+| **stack** | One column. Enter above rest. Medium gap. |
+| **split** | Two tracks from Sketch `enter` / `rest` as `fr` (example: `8fr 4fr`). Larger track is the enter *object*. |
+| **full-bleed** | Enter fills the viewport. No `max-width` cage on that mass. |
+| **overlap** | The same *object* is the field; the Success label sits on that mass (`rest=inset`). |
 
-### Hero rules (marketing)
+### First viewport (marketing)
 
 - Fits initial viewport: headline ≤2 lines desktop, subtext ≤20 words
 - CTA visible without scroll
@@ -25,11 +24,31 @@ Vocabulary and rules for marketing layouts. Implement what the Design Read suppo
 - Top padding cap: `6rem` (`96px`) max at desktop
 - No trust logos, feature bullets, or taglines below CTAs inside hero
 - H1 container wide enough (`max-width: 64rem` / `1024px`+) to prevent 4–6 line wraps
-- Real visual required — text + gradient blob is placeholder, not hero
+- Type as the lead *object* (Packet P0 perception is the headline): the first viewport *is* that type. Text + gradient blob still fails. Do not add a stock photo to pass this rule.
+- Asset as the lead *object*: a real visual occupies the enter track. Text + gradient blob is placeholder, not hero
 
 ### Anti-center bias
 
-When the Lock layout band is `offset` or `wild`, prefer split, magazine, container-free, or pinned structures. Centered hero is for `contained` manifesto/launch/editorial briefs.
+Frame occupancy wins. A centered mass is valid only when Frame already centered it and Lock `layout=contained`.
+
+## First three folds
+
+Greenfield and redesign **marketing** only. Load this section from **Implement** after `tracks=` exists, and only when a leftover *object* has no obvious form (table, list, one proof, CTA) ([implement.md](implement.md#one-folds-list-or-one-recipe)). Packet `folds=` already names leftover *objects* in *job* order ([composition.md](composition.md#map)). Do not walk this table as a menu. Origin `polish` keeps the current family.
+
+These shapes are a lookup when that leftover *object* needs a form. Matching a named hero family is not required. A shape that rewrites Frame occupancy fails. Spec, magazine, FAQ, and CTA band exist only as listed *objects*.
+
+| Fold shape | When the leftover *object* is |
+| --- | --- |
+| **Spec / comparison** | attributes or plans the user compares |
+| **Magazine** | editorial body, pull-quote, or text wrapping an image |
+| **Featured-vs-rest** | a few lead items plus a remainder |
+| **One proof** | quote, metric with source, or product shot |
+| **CTA band** | a later persist control that is still a listed *object* |
+| **Short FAQ or steps** | a real sequence on the object list |
+
+One card-family section per page still holds ([Cards](#cards)). Each family still appears at most once ([Section layout diversity](#section-layout-diversity)).
+
+Done when each Packet fold exists in the DOM and shows its *object* (redesign: rebuilt from blocks the audit kept). A two-fold page is done when P0 cut removed the third object. A two-mass first viewport (`break=none`) is valid.
 
 ## Cards
 
@@ -106,27 +125,29 @@ No implementation sketches here. Pin/scrub failure modes: [motion.md](motion.md#
 
 ## Spatial composition
 
-- Overlap: negative margins, layered z-index with purpose
+The Frame masses (*enter* / *rest* / *break*, or two masses) are the first-viewport commit ([composition.md](composition.md#frame)).
+
+- Overlap: negative margins, layered z-index with purpose — only as the *break* mass, and only when that *object* is the overlap
 - **Airy brand:** `6rem`–`10rem` padding **between** sections; hero top padding still ≤`6rem`
 - Intra-fold stack (headline → subtext → CTAs → media) uses the Lock density band in [design-systems.md](design-systems.md#density-bands), not the between-section scale
-- One intentional grid break per section max — the memorable irregularity named in the Lock
+- One intentional grid break per section max — the *break* mass named in the Frame, when one exists
 - Density band `dense` uses the compact spacing scale in [design-systems.md](design-systems.md#density-bands)
+- Track sizes come from Sketch `tracks=`.
 
 ## Background treatments
 
-- Gradient meshes, noise (on `fixed` overlay with `pointer-events-none` only)
-- Layered transparencies, grain, geometric patterns
+Field from the scene sentence and the style Path (paper, ink, metal, void). A `fixed` overlay with `pointer-events-none` may hold grain or a geometric screen when that Path names it. Mesh or noise as atmosphere only when the *thesis* or the brief names a field.
 
 ## Responsive collapse
 
 For every multi-column layout, declare `<768px` behavior in the same component. If the desktop layout uses overlap or rotation, **turn those off** below `768px` (touch targets). Mixed `col-span` / `row-span` reset to one column. Recheck occupancy at `768px` and `1024px` ([grids and lists](#grids-and-lists)). `auto-fit` / `minmax` that leaves a hole at tablet fails.
 
-Example:
+Example (replace the desktop tracks with Sketch `tracks=`, e.g. split `8fr 4fr`):
 
 ```html
 <div class="grid-responsive">
-  <div class="grid-main">...</div>
-  <div class="grid-sidebar">...</div>
+  <div class="grid-main" data-mass="enter">...</div>
+  <div class="grid-sidebar" data-mass="rest">...</div>
 </div>
 ```
 
@@ -139,7 +160,7 @@ Example:
 
 @media (min-width: 768px) {
   .grid-responsive {
-    grid-template-columns: 7fr 5fr;
+    grid-template-columns: 8fr 4fr;
   }
 }
 ```
@@ -157,4 +178,4 @@ One visible mode (light or dark) for the whole page. Lock `theme=system` still o
 
 Select patterns that serve the brief, content structure, motion level (static page → no scroll hijack), and register (product → skip Awwwards scroll stacks).
 
-Variety across **sections** matters more than novelty within one hero.
+Variety across **sections** matters more than novelty within one first viewport. The Sketch is the composition commit ([composition.md](composition.md#frame)). Packet `folds=` names leftover *objects*; Implement places those objects first and opens this file's fold table only as a lookup.

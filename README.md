@@ -1,6 +1,6 @@
 # Skills
 
-Personal collection of AI agent skills. Each skill is Markdown the agent reads to run a fixed process: code review, docs, commits, security, and similar engineering work.
+Personal collection of AI agent skills. Each skill is Markdown the agent reads to run a fixed process: code review, docs, commits, security, and related engineering work.
 
 > Notable changes live in [CHANGELOG.md](CHANGELOG.md).
 
@@ -8,7 +8,7 @@ Personal collection of AI agent skills. Each skill is Markdown the agent reads t
 
 ## Agent rules
 
-[global-rules.md](global-rules.md) is the global judgment layer. The operating stack is always: **this file → repository** `AGENTS.md` **→ workflow skills**. Use it layered (tool loads the file globally; the repo keeps its own operational `AGENTS.md`) or fused (fold the base into the project's `AGENTS.md` with Commands, Permissions, and done criteria — do not keep two competing policy files in the same scope).
+[global-rules.md](global-rules.md) is the global judgment layer. The operating stack is **this file → repository** `AGENTS.md` **→ workflow skills**. Use it layered (the tool loads the file globally; the repo keeps its own operational `AGENTS.md`) or fused (fold the base into the project's `AGENTS.md` with Commands, Permissions, and done criteria). Do not keep two competing policy files in the same scope.
 
 The global rules can be defined in the `~/.codex/AGENTS.md` for Codex, `~/.claude/CLAUDE.md` for Claude, `~/.config/opencode/AGENTS.md` for OpenCode or `~/.cursor/rules/agent-rules.md` for Cursor.
 
@@ -149,6 +149,6 @@ Optional agents under `.opencode/agents/`. They are not part of the skills insta
 
 Use `code-review-plus` for a balanced PR/diff review (correctness, security, architecture, quality, performance), with adaptive tiers and optional stack shapes including `llm` (`1` perspective + `0` or `1` shape per hunter; on `normal`, only when a single eligible tag is obvious).
 
-Use `deep-security-review` when security is the main goal: threat model with hotspots/bypasses, domain hunts (`1` domain + `1` shape per subagent), disprove gates, and security-calibrated severity with separate hardening notes. Apply findings with `/deep-security-review fix` (aliases: `apply`, `implement`).
+Use `deep-security-review` when security is the main goal: a threat model with hotspots/bypasses, domain hunts (`1` domain + `1` shape per subagent), disprove gates, and security-calibrated severity with separate hardening notes. Apply findings with `/deep-security-review fix` (aliases: `apply`, `implement`).
 
-Do not run both Security perspectives on the same scope at once. `deep-security-review` replaces the shallow security pass. `code-review-plus` may tell you to run `/deep-security-review`; it will not start that skill by itself.
+Do not run both Security perspectives on the same scope at once. `deep-security-review` replaces the shallow security pass. `code-review-plus` may tell you to run `/deep-security-review`. It will not start that skill by itself.

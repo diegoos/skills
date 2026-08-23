@@ -1,8 +1,8 @@
 # Color
 
-Load at Declare when palette or theme is in play ([load-map.md](load-map.md)). Unanswered blanks: [briefing.md](briefing.md).
+Load when [load-map.md](load-map.md) attaches this file (palette or theme in play). Unanswered blanks belong to the Packet.
 
-Choose a strategy, build a palette, and ship the modes Lock `theme=` asks for. Dark, when shipped, is a designed palette. Tells: [anti-slop.md](anti-slop.md).
+Choose a strategy, build a palette, and ship the modes Lock `theme=` asks for. Dark, when shipped, is a designed palette.
 
 ## Scene sentence (temperature before hex)
 
@@ -53,7 +53,9 @@ If the previous surface you generated used beige+brass, pick a different family.
 
 ## Category-reflex (rework if this was the first idea)
 
-After the scene sentence, check the category. If the palette in your head matches the anti-reflex column, rework. The positive column is a **vector**, not a swatch — never treat industry as a hex lookup.
+**Marketing only.** Skip this check on app UI as a uniqueness bar. A CMS or admin that still looks like a product tool **passes**. The CMS row below is scaffold and sample-data tells, not a request for an original dashboard.
+
+After occupancy is locked, matching the domain is validation when Packet *objects* occupy the lead rectangles. This table is palette *first idea* only: if the hex in your head matches the anti-reflex column, rework the palette. Do not rework occupancy so the page is unguessable from the category.
 
 | Category                        | Anti-reflex                                                                       | Vector                                                                                                     |
 | ------------------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
@@ -74,9 +76,9 @@ After the scene sentence, check the category. If the palette in your head matche
 
 ## Building a palette
 
-1. **Anchor from the scene**, not from a generator. Name a real reference (a brand, a film still, a physical material) before opening a color tool.
+1. **Anchor from the scene**, not from a generator. Name a real reference (a brand, a film still, a physical material) before opening a color tool. On `you-decide` / invent-all, park the canvas on that reference — not on the model-default triad (cream ~`#F4F1EA` + terracotta, near-black + one acid or vermilion, or broadsheet ink-on-newsprint) unless Packet *tension* names that axis ([design-styles.md](design-styles.md#pick)).
 2. **Pick the dominant surface.** Restrained and product UI: near-neutral (charcoal, off-white). A named hue is the accent, not the canvas, unless Palette named a tinted field or Lock `color=drenched`.
-3. **Keep the neutral ramp near chroma 0.** A 1–2% wash is optional. Recasting `--surface` as olive, forest, or navy fails Restrained. Avoid pure `#000` / `#fff` (see [anti-slop.md](anti-slop.md#visual-tells)).
+3. **Keep the neutral ramp near chroma 0.** A 1–2% wash is optional. Recasting `--surface` as olive, forest, or navy fails Restrained. Avoid pure `#000` / `#fff`.
 4. **Choose one accent** with enough chroma to carry action and selection. Verify it clears contrast on its own background (buttons, links).
 5. **Add semantic states** (below) as a separate, functional layer — not the brand accent reused for "success".
 6. **Lock as tokens** ([design-systems.md](design-systems.md)) with semantic names (`--surface`, `--text-primary`, `--accent`), never raw hex in components.
@@ -143,7 +145,7 @@ Lock `theme=light`: ship the light block only. Lock `theme=dark`: ship the dark 
 
 ## Color tells (quick reference)
 
-Cross-check against [anti-slop.md](anti-slop.md#color-strategy-anti-patterns):
+Cross-check:
 
 - Purple/blue gradient glow as the default accent
 - New accent color per section

@@ -2,7 +2,7 @@
 
 `id=modern-dark` · `mode=dark` · `font=sans`
 
-Agent style guide. Keep the user's briefing, Look, DESIGN.md, and project tokens. Fill blanks only: type attitude, material, motion, density, and the cliché to refuse. The user's palette, typeface, radius, and layout stay as chosen. Layout families still come from the briefing and from layout-patterns.md (marketing) or product-register.md (app UI).
+Agent style guide. Keep the user's briefing, Look, DESIGN.md, and project tokens. Fill blanks only: type attitude, material, motion, density, and the cliché to refuse. The user's palette, typeface, radius, and layout stay as chosen. Occupancy is Packet Frame; this file vests craft. Fold vocabulary at Implement only.
 
 ## When
 
@@ -50,7 +50,7 @@ Secondary controls use `rgba(255,255,255,0.05)` fill and brighten to `0.08`. Gho
 
 Done criteria that name a hex apply only when that fallback token is in use. Prefer the user's mapped token.
 
-1. Keep the layout family the user named. If none, name one from layout-patterns.md or product-register.md. Done when that name is in the Lock.
+1. Keep Frame occupancy and Packet folds when task is marketing. If occupancy is missing, stop and open [composition.md](../composition.md). Do not name a hero family here. App UI: keep the recipe in [product-register.md](../product-register.md). Done when occupancy (marketing) or recipe (app UI) is already in the Lock.
 2. Keep the user's tokens. Fill empty DESIGN.md slots from Craft. Done when CSS uses the named user palette when one exists.
 3. If the user named a control language, keep it. Otherwise treat primary controls as accent fills with a multi-layer glow and a 1px inset highlight. Done when the primary button uses `#5E6AD2` (or the mapped accent), off-white label, `8px` radius, hover to `#6872D9`, and `:active` at `scale(0.98)`.
 4. Run anti-slop + crit. Done when the common-layout check fails for this style's own cliché: centered hero on a dark mesh with purple or indigo glow and three equal glass cards.

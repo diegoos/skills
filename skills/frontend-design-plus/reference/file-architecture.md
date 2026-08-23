@@ -1,6 +1,6 @@
 # File architecture
 
-Load after briefing answers (or invent-all) when origin is greenfield. Classify detects stack with a disk glance (`package.json`, lockfiles, framework config); this file binds the tree at Implement. Redesign and polish skip this file and stay on the current stack ([redesign.md](redesign.md)).
+Load when [load-map.md](load-map.md) attaches this file (greenfield Implement). Classify detects stack with a disk glance (`package.json`, lockfiles, framework config); this file binds the tree at Implement. Redesign and polish skip this file and stay on the current stack ([redesign.md](redesign.md)).
 
 Bind the stack and file tree before the first markup. A *cold reader* who opens the repo after this pass can name where HTML, CSS, and JS live.
 

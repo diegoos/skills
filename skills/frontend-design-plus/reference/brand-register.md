@@ -1,6 +1,6 @@
 # Brand register
 
-Load after briefing on marketing ([load-map.md](load-map.md)). Unanswered blanks: [briefing.md](briefing.md).
+Load when [load-map.md](load-map.md) attaches this file to the current slot. Unanswered blanks belong to the Packet.
 
 When design is the product: landing pages, marketing sites, campaigns, portfolios, long-form content, about pages.
 
