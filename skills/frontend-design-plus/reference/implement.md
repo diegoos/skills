@@ -23,9 +23,12 @@ This phase has its own done before folds.
 See: <object in the largest mass>
 tracks=enter <n/12 measured> rest <n|inset|below> break <n|none>
 proof=<1440 path | DOM rects>
+distinct=<three category scaffolds; one markup or CSS fact that kills each; color is not a fact>
 ```
 
-Done when the return block exists, `|measured − Sketch| ≤ 1` column, and `See:` is the enter *object*. Do not open [layout-patterns.md](layout-patterns.md#first-three-folds) until this holds. Marketing text+blob as the enter mass fails unless Packet P0 perception is type — then do not add invented media.
+**Verification return:** use the [verification](verification.md) block with `proof=browser`, `dom`, `static`, or `unverified`. Do not call an uninspected render a pass.
+
+Done when the return block exists, `|measured − Sketch| ≤ 1` column, and `See:` is the enter *object*. The primary CTA is visible without scroll in the first viewport. The H1 wraps to at most two lines at desktop. A component kit does not define the look (theme, type, radius, and copy come from DESIGN.md). Do not open [layout-patterns.md](layout-patterns.md#first-three-folds) until this holds. Marketing text+blob as the enter mass fails unless Packet P0 perception is type — then do not add invented media.
 
 ### Viewport proof (app UI)
 
@@ -41,13 +44,15 @@ main=<queue|list|canvas|people|settings>
 proof=<1440 path | DOM>
 ```
 
+**Verification return:** use the [verification](verification.md) block with the evidence level and any unverified visual or interaction checks.
+
 Done when the return block exists and `main=` matches Packet `recipe=` (`queue-home` → `queue`, `list-filter` → `list`, `editor` → `canvas`, `accounts` → `people`, `recipe=none` → `settings`). Do not return `See:` or `tracks=`.
 
 App UI screenshot, when the harness has one: `main` is the work queue or list (or the settings shell).
 
 ## One folds list or one recipe
 
-Marketing: ship Packet Frame occupancy, the Sketch, and `folds=`. Fold 2 and fold 3 show leftover Inventory *objects* in *job* order. A two-fold page is done when P0 cut removed the third object. Map Frame *joins* to tracks ([layout-patterns.md](layout-patterns.md#frame-tracks)). After `tracks=` exists, open [layout-patterns.md](layout-patterns.md#first-three-folds) only when a leftover *object* has no obvious form (table, list, one proof, CTA). Do not walk that section as a menu.
+Marketing: ship Packet Frame occupancy, the Sketch, and `folds=`. Fold 2 and fold 3 show leftover Inventory *objects* in *job* order, in the form each *object* asks for (schedule → time list; proof → one sourced proof; comparison → table; persist → CTA). A two-fold page is done when P0 cut removed the third object. Map Frame *joins* to tracks ([layout-patterns.md](layout-patterns.md#frame-tracks)). After `tracks=` exists, open [layout-patterns.md](layout-patterns.md#first-three-folds) only when a leftover *object* has no obvious form. Do not walk that section as a menu. A fold that is icon + title + blurb × N fails unless the Inventory object is a catalog of items.
 
 App UI: ship Packet `recipe=` and `Pareto=` when the view is a CMS/admin/CRM home, list, editor, or accounts. Settings and other tools follow the app shell in [surfaces.md](surfaces.md) when that path is attached; `recipe=none` and `main=settings`. `main` is the work queue or list. Greeting in `main` fails.
 
@@ -71,7 +76,7 @@ Top-down while writing. Open the owner only when that row is attached this slot 
 
 | # | Focus | Check | Fail when |
 | --- | --- | --- | --- |
-| 1 | A11y | Contrast 4.5:1, visible focus, keyboard | Removing focus rings |
+| 1 | A11y | Contrast 4.5:1, visible focus, keyboard, targets ≥44px | Missing any of the four without a named gap in the verification block |
 | 2 | Touch | Targets ≥44px, 8px gap, press feedback | Hover-only actions |
 | 3 | Perf | LCP/CLS, reserved space | Layout shift |
 | 4 | Direction | Packet Sketch + DESIGN.md | Markup that ignores Sketch, Thesis, or Lock `name=` |
@@ -94,4 +99,4 @@ Top-down while writing. Open the owner only when that row is attached this slot 
 
 ## File done
 
-Greenfield-with-no-framework has `index.html`, `main.css`, and `main.js` on disk. First viewport matches the Packet: marketing greenfield/redesign matches `style=` (or `none` when *tension* needs no named look), Look, *scene*, *thesis*, Sketch, occupancy rectangles, `folds=`, and the `See:` / `tracks=` / `proof=` return; polish: current family; app UI matches Pareto, the `main=` / `proof=` return, and `recipe=` when that view is a CMS/admin/CRM home, list, editor, or accounts (`recipe=none` on settings/shell). Lock `theme=system` ships two modes and a chrome switch. Resume-from-QA: every P0 in the table is in the DOM or discarded with a user-goal reason. Resume may correct `tracks=` CSS; it does not change `join=`. Resume does not invent Inventory to change `object-swap=n/a`.
+Greenfield-with-no-framework has `index.html`, `main.css`, and `main.js` on disk. First viewport matches the Packet: marketing greenfield/redesign matches `style=` (or `none` when *tension* needs no named look), Look, *scene*, *thesis*, Sketch, occupancy rectangles, `folds=`, and the `See:` / `tracks=` / `proof=` / `distinct=` return; polish: current family; app UI matches Pareto, the `main=` / `proof=` return, and `recipe=` when that view is a CMS/admin/CRM home, list, editor, or accounts (`recipe=none` on settings/shell). Lock `theme=system` ships two modes and a chrome switch. The [verification](verification.md) block declares evidence and gaps. Resume-from-QA: every P0 in the table is in the DOM or discarded with a user-goal reason. Resume may correct `tracks=` CSS; it does not change `join=`. Resume does not invent Inventory to change `object-swap=n/a`.

@@ -16,6 +16,7 @@ Same pass as Direction. Style Pick and markup wait until this file's done criter
 - *object-swap* — put another product's P0 perception in the largest Sketch cell. Required when Inventory has ≥2 domain nouns; otherwise `n/a`. Grammar in Frame. App UI and polish: `none`.
 - *sketch* — 12-column ASCII of first-viewport masses. Grammar in Frame. App UI and polish: `Sketch=none`.
 - *break* — the one *object* with no *kinship* to enter or rest. Occupancy irregularity, not craft.
+- *first-join* — the *join* token of the first occupancy card written. Packet `first-join=` records it. The surviving `join=` must not equal it. App UI and polish: `none`.
 
 ## Job
 
@@ -71,11 +72,11 @@ Write three cards from those *kinship* groups. Each card is four lines:
 3. *topology*: who is largest, who is second, where empty sits, and the *join* token (`stack` / `split` / `full-bleed` / `overlap` of the *same* object)
 4. three reasons: user + business + evidence. A style name is not a reason.
 
-Cards differ in *join* token, not in catalog ids and not in column ratio of the same *join*. Swiss / botanical / neo-brutal as card titles fail this step. Three splits that differ only in column ratio fail this step. The first idea is not the solution.
+Cards differ in *join* token, not in catalog ids and not in column ratio of the same *join*. Swiss / botanical / neo-brutal as card titles fail this step. Three splits that differ only in column ratio fail this step. Write the first card first. Record its *join* as `first-join=`. The first idea is not the solution: discard that card; the survivor's *join* must be a different token.
 
-Discard two with one sentence each, tied to *job* / P0 / audience. The survivor is not “the farthest from the median.”
+Discard two with one sentence each, tied to *job* / P0 / audience. The survivor is not “the farthest from the median.” One of the two discards is the `first-join=` card.
 
-Done when three cards exist, the three *joins* are three distinct tokens from `stack | split | full-bleed | overlap`, two discards name a *job* reason plus that token, and the survivor's line 3 is rectangles of *objects* — not a hero family.
+Done when three cards exist, the three *joins* are three distinct tokens from `stack | split | full-bleed | overlap`, `first-join=` is the first card's token, two discards name a *job* reason plus that token, the survivor's `join=` ≠ `first-join=`, and the survivor's line 3 is rectangles of *objects* — not a hero family.
 
 ## Frame
 
@@ -135,7 +136,7 @@ Done when each remaining fold names an *object*, `folds=` traces to Inventory, a
 
 ## File done
 
-*Job* phrase owned. *Objects* listed. P0 named. Pattern filtered. Hierarchy line written. *Kinship* rectangles drawn. Three occupancy cards with three distinct *join* tokens from `stack | split | full-bleed | overlap`; two discarded with a *job* reason. Frame masses with occupancy (two-mass page allowed). Sketch present: footer `join=` is the survivor, `tracks=` matches Frame, cells sum to 12, labels ⊂ Inventory. Packet `object-swap=` holds the Frame Object-swap check (`n/a` or a swap that does not read). *Thesis* (experience + occupancy) and the Sketch in DESIGN.md Layout. `fallback=yes` only with “fallback, not thesis”. `folds=` lists leftover *objects*. Style Pick may run.
+*Job* phrase owned. *Objects* listed. P0 named. Pattern filtered. Hierarchy line written. *Kinship* rectangles drawn. Three occupancy cards with three distinct *join* tokens from `stack | split | full-bleed | overlap`; `first-join=` is the first card's token; two discarded with a *job* reason; surviving `join=` ≠ `first-join=`. Frame masses with occupancy (two-mass page allowed). Sketch present: footer `join=` is the survivor, `tracks=` matches Frame, cells sum to 12, labels ⊂ Inventory. Packet `object-swap=` holds the Frame Object-swap check (`n/a` or a swap that does not read). Packet `first-join=` present and ≠ footer `join=`. *Thesis* (experience + occupancy) and the Sketch in DESIGN.md Layout. `fallback=yes` only with “fallback, not thesis”. `folds=` lists leftover *objects*. Style Pick may run.
 
 ## Worked: you-decide marketing
 
@@ -150,6 +151,7 @@ pattern=studio manifesto; fails here because managers scan a slot, not a catalog
 tension=calendar precision + spoken heat
 kinship=open slot and Book a slot are one task; schedule is fold 2
 joins=stack | split | full-bleed
+first-join=split
 discarded=split (invented photo: no asset on the object list); full-bleed (three-up firing types: P0 becomes a tile)
 fallback=no
 Frame:
@@ -174,6 +176,7 @@ pattern=PDP studio booking; fails here because the kiln is the product, not a SK
 tension=industrial heat + calendar precision
 kinship=kiln photo is the field; Book a slot is its label (same rectangle)
 joins=overlap | split | stack
+first-join=split
 discarded=split (equal three-up catalog: P0 kiln becomes a tile); stack (manifesto type: booking control leaves the kiln)
 fallback=no
 Frame:

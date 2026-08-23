@@ -8,7 +8,7 @@ One sentence plus one Lock line before markup. These examples are **after** brie
 
 ```txt
 Reading this as: <page kind> for <audience>, with a <vibe> language, leaning toward <register or design system>.
-Lock: origin=<greenfield|redesign|polish>; name=<briefing name or invented>; scene=<place/time/mood>; style=<id|none>; theme=<light|dark|system>; color=<restrained|committed|full|drenched>; layout=<contained|offset|wild>; motion=<still|fluid|cinematic>; density=<airy|regular|dense>; stack=<detected, asked, or html+css+js>.
+Lock: mode=<full|solo|fast>; origin=<greenfield|redesign|polish>; name=<briefing name or invented>; scene=<place/time/mood>; style=<id|custom|none>; theme=<light|dark|system>; color=<restrained|committed|full|drenched>; layout=<contained|offset|wild>; motion=<still|fluid|cinematic>; density=<airy|regular|dense>; stack=<detected, asked, or html+css+js>.
 ```
 
 Product Locks also name the 1–2 Pareto screens. CMS/admin/CRM/list/editor/accounts also name `recipe=`. Settings outside those four: `recipe=none`. Marketing Locks name the one memorable break (or `break=none`) and, on greenfield/redesign, `folds=` from the *map*. `scene=` quotes briefing Scene or the composition sentence. `object-swap=` is a foreign P0 plus *because*, or `n/a` when Inventory has fewer than two domain nouns ([composition.md](composition.md#frame)). App UI, redesign, and polish lock `style=none` and leave [design-styles.md](design-styles.md) closed. Greenfield **marketing** `style=` is a craft path only when *tension* requires a named look; *composition* writes *job*, *objects*, *kinship*, the *frame*, the Sketch, the *thesis*, and the *map* ([composition.md](composition.md)). App UI recipes: [product-register.md](product-register.md#dashboards). Briefing runs first unless *invent-all*. Unanswered blanks: no Read, no Lock, no markup ([briefing.md](briefing.md)).
@@ -35,7 +35,7 @@ Product Locks also name the 1–2 Pareto screens. CMS/admin/CRM/list/editor/acco
 
 ## Example 3: Portfolio site (after briefing answers)
 
-**Brief:** "Design a portfolio for a ceramic artist." Name, audience, success, use, scene, theme, and stack were blank, so `AskQuestion` ran one field per turn (Scene: `You decide from the brief` plus two occupancy readings). Look was unnamed (`you-decide`; no Catalog table). Behave unnamed = `none` (`motion=still`). The user answered: name=Atelier Sol; collectors; book a studio visit; Use=a scan of minutes; Scene=`you-decide`; light; html+css+js.
+**Brief:** "Design a portfolio for a ceramic artist." Name, audience, success, use, scene, theme, and stack were blank, so the question interface ran one field per turn (Scene: `You decide from the brief` plus two occupancy readings). Look was unnamed (`you-decide`; no Catalog table). Behave unnamed = `none` (`motion=still`). The user answered: name=Atelier Sol; collectors; book a studio visit; Use=a scan of minutes; Scene=`you-decide`; light; html+css+js.
 
 **Composition.** *job:* The user is here to book a studio visit. *objects:* kiln in fire (discover), featured works (compare), Book a studio visit (decide). P0 perception = kiln; P0 action = book. *tension:* industrial heat + calendar precision. *joins:* overlap | split | stack. *discarded:* split (equal three-up catalog); stack (manifesto type). `fallback=no`. *frame:* enter = kiln full-bleed; rest = Book a studio visit on the same mass; `break=none`. *Sketch:* `[============ kiln in fire 12 ============]` `join=overlap tracks=enter 12 rest inset break none`. *thesis:* Book the visit on the kiln that is still on. Kiln full-bleed, Book on that mass. *folds=* kiln in fire | featured works | cut. *object-swap:* a SaaS chart in enter does not read because the kiln photo is the field and Book is its label. Pick vests heat on the kiln mass (`industrial` only if *tension* requires that Path).
 
@@ -73,7 +73,7 @@ Audit listed before the first visual edit, keep/retire against Aim. Navy stays. 
 
 Filled: Job, Constraints (keep the named software). Blank: Name, Audience, Success, Use, Scene, Theme, Stack. Behave unnamed = `none`. Look unnamed = `you-decide`. "Unique" is not invent-all.
 
-Do not write a Design Read or Lock in this turn. Close this file. Open [briefing.md](briefing.md) and ask **Name** with `AskQuestion` ([briefing.md](briefing.md#worked-example)). After every field has an owner, open [after-briefing.md](after-briefing.md).
+Do not write a Design Read or Lock in this turn. Close this file. Open [briefing.md](briefing.md) and ask **Name** through the host's question interface ([briefing.md](briefing.md#worked-example)). After every field has an owner, open [after-briefing.md](after-briefing.md).
 
 ## Example 7: Polish an existing settings page
 
@@ -87,7 +87,7 @@ Existing markup, DESIGN.md, and tokens. Origin=`polish`. Look, Name, Stack fille
 
 ## When to ask
 
-This file is after answers. Missing briefing fields: close this file and ask the next blank with `AskQuestion` ([briefing.md](briefing.md)). Extra asks after answers only when:
+This file is after answers. Missing briefing fields: close this file and ask the next blank through the host's question interface ([briefing.md](briefing.md)). Extra asks after answers only when:
 
 - Brief says "for everyone" and the product is niche.
 - Brief describes a dashboard and asks for wow-factor animation on every chrome control.

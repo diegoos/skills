@@ -84,7 +84,7 @@ Field contract, validation, error summary, and control choice live in [productio
 - **Marketing:** one filled primary per **fold**; AIDA may repeat the same CTA later; two competing filled buttons in one fold fail
 - Verb + object labels; 3 words max on the primary when it would wrap
 - Keep the CTA cluster tight; separate it from competing blocks. A short button with an unused column beside it fails
-- Concrete verbs; no em dashes in copy
+- Concrete verbs; avoid decorative punctuation that makes copy feel templated
 
 ## Microcopy and sample content
 

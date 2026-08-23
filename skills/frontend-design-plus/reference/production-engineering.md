@@ -6,7 +6,7 @@ Build UIs that look designed and ship reliably.
 
 Patterns below are shown in HTML/CSS for clarity. Translate the syntax to the project's framework (JSX, Vue/Svelte SFCs, template engines, native components) while preserving the semantics: native elements, state separation, and accessibility behavior carry across all of them.
 
-See also: [performance.md](performance.md), [typography.md](typography.md). Anti-slop bans: [anti-slop.md](anti-slop.md). Pre-flight: [preflight-checklist.md](preflight-checklist.md).
+See also: [performance.md](performance.md), [typography.md](typography.md). Anti-slop high-risk tells: [anti-slop.md](anti-slop.md). Pre-flight: [preflight-checklist.md](preflight-checklist.md).
 
 ## Component architecture
 

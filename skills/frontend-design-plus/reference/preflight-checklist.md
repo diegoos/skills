@@ -10,11 +10,11 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 
 - [ ] Task type identified (component / app UI / marketing)
 - [ ] Origin named: `greenfield` (new UI), `redesign` (existing page from the briefing), or `polish` (improve existing UI). Existing surface: [redesign.md](redesign.md) read; audit listed (redesign: keep/retire vs Aim; polish: [craft audit](redesign.md#craft-audit) with P0/P1 closed); Lock `style=none`; Catalog closed
-- [ ] Briefing: every remaining blank asked and answered this run via `AskQuestion` (one field per turn), or *invent-all*. A chat dump of questions fails. Skipping Scene, Theme, Palette, Use, or Stack while still blank (when those apply) fails. Unnamed Behave and Constraints are owner `none`; asking them when the prompt did not name motion, states, artifacts, or restrictions fails. App UI: Scene and Look skipped as `none`; a Catalog table in chat fails. Greenfield marketing Scene blank required `You decide from the brief` plus two occupancy readings ([briefing.md](briefing.md#scene)). Greenfield marketing Look was not asked: unnamed Look is owner `you-decide`; a Catalog table in the parent chat fails ([briefing.md](briefing.md#look)). Greenfield marketing Scene `you-decide` / invent-all: occupancy from *objects* and *kinship* in [composition.md](composition.md); `fallback=yes` only with “fallback, not thesis”. Greenfield marketing Look `you-decide` (including silence) / invent-all: Pick written and matched to Packet *tension* ([design-styles.md](design-styles.md#pick)). Redesign: Aim, Keep, and Scope have owners ([briefing.md](briefing.md#redesign)); Scene was not asked; Use asked if still blank; Behave and Constraints not asked unless Aim named them. Polish: form skipped, or one Focus ask when the goal was mute ([briefing.md](briefing.md#polish)). Redesign, polish, and app UI: Catalog closed; app UI Look is `none` unless the user named an `id`. Inferred wordmark, audience, CTA, style-from-job, theme-from-job, palette-from-job, or occupancy-from-job fails — [briefing.md](briefing.md)
+- [ ] Briefing: every remaining blank has an owner through the selected mode's question contract, or *invent-all*. A chat dump of questions fails. Skipping Scene, Theme, Palette, Use, or Stack while still blank (when those apply) fails. Unnamed Behave and Constraints are owner `none`; asking them when the prompt did not name motion, states, or artifacts fails. App UI: Scene and Look skipped as `none`; a Catalog table in chat fails. Greenfield marketing Scene blank required `You decide from the brief` plus two occupancy readings ([briefing.md](briefing.md#scene)). Greenfield marketing Look was not asked: unnamed Look is owner `you-decide`; a Catalog table in the parent chat fails ([briefing.md](briefing.md#look)). Greenfield marketing Scene `you-decide` / invent-all: occupancy from *objects* and *kinship* in [composition.md](composition.md); `fallback=yes` only with “fallback, not thesis”. Greenfield marketing Look `you-decide` (including silence) / invent-all: Pick or a custom register written and matched to Packet *tension* ([design-styles.md](design-styles.md#pick), [visual-language.md](visual-language.md)). Redesign: Aim, Keep, and Scope have owners ([briefing.md](briefing.md#redesign)); Scene was not asked; Use asked if still blank; Behave and Constraints not asked unless Aim named them. Polish: form skipped, or one Focus ask when the goal was mute ([briefing.md](briefing.md#polish)). Redesign, polish, and app UI: Catalog closed; app UI Look is `none` unless the user named an `id` or explicitly requested a custom register. Inferred wordmark, audience, CTA, style-from-job, theme-from-job, palette-from-job, or occupancy-from-job fails — [briefing.md](briefing.md)
 - [ ] `DESIGN.md` followed or created; CSS tokens match — [design-md.md](design-md.md)
 - [ ] Files match [file-architecture.md](file-architecture.md) (default: `index.html` + `main.css` + `main.js`; no stylesheet dumped into HTML)
 - [ ] Design Read declared (required for app UI and marketing)
-- [ ] Lock line present: origin, name, scene (quoted Scene or composition sentence; owner exists), theme (`light` / `dark` / `system`), color strategy, layout/motion/density bands, stack. Marketing greenfield/redesign: Sketch; `folds=`; Packet `job=`, `P0=`, `tension=`, `object-swap=` (foreign P0 + because, or `n/a` per [composition.md](composition.md#frame)), `fallback=` (`yes` includes “fallback, not thesis”). CMS/admin/CRM/list/editor/accounts: `recipe=` and `Pareto=`. Other app UI: `Pareto=`; `recipe=none` valid on settings. Redesign: `aim=`, `keep=`, `scope=`
+- [ ] Lock line present: mode, origin, name, scene (quoted Scene or composition sentence; owner exists), theme (`light` / `dark` / `system`), color strategy, layout/motion/density bands, stack. Marketing greenfield/redesign: Sketch; `folds=`; Packet `job=`, `P0=`, `tension=`, `object-swap=` (foreign P0 + because, or `n/a` per [composition.md](composition.md#frame)), `fallback=` (`yes` includes “fallback, not thesis”). Custom language: `style=custom`, supported register, and `language_path=`. CMS/admin/CRM/list/editor/accounts: `recipe=` and `Pareto=`. Other app UI: `Pareto=`; `recipe=none` valid on settings. Redesign: `aim=`, `keep=`, `scope=`
 - [ ] *Crit* written; that file's done criterion holds for this task type and origin — [crit.md](crit.md)
 - [ ] Register correct when not an isolated component (brand vs product)
 
@@ -31,7 +31,7 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 ### Anti-slop
 
 - [ ] Does not read as generic AI output — slop test for this task type ([anti-slop.md](anti-slop.md#the-slop-test))
-- [ ] No em dashes (`—`) in visible copy
+- [ ] Visible punctuation and typography fit the copy register; LLM residue is rewritten, while justified punctuation is allowed ([anti-slop.md](anti-slop.md#copy-tells))
 
 ### Color
 
@@ -75,7 +75,8 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 
 ### Honesty
 
-- [ ] State what was NOT verified (build, axe, real devices, screen reader, screenshot/browser). An unverified visual tell is not a fail. Missing Sketch or missing `tracks=` on marketing greenfield/redesign is a fail, not unverified. Missing `main=` / `proof=` on app UI is a fail, not unverified.
+- [ ] The [verification.md](verification.md) block exists with an evidence level, viewport results, automated accessibility status, performance level, and `not-verified=`. An unverified visual tell is not a pass. Missing Sketch or missing `tracks=` on marketing greenfield/redesign is a fail, not unverified. Missing `main=` / `proof=` on app UI is a fail, not unverified.
+- [ ] The [visual-rubric.md](visual-rubric.md) block exists, every applicable criterion has evidence, and any threshold failure is in the P0/P1 table.
 
 ---
 
@@ -135,7 +136,7 @@ Add when building dashboards, settings, admin, or dense tools. Count from the Pa
 
 ### Dashboard (if applicable)
 
-- [ ] Lock `style=none` unless Look is a named catalog `id`. Zero Catalog table in this run's chat
+- [ ] Lock `style=none` unless Look is a named catalog `id` or the user explicitly requested `style=custom`. Zero Catalog table in this run's chat
 - [ ] `h1` in `main` is not a greeting ("Welcome back", "Good morning"). Greeting nodes in `main` = 0
 - [ ] If KPI cards exist: they are not 4 equal siblings. Each KPI node has four text roles: label, value, delta, time
 - [ ] If a pie/donut exists: slice count ≤ 3. Each chart has an adjacent title that is a question or a decision, not a noun ("Traffic", "Devices")

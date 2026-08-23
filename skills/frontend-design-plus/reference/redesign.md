@@ -53,7 +53,7 @@ Polish only. Written list, zero edits. Open the owner file when that row has a f
 | Chrome | [surfaces.md](surfaces.md) on app UI | CTA kisses the rail; drop shadow fakes an overlay on the product plane; `transition: all` |
 | Occupancy | [layout-patterns.md](layout-patterns.md#grids-and-lists) | Empty tracks; N items not in N cells |
 | States | [production-engineering.md](production-engineering.md) | Missing hover/focus/disabled on a control this pass touches; missing loading/empty/error where that control is async |
-| Anti-slop | Matching branch of [anti-slop.md](anti-slop.md#the-slop-test) | Greeting `h1`, donut >3, em dash, portable slogan, overflow. Not category-reflex or logo-swap |
+| Anti-slop | Matching branch of [anti-slop.md](anti-slop.md#the-slop-test) | Greeting `h1`, donut >3, decorative punctuation, portable slogan, overflow. Not category-reflex or logo-swap |
 | Motion | [motion.md](motion.md#product-micro) on app UI | Product micro missing on press; new cinematic layer |
 
 Rank: **P0** contrast, overflow, hierarchy that hides the action, inconsistent accent, hit area. **P1** space/type scale, occupancy, states on the touched flow. **P2** radius trivia, motion. Direction is this list plus Lock `style=none`. No new folds. No new recipe.

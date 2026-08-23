@@ -33,9 +33,17 @@ Frame occupancy wins. A centered mass is valid only when Frame already centered 
 
 ## First three folds
 
-Greenfield and redesign **marketing** only. Load this section from **Implement** after `tracks=` exists, and only when a leftover *object* has no obvious form (table, list, one proof, CTA) ([implement.md](implement.md#one-folds-list-or-one-recipe)). Packet `folds=` already names leftover *objects* in *job* order ([composition.md](composition.md#map)). Do not walk this table as a menu. Origin `polish` keeps the current family.
+Greenfield and redesign **marketing** only. Load this section from **Implement** after `tracks=` exists. Packet `folds=` already names leftover *objects* in *job* order ([composition.md](composition.md#map)). Origin `polish` keeps the current family.
 
-These shapes are a lookup when that leftover *object* needs a form. Matching a named hero family is not required. A shape that rewrites Frame occupancy fails. Spec, magazine, FAQ, and CTA band exist only as listed *objects*.
+Give each leftover *object* the form the object itself asks for. Do not walk this table as a menu.
+
+- schedule, slot, timeline, queue of times → a time-ordered list or calendar, not three equal cards
+- proof, quote, metric → one sourced proof
+- comparison, plan, spec → a table
+- persist, book, buy, contact → one CTA band
+- a catalog of independent items → at most one card-family section
+
+Open the table below only when that leftover *object* has no obvious form (table, list, one proof, CTA) ([implement.md](implement.md#one-folds-list-or-one-recipe)). A shape that rewrites Frame occupancy fails. Spec, magazine, FAQ, and CTA band exist only as listed *objects*. A fold that is icon + title + blurb × N fails unless the Inventory object **is** a catalog of items.
 
 | Fold shape | When the leftover *object* is |
 | --- | --- |

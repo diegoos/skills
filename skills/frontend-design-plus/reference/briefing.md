@@ -6,19 +6,25 @@ Leave [design-styles.md](design-styles.md) closed in this window. Catalog and Pi
 
 ## This turn
 
-Call `AskQuestion` for **exactly one** remaining blank. Then the turn ends.
+Score **every** applicable field against the prompt and disk in this one pass before any question. Inference is not an owner. Unnamed greenfield marketing Look is `you-decide`. Unnamed Behave and Constraints are `none`. Do not ask those.
 
-A numbered list of questions in the chat message fails this file. A Design Read, Lock, scene sentence, concept paragraph, or markup fails this file.
+Then call the host's question interface:
 
-A first-person bio plus "showcase my work" / "unique" is the [Worked example](#worked-example). Ask Name first.
+- Tool accepts multiple questions in one call: send **every remaining blank** in [Ask](#ask) order, each field its own question, at least two options plus Other. End the turn. Do not rescore between those fields.
+- Tool accepts only one question per call: ask the first remaining blank, declare `questions=serial`, and end the turn. Next turn asks the next blank the same way.
+- `fast` may omit fields the prompt or disk already own. `full` and `solo` batch the same remaining set when the tool allows.
 
-Done for this turn when that one `AskQuestion` call is the user-facing output. The briefing as a whole is done when every field has an owner; then open [after-briefing.md](after-briefing.md). After each answer, if blanks remain, ask the next blank on the next turn.
+A numbered list of questions in the chat message fails this file. A structured multi-question tool call is not a dump. A Design Read, Lock, scene sentence, concept paragraph, or markup fails this file.
+
+A first-person bio plus "showcase my work" / "unique" is the [Worked example](#worked-example). Score the table, then batch the remaining blanks.
+
+Done for this turn when the selected mode's question contract is the user-facing output. The briefing as a whole is done when every field has an owner; then open [after-briefing.md](after-briefing.md). After a serial answer, if blanks remain, ask the next blank on the next turn.
 
 ## Ask
 
 Order of blanks (skip any already filled). Origin `greenfield`: **Name**, **Audience**, **Success**, **Use**, **Scene**, **Theme**, **Palette**, **Stack**. Do not ask **Look** ([Look](#look)). Do not ask **Behave** or **Constraints** unless the prompt already named motion, states, artifacts, or restrictions ([Behave and Constraints](#behave-and-constraints)). Origin `redesign`: **Aim**, **Keep**, **Scope**, then **Audience** (only if it applies), **Success** (if blank), **Use** if still blank. Skip Name, Scene, Look, Theme, Palette, Stack on redesign. Skip Behave and Constraints on redesign unless Aim named them. Origin `polish`: skip this form unless the goal is mute; then **Focus** only ([Polish](#polish)).
 
-One field per call. At least two options. **Other** is how the user types a custom answer; do not add a duplicate Other option.
+One field per question. Batch remaining questions in one call when the host tool allows. At least two options. **Other** is how the user types a custom answer; do not add a duplicate Other option.
 
 Write the prompt in the user's language. English stems below are the template.
 
@@ -81,7 +87,7 @@ Inference is not an owner. For example, "Software engineer for N years" does not
 
 ## Fields
 
-Skip filled fields. Ask remaining blanks one at a time via `AskQuestion`. Ending the briefing while Scene, Theme, Palette, Use, or Stack is still blank (when those apply) fails this file. Unnamed greenfield marketing Look is not a remaining blank. Unnamed Behave and Constraints are owner `none`, not remaining blanks. Origin `redesign`: Aim, Keep, or Scope still blank fails this file. Origin `polish` with a mute goal: Focus still blank fails this file.
+Skip filled fields. Ask remaining blanks in one structured call when the host tool allows; serial only when it does not. `fast` may omit fields the prompt or disk already own. Ending the briefing while Scene, Theme, Palette, Use, or Stack is still blank (when those apply) fails this file. Unnamed greenfield marketing Look is not a remaining blank. Unnamed Behave and Constraints are owner `none`, not remaining blanks. Origin `redesign`: Aim, Keep, or Scope still blank fails this file. Origin `polish` with a mute goal: Focus still blank fails this file.
 
 | Field           | Why                                                      | Filled when                                   |
 | --------------- | -------------------------------------------------------- | --------------------------------------------- |
@@ -136,9 +142,9 @@ Filled when the user named a place, a remembered page, or occupancy in one sente
 
 Job, bio, "unique", and quality adjectives ("professional", "nível profissional", "clean", "modern", "editorial" as a vibe with no occupancy) do not fill Scene. A guessed category place ("desk at night" for a developer portfolio) does not fill Scene. A craft-only ref (density, type, material) fills Look, not Scene.
 
-When Scene is the **current blank** and origin is **greenfield** and task is **marketing**:
+When Scene is among remaining blanks and origin is **greenfield** and task is **marketing**:
 
-Call `AskQuestion` with **three** options: `You decide from the brief` first, then two occupancy readings derived from Job. The two readings differ in *topology* (stack vs split vs full-bleed), not in two column ratios of the same join. Place or first-viewport mass — not catalog ids, not quality adjectives. Prompt stem: name a place, a page you remember, or how the first viewport is occupied; or let the agent decide from the brief. Other is a typed occupancy sentence or a URL with an occupancy *why*.
+Include Scene in the structured question call with **three** options: `You decide from the brief` first, then two occupancy readings derived from Job. The two readings differ in *topology* (stack vs split vs full-bleed), not in two column ratios of the same join. Place or first-viewport mass — not catalog ids, not quality adjectives. Prompt stem: name a place, a page you remember, or how the first viewport is occupied; or let the agent decide from the brief. Other is a typed occupancy sentence or a URL with an occupancy *why*.
 
 Do not invent occupancy in this turn. On `you-decide` / `none`: after the rest of the briefing has owners, [composition.md](composition.md) writes occupancy from *objects* and *kinship*. Invent-all skipped the form: same. App UI skipped Scene does not run that write as a composition input.
 
@@ -160,7 +166,7 @@ On greenfield **marketing** `you-decide` (including silence) or `none`: Directio
 
 Filled when the user named `light`, `dark`, `both`, or `system` (or the same idea in the user's language), or disk owns Theme. Job, "dashboard", "CMS", and "admin" leave Theme blank. `none` is invalid: pick Light, Dark, or Both.
 
-When Theme is the **current blank** and it applies: call `AskQuestion` with Light, Dark, and Both. Both maps to Lock `theme=system`. Ship it per [color.md](color.md#system-theme). Other is a typed `light` / `dark` / `system`.
+When Theme is among remaining blanks and it applies: include Theme in the structured question call with Light, Dark, and Both. Both maps to Lock `theme=system`. Ship it per [color.md](color.md#system-theme). Other is a typed `light` / `dark` / `system`.
 
 Map the answer onto Lock `theme=` at Declare. Scene owns temperature ([color.md](color.md#scene-sentence-temperature-before-hex)).
 
@@ -170,7 +176,7 @@ Map the answer onto Lock `theme=` at Declare. Scene owns temperature ([color.md]
 
 Filled when the user named hex, a brand color, `neutrals`, or a family ("navy", "forest"), or disk owns Palette. Theme (light/dark) is the mode; it does not fill Palette. Job, "dashboard", "CMS", "sports", and a guessed accent leave Palette blank.
 
-When Palette is the **current blank** and it applies: call `AskQuestion`. Options: Neutrals (charcoal / off-white surfaces + one accent), plus two hues derived from the job. Other is a typed family, hex, or `neutrals`. Neutrals is the product default.
+When Palette is among remaining blanks and it applies: include Palette in the structured question call. Options: Neutrals (charcoal / off-white surfaces + one accent), plus two hues derived from the job. Other is a typed family, hex, or `neutrals`. Neutrals is the product default.
 
 Ship per [color.md](color.md#building-a-palette). A named hue is the accent, not the dark canvas, unless the user asked for a tinted field or Lock `color=drenched`.
 
@@ -180,7 +186,7 @@ Applies when Classify named `origin=redesign`. Do not ask Scene, Look, Theme, Pa
 
 **Aim** is the expected outcome. Without it, Direction fails. Filled when the user named what should be true after the redesign that is not true now. Silence is blank.
 
-When Aim is the current blank: glance at the existing page (not a tour). Call `AskQuestion` with four readings that fit the prompt and that glance:
+When Aim is among remaining blanks: glance at the existing page (not a tour). Include Aim in the structured question call with four readings that fit the prompt and that glance:
 
 - The primary action fails
 - The first fold does not state the job
@@ -189,9 +195,9 @@ When Aim is the current blank: glance at the existing page (not a tour). Call `A
 
 Other is the user's sentence. Map onto Lock `aim=`.
 
-**Keep** is preservation intent. Filled when the user named what must still feel like this product, or said `all of these`. When it is the current blank: wordmark + nav; routes and analytics; copy voice; accent and tokens; all of these. Other names the sacred piece. Do not re-ask the same facts as Constraints. Map onto Lock `keep=`. Preservation rules: [redesign.md](redesign.md#preservation).
+**Keep** is preservation intent. Filled when the user named what must still feel like this product, or said `all of these`. When it is among remaining blanks: wordmark + nav; routes and analytics; copy voice; accent and tokens; all of these. Other names the sacred piece. Do not re-ask the same facts as Constraints. Map onto Lock `keep=`. Preservation rules: [redesign.md](redesign.md#preservation).
 
-**Scope** is how far composition may change. Filled when the user named first viewport, this page, or this flow. When it is the current blank: First viewport only; this page (sections); this flow (linked pages, same chrome). Suggested default in the option labels: this page. Rewriting the product is not an option until they ask. Map onto Lock `scope=` (`first-viewport` / `page` / `flow`). Levers 6–8 only inside that scope ([redesign.md](redesign.md#levers-stop-when-the-brief-is-satisfied)).
+**Scope** is how far composition may change. Filled when the user named first viewport, this page, or this flow. When it is among remaining blanks: First viewport only; this page (sections); this flow (linked pages, same chrome). Suggested default in the option labels: this page. Rewriting the product is not an option until they ask. Map onto Lock `scope=` (`first-viewport` / `page` / `flow`). Levers 6–8 only inside that scope ([redesign.md](redesign.md#levers-stop-when-the-brief-is-satisfied)).
 
 **Audience** after Scope: ask only if Aim names a new public or the prompt does not name who uses the surface now. Disk + Job otherwise fill it.
 
@@ -209,7 +215,7 @@ Done when Aim, Keep, and Scope have owners and every remaining applicable blank 
 
 Applies when Classify named `origin=polish`. Skip the form when the user already named the problem (spacing, contrast, states, tighten, a11y).
 
-When they only said "improve this" / "melhora isso" / "make it better" with no problem: **Focus** is blank. Call `AskQuestion` once: hierarchy and scan; spacing rhythm; inconsistent color; states (hover, focus, loading); a11y. Other is their sentence. Then open [after-briefing.md](after-briefing.md). The [craft audit](redesign.md#craft-audit) is Direction. Do not start a second briefing.
+When they only said "improve this" / "melhora isso" / "make it better" with no problem: **Focus** is blank. Call the host's question interface once: hierarchy and scan; spacing rhythm; inconsistent color; states (hover, focus, loading); a11y. Other is their sentence. Then open [after-briefing.md](after-briefing.md). The [craft audit](redesign.md#craft-audit) is Direction. Do not start a second briefing.
 
 If the user names an IA problem (home is a chart gallery, wrong first fold, new job), reclassify origin to `redesign` and ask Aim.
 
@@ -232,6 +238,6 @@ Prompt: *Create a unique web page to showcase my work. My background: I have bee
 | Constraints | filled (keep the named skills)                |
 | Stack       | blank if the repo has no stack                |
 
-Not invent-all. First remaining blank is **Name**. Call `AskQuestion` with the Name stem. Options: two working titles from the job (descriptive nouns). Other is the user's own name. Stop. Do not list Audience through Stack in chat.
+Not invent-all. Remaining blanks: Name, Audience, Success, Use, Scene, Theme, Palette, and Stack when the repo has no stack. If the host tool accepts multiple questions in one call, send those fields in that order in one call. Name options: two working titles from the job (descriptive nouns); Other is the user's own name. Scene options: `You decide from the brief` plus two occupancy readings that differ in topology. Do not list the questions in chat. Do not ask Look, Behave, or Constraints.
 
-After Name is answered, next turn asks **Audience** the same way, then Success, Use, Scene (`You decide from the brief` plus two occupancy readings), Theme, Palette, Stack. Do not ask Look, Behave, or Constraints. Then open [after-briefing.md](after-briefing.md). App UI never uses Scene or Look; skipped Scene and Look are `none`.
+If the host accepts only one question per call, ask Name first, declare `questions=serial`, and continue one field per turn in Ask order. Then open [after-briefing.md](after-briefing.md). App UI never uses Scene or Look; skipped Scene and Look are `none`.

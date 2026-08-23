@@ -42,9 +42,9 @@ Run this before the *crit* ([crit.md](crit.md)). Layout and copy each have to pa
 
 Skip category-reflex, second-order, and interchangeability on chrome. A CMS that still reads after a logo-swap **passes**. Sample data and empty copy still need domain nouns ([Dashboard tells](#dashboard-tells)).
 
-## Absolute bans
+## High-risk tells
 
-Rewrite any element that matches:
+Rewrite any element that matches unless the brief, existing system, semantic need, or selected visual language justifies it. Keep the reason in the QA finding when an exception remains.
 
 | Pattern                                         | Why                                        | Do instead                                                                                |
 | ----------------------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------------------------- |
@@ -56,7 +56,7 @@ Rewrite any element that matches:
 | Eyebrow on every section                        | Small caps `ABOUT` `PROCESS` above each H2 | Cap eyebrows at `ceil(sections / 3)`                                                      |
 | Numbered section markers (`01 · About`)         | Fake sequence                              | Numbers only on a real sequence                                                           |
 | Text overflowing container                      | Unchecked H1                               | Wide H1 container; test every breakpoint                                                  |
-| Em dashes (`—`) anywhere visible                | LLM signature                              | `-`, commas, periods                                                                      |
+| Decorative em dashes (`—`) in UI copy           | Templated aside or LLM residue             | Use a comma, period, or hyphen; keep an em dash when the copy register genuinely needs it |
 | Three equal feature cards                       | Default SaaS scaffold                      | Split, bento, or a comparison table                                                       |
 
 ## Visual tells
@@ -71,7 +71,7 @@ Rewrite any element that matches:
 
 ## Typography tells
 
-**Reflex-reject fonts** (training-data defaults). Look further unless the pairing procedure in [typography.md](typography.md#font-pairing-structure-not-a-fashion-list) selected them on purpose:
+**Reflex-risk fonts** (training-data defaults). Look further unless the pairing procedure in [typography.md](typography.md#font-pairing-structure-not-a-fashion-list), the project, or the selected visual language chose them on purpose:
 
 Fraunces, Newsreader, Lora, Crimson family, Playfair Display, Cormorant, Syne, IBM Plex family, Space Mono, Space Grotesk, Inter (as **brand** default; product may follow the project), DM Sans/Serif, Instrument Sans/Serif.
 
@@ -155,7 +155,7 @@ Empty, error, and loading shapes: [ux-principles.md](ux-principles.md#microcopy-
 | CTA wrap                | primary wrapping to 2+ lines at desktop                                                                                                                                                                                                                                                                          | ≤3 words, one line                                         |
 | Long pull-quotes        | quotes >3 lines on a landing                                                                                                                                                                                                                                                                                     | One short line or cut                                      |
 | Lorem / latin           | `Lorem ipsum`, `Your catchy headline here`                                                                                                                                                                                                                                                                       | Real draft copy at real length                             |
-| Em dash / `--`          | decorative `—` in UI copy                                                                                                                                                                                                                                                                                        | `-`, comma, or period. Zero in short UI strings            |
+| Decorative em dash      | Templated aside or LLM residue in UI copy                                                                                                                                                                                                                                                                        | Keep it when the register needs it                         |
 
 Filler adverbs (`just`, `literally`, `simply`, `actually`, `truly`, `fundamentally`, `crucially`) and phrases (`at its core`, `in today's world`, `when it comes to`, `in order to`) come out when they delay the point. Keep them only when they are the product's spoken voice.
 

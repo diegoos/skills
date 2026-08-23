@@ -92,6 +92,10 @@ Present sections stay in spec order. Skip a section only via `omitted`.
 
 Unknown extra `##` headings are allowed; duplicate `## Colors` is not.
 
+## Custom language
+
+When Lock uses `style=custom`, `Overview` records the supported register and `Do's and Don'ts` records the signature detail and its reason. Tokens still come from the briefing, project, or [visual-language.md](visual-language.md); a custom label does not authorize a second palette or a new layout family.
+
 ## Agent behavior
 
 - Tokens win over adjectives in chat. Prefer `{colors.primary}` over duplicated hex.

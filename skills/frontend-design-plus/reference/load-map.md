@@ -1,12 +1,12 @@
 # Load map
 
-Open this file from [after-briefing.md](after-briefing.md) after the Briefing card exists, to attach paths to a slot in [dispatch.md](dispatch.md). If briefing answers do not exist and the form was not skipped, close this file and open [briefing.md](briefing.md). Greenfield marketing Scene still blank: same.
+Open this file from [after-briefing.md](after-briefing.md) after the Briefing card exists, to attach paths to a slot in [dispatch.md](dispatch.md). Open [execution-modes.md](execution-modes.md) with dispatch after the Briefing card exists; do not open it at Classify or while scoring briefing fields. If briefing answers do not exist and the form was not skipped, close this file and open [briefing.md](briefing.md). Greenfield marketing Scene still blank: same.
 
 Attach only the rows that match this run **and** this slot. A row that does not match stays closed. The parent attaches paths; it does not open Direction, Implement, or QA bodies except on [isolated component](after-briefing.md#isolated-component).
 
 ## Parent
 
-Open [after-briefing.md](after-briefing.md) and [dispatch.md](dispatch.md). Stay closed: [composition.md](composition.md), [design-styles.md](design-styles.md), `design-styles/*.md`, [anti-slop.md](anti-slop.md), [crit.md](crit.md), [preflight-checklist.md](preflight-checklist.md), [implement.md](implement.md), [product-register.md](product-register.md), [ux-principles.md](ux-principles.md), [layout-patterns.md](layout-patterns.md). Isolated component is the exception: [implement.md](implement.md) plus Component rows below, then pre-flight A.
+Open [after-briefing.md](after-briefing.md), [dispatch.md](dispatch.md), and [execution-modes.md](execution-modes.md) after the Briefing card exists. Stay closed: [composition.md](composition.md), [design-styles.md](design-styles.md), `design-styles/*.md`, [anti-slop.md](anti-slop.md), [crit.md](crit.md), [visual-rubric.md](visual-rubric.md), [verification.md](verification.md), [preflight-checklist.md](preflight-checklist.md), [implement.md](implement.md), [product-register.md](product-register.md), [ux-principles.md](ux-principles.md), [layout-patterns.md](layout-patterns.md). Isolated component is the exception: [implement.md](implement.md) plus Component rows below, then pre-flight A.
 
 ## Direction
 
@@ -25,8 +25,10 @@ Open [after-briefing.md](after-briefing.md) and [dispatch.md](dispatch.md). Stay
 | Signal | Attach | Stay closed |
 | --- | --- | --- |
 | Greenfield **marketing** Look is a catalog `id` | that one `design-styles/<id>.md` | the rest of `design-styles/` |
-| Greenfield **marketing** Look is `you-decide` / `none` (including unnamed), or invent-all on marketing | [design-styles.md](design-styles.md) Pick, then one `design-styles/<id>.md` when Pick is not `none` | the rest of `design-styles/` |
+| Greenfield **marketing** Look is `you-decide` / `none` (including unnamed), or invent-all on marketing | [visual-language.md](visual-language.md) first. Open [design-styles.md](design-styles.md) Pick only to test When. Attach one `design-styles/<id>.md` only when a When matched *tension*. Otherwise keep Catalog files closed and lock `style=custom` or `style=none`. | the rest of `design-styles/` |
+| Greenfield marketing uses `style=custom` | [visual-language.md](visual-language.md) | `design-styles/`, [design-styles.md](design-styles.md) Catalog |
 | App UI Look is a named catalog `id` | that one `design-styles/<id>.md` (craft blanks only; layout stays [product-register.md](product-register.md)) | the rest of `design-styles/` |
+| App UI uses `style=custom` by explicit request | [visual-language.md](visual-language.md) | `design-styles/`, [design-styles.md](design-styles.md) Catalog |
 | App UI Look is skipped / `none` | — | [design-styles.md](design-styles.md), `design-styles/*.md` |
 | App UI or marketing (palette in play) | [color.md](color.md) | — |
 | Parent re-dispatch for invalid Lock | [design-read-examples.md](design-read-examples.md) | — |
@@ -39,6 +41,8 @@ Stay closed on Direction: [implement.md](implement.md), [anti-slop.md](anti-slop
 
 Always attach [implement.md](implement.md) and DESIGN.md (path in the Packet).
 
+Always attach [verification.md](verification.md) for the viewport return and evidence block.
+
 | Origin / task | Attach | Stay closed |
 | --- | --- | --- |
 | `greenfield` (not isolated component) | [file-architecture.md](file-architecture.md) | — |
@@ -50,13 +54,16 @@ Always attach [implement.md](implement.md) and DESIGN.md (path in the Packet).
 | Signal | Attach | Stay closed |
 | --- | --- | --- |
 | Packet `style_path` is not `none` | that one `design-styles/<id>.md` | the rest of `design-styles/`, [design-styles.md](design-styles.md) |
+| Packet `language_path` is not `none` | [visual-language.md](visual-language.md) | `design-styles/`, [design-styles.md](design-styles.md) |
 | Behave or Lock `fluid` / `cinematic` | [motion.md](motion.md) | — |
 | Behave `still` / `none` on **marketing** | — | [motion.md](motion.md) |
 | Constraints or Look name photo, video, or illustration | [assets.md](assets.md) | — |
 | No media named | — | [assets.md](assets.md) |
 | Palette or theme in play | [color.md](color.md) | — |
 | Lock names a nested enclosure, hairline, or island CTA | [material-craft.md](material-craft.md) | — |
-| LCP/CLS, hero media, or layout shift is in scope | [performance.md](performance.md) | — |
+| Marketing `greenfield` or `redesign` | [performance.md](performance.md) | — |
+| App UI Packet *job* has media or a chart in the first paint | [performance.md](performance.md) | — |
+| App UI first paint has no media or chart | — | [performance.md](performance.md) |
 | Type pairing still blank | [typography.md](typography.md) | — |
 | Density-band recipe missing from DESIGN.md **Layout** | [design-systems.md](design-systems.md) | — |
 | App UI Packet *job* asks a chart or BI question | [ux-principles.md](ux-principles.md#dashboards-and-data-ui) | — |
@@ -68,7 +75,7 @@ Stay closed on Implement: [briefing.md](briefing.md), [composition.md](compositi
 
 | When | Attach |
 | --- | --- |
-| After markup, before calling the surface done | [anti-slop.md](anti-slop.md), [crit.md](crit.md) |
+| After markup, before calling the surface done | [anti-slop.md](anti-slop.md), [crit.md](crit.md), [visual-rubric.md](visual-rubric.md), [verification.md](verification.md) |
 | After the written *crit* | [preflight-checklist.md](preflight-checklist.md) (tier from [task routing](../SKILL.md#task-routing)) |
 
 Stay closed on QA: [composition.md](composition.md), [design-styles.md](design-styles.md), [implement.md](implement.md), [briefing.md](briefing.md). Use the Packet for briefing facts.

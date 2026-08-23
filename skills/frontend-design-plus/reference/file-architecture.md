@@ -14,7 +14,7 @@ Redesign and polish stay on that stack (patch existing files). Greenfield with n
 
 ## Ask
 
-Greenfield with no detectable stack and no invent-all: ask **Stack** with `AskQuestion` when it is the current blank ([briefing.md](briefing.md)). Offer at least: simple HTML+CSS+JS, Next.js, React, Vue, Astro, Svelte, Tailwind, Material UI. Other is a stack the list missed.
+Greenfield with no detectable stack and no invent-all: ask **Stack** through the host's question interface when it is the current blank ([briefing.md](briefing.md)). Offer at least: simple HTML+CSS+JS, Next.js, React, Vue, Astro, Svelte, Tailwind, Material UI. Other is a stack the list missed.
 
 Do not default in the same turn as that ask. If they pick nothing after answering, or the run is invent-all with no stack named, use the **default**.
 

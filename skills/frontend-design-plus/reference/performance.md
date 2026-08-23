@@ -1,6 +1,6 @@
 # Performance
 
-Speed is UX. Treat Core Web Vitals as product constraints.
+Speed is UX. Treat Core Web Vitals as product constraints. Record whether the result is `guided`, `measured`, or `verified` in [verification.md](verification.md); implementation advice alone is not a runtime result.
 
 ## Targets (ship gate)
 
@@ -72,4 +72,4 @@ Default to shipping markup first and enhancing with interactivity progressively.
 - Optimistic UI for reversible actions
 - Instant feedback on click even if server is slow
 
-Lab tools (Lighthouse, DevTools) complement but do not replace real devices and networks. State what was NOT measured in pre-flight honesty.
+Lab tools (Lighthouse, DevTools) complement but do not replace real devices and networks. State what was NOT measured in the [verification](verification.md) block and pre-flight honesty.
