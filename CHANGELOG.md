@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `make-docs`: `/make-docs refresh` re-surveys the current tree against existing `docs/`; ADRs stay unless the code contradicts them; confirm before any write; up to three read-only hunters (structure, behavior, voice) with serial fallback; language lock; docs anti-slop; `metadata.version` → `0.2.0`.
 - `code-review-plus`: `/code-review-plus prune` counts timestamped files under `docs/code-review/` first, then asks whether to keep the last 3, the last 5, delete all, or keep a typed N; never deletes `knowns.md`.
 - `code-review-plus`: persist each review under `docs/code-review/` in the reviewed repo (`YYYY-MM-DD-HH-MM.md` with Findings and `## Fix`); `knowns.md` when the user marks a false positive or won't-fix; Scope reads knowns and the latest review; `metadata.version` → `0.5.0`.
 - `code-review-plus`: Quality `test-quality.md` when tests are in the diff (name-the-break, real SUT, mutation check, AI-slop / utility questions); `### Test quality` on the report.
@@ -18,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `make-docs`: confirm brief headings are English (`Understood`, `Is this correct?`, `Unknowns`); bullets and questions follow the user's chat language.
+- `make-docs` and root `README.md`: opening sentences name the job, without mid-sentence bold.
+- `make-docs`: spec keywords follow BCP 14 ([RFC 2119](https://www.rfc-editor.org/rfc/rfc2119.html) as updated by [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174.html)). They are ALL CAPS only. Each spec file includes the incorporation sentence.
+- `make-docs`: `SKILL.md` is a router (commands, invariants, Done→phase READ). Unattended assume-and-record removed. `update` asks when the stamp is missing or a refactor vs behavior is unclear. Templates mark example rows as replace-or-cut.
 - `code-review-plus`: report and persist emit a heading only when the section has content (P0–P3, Dead Code, Test quality, What Looks Good, Author claimed, Manual/UI); `## Fix` is created on first apply, not as an empty placeholder.
 - `code-review-plus`: serial fallback (no subagent) restates a running CandidateFinding carry list after each pipeline so auto-compact does not drop earlier hunts.
 - `code-review-plus`: fix loads findings from this conversation or `docs/code-review/` memory, reads `## Fix` to skip or re-open stale Closed IDs, and merges the section after apply.

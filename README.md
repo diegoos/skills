@@ -1,6 +1,6 @@
 # Skills
 
-Personal collection of AI agent skills. Each skill is Markdown the agent reads to run a fixed process: code review, docs, commits, security, and similar engineering work.
+Personal collection of AI agent skills. Each skill is Markdown. The agent reads it and runs a fixed process: code review, docs, commits, security, and similar engineering work.
 
 Notable changes live in [CHANGELOG.md](CHANGELOG.md).
 
@@ -22,7 +22,7 @@ The same rules can live in `~/.codex/AGENTS.md` for Codex, `~/.claude/CLAUDE.md`
 | `[commit-message](skills/commit-message/)`             | Draft [Conventional Commits](https://www.conventionalcommits.org/) from the real git status and diff. One atomic commit per concern by default; a single commit only when you ask.              |
 | `[code-review-plus](skills/code-review-plus/)`         | Multi-pipeline PR/diff review (≤5 hunters), optional shapes, test-quality hunt, memory under `docs/code-review/`, P0-P3 report. Branches: `review`, `fix`/`apply`/`implement`, `prune`.         |
 | `[deep-security-review](skills/deep-security-review/)` | Security-first review: threat model with hotspots, parallel domain hunts, disprove/verify, findings + hardening notes (P0-P3). Branches: review, `fix`/`apply`/`implement`. Invoke by name.     |
-| `[make-docs](skills/make-docs/)`                       | Architecture docs and behavioral specs under `docs/`. Branches: `explore`, `update` (since the `Updated on` stamp), `adr`.                                                                      |
+| `[make-docs](skills/make-docs/)`                       | Architecture docs and behavioral specs under `docs/`. Branches: `explore`, `update` (stamp), `refresh` (re-survey), `adr`. Confirm gate; ≤3 hunters.                                            |
 | `[makefile-expert](skills/makefile-expert/)`           | Author or review GNU Make Makefiles (last-mile glue vs compile graph). Branches: `write`, `review`.                                                                                             |
 | `[markdown-writer](skills/markdown-writer/)`           | Create or edit `.md` / `.mdc` / `.mdx` that scans for humans and parses for agents. One-line prose unless dest requires wrap. YAML frontmatter when dest uses it.                               |
 | `[frontend-design-plus](skills/frontend-design-plus/)` | Build or restyle visual frontend (component, app UI, marketing). Origin `greenfield` or `redesign`; Design Read + Lock before markup; routed refs; anti-slop pre-flight (A / A+B / A+C).        |
@@ -44,7 +44,7 @@ npx skills add diegoos/skills
 npx skills add diegoos/skills --skill write-great-agentsmd
 ```
 
-After install, invoke skills from your agent harness (slash commands or natural language, depending on the skill).
+After install, call them from the harness with a slash command or with natural language, depending on the skill.
 
 ## How to use
 
@@ -54,6 +54,7 @@ Some skills load from intent (you do not have to name them):
 "Create an AGENTS.md for this project"           → write-great-agentsmd (bootstrap)
 "Generate docs for this codebase"                → make-docs (explore)
 "Update the docs after these changes"            → make-docs (update)
+"Refresh the docs against current code"          → make-docs (refresh)
 "Record the decision to use Postgres"            → make-docs (adr)
 "Write a commit message for these changes"       → commit-message
 "Add a BEM card component in SCSS"               → sass-with-bem (write)
@@ -117,9 +118,15 @@ Harnesses also accept forms like `/make-docs explore`.
 │   │       ├── examples/       # gates, FP table, kept-vs-dropped (Phase 3)
 │   │       └── optional/       # OWASP map (on request)
 │   ├── make-docs/              # Architecture + observable specs
-│   │   ├── SKILL.md
+│   │   ├── SKILL.md            # Router: explore / update / refresh / adr
 │   │   ├── README.md
-│   │   └── references/         # Templates (architecture, ADR, specs, …)
+│   │   └── references/
+│   │       ├── phases/         # survey, confirm, generate, verify, update, refresh, adr
+│   │       ├── hunters/        # structure, behavior, voice (≤3)
+│   │       ├── examples/       # generic-vs-earned
+│   │       ├── language.md     # suite language lock
+│   │       ├── anti-slop.md    # docs prose tells
+│   │       └── template-*.md   # architecture, ADR, specs, …
 │   ├── makefile-expert/        # GNU Make: write / review
 │   │   ├── SKILL.md
 │   │   └── references/         # glue, graph, variables
@@ -159,6 +166,6 @@ Optional agents under `.opencode/agents/`. They are not part of the skills insta
 
 Use `code-review-plus` for a PR or diff review covering correctness, security, architecture, quality, and performance, with adaptive tiers and optional stack shapes including `llm` (`1` perspective + `0` or `1` shape per hunter; Quality may add `test-quality.md` when tests are in scope). Shape pick is a priority list on `normal` and `large/sensitive`. Reviews persist under `docs/code-review/` in the reviewed repo.
 
-Use `deep-security-review` when security is the main goal: threat model with hotspots/bypasses, domain hunts (`1` domain + `1` shape per subagent), disprove gates, and security-calibrated severity with separate hardening notes. Apply findings with `/deep-security-review fix` (aliases: `apply`, `implement`).
+Use `deep-security-review` when security is the main goal: threat model with hotspots/bypasses, domain hunts (`1` domain + `1` shape per subagent), disprove gates, and severity calibrated for security, with hardening notes kept separate. Apply findings with `/deep-security-review fix` (aliases: `apply`, `implement`).
 
-Do not run both Security perspectives on the same scope at once. `deep-security-review` replaces the shallow security pass. `code-review-plus` may tell you to run `/deep-security-review`; it will not start that skill by itself.
+`deep-security-review` replaces the shallow security pass. Do not run both Security perspectives on the same scope at once. `code-review-plus` may tell you to run `/deep-security-review`. It will not start that skill by itself.

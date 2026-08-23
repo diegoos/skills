@@ -1,9 +1,9 @@
 ---
 name: make-docs
 description: >-
-  Use when the user wants architecture docs or behavioral specs, asks to explore a codebase for documentation, sync docs after changes, or record an ADR. Branches: explore (survey, propose, generate), update (since last docs stamp → sync), adr (decision record).
+  Use when the user wants architecture docs or behavioral specs, asks to explore a codebase for documentation, sync docs after changes, refresh existing docs against current code, or record an ADR. Branches: explore (survey, confirm, generate), update (since last docs stamp → sync), refresh (full re-survey vs existing docs/), adr (decision record).
 metadata:
-  version: 0.1.0
+  version: 0.2.0
   author: "Diego Oliveira"
   tags:
     - docs
@@ -14,13 +14,58 @@ metadata:
 
 # Make docs
 
-Produces a documentation suite in `docs/`: **architecture** (how it's structured) and **specs** (what it does). Specs name only **observable** outcomes — an agent can implement or verify against them.
+Produces a documentation suite in `docs/`: **architecture** (how it is structured) and **specs** (what it does). Specs name only **observable** outcomes. An agent can implement or verify against them.
+
+**Branches:** explore (survey → confirm → generate → verify). Update (delta since the docs stamp). Refresh (full re-survey vs existing `docs/`). Adr (one decision).
+
+**Invariants:** Every claim in the suite cites a path, an observable command, or a config. Missing evidence: omit the section or ask. One language per suite; code identifiers and BCP 14 keywords (ALL CAPS) stay as in source. Hunters collect; the orchestrator writes. Unearned sections are omitted with no justification paragraph in the artifact.
+
+**Reference budget:** The orchestrator opens a phase file when that phase starts. Each hunter gets exactly **1** hunter file. Orchestrator-only refs (`anti-slop`, `language`, `examples`, templates, confirm / generate / verify) are not hunter paths.
 
 ## Commands
 
-- **`explore`** — survey codebase, propose structure, generate full suite
-- **`update`** — sync docs with commits since the last docs stamp
-- **`adr`** — record one architecture decision
+| Invocation | Branch | Behavior |
+| ---------- | ------ | -------- |
+| `/make-docs explore` | **explore** | Survey → confirm → generate → verify |
+| `/make-docs update` | **update** | `./references/phases/update.md` then verify |
+| `/make-docs refresh` | **refresh** | `./references/phases/refresh.md` (survey → confirm → generate → verify) |
+| `/make-docs adr` | **adr** | `./references/phases/adr.md` then verify if architecture.md moved |
+
+Without a subcommand, treat as **explore** when `docs/` is missing or the user asked to generate a suite; treat as **update** when they asked to sync after changes and `docs/` exists; treat as **refresh** when they asked to regenerate existing docs against current code.
+
+## Definition of Done
+
+Done for each phase is the completion criterion in its READ file. Open the next phase file when that criterion is met.
+
+### Branch explore
+
+| Phase | Done when | READ |
+| ----- | --------- | ---- |
+| Survey | Evidence pack ready (hunters returned or `hunters: none` recorded); existing docs read | `./references/phases/survey.md` |
+| Confirm | User confirmed the brief, or answered every unknown | `./references/phases/confirm.md` |
+| Generate | Every confirmed file written from its template; unearned sections omitted; stamp set | `./references/phases/generate.md` |
+| Verify | Every check in the verify file passes | `./references/phases/verify.md` |
+
+### Branch update
+
+| Phase | Done when | READ |
+| ----- | --------- | ---- |
+| Update | Every classified change reflected or waived in chat; stamp refreshed | `./references/phases/update.md` |
+| Verify | Every check in the verify file passes | `./references/phases/verify.md` |
+
+### Branch refresh
+
+| Phase | Done when | READ |
+| ----- | --------- | ---- |
+| Refresh | Existing `docs/` reconciled to current code; ADRs kept unless contradicted; stamp refreshed | `./references/phases/refresh.md` |
+
+Refresh runs survey → confirm → generate → verify against the current tree. Its READ file names that sequence.
+
+### Branch adr
+
+| Phase | Done when | READ |
+| ----- | --------- | ---- |
+| Adr | Names a _why_; gains + costs present; alternatives have reasons; architecture.md updated if boundaries moved | `./references/phases/adr.md` |
 
 ## Layout
 
@@ -39,63 +84,33 @@ docs/
     <domain>.md         # one per behavioral domain
 ```
 
-By repo size: **small** — README + architecture.md + decisions/; **medium/large** — full set; **monorepo** — root docs/ + one per service (nearest wins). Cut any file or section the survey did not **earn**. Fill every earned section from code evidence — no template stubs left behind.
+By repo size: **small:** README + architecture.md + decisions/; **medium/large:** full set; **monorepo:** root docs/ + one per service (nearest wins). Cut any file or section the survey did not **earn**. Fill every earned section from evidence. Example rows in templates are not defaults.
 
 ## Templates
 
 Before writing a file, load its template from `references/`:
 
-| Template                              | File                                       |
-| ------------------------------------- | ------------------------------------------ |
-| `references/template-readme.md`       | `docs/README.md`                           |
-| `references/template-architecture.md` | `docs/architecture/architecture.md`        |
-| `references/template-glossary.md`     | `docs/architecture/domains/glossary.md`    |
-| `references/template-api.md`          | `docs/architecture/domains/api.md`         |
-| `references/template-constraints.md`  | `docs/architecture/domains/constraints.md` |
-| `references/template-adr.md`          | `docs/architecture/decisions/ADR-*.md`     |
-| `references/template-patterns.md`     | `docs/architecture/patterns.md`            |
-| `references/template-spec.md`         | `docs/specs/<domain>.md`                   |
+| Template | File |
+| -------- | ---- |
+| `references/template-readme.md` | `docs/README.md` |
+| `references/template-architecture.md` | `docs/architecture/architecture.md` |
+| `references/template-glossary.md` | `docs/architecture/domains/glossary.md` |
+| `references/template-api.md` | `docs/architecture/domains/api.md` |
+| `references/template-constraints.md` | `docs/architecture/domains/constraints.md` |
+| `references/template-adr.md` | `docs/architecture/decisions/ADR-*.md` |
+| `references/template-patterns.md` | `docs/architecture/patterns.md` |
+| `references/template-spec.md` | `docs/specs/<domain>.md` |
 
 ## Specs
 
-Specs describe **observable** behavior — outcomes a user or external system can see. Name domains after behavior (`auth`, `orders`), not folder layout.
+Specs describe **observable** behavior: outcomes a user or external system can see. Name domains after behavior (`auth`, `orders`), not folder layout.
 
 - One requirement = one **SHALL** (split compound requirements).
-- Keywords: MUST / SHALL / SHOULD / MAY (RFC 2119).
-- Each requirement has at least one Scenario (Given/When/Then) that **exercises** it — a concrete case, not a rewording.
+- Requirement keywords follow BCP 14 ([RFC 2119](https://www.rfc-editor.org/rfc/rfc2119.html) and [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174.html)): English tokens, ALL CAPS only. Full list and the incorporation sentence live in `./references/language.md`.
+- Each requirement has at least one Scenario (Given/When/Then) that **exercises** it: a concrete case, not a rewording.
 - Cover the case that would hurt most to see broken; name it explicitly.
-- Pure refactor with no behavior change → no spec update (record that).
-
-## explore
-
-1. **Survey** — stack, runtime, entry points, data stores, API protocol (if any), auth (if any), deployment, patterns, quality targets. Identify behavioral domains by feature. Read existing docs first.
-   **Done when:** stack, runtime, entry points, and deploy named from code; auth named only if present; every behavioral domain listed by feature name; existing docs read; out-of-scope items flagged or skipped.
-2. **Propose** — list files to create; present and ask for approval. Unattended (Agent mode): assume the most reasonable list, proceed, and record the assumption.
-   **Done when:** user confirmed or declined, or assumption recorded.
-3. **Generate** — for each file, load its template and write. Write README.md last (indexes every other file; set `> Updated on` to today's ISO date). Cut what the survey did not **earn**. Fill every earned section from evidence.
-   **Done when:** every confirmed file written from its template; unearned sections omitted; no placeholder stubs in earned sections; stamp set.
-4. **Verify** — claims confirmed against code; every ADR names a _why_; every requirement has a scenario; quality targets are numbers; diagrams match the code they summarize; README indexes every file; earned sections are filled from evidence.
-   **Done when:** every check above passes.
-
-## update
-
-1. **Scope** — read `docs/README.md` for `> Updated on <ISO-date>`. Count commits since that date (`git rev-list --count HEAD --since=<date>`).
-   - Missing stamp → ask the user for the range (or offer a full re-sync).
-   - Count ≤ 10 → cover all commits since the stamp.
-   - Count > 10 → inform the count and ask: cover all, last N commits, or a specific base (SHA / date). Wait for the answer before diffing.
-     **Done when:** base revision chosen (all since stamp, last N, or user-specified base).
-2. **Diff** — `git diff <base>..HEAD` plus unstaged/uncommitted changes → classify: structural → architecture, behavioral → specs, decision → ADR.
-   **Done when:** every changed path classified.
-3. **Update** affected files. Load the template before writing. Pure refactor → record "no spec change" explicitly. Set `> Updated on` in `docs/README.md` to today's ISO date.
-   **Done when:** every classified change reflected or explicitly waived; stamp refreshed.
-4. **Verify** — every behavioral change has spec update or "no spec change"; structural changes in architecture.md; diagrams match code; cross-references resolve; stamp present and current.
-   **Done when:** every check above passes.
-
-## adr
-
-Load `references/template-adr.md`. Number `ADR-NNNN-<slug>.md`. Supersede with two-way links. If structural boundaries change, update architecture.md.
-**Done when:** names a _why_; gains + costs present; alternatives have reasons; architecture.md updated if boundaries moved.
+- Pure refactor with no behavior change: no spec update. Record that in chat, not as filler in the spec file.
 
 ## Out of scope
 
-Data model, observability, CI/CD. If detected during survey, ask before generating; otherwise skip.
+Data model, observability, CI/CD. Survey lists them as unknowns when present. Confirm asks. Otherwise omit the files and do not narrate the omission in `docs/`.

@@ -1,10 +1,12 @@
-# <system name> — documentation
+# {system name} documentation
 
-> Updated on <date>
+Example rows are not defaults. Replace every placeholder from evidence, or cut the row or section.
 
-<one paragraph>
+> Updated on {date}
 
-> List only the files you actually created. Remove links to cut files.
+{one paragraph from this repo; no suite premise, no skill name}
+
+List only the files you actually created. Remove links to cut files.
 
 ## Architecture (how it's structured)
 
@@ -17,4 +19,4 @@
 
 ## Specs (what it does)
 
-- [specs/<domain>.md](specs/<domain>.md)
+- [specs/{domain}.md](specs/{domain}.md)
