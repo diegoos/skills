@@ -34,6 +34,7 @@ No package manager, build, or test suite — ship Markdown skills only.
 ## When writing or editing skills
 
 - Put each skill in `skills/<name>/` with required `SKILL.md`; optional `references/`, `README.md`, `PATTERNS.md`.
+- Each skill ships `agents/openai.yaml` for ChatGPT/Codex ([optional metadata](https://learn.chatgpt.com/docs/build-skills#optional-metadata)): `interface.display_name`, `interface.short_description` (25–64 characters). Set `policy.allow_implicit_invocation: false` when `disable-model-invocation: true`; otherwise `true`. Do not add MCP `dependencies` unless the skill needs a named server.
 - Frontmatter must include `name` and `description`. Set `disable-model-invocation: true` only for user-invoked-only skills.
 - Keep `SKILL.md` thin; push depth to `references/` (progressive disclosure).
 - **Do not soft-wrap Markdown** (MD013). Do not break prose, list items, or table cells to fit 80/120 columns. Break only on semantic boundaries (heading, new list item, blank line, fence).

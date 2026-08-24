@@ -1,0 +1,6 @@
+interface:
+  display_name: "Commit Message"
+  short_description: "Conventional Commits from the real git diff"
+
+policy:
+  allow_implicit_invocation: true

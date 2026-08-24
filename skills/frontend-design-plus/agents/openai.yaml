@@ -1,0 +1,6 @@
+interface:
+  display_name: "Frontend Design Plus"
+  short_description: "Build or restyle visual frontend with anti-slop craft"
+
+policy:
+  allow_implicit_invocation: true

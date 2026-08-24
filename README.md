@@ -95,6 +95,7 @@ Harnesses also accept forms like `/make-docs explore`.
 │   ├── write-great-instructions/ # Writing guide for harness instruction files
 │   │   ├── SKILL.md            # Principles, floor, how to write an edit
 │   │   ├── README.md
+│   │   ├── agents/openai.yaml  # ChatGPT/Codex UI + invocation policy
 │   │   └── references/
 │   │       ├── formats.md      # path, frontmatter, attach, adapter per harness
 │   │       └── patterns.md     # works vs anti-pattern smells

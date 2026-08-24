@@ -1,0 +1,6 @@
+interface:
+  display_name: "Sass with BEM"
+  short_description: "Write or review BEM with Sass/SCSS"
+
+policy:
+  allow_implicit_invocation: true
