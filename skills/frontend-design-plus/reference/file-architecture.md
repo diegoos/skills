@@ -1,6 +1,6 @@
 # File architecture
 
-Load when [load-map.md](load-map.md) attaches this file (greenfield Implement). Classify detects stack with a disk glance (`package.json`, lockfiles, framework config); this file binds the tree at Implement. Redesign and polish skip this file and stay on the current stack ([redesign.md](redesign.md)).
+Load when [load-map.md](load-map.md) attaches this file (greenfield Implement). Classify detects stack with a disk glance (`package.json`, lockfiles, framework config); this file binds the tree at Implement. Redesign and polish skip this file and stay on the current stack. Do not open [redesign.md](redesign.md) from this file.
 
 Bind the stack and file tree before the first markup. A *cold reader* who opens the repo after this pass can name where HTML, CSS, and JS live.
 
@@ -8,15 +8,17 @@ Bind the stack and file tree before the first markup. A *cold reader* who opens 
 
 Read `package.json`, lockfiles, and framework config (`next.config.*`, `astro.config.*`, `vite.config.*`, `nuxt.config.*`, `svelte.config.*`, `angular.json`, `vue.config.*`). Match neighboring pages: same folder shape, same styling method, same CSS entry.
 
+If `package.json` names Next, React, Vue, or Svelte, keep that framework's native elements and semantics. Do not assume Tailwind unless the repo already uses it. This skill does not cover SwiftUI, Flutter, or desktop toolkits.
+
 If a README or skill note cites a path that is not on disk, **disk wins**; then ask. Do not rebuild a palette, button, or layout the repo already has.
 
-Redesign and polish stay on that stack (patch existing files). Greenfield with no stack uses the default below. Migrating framework or CSS library needs explicit user approval ([redesign.md](redesign.md#never-change-silently)). Two live conventions (BEM vs modules, Vite vs static): ask once; do not coin-flip.
+Redesign and polish stay on that stack (patch existing files). Greenfield with no stack uses the default below. Migrating framework or CSS library needs explicit user approval (Never change silently in redesign; parent asked). Two live conventions (BEM vs modules, Vite vs static): ask once; do not coin-flip.
 
 ## Ask
 
-Greenfield with no detectable stack and no invent-all: ask **Stack** through the host's question interface when it is the current blank ([briefing.md](briefing.md)). Offer at least: simple HTML+CSS+JS, Next.js, React, Vue, Astro, Svelte, Tailwind, Material UI. Other is a stack the list missed.
+Greenfield with no detectable stack and no invent-all: if Packet `stack=` is empty, ask **Stack** through the host's question interface (one question, then continue Implement). Do not reopen [briefing.md](briefing.md). Offer at least: simple HTML+CSS+JS, Next.js, React, Vue, Astro, Svelte, Tailwind, Material UI. Other is a stack the list missed.
 
-Do not default in the same turn as that ask. If they pick nothing after answering, or the run is invent-all with no stack named, use the **default**.
+Do not default in the same turn as that ask. If they pick nothing after answering, or Packet `stack=` is already `html+css+js` or a disk stack, use that value.
 
 ## Default (no stack named)
 

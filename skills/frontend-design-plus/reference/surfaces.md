@@ -2,7 +2,7 @@
 
 Load when [load-map.md](load-map.md) attaches this file to the current slot. Unanswered blanks belong to the Packet.
 
-In-flow product chrome: dashboard, admin, CMS, settings. Marketing enclosure stays [material-craft.md](material-craft.md). Layout and queues stay [product-register.md](product-register.md). Motion technique stays [motion.md](motion.md#product-micro).
+In-flow product chrome: dashboard, admin, CMS, settings. Marketing enclosure waits for material-craft when that path is attached. Layout and queues are Packet `recipe=`. Motion technique is Product micro in this slot when [motion.md](motion.md) is attached.
 
 Done when every check below holds at 1024px and 1440px, or failed and fixed.
 
@@ -10,19 +10,19 @@ Done when every check below holds at 1024px and 1440px, or failed and fixed.
 
 Nav and toolbar controls sit fully inside the chrome padding box. Labels truncate or wrap. The control does not grow past the rail. Lock `theme=system`: the theme control sits in the header padding box ([color.md](color.md#system-theme)).
 
-Hard guardrail: no negative margin, drop shadow, or hit-area pseudo that crosses a chrome edge. Do instead: inset, `min-width: 0` on the flex child, truncate with a keyboard-reachable full string ([product-register.md](product-register.md#data-tables)).
+Hard guardrail: no negative margin, drop shadow, or hit-area pseudo that crosses a chrome edge. Do instead: inset, `min-width: 0` on the flex child, truncate with a keyboard-reachable full string (tables wrap or ellipsize inside the rail).
 
 Hover and press use color, opacity, or compositor `transform` that still clips to the parent. Press feedback does not change padding, border, or width ([production-engineering.md](production-engineering.md)).
 
 ## Padding inside the rail
 
-Rail padding is at least the control's own padding. A filled primary in the sidebar cannot kiss or cross the rail edge. One filled primary per view ([product-register.md](product-register.md#app-shell)); a second copy in the header fails.
+Rail padding is at least the control's own padding. A filled primary in the sidebar cannot kiss or cross the rail edge. One filled primary per view; a second copy in the header fails.
 
 ## Concentric radius
 
 Nested surfaces that sit close: `outerRadius = innerRadius + padding`. Padding larger than `24px`: choose each radius independently.
 
-Nested cards stay a [product-register.md](product-register.md) fail. This formula is for chrome (rail, header, inset well, selected row), not a second card stack.
+Nested cards stay a fail. This formula is for chrome (rail, header, inset well, selected row), not a second card stack.
 
 ## Optical alignment
 
@@ -30,7 +30,7 @@ Icon plus label: icon-side padding = text-side padding minus `2px`. Optical nudg
 
 ## Elevation vs structure
 
-Same-plane chrome (sidebar, table, filters): hairline or token border. Overlays (dropdown, modal, popover): elevation token, one light source ([design-systems.md](design-systems.md)).
+Same-plane chrome (sidebar, table, filters): hairline or token border. Overlays (dropdown, modal, popover): elevation token, one light source ([design-systems.md](design-systems.md) when attached).
 
 Hard guardrail: do not use drop shadow to fake a sidebar or toolbar button as an overlay. Do instead: fill plus hairline on the product plane.
 

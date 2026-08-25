@@ -32,7 +32,7 @@ Pick the **construction contrast**, then a face that is not a reflex default:
 
 **When / not_for by role:** all-caps ≤4 words; display never on buttons, table data, or form labels.
 
-Run the reflex-reject list in [anti-slop.md](anti-slop.md) **before** locking the pair. Outfit and Plus Jakarta Sans are overused as unexamined defaults — allowed when this procedure picked them on purpose, not as the first grab. Do not treat Geist, Clash Display, or PP Editorial New as a "premium available" stack; they are the next Inter.
+Refuse Inter, Geist, and Outfit as unexamined brand defaults before locking the pair. Outfit and Plus Jakarta Sans are overused as unexamined defaults — allowed when this procedure picked them on purpose, not as the first grab. Do not treat Clash Display or PP Editorial New as a "premium available" stack; they are the next Inter. Do not open [anti-slop.md](anti-slop.md) from this file.
 
 Prove the pair: x-height at 16px body; H1 overflow at every breakpoint; locale coverage (script/CJK/RTL) if the brief needs it.
 
@@ -99,16 +99,7 @@ Dense text feels unprofessional and tires readers. Generous line-height is cheap
 
 ## Scanning patterns
 
-Users scan before they read. Match layout to content type:
-
-| Pattern | Best for |
-| --- | --- |
-| **F-pattern** | Text-heavy pages (articles, docs, blogs) — key info left-aligned, bold headings, bullets |
-| **Z-pattern** | Sparse marketing pages — logo top-left, CTA top-right, diagonal to bottom CTA |
-
-For F-pattern: align important content left; use short bold headings; break long paragraphs with lists.
-
-For Z-pattern: place primary CTA along the Z path; don't bury action center-only on wide hero without visual guide.
+Packet `scan=` owns where P0 and the CTA sit. Type follows that path: `F` keeps headings and proof left-anchored; `Z` keeps the primary action on the path; `pyramid` puts thesis and Success in the first look. Do not pick a join from this section. Do not reopen [composition.md](composition.md).
 
 ## Whitespace as typography partner
 

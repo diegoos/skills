@@ -50,10 +50,10 @@ Secondary controls use `rgba(255,255,255,0.05)` fill and brighten to `0.08`. Gho
 
 Done criteria that name a hex apply only when that fallback token is in use. Prefer the user's mapped token.
 
-1. Keep Frame occupancy and Packet folds when task is marketing. If occupancy is missing, stop and open [composition.md](../composition.md). Do not name a hero family here. App UI: keep the recipe in [product-register.md](../product-register.md). Done when occupancy (marketing) or recipe (app UI) is already in the Lock.
+1. Keep Frame occupancy and Packet folds when task is marketing. Do not name a hero family here. Do not reopen composition.md. App UI: keep Packet `recipe=`. Do not open product-register.md from this file. Done when occupancy (marketing) or recipe (app UI) is already in the Lock.
 2. Keep the user's tokens. Fill empty DESIGN.md slots from Craft. Done when CSS uses the named user palette when one exists.
 3. If the user named a control language, keep it. Otherwise treat primary controls as accent fills with a multi-layer glow and a 1px inset highlight. Done when the primary button uses `#5E6AD2` (or the mapped accent), off-white label, `8px` radius, hover to `#6872D9`, and `:active` at `scale(0.98)`.
-4. Run anti-slop + crit. Done when the common-layout check fails for this style's own cliché: centered hero on a dark mesh with purple or indigo glow and three equal glass cards.
+4. Subtract this Path cliché in Commit. QA owns anti-slop and crit. Done when the common-layout check fails for this style's own cliché: centered hero on a dark mesh with purple or indigo glow and three equal glass cards.
 
 ## A11y
 

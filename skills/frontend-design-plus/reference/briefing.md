@@ -1,49 +1,96 @@
 # Briefing
 
-SKILL.md opens this file after Classify. Score fields here. A score made before this file was open is void.
+SKILL.md opens this file after Classify when origin is not `polish`. Origin `polish`: close this file and open [polish.md](polish.md). Score fields here. A score made before this file was open is void.
 
-Leave [design-styles.md](design-styles.md) closed in this window. Catalog and Pick belong to Direction ([dispatch.md](dispatch.md#direction)). Printing the Catalog table here fails this file.
+When scoring Job, Audience, or Constraints, open [product-context.md](product-context.md) once if the target repo may hold `PRODUCT.md`, an `AGENTS.md` UX block, or DESIGN.md Overview. Quote those owners or mark evidence `absent`. Do not open that file at Classify.
+
+Leave [design-styles.md](design-styles.md) closed in this window. Open [catalog.md](catalog.md) only on the [Style pick](#look) branch after the user said yes. Do not open [composition.md](composition.md) to write the A/B cards. Direction does not match catalog **When** clauses to invent an id.
 
 ## This turn
 
-Score **every** applicable field against the prompt and disk in this one pass before any question. Inference is not an owner. Unnamed greenfield marketing Look is `you-decide`. Unnamed Behave and Constraints are `none`. Do not ask those.
+Pick the branch, then stop when that branch's done criterion holds.
 
-Then call the host's question interface:
+| Branch | When | This turn |
+| --- | --- | --- |
+| invent-all | user said **invent-all**, **surprise me**, **pick freely**, or the same idea | Open [product-context.md](product-context.md) once. Skip the form. Open [after-briefing.md](after-briefing.md). |
+| isolated component | Classify named component | Skip the form and [product-context.md](product-context.md). Open [after-briefing.md](after-briefing.md#isolated-component). |
+| polish | origin `polish` | Close this file. Open [polish.md](polish.md). |
+| redesign | origin `redesign` | Open [product-context.md](product-context.md) once. Ask **Aim**, **Keep**, **Scope** ([Redesign](#redesign)). |
+| empty Job | greenfield, prompt named no concrete task | Open [product-context.md](product-context.md) once. If Job is still blank, ask Job only and end the turn. If Job filled from disk: marketing continues Character then A/B this file; app UI infers remaining owners and opens [after-briefing.md](after-briefing.md). |
+| marketing loose | greenfield **marketing**, Job named, occupancy not owned | Infer [Character](#character). Ask **one** [Directions](#directions) question. End the turn. |
+| style offer | greenfield **marketing**, occupancy owned, Look unnamed, Style not yet answered | Ask **Style** yes/no ([Look](#look)). End the turn. |
+| style pick | user said yes to Style | Open [catalog.md](catalog.md). Print that table. Ask one id or Item ([Look](#look)). End the turn. |
+| app UI | greenfield **app UI**, Job named | Infer owners ([Filled vs blank](#filled-vs-blank)). Skip A/B, Scene, Look. Open [after-briefing.md](after-briefing.md). |
+| complete | every applicable owner already exists | Open [product-context.md](product-context.md) once if it was not opened this run. Skip the form. Open [after-briefing.md](after-briefing.md). |
 
-- Tool accepts multiple questions in one call: send **every remaining blank** in [Ask](#ask) order, each field its own question, at least two options plus Other. End the turn. Do not rescore between those fields.
-- Tool accepts only one question per call: ask the first remaining blank, declare `questions=serial`, and end the turn. Next turn asks the next blank the same way.
-- `fast` may omit fields the prompt or disk already own. `full` and `solo` batch the same remaining set when the tool allows.
+A numbered list of questions in the chat message fails this file. Markup, Design Read, Lock, or an eight-field dump fails this file.
 
-A numbered list of questions in the chat message fails this file. A structured multi-question tool call is not a dump. A Design Read, Lock, scene sentence, concept paragraph, or markup fails this file.
+Unnamed Behave and Constraints are `none`. Do not ask those. Do not ask Name, Audience, Use, Scene, Theme, Palette, or Stack on marketing loose or app UI greenfield. Unnamed greenfield marketing Look is not `you-decide` until [Look](#look) is answered (no → `you-decide`; yes → catalog id or Item).
 
-A first-person bio plus "showcase my work" / "unique" is the [Worked example](#worked-example). Score the table, then batch the remaining blanks.
+Done for this turn when the selected branch's question contract is the user-facing output, or the form was skipped. The briefing as a whole is done when every applicable field has an owner (inferred `character=` counts); then open [after-briefing.md](after-briefing.md).
 
-Done for this turn when the selected mode's question contract is the user-facing output. The briefing as a whole is done when every field has an owner; then open [after-briefing.md](after-briefing.md). After a serial answer, if blanks remain, ask the next blank on the next turn.
+## Character
 
-## Ask
+Greenfield **marketing** with a named Job. App UI, polish, and redesign skip this section (`character=none`).
 
-Order of blanks (skip any already filled). Origin `greenfield`: **Name**, **Audience**, **Success**, **Use**, **Scene**, **Theme**, **Palette**, **Stack**. Do not ask **Look** ([Look](#look)). Do not ask **Behave** or **Constraints** unless the prompt already named motion, states, artifacts, or restrictions ([Behave and Constraints](#behave-and-constraints)). Origin `redesign`: **Aim**, **Keep**, **Scope**, then **Audience** (only if it applies), **Success** (if blank), **Use** if still blank. Skip Name, Scene, Look, Theme, Palette, Stack on redesign. Skip Behave and Constraints on redesign unless Aim named them. Origin `polish`: skip this form unless the goal is mute; then **Focus** only ([Polish](#polish)).
+Infer four axes from the Job. Write them before the A/B call. Inference **is** the owner here. Do not ask Theme or Palette to learn the character.
 
-One field per question. Batch remaining questions in one call when the host tool allows. At least two options. **Other** is how the user types a custom answer; do not add a duplicate Other option.
+```txt
+character=risk=<trust|impact>; time=<document|scan|demo>; enter=<domain noun from the prompt>; spectacle=<low|mid|high>
+first-character-costume=<the first category outfit this Job would wear>
+```
 
-Write the prompt in the user's language. English stems below are the template.
+| Axis | What the agent answers |
+| --- | --- |
+| **risk** | Must the visitor believe before they act (`trust`), or must the product land as a hit (`impact`)? |
+| **time** | Document (slow read), scan (minutes), or demo (prove the artifact). Maps Lock `density=`: document → regular or dense; scan → airy; demo → regular. |
+| **enter** | The ofício noun already in the prompt (parecer, case, artifact, queue). Not `hero`, `card`, or a second noun invented to look rich. |
+| **spectacle** | `low` for regulated/trust; `mid` for a product; `high` for a campaign. |
 
-Build options from the prompt. Nearby readings that fit the job go in the list. When no nearby reading exists, still call the tool: two working options derived from the job (descriptive nouns, not coined handles), so the picker has choices and Other still takes a typed answer.
+`first-character-costume=` is the first outfit the domain suggests. Record it. It must not vest Frame, Pick, or CSS. The axis stays; the outfit leaves. Known scaffolds (this list is the owner):
 
-| Field           | Prompt stem                                                                   | Options                                                                         |
-| --------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| **Name**        | I couldn't determine the project name. What name or title do you want to use? | Nearby names or titles from the prompt. If none: two job-derived working titles |
-| **Audience**    | What audience do you want to reach with this project?                         | Groups that fit the job (hiring managers, other engineers, clients, …)          |
-| **Success**     | What is the one primary action on this page?                                  | Verb + object readings that fit the job (hire, contact, try a skill, …)         |
-| **Use**         | How will people use this page?                                                | A scan of minutes, a longer read, `none`                                        |
-| **Scene**       | Name first-viewport occupancy, a place, or let the brief decide.              | You decide first, then two Job readings with different topology                 |
-| **Theme**       | Which theme should this UI use?                                               | Light, Dark, Both (`system`: two modes + a chrome switch)                       |
-| **Palette**     | Which color palette should this UI use?                                       | Neutrals (charcoal + one accent), plus two hues from the job                    |
-| **Stack**       | Which stack should I use?                                                     | HTML+CSS+JS, Next.js, React, Vue, Astro, Svelte, Tailwind, Material UI          |
-| **Aim**         | What should be true after this redesign that is not true now?                 | Four readings from a page glance ([Redesign](#redesign))                        |
-| **Keep**        | What must still feel like this product?                                       | Wordmark + nav; routes; copy voice; tokens; all of these                        |
-| **Scope**       | How far may composition change?                                               | First viewport only; this page; this flow (linked pages, same chrome)           |
-| **Focus**       | What should feel better first?                                                | Hierarchy and scan; spacing rhythm; inconsistent color; states; a11y            |
+- navy + serif + columns + justice photo (firm / consultancy)
+- indigo + three feature cards (SaaS landing)
+- mesh HUD / neon phosphor (tech / cyber)
+- charcoal + coral + fake terminal + years-as-handle (developer portfolio)
+
+QA and Implement say “veste o costume” and point here. Do not recopy the four.
+
+Name: user string, disk wordmark, or a descriptive working title from the Job (`Litigation desk`). Not a coined handle. Audience: the public the Job already implies. Stack: `package.json` or `html+css+js`. Theme and Palette: disk or a user-named value; otherwise Direction fills craft after Frame from the object, not from the costume (no navy-for-law, no indigo-for-SaaS, no Neutrals-as-fear-default). Scene occupancy is [Directions](#directions) or a named occupancy sentence, not this section.
+
+"professional" / "clean" / "modern" / "premium" is a quality bar. It does not fill Look, Scene, or `id=professional`.
+
+Done when `character=` and `first-character-costume=` exist and enter is a prompt noun or Success's object.
+
+## Directions
+
+Greenfield **marketing** after Character. One structured question. Two options plus Other. Other is a typed occupancy sentence or a URL with an occupancy *why*.
+
+Each option is one line: character reading + `join` token + enter object + Success verb+object.
+
+```txt
+A: <character line>; join=<stack|split|full-bleed|overlap>; enter=<object>; success=<verb + object>
+B: <character line>; join=<token ≠ A>; enter=<object>; success=<verb + object>
+```
+
+Rules:
+
+- Distinct `join` tokens.
+- Neither option is `first-character-costume=` ([Character](#character)).
+- Enter is a Job noun or Success's object. Do not invent a second domain noun to fill the card.
+- Both options are buildable. A strawman fails this file.
+- No catalog `id`, no palette, no "You decide from the brief".
+- If the prompt already named Success, both cards share that verb. If Success is a slogan ("engage", "pop", "modern"), each card supplies a concrete verb+object; the pick owns Success.
+
+Prompt stem (user's language): two ways this first viewport can work; pick the closer one.
+
+The pick fills **Direction** (`direction=A|B`), **Success**, and Scene occupancy for composition. Look stays blank until [Look](#look).
+
+invent-all skips this question. Direction then writes one Sketch. Do not open [composition.md](composition.md) from this file.
+
+User already named occupancy (place, remembered page, or join *why*): skip A/B; that sentence owns Scene; Direction still infers `character=` and refuses the costume. Next turn is Style offer unless Look already has an id.
+
+Done when the structured call is the user-facing output, or Scene already has an occupancy owner. After the pick, stay on this file for Style if Look is still unnamed. Do not open [after-briefing.md](after-briefing.md) until Look has an owner.
 
 ## invent-all
 
@@ -51,78 +98,65 @@ Skip the form only when the user said **invent-all**, **surprise me**, **pick fr
 
 "Unique", "creative", "showcase my work", and a bio are not invent-all.
 
-On invent-all: skip the form. Open [after-briefing.md](after-briefing.md). Invent-all on redesign does not invent a brand or catalog id — the Briefing card in [after-briefing.md](after-briefing.md) fills Aim/Keep/Scope defaults.
+On invent-all: open [product-context.md](product-context.md) once, then skip the form. Infer `character=` from the Job if one exists. Open [after-briefing.md](after-briefing.md). Invent-all on redesign does not invent a brand or catalog id — the Briefing card fills Aim/Keep/Scope defaults.
 
 Otherwise invent no product, company, page title, persona, handle, or glossary term.
 
-Greenfield **marketing** Look with no named `id`, Item number, or craft refs is `you-decide` (silence included). Do not ask. Direction runs Pick after Frame ([dispatch.md](dispatch.md#direction)). Do not average the Catalog. App UI invent-all still skips Look (`none`) and does not run Pick.
-
-`you-decide` on **Scene** is greenfield **marketing** only, and is not invent-all. Ask the other blanks. [composition.md](composition.md) writes occupancy from *objects* and *kinship* after those answers. Do not invent occupancy in this turn. App UI invent-all still skips Scene (`none`).
+invent-all on greenfield marketing sets Look `you-decide` and skips Style. Direction locks `style=none` unless the prompt already named an `id`. App UI invent-all skips Look (`none`).
 
 ## Filled vs blank
 
-A field is **filled** when the user named it in those words. Disk fills five slots: DESIGN.md `name` → **Name**, wordmark already in chrome → **Name**, `package.json` / framework config → **Stack**, theme switch / `prefers-color-scheme` / DESIGN.md dual tokens → **Theme**, DESIGN.md surface/accent colors → **Palette**. Git user, folder name, and years-as-handle do not fill Name.
+A field is **filled** when the user named it in those words, disk owns it, or this file named an inferred owner (`character=`, working title, implied Audience, density from `time=`, A/B Success, Style **no** → Look `you-decide`).
 
-A field is **blank** when it is missing, only implied, or only paraphrased. **Silence is blank**, except greenfield **marketing** Look: unnamed Look is owner `you-decide`, not a blank ([Look](#look)); and **Behave** / **Constraints**: unnamed is owner `none`, not a blank ([Behave and Constraints](#behave-and-constraints)). `none` is a valid *user* answer. On Behave and Constraints it is also the agent default when the prompt did not name those facts.
+Disk fills: DESIGN.md `name` → **Name**, wordmark in chrome → **Name**, `package.json` / framework config → **Stack**, theme switch / `prefers-color-scheme` / DESIGN.md dual tokens → **Theme**, DESIGN.md surface/accent colors → **Palette**. Git user, folder name, and years-as-handle do not fill Name.
 
-Inference is not an owner. For example, "Software engineer for N years" does not fill Name, Audience, Success, Scene, Theme, Palette, or Stack. It does not fill a named Look `id`. "Showcase my work" fills **Job** only; it does not fill Success, Use, or Scene. A marketing row that says "portfolio" does not fill Audience. "Dashboard" / "CMS" / "admin" does not fill Theme. "Sports" / "CMS" / a guessed accent does not fill Palette. A guessed category place does not fill Scene.
+Inference is not an owner for brand, regulated copy, metrics, or a second Inventory noun. Inference **is** an owner for `character=`, density, working title, implied Audience, and Theme/Palette *absence* (Direction crafts; do not ask).
 
-| Signal                                                                 | Status                                                         |
-| ---------------------------------------------------------------------- | -------------------------------------------------------------- |
-| First-person bio, role, years                                          | fills **Job** only                                             |
-| Named artifacts (skills, products)                                     | copy to keep; not Name                                         |
-| "unique" / "creative" / "showcase"                                     | quality bar; not invent-all; not Scene                         |
-| Place, remembered page, or occupancy sentence                          | fills **Scene**                                                |
-| URL or screenshot + occupancy *why* (span, split, full-bleed)          | fills **Scene**; not Look                                      |
-| URL or screenshot + craft *why* (density, type, material)              | fills **Look**; not Scene                                      |
-| Catalog `id`, Item number, or craft refs                               | fills **Look**                                                 |
-| Greenfield marketing silence on Look                                   | owner `you-decide`; Pick after Frame; not a briefing blank     |
-| `you-decide` / "You decide from the brief" on occupancy                | fills **Scene** on marketing; write sentence in composition    |
-| `you-decide` / "you pick the style"                                    | fills **Look** only on marketing; Pick after Frame             |
-| "professional" / "nível profissional" / "clean" / "modern" / "premium" | quality bar; not Look; not Scene; not `id=professional`        |
-| "light" / "dark" / "dark mode" / "both" / `system`                     | fills **Theme**                                                |
-| hex, brand color, "neutrals", or a named family ("navy", "forest")     | fills **Palette**                                              |
-| Git user, folder name, or years-as-handle                              | not the wordmark unless they said that word                    |
-| Silence on Behave/Constraints (unnamed)                                | owner `none`; not a briefing blank                             |
+| Signal | Status |
+| --- | --- |
+| First-person bio, role, years | fills **Job** only |
+| Named artifacts (skills, products) | copy to keep; not Name |
+| "unique" / "creative" / "showcase" | quality bar; not invent-all; not Scene |
+| Place, remembered page, or occupancy sentence | fills **Scene**; skip A/B; then Style offer |
+| URL or screenshot + occupancy *why* (span, split, full-bleed) | fills **Scene**; skip A/B; then Style offer |
+| URL or screenshot + craft *why* (density, type, material) | fills **Look** |
+| Catalog `id`, Item number, or craft refs | fills **Look** |
+| Greenfield marketing silence on Look | blank; next question is Style offer after occupancy exists |
+| Style offer **no** / **none** | fills **Look** `you-decide` |
+| Style offer **yes** then an `id` or Item | fills **Look** with that catalog id |
+| Named Job on greenfield marketing | infer `character=`; ask A/B unless Scene already owns occupancy |
+| A/B pick | fills **Direction**, **Success**, Scene occupancy; Look still blank until Style |
+| "professional" / "clean" / "modern" / "premium" | quality bar; not Look; not `id=professional` |
+| "light" / "dark" / "both" / `system` | fills **Theme** (do not ask; user or disk only) |
+| hex, brand color, or a named family | fills **Palette** (do not ask; user or disk only) |
+| Silence on Behave/Constraints | owner `none` |
+
+A **complete** prompt already named Job and, on marketing, occupancy (sentence or A/B pick) **and** Look (named `id` / Item / craft refs, Style **no** → `you-decide`, or invent-all `you-decide`). Behave and Constraints do not block complete. Theme and Palette do not block complete. Redesign needs Aim, Keep, and Scope. App UI skips Scene, Look, and A/B. Style unanswered on greenfield marketing is not complete.
 
 ## Fields
 
-Skip filled fields. Ask remaining blanks in one structured call when the host tool allows; serial only when it does not. `fast` may omit fields the prompt or disk already own. Ending the briefing while Scene, Theme, Palette, Use, or Stack is still blank (when those apply) fails this file. Unnamed greenfield marketing Look is not a remaining blank. Unnamed Behave and Constraints are owner `none`, not remaining blanks. Origin `redesign`: Aim, Keep, or Scope still blank fails this file. Origin `polish` with a mute goal: Focus still blank fails this file.
+| Field | Why | Filled when |
+| --- | --- | --- |
+| **Job** | Who does what | Concrete task in the prompt, the Job question, or [product-context.md](product-context.md) |
+| **Character** | Layout behavior for this domain | Inferred on marketing greenfield ([Character](#character)); else `none` |
+| **Direction** | A/B winner | Pick, named occupancy, invent-all (`none`), app UI `none` |
+| **Name** | Wordmark, `<title>`, DESIGN.md `name` | User string, disk, working title from Job, or invent-all |
+| **Audience** | Who the UI is for | Named group, implied by Job, or product-context `users=` |
+| **Success** | Primary CTA | Verb+object in the prompt, or the A/B pick |
+| **Use** | Density | Inferred from `time=`; user hours/minutes/`none` if they named it |
+| **Scene** | First-viewport occupancy | Named occupancy or A/B pick; invent-all `you-decide` |
+| **Look** | Craft path | See [Look](#look) |
+| **Theme** | Light, dark, or both | User or disk; else Direction after Frame |
+| **Palette** | Surface hue | User or disk; else Direction after Frame from the object |
+| **Behave** | Motion, states | Silence, named motion, or `none` |
+| **Constraints** | Copy to keep, a11y, assets | Listed, artifacts, product-context `commitments=`, silence, or `none` |
+| **Stack** | Greenfield with no stack on disk | Disk, or default `html+css+js` |
+| **Aim** / **Keep** / **Scope** | Redesign | See [Redesign](#redesign) |
+| **Focus** | Mute polish | [polish.md](polish.md#focus) |
 
-| Field           | Why                                                      | Filled when                                   |
-| --------------- | -------------------------------------------------------- | --------------------------------------------- |
-| **Name**        | Visible wordmark, `<title>`, DESIGN.md `name`            | User string, or invent-all                    |
-| **Job**         | One sentence: who does what on this surface              | Concrete task in the prompt only              |
-| **Audience**    | Who the UI is for                                        | Named group                                   |
-| **Success**     | Primary CTA or done-state                                | Marketing logo-swap; app UI persist/queue     |
-| **Use**         | Context of use: session length, interruption, stress     | Hours vs minutes, or user said `none`         |
-| **Scene**       | First-viewport occupancy or `you-decide`                 | See [Scene](#scene)                           |
-| **Look**        | Craft path: catalog `id`, refs, or `you-decide`          | See [Look](#look)                             |
-| **Theme**       | Light, dark, or both                                     | See [Theme](#theme)                           |
-| **Palette**     | Surface hue: neutrals vs a named accent family           | See [Palette](#palette)                       |
-| **Behave**      | Interactivity, motion, states that matter                | Silence, named motion, or `none`              |
-| **Constraints** | Copy to keep, a11y, regulated, brand assets              | Listed, artifacts, silence, or `none`         |
-| **Stack**       | Only when origin is greenfield and the repo has no stack | User named a stack from the Ask list above    |
-| **Aim**         | Redesign outcome                                         | See [Redesign](#redesign)                     |
-| **Keep**        | What stays this product                                  | See [Redesign](#redesign)                     |
-| **Scope**       | How far composition may change                           | See [Redesign](#redesign)                     |
-| **Focus**       | Polish first problem when the goal is mute               | See [Polish](#polish)                         |
+Quiet constraints the user already named (public-sector, kids, WCAG) stay filled.
 
-Quiet constraints the user already named (public-sector, kids, WCAG) stay filled. Do not re-ask those.
-
-"Build the future", "all-in-one", "Scale without limits", and "transform your workflow" leave **Success** blank. Marketing: ask for a verb + object that would fail a logo-swap. App UI: ask for the persist or queue verb + object.
-
-A **complete** prompt already named Audience, Success, and Use, Theme when it applies (greenfield app UI and marketing), Palette when it applies, and on marketing also Scene (greenfield), or those sit on disk (redesign/polish). Look is not required in the prompt: unnamed greenfield marketing Look is `you-decide`. Unnamed Behave and Constraints are `none` and do not block complete. Redesign also needs Aim, Keep, and Scope (or the prompt named them). App UI Scene and Look are skipped (`none`) and do not block complete. Theme blank on greenfield app UI or marketing fails complete. Palette blank when hue has no owner fails complete. Scene blank on greenfield marketing fails complete. Use blank when it applies fails complete. Score the rest. Zero remaining blanks: skip the form and open [after-briefing.md](after-briefing.md). Named Job plus a bio is not complete.
-
-Origin `redesign`: Name, Scene, Look, Theme, Palette, and Stack are disk. Ask Aim, Keep, Scope, then remaining blanks only. Leave [design-styles.md](design-styles.md) closed. Do not ask Scene.
-
-Origin `polish`: Name, Scene, Look, Theme, Palette, and Stack are disk. Skip the form when the user named what to tighten. If they only said "improve this" / "melhora isso" with no problem named, ask **Focus** once, then open [after-briefing.md](after-briefing.md). Leave [design-styles.md](design-styles.md) closed. Do not ask Scene.
-
-**Use** applies to app UI and marketing. Skip it on an isolated component. Hours of work → Lock `density=dense`. A scan of minutes → `density=airy`. User said `none` → `density=regular`. Silence on Use is still blank: ask it.
-
-**Behave** applies to app UI and marketing. Skip it on an isolated component unless the user asked for interaction.
-
-**Stack** applies when origin is greenfield and the repo has no stack.
+"Build the future", "all-in-one", "Scale without limits", and "transform your workflow" leave **Success** blank until the A/B cards name a verb+object.
 
 ## Behave and Constraints
 
@@ -130,59 +164,29 @@ Do not ask. Silence is owner `none`, not a blank.
 
 **Behave** is filled when the user named motion or states (`still`, `fluid`, `cinematic`, hover, scroll) or said `none`. Unnamed Behave is `none`. Lock maps `none` / `still` → `motion=still`; hover/scroll → `fluid`; `cinematic` → `cinematic`. Do not invent cinematic.
 
-**Constraints** is filled when the prompt listed artifacts, a11y, regulated copy, or brand assets to keep, or the user said `none`. Named artifacts in the prompt (skills, products, wordmark files) copy into Constraints without asking. Unnamed Constraints with no artifacts in the prompt is `none`. Quiet constraints the user already named (public-sector, kids, WCAG) stay filled.
+**Constraints** is filled when the prompt listed artifacts, a11y, regulated copy, or brand assets to keep, or the user said `none`. Named artifacts copy into Constraints without asking. Unnamed Constraints with no artifacts is `none`.
 
-Asking Behave or Constraints when the prompt did not name those facts fails this file. Re-asking artifacts already copied into Constraints fails this file.
-
-## Scene
-
-**Scene** applies to greenfield marketing and portfolio. Skip it on **app UI** (dashboard, admin, CMS, settings, authenticated tool): treat as filled `none`. Skip it on an isolated component. Skip it on `redesign` and `polish`: Aim/Keep (redesign) or disk (polish) own occupancy. Do not ask.
-
-Filled when the user named a place, a remembered page, or occupancy in one sentence ("the work fills the screen; the name is small", "newspaper front page", "one full-bleed kiln photo"), pasted a URL or screenshot with one clause of *why* that names occupancy (column span, split, full-bleed — not pixels, not type, not material), said `you-decide` / `none` / "You decide from the brief" on **marketing**, or origin is redesign/polish (skip), or task is app UI and Scene was skipped (`none`).
-
-Job, bio, "unique", and quality adjectives ("professional", "nível profissional", "clean", "modern", "editorial" as a vibe with no occupancy) do not fill Scene. A guessed category place ("desk at night" for a developer portfolio) does not fill Scene. A craft-only ref (density, type, material) fills Look, not Scene.
-
-When Scene is among remaining blanks and origin is **greenfield** and task is **marketing**:
-
-Include Scene in the structured question call with **three** options: `You decide from the brief` first, then two occupancy readings derived from Job. The two readings differ in *topology* (stack vs split vs full-bleed), not in two column ratios of the same join. Place or first-viewport mass — not catalog ids, not quality adjectives. Prompt stem: name a place, a page you remember, or how the first viewport is occupied; or let the agent decide from the brief. Other is a typed occupancy sentence or a URL with an occupancy *why*.
-
-Do not invent occupancy in this turn. On `you-decide` / `none`: after the rest of the briefing has owners, [composition.md](composition.md) writes occupancy from *objects* and *kinship*. Invent-all skipped the form: same. App UI skipped Scene does not run that write as a composition input.
+Asking Behave or Constraints when the prompt did not name those facts fails this file.
 
 ## Look
 
-**Look** applies to greenfield marketing and portfolio. Skip it on **app UI** (dashboard, admin, CMS, settings, authenticated tool): treat as filled `none` unless the user named a catalog `id`, refs, or a visual restyle. Skip it on an isolated component unless the user asked for a visual restyle. Skip it on `redesign` and `polish`: disk owns the look. Leave [design-styles.md](design-styles.md) closed in this window.
+**Look** is the briefing name for Lock `style=` / a catalog `id`. One concept. Applies to greenfield marketing and portfolio. Skip Style on **app UI** unless the user named a catalog `id`, refs, or a visual restyle. Skip it on an isolated component unless they asked for a visual restyle. Skip it on `redesign` and `polish`: disk owns the look. Skip it on invent-all (`you-decide`).
 
-Do not ask. Printing the Catalog table in this window fails this file. Direction opens the Catalog for Pick ([design-styles.md](design-styles.md#pick)). To lock a look, the user names an `id` or Catalog Item number in the prompt ([design-styles.md](design-styles.md#catalog)).
+When occupancy is owned and Look is still unnamed: ask **one** Style question (user's language): whether they want to pick a design style. Options: yes; no (object craft, `style=none`). Other is a typed `id`, Item number, or `none`.
 
-Filled when the user named a catalog `id` (greenfield), typed a Catalog Item number, described a look that maps to one id ("Swiss grid", "dark academia"), pasted 1–3 sites or screenshots with one clause of *why* (density, type, material — not pixels, not occupancy), said `you-decide` / `none` on **marketing**, origin is redesign/polish (disk), task is app UI and Look was skipped (`none`), **or** origin is greenfield marketing and Look was unnamed (owner `you-decide`).
+If **no** or `none`: Look = `you-decide`. Open [after-briefing.md](after-briefing.md). Direction locks `style=none` and does not match catalog **When**.
 
-Job, bio, "unique", and quality adjectives ("professional", "nível profissional", "clean", "modern") do not fill a named Look `id`. A guessed developer-portfolio or SaaS default does not fill Look. `you-decide` on app UI stays `none` and does not run Pick. An occupancy *why* on a pasted ref fills Scene, not Look.
+If **yes**: this turn ends. Next turn open [catalog.md](catalog.md), print that table in chat, and ask **one** pick: which Item or `id`. Options: **none** (object craft) and Other (type the `id` or Item number). Do not put thirty ids in the host option list. Printing that table before the user said yes fails this file.
 
-On greenfield **marketing** `you-decide` (including silence) or `none`: Direction runs the **Pick** after Frame ([dispatch.md](dispatch.md#direction)). Do not pick an id in this file. App UI skipped Look does not run Pick.
+A named `id`, Item number, or 1–3 sites with a craft *why* in the prompt fills Look and skips Style.
 
-## Theme
+Filled when the user named a catalog `id`, an Item number, a look that maps to one id, 1–3 sites with a craft *why*, Style **no** / **none** (`you-decide`), invent-all (`you-decide`), origin is redesign/polish, or task is app UI and Look was skipped (`none`).
 
-**Theme** applies to greenfield app UI and greenfield marketing. Skip it on an isolated component. Skip it on `redesign` and `polish`, or when disk already owns Theme.
-
-Filled when the user named `light`, `dark`, `both`, or `system` (or the same idea in the user's language), or disk owns Theme. Job, "dashboard", "CMS", and "admin" leave Theme blank. `none` is invalid: pick Light, Dark, or Both.
-
-When Theme is among remaining blanks and it applies: include Theme in the structured question call with Light, Dark, and Both. Both maps to Lock `theme=system`. Ship it per [color.md](color.md#system-theme). Other is a typed `light` / `dark` / `system`.
-
-Map the answer onto Lock `theme=` at Declare. Scene owns temperature ([color.md](color.md#scene-sentence-temperature-before-hex)).
-
-## Palette
-
-**Palette** applies to greenfield app UI and greenfield marketing when hue has no owner. Skip it on an isolated component. Skip it on `redesign` and `polish`, or when DESIGN.md already names surface and accent colors.
-
-Filled when the user named hex, a brand color, `neutrals`, or a family ("navy", "forest"), or disk owns Palette. Theme (light/dark) is the mode; it does not fill Palette. Job, "dashboard", "CMS", "sports", and a guessed accent leave Palette blank.
-
-When Palette is among remaining blanks and it applies: include Palette in the structured question call. Options: Neutrals (charcoal / off-white surfaces + one accent), plus two hues derived from the job. Other is a typed family, hex, or `neutrals`. Neutrals is the product default.
-
-Ship per [color.md](color.md#building-a-palette). A named hue is the accent, not the dark canvas, unless the user asked for a tinted field or Lock `color=drenched`.
+Job, bio, "unique", and quality adjectives do not fill a named Look `id`. App UI skipped Look stays `none`.
 
 ## Redesign
 
-Applies when Classify named `origin=redesign`. Do not ask Scene, Look, Theme, Palette, or Stack. Do not print the Catalog.
+Applies when Classify named `origin=redesign`. Do not ask Scene, Look, Theme, Palette, Stack, or A/B. Do not print the Catalog.
 
 **Aim** is the expected outcome. Without it, Direction fails. Filled when the user named what should be true after the redesign that is not true now. Silence is blank.
 
@@ -195,49 +199,73 @@ When Aim is among remaining blanks: glance at the existing page (not a tour). In
 
 Other is the user's sentence. Map onto Lock `aim=`.
 
-**Keep** is preservation intent. Filled when the user named what must still feel like this product, or said `all of these`. When it is among remaining blanks: wordmark + nav; routes and analytics; copy voice; accent and tokens; all of these. Other names the sacred piece. Do not re-ask the same facts as Constraints. Map onto Lock `keep=`. Preservation rules: [redesign.md](redesign.md#preservation).
+**Keep** is preservation intent. Filled when the user named what must still feel like this product, or said `all of these`. When it is among remaining blanks: wordmark + nav; routes and analytics; copy voice; accent and tokens; all of these. Other names the sacred piece. Map onto Lock `keep=`. Direction owns preservation rules; do not open [redesign.md](redesign.md) from this file.
 
-**Scope** is how far composition may change. Filled when the user named first viewport, this page, or this flow. When it is among remaining blanks: First viewport only; this page (sections); this flow (linked pages, same chrome). Suggested default in the option labels: this page. Rewriting the product is not an option until they ask. Map onto Lock `scope=` (`first-viewport` / `page` / `flow`). Levers 6–8 only inside that scope ([redesign.md](redesign.md#levers-stop-when-the-brief-is-satisfied)).
+**Scope** is how far composition may change. Filled when the user named first viewport, this page, or this flow. When it is among remaining blanks: First viewport only; this page (sections); this flow (linked pages, same chrome). Suggested default in the option labels: this page. Map onto Lock `scope=` (`first-viewport` / `page` / `flow`).
 
 **Audience** after Scope: ask only if Aim names a new public or the prompt does not name who uses the surface now. Disk + Job otherwise fill it.
 
-**Success** if still blank. Prompt stem: "After this redesign, which one action should someone complete that they fail today?" Options: verb + object readings from the page and Aim. Marketing: that sentence must fail a logo-swap after recomposition. App UI: a persist or queue done-state, no logo-swap.
+**Success** if still blank. Options: verb + object readings from the page and Aim.
 
-**Use** if still blank. Prompt stem: "How will people use this page after the redesign?" Options: a scan of minutes; a longer read; `none`. Map onto Lock `density=` (minutes → airy; hours → dense; `none` → regular).
+Do not ask **Behave** or **Constraints** unless Aim named motion, states, artifacts, or restrictions. Unnamed Behave and Constraints are owner `none`. Constraints must not repeat Keep.
 
-Do not ask **Behave** or **Constraints** unless Aim named motion, states, artifacts, or restrictions. Unnamed Behave and Constraints are owner `none`. Constraints must not repeat Keep. Named artifacts on disk stay in Keep.
+1–3 pasted reference sites with a *why* fill flavor for Direction and, when the *why* names occupancy, Scene.
 
-1–3 pasted reference sites with a *why* (density, type, occupancy) fill flavor for Direction and, when the *why* names occupancy, the [composition.md](composition.md) *frame*. They do not fill Look or Scene as catalog fields and do not open the Catalog.
-
-Done when Aim, Keep, and Scope have owners and every remaining applicable blank has an owner. Then open [after-briefing.md](after-briefing.md). Scan and audit run in Direction ([redesign.md](redesign.md)).
+Done when Aim, Keep, and Scope have owners. Then open [after-briefing.md](after-briefing.md). Scan and audit run in Direction. Do not open [redesign.md](redesign.md) from this file.
 
 ## Polish
 
-Applies when Classify named `origin=polish`. Skip the form when the user already named the problem (spacing, contrast, states, tighten, a11y).
+Applies when Classify named `origin=polish`. This file is not the owner. Open [polish.md](polish.md).
 
-When they only said "improve this" / "melhora isso" / "make it better" with no problem: **Focus** is blank. Call the host's question interface once: hierarchy and scan; spacing rhythm; inconsistent color; states (hover, focus, loading); a11y. Other is their sentence. Then open [after-briefing.md](after-briefing.md). The [craft audit](redesign.md#craft-audit) is Direction. Do not start a second briefing.
+## Worked examples
 
-If the user names an IA problem (home is a chart gallery, wrong first fold, new job), reclassify origin to `redesign` and ask Aim.
-
-## Worked example
+### Portfolio bio (marketing loose)
 
 Prompt: *Create a unique web page to showcase my work. My background: I have been a software engineer for N years and created and delivered high-quality software, such as `example 1`, `example 2`, and `example 3`.*
 
-| Field       | Status                                        |
-| ----------- | --------------------------------------------- |
-| Name        | blank                                         |
-| Job         | filled (engineer showcasing your work/skills) |
-| Audience    | blank                                         |
-| Success     | blank                                         |
-| Use         | blank                                         |
-| Scene       | blank                                         |
-| Look        | `you-decide` (unnamed; Pick after Frame)      |
-| Theme       | blank                                         |
-| Palette     | blank                                         |
-| Behave      | `none` (unnamed; do not ask)                  |
-| Constraints | filled (keep the named skills)                |
-| Stack       | blank if the repo has no stack                |
+Job filled. Not invent-all. Infer `character=risk=trust; time=scan; enter=example 1; spectacle=mid`. `first-character-costume=charcoal + coral + fake terminal + three project cards`. Name = working title. Audience = hiring managers. Ask A/B this turn. After the pick, ask Style yes/no. Do not ask Name, Audience, Use, Scene, Theme, Palette, Behave, or Constraints. Do not print the Catalog until they said yes.
 
-Not invent-all. Remaining blanks: Name, Audience, Success, Use, Scene, Theme, Palette, and Stack when the repo has no stack. If the host tool accepts multiple questions in one call, send those fields in that order in one call. Name options: two working titles from the job (descriptive nouns); Other is the user's own name. Scene options: `You decide from the brief` plus two occupancy readings that differ in topology. Do not list the questions in chat. Do not ask Look, Behave, or Constraints.
+### Law firm (marketing loose)
 
-If the host accepts only one question per call, ask Name first, declare `questions=serial`, and continue one field per turn in Ask order. Then open [after-briefing.md](after-briefing.md). App UI never uses Scene or Look; skipped Scene and Look are `none`.
+Prompt: *Site para um escritório de advocacia.*
+
+```txt
+character=risk=trust; time=document; enter=parecer; spectacle=low
+first-character-costume=navy + serif + columns + justice photo
+A: document rhythm; join=stack; enter=parecer; success=agendar consulta
+B: proof beside the argument; join=split; enter=caso; success=falar com o escritório
+```
+
+Neither card is navy columns or a values-card grid. Theme stays unset for Direction craft (light unless disk says otherwise). Palette is not navy.
+
+### Tech product landing
+
+Prompt: *Landing page de um produto de tecnologia.*
+
+```txt
+character=risk=impact; time=demo; enter=the product artifact; spectacle=mid
+first-character-costume=mesh + HUD + id=cyberpunk
+A: the instrument is the field; join=overlap; enter=the instrument; success=começar o trial
+B: artifact + action; join=split; enter=the instrument; success=ver o produto
+```
+
+Overlap is one valid option when the prompt already holds an artifact that can *be* the field. Stack vs split is also valid. Do not pick `id=terminal` because the Job said tech.
+
+### SaaS they built
+
+Prompt: *Landing page para o SaaS que eu criei.*
+
+```txt
+character=risk=impact; time=scan; enter=the product; spectacle=mid
+first-character-costume=indigo + three feature cards + id=saas
+A: thesis then action; join=stack; enter=the product; success=começar
+B: product beside the action; join=split; enter=the product; success=ver o produto
+```
+
+Do not invent features. Enter is the product named in the prompt, or Success's object if they named no artifact.
+
+### Empty prompt
+
+Prompt: *Cria uma landing.*
+
+Ask Job only. After the answer, infer `character=` and ask A/B. After the pick, ask Style. Do not invent a product named Nexus.

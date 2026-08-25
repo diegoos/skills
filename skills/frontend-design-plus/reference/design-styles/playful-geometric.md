@@ -63,10 +63,10 @@ Reduced-motion keeps the 2px border and hard shadow at rest and drops wiggle, bo
 
 Done criteria that name a hex apply only when that fallback token is in use. Prefer the user's mapped token.
 
-1. Keep Frame occupancy and Packet folds when task is marketing. If occupancy is missing, stop and open [composition.md](../composition.md). Do not name a hero family here. App UI: keep the recipe in [product-register.md](../product-register.md). Done when occupancy (marketing) or recipe (app UI) is already in the Lock.
+1. Keep Frame occupancy and Packet folds when task is marketing. Do not name a hero family here. Do not reopen composition.md. App UI: keep Packet `recipe=`. Do not open product-register.md from this file. Done when occupancy (marketing) or recipe (app UI) is already in the Lock.
 2. Keep the user's tokens. Fill empty DESIGN.md slots from Craft. Done when CSS uses the named user palette when one exists.
 3. If the user named a control language, keep it. Otherwise treat primary controls as candy stickers. Done when the primary is a pill, 2px `#1E293B` border, violet `#8B5CF6` fill, 4px zero-blur offset, and height ≥48px, with press shrinking the offset.
-4. Run anti-slop + crit. Done when the common-layout check fails for this style's own cliché: three equal sticker cards on a cream SaaS grid.
+4. Subtract this Path cliché in Commit. QA owns anti-slop and crit. Done when the common-layout check fails for this style's own cliché: three equal sticker cards on a cream SaaS grid.
 
 ## A11y
 

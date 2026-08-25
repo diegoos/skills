@@ -9,7 +9,7 @@ Motion shows state, hierarchy, and feedback. One orchestrated entrance.
 Always on app UI, including Lock `still`. Chrome already at rest does not play a mount entrance.
 
 - Interactive state (hover, open/close, press): CSS **transitions**. Keyframes only for one-shot sequences (empty → data, skeleton).
-- Product `:active` on buttons: `scale(0.96)`. Interruptible. Never below `0.95`. Brand island CTA stays `0.98` ([material-craft.md](material-craft.md#island-cta)).
+- Product `:active` on buttons: `scale(0.96)`. Interruptible. Never below `0.95`. Brand island CTA stays `0.98` (material-craft Island CTA when that file is attached).
 - High-frequency rows, tabs, and filter chips: background or opacity ≤150ms. No stagger, bounce, or entrance replay on every hover.
 - Motion is never the only cue. Keep color, icon, or label. `prefers-reduced-motion`: keep that cue; cut movement.
 
@@ -89,13 +89,13 @@ Use intersection observers or scroll-driven triggers for below-fold content. Do 
 
 Use at most what the Lock asked for. Sticky 64–72px nav remains the default.
 
-- **Island nav** — floating pill, hamburger lines morph to an X, overlay with stagger mask. Blur on the pill or overlay chrome, not on the scrolling document. [layout-patterns.md](layout-patterns.md#named-patterns)
-- **Press + nested icon** — `scale(0.98)` on the island CTA; the inner icon translates on hover ([material-craft.md](material-craft.md#island-cta))
+- **Island nav** — floating pill, hamburger lines morph to an X, overlay with stagger mask. Blur on the pill or overlay chrome, not on the scrolling document.
+- **Press + nested icon** — `scale(0.98)` on the island CTA; the inner icon translates on hover (material-craft Island CTA when attached)
 - **Modal from trigger** — scale+fade or slide from the source control, not a generic center fade
 
 ## Hover and interaction states
 
-- Buttons: `transform: translateY(-1px)` or `scale(0.96)` on product `:active` — compositor only; padding/width stay put. Brand island CTA: `scale(0.98)` ([material-craft.md](material-craft.md#island-cta)).
+- Buttons: `transform: translateY(-1px)` or `scale(0.96)` on product `:active` — compositor only; padding/width stay put. Brand island CTA: `scale(0.98)`.
 - Cards: `scale(1.01)` or shadow elevation — never color inversion unless it signals selection.
 - Links: underline animation (`background-size` transition) or color shift — not generic opacity dim.
 
@@ -129,4 +129,6 @@ This is a global safety net. Per-component instant/crossfade overrides are prefe
 ## Motion tells (avoid)
 
 - Reveal animations that gate content (content hidden until animation completes)
-- Full ban list: [anti-slop.md#motion-tells](anti-slop.md#motion-tells)
+- Uniform fade-in on every section; parallax or animated background as default craft
+- `window.addEventListener('scroll')` driving UI state every frame
+- Two or more horizontal marquees on one page

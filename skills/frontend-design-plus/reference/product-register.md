@@ -1,6 +1,6 @@
 # Product register
 
-Load when [load-map.md](load-map.md) attaches this file to the current slot. Unanswered blanks belong to the Packet.
+Load when [load-map.md](load-map.md) attaches this file to the current slot. Unanswered blanks belong to the Packet. Direction picks `recipe=`. Implement reads the matching heading and does not pick a new recipe.
 
 When design serves the product: app UI, dashboards, admin, settings, data tables, tools, authenticated surfaces.
 
@@ -44,15 +44,15 @@ The Lock names the 1–2 screens that carry the product's value. Only those may 
 
 ## Typography
 
-One sans family for headings, body, labels, and data. Fixed rem scale (fluid clamp headings stay on brand). System stacks (Inter, SF Pro, system-ui) when they match the project. Detail: [typography.md](typography.md).
+One sans family for headings, body, labels, and data. Fixed rem scale (fluid clamp headings stay on brand). System stacks (Inter, SF Pro, system-ui) when they match the project. Type pairing waits for Implement when [typography.md](typography.md) is attached.
 
 ## Color
 
-Default: **Restrained** (near-neutral surfaces + accent ≤10%). Semantic states carry status. Accent for primary actions and selection. Mode from briefing Theme. Hue from briefing Palette when it applied. Strategy, states, dark canvas: [color.md](color.md).
+Default: **Restrained** (near-neutral surfaces + accent ≤10%). Semantic states carry status. Accent for primary actions and selection. Mode from briefing Theme. Hue from briefing Palette when it applied. Strategy, states, dark canvas: [color.md](color.md) when attached.
 
 ## Layout
 
-Responsive means structure (collapse sidebar, responsive tables). Dense when users need it. Spacing and alignment group first; a border or card is last. Cards only for independent clickable units. Nested cards fail here. Details: [layout-patterns.md](layout-patterns.md#cards).
+Responsive means structure (collapse sidebar, responsive tables). Dense when users need it. Spacing and alignment group first; a border or card is last. A card is a self-contained clickable unit (feed item, catalog preview). Not for KPI rows, settings rows, table rows, or form groups. Nested cards fail here.
 
 ### App shell
 
@@ -66,7 +66,7 @@ Responsive means structure (collapse sidebar, responsive tables). Dense when use
 - Persistent nav in a predictable place; collapse the side nav to icons or a drawer below `lg`, with an affordance. Bottom nav ≤5, icon+label, top-level only. Mark where the user is. Back restores scroll and filters.
 - One primary work area per view; secondary panels (filters, inspectors) dock.
 - One filled primary per view.
-- Controls stay inside the rail ([surfaces.md](surfaces.md#chrome-containment)).
+- Controls stay inside the rail (Implement [surfaces.md](surfaces.md#chrome-containment) when attached).
 - Lock `theme=system`: labeled theme control in the top bar; not the filled primary ([color.md](color.md#system-theme)).
 
 ### Density
@@ -80,7 +80,7 @@ Match row height and padding to frequency of use: compact scales for data-dense,
 - Truncate with tooltip rather than wrapping cells unpredictably.
 - Built-in empty, loading (skeleton rows), and error states.
 - Responsive: collapse to stacked key/value cards on mobile, or prioritize columns and hide the rest behind expand. Keep a primary table inside the viewport.
-- Large datasets: paginate or virtualize; see [ux-principles.md](ux-principles.md#dashboards-and-data-ui).
+- Large datasets: paginate or virtualize (≥50 visible rows).
 
 ## Components
 
@@ -92,13 +92,13 @@ Full state cycle: `default → hover → focus → active → disabled → loadi
 
 ## Motion
 
-150–250ms transitions. Motion shows state. Skip orchestrated page-load sequences. Reduced motion: instant or crossfade. Product micro (press `0.96`, interruptible, row restraint): [motion.md](motion.md#product-micro).
+150–250ms transitions. Motion shows state. Skip orchestrated page-load sequences. Reduced motion: instant or crossfade. Product micro (press `0.96`, interruptible, row restraint) at Implement when [motion.md](motion.md) is attached.
 
 ## Forms
 
-Field contract: [production-engineering.md](production-engineering.md#forms). Prefer native controls. Prefer inline and progressive patterns over a modal.
+Field contract: Implement [production-engineering.md](production-engineering.md#forms) when attached. Prefer native controls. Prefer inline and progressive patterns over a modal.
 
-More UX patterns: [ux-principles.md](ux-principles.md).
+Do not open [ux-principles.md](ux-principles.md) in this slot. Implement attaches it for app UI.
 
 ## Product permissions
 
@@ -106,11 +106,19 @@ More UX patterns: [ux-principles.md](ux-principles.md).
 - Consistency over surprise screen-to-screen
 - Delight saved for moments (success, empty state, onboarding)
 
-Labels, buttons, and table data stay on the product family. Motion tells: [anti-slop.md](anti-slop.md#motion-tells).
+Labels, buttons, and table data stay on the product family. Motion tells wait for QA.
+
+## Onboard
+
+Open when the prompt names onboarding, first-run, empty, or activation. Marketing stays closed.
+
+First-run is one next step that completes the Job. It is not a KPI gallery, a feature tour, or a welcome `h1` in `main`. Empty names what is missing and the action that fills it. Activation copy leaves after day one; the queue recipe remains. Delight only on success, empty, or this first-run — not on every chrome control.
+
+Done when `main` still matches Packet `recipe=` (or settings when `recipe=none`) and greeting nodes in `main` = 0.
 
 ## Dashboards
 
-CMS, admin, editorial tools, and operator homes are **functional product-homes**. Chart families: [ux-principles.md](ux-principles.md#dashboards-and-data-ui). Scaffold tells: [anti-slop.md](anti-slop.md#dashboard-tells). Familiar chrome is the bar (Linear, Figma, Notion) — not a unique poster.
+CMS, admin, editorial tools, and operator homes are **functional product-homes**. Chart families wait for Implement (ux-principles Dashboards). Do not open [ux-principles.md](ux-principles.md) or [anti-slop.md](anti-slop.md) from this file. Familiar chrome is the bar (Linear, Figma, Notion) — not a unique poster.
 
 Pick **one recipe per view** from Job when the surface is a CMS/admin/CRM home, list, editor, or accounts. Settings and other tools stay on the [app shell](#app-shell). Write the *job* phrase, *objects*, and P0 first ([Job before recipe](#job-before-recipe)), then the three operator questions. Lock `recipe=` to that id when a recipe applies. Extra craft only on the 1–2 Pareto screens.
 
@@ -169,6 +177,6 @@ Done when `main` is a people list or table, not a KPI gallery.
 - **Analytics-type views** (when Job is BI, not CMS home): KPIs top if any → charts middle only with a question → tables/queue bottom.
 - **Color:** legend and status; the same meaning across pages. Restrained. "Professional" is density and predictability, not catalog `id=professional`.
 - Lock `style=none`. Leave [design-styles.md](design-styles.md) closed unless the user named a catalog `id`.
-- Chrome stays inside the rail ([surfaces.md](surfaces.md#chrome-containment)).
+- Chrome stays inside the rail (Implement when [surfaces.md](surfaces.md) is attached).
 
 Apply brand register only to marketing/about surfaces within the same product.

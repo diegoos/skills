@@ -25,7 +25,7 @@ Product **never** surprises in the chrome. Brand may break external consistency 
 | **Size / weight** | Important content larger or bolder — not everything bold |
 | **Whitespace** | Breathing room reduces cognitive load |
 
-**Scanning patterns:** F-pattern for text-heavy pages; Z-pattern for sparse marketing. Detail: [typography.md](typography.md).
+**Scanning patterns:** Packet `scan=` owns the first-viewport path. This file does not choose `join=`. Do not reopen [composition.md](composition.md).
 
 ## Feedback and micro-interactions
 
@@ -34,7 +34,7 @@ Every user action needs visible response:
 - Hover/active states on interactive elements
 - Loading indicators for async work (skeleton > spinner in content areas)
 - Success/error confirmation (toast, inline message, checkmark)
-- Form validation on **blur and submit** — not on every keystroke. Details: [production-engineering.md](production-engineering.md#forms)
+- Form validation on **blur and submit** — not on every keystroke. Field contract is in [production-engineering.md](production-engineering.md#forms) when that file is attached.
 
 Product UI: 150–250ms. Brand surfaces can be more expressive when the brief supports motion.
 
@@ -52,7 +52,11 @@ Design smallest screens first, then scale up. Test across device sizes before sh
 
 ## Accessibility
 
-Semantic HTML, keyboard navigation, visible focus, WCAG 2.2 AA contrast, and `prefers-reduced-motion` are ship gates. Implementation patterns: [production-engineering.md](production-engineering.md).
+Semantic HTML, keyboard navigation, visible focus, WCAG 2.2 AA contrast, and `prefers-reduced-motion` are ship gates. Implementation patterns: [production-engineering.md](production-engineering.md). Focused controls stay visible: sticky chrome and overlays do not cover them (WCAG 2.4.11; `scroll-padding` matches chrome height).
+
+Z-index uses the named scale in [design-systems.md](design-systems.md#z-index-scale) (`dropdown` → `sticky` → `modal-backdrop` → `modal` → `toast` → `tooltip`). Arbitrary `z-9999` fails.
+
+Auth: paste on password fields; 2FA and passkey copy names the next step only (enter the code, use the device). Do not invent a second hero pitch on those screens.
 
 ## Cognitive load and choice
 
@@ -81,7 +85,7 @@ Field contract, validation, error summary, and control choice live in [productio
 ## CTAs and conversion
 
 - **Product:** one filled primary per **view**; secondary and tertiary quieter; destructive separated
-- **Marketing:** one filled primary per **fold**; AIDA may repeat the same CTA later; two competing filled buttons in one fold fail
+- **Marketing:** one filled primary per **fold**; the same Success verb may repeat later; two competing filled buttons in one fold fail. The repeat is not a new layout family.
 - Verb + object labels; 3 words max on the primary when it would wrap
 - Keep the CTA cluster tight; separate it from competing blocks. A short button with an unused column beside it fails
 - Concrete verbs; avoid decorative punctuation that makes copy feel templated
@@ -92,11 +96,11 @@ Copy is a design material and one of the loudest slop signals. The words ship wi
 
 **Realistic sample content** (the most common practical failure):
 
-- Never ship `Lorem ipsum`, `John Doe`, `Acme`, `Nexus`, or unsourced stats (`92%`, `4.1×`). Tells: [anti-slop.md](anti-slop.md#copy-tells).
+- Never ship `Lorem ipsum`, `John Doe`, `Acme`, `Nexus`, or unsourced stats (`92%`, `4.1×`). QA scores copy tells; do not open [anti-slop.md](anti-slop.md) from this file.
 - Generate plausible names, companies, dates, and values that fit the domain and locale of the brief.
 - Write text at **realistic length** — short labels stay short, descriptions run as long as real ones would. Test the layout at those lengths.
 
-**Voice consistency** — pick one voice for the surface (e.g. direct and plain, or warm and conversational) and hold it across buttons, empty states, and errors. Mixed voice reads as assembled, not authored.
+**Voice consistency** — copy register is this Job's nouns. Hold it across buttons, empty states, and errors. Errors stay dry (what happened + next step). Mixed register reads as assembled, not authored.
 
 **State copy patterns:**
 
@@ -111,7 +115,7 @@ Button, CTA, label, and form-text rules live in **CTAs and conversion** and **Fo
 
 ## Media (images, video)
 
-Format, srcset, photography selection, SVG, and delivery: [assets.md](assets.md). Video: no autoplay with sound; poster image; respect reduced motion.
+Format, srcset, photography selection, SVG, and delivery: [assets.md](assets.md) when attached. Video: no autoplay with sound; poster image; respect reduced motion.
 
 ## Error handling
 
@@ -122,7 +126,7 @@ Format, srcset, photography selection, SVG, and delivery: [assets.md](assets.md)
 
 ## Dashboards and data UI
 
-Dashboards are **decision tools**, not chart galleries. CMS / admin / operator **home** is a work queue. Pick one named recipe per view ([product-register.md](product-register.md#dashboards)). Scaffold tells: [anti-slop.md](anti-slop.md#dashboard-tells). Design remaining analytics views for the audience:
+Dashboards are **decision tools**, not chart galleries. CMS / admin / operator **home** is a work queue. Pick one named recipe per view (Packet `recipe=`). Scaffold tells wait for QA; do not open [anti-slop.md](anti-slop.md) from this file. Design remaining analytics views for the audience:
 
 | Audience   | Needs                              |
 | ---------- | ---------------------------------- |
@@ -135,14 +139,14 @@ Dashboards are **decision tools**, not chart galleries. CMS / admin / operator *
 - Define dashboard type (overview, operational, analytical) — one primary type per view
 - Prioritize KPIs; group related data; plain-language labels
 - Color encodes meaning (status, alerts) — not rainbow decoration
-- **Question → chart family:** trend over time → line/area; compare categories → bar (sorted); part-to-whole → waffle/stacked (pie/donut only ≤3 slices with a visible difference); correlation → scatter; KPI vs target → number + bullet, not a gauge gallery; no question → table
+- **Question → chart family:** trend over time → line/area; compare categories → bar (sorted); part-to-whole → waffle/stacked (pie/donut only ≤3 slices with a visible difference); correlation → scatter; KPI vs target → number + bullet, not a gauge gallery; no question → table. Chart library only if the repo already has one (Recharts, Chart.js, or the project kit).
 - **Cardinality:** <4 points → stat card; >6 series → noise; >15 categories → table/search
 - Dual encoding: never hue alone (pattern, direct label, dashed vs solid). Provide a table or a one-sentence insight as fallback
 - `font-variant-numeric: tabular-nums` on prices, columns, timers
 - Widget loading/error/empty states required
 - Lazy-load heavy widgets; virtualize lists/tables with **≥50** visible rows; collapse to single column on mobile
 
-**Anti-patterns:** identical metric card grids with no hierarchy; decorative charts; too many real-time streams competing for attention. Home-as-analytics on a CMS IA: [anti-slop.md](anti-slop.md#dashboard-tells).
+**Anti-patterns:** identical metric card grids with no hierarchy; decorative charts; too many real-time streams competing for attention. Home-as-analytics on a CMS IA fails the same scaffold test (QA).
 
 Use established systems for enterprise patterns (Fluent, Carbon, Polaris). TanStack Table / AG Grid for large data.
 
@@ -161,4 +165,4 @@ Resolve in this order:
 3. **Performance** — slow is unusable; see [performance.md](performance.md)
 4. **Brand expression** — bold aesthetics within the above constraints
 
-A beautiful page that hides the CTA or breaks keyboard nav is a failed design.
+A beautiful page that hides the CTA or breaks keyboard nav is a failed design. Accessibility is solved on the enter object: contrast on the real pair, accessible name matches the visible label, alt on the photo, `prefers-reduced-motion` as the motion branch. A gray card that replaces the enter mass fails occupancy.

@@ -93,3 +93,7 @@ Strategy definitions and palette construction: [color.md](color.md#color-strateg
 ## Library customization
 
 Component libraries must be **customized** to the project aesthetic. Shipping default theme state reads as uncrafted.
+
+## Extract
+
+If the same chrome (button, input, nav item) appears three times with one-off styles, promote color, type, radius, and space into DESIGN.md tokens and one shared component. A component kit stays a code floor: theme, type, and radius still come from DESIGN.md, not default kit chrome.

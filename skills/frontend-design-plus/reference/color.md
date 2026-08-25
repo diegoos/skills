@@ -6,7 +6,7 @@ Choose a strategy, build a palette, and ship the modes Lock `theme=` asks for. D
 
 ## Scene sentence (temperature before hex)
 
-Before any hex value, write one sentence describing the environment the interface lives in — a place, a time, a mood. Lock `theme=` owns light vs dark ([briefing.md](briefing.md#theme)). The scene owns temperature. It replaces reflex temperature ("cool because tools", "warm to be safe").
+Before any hex value, write one sentence describing the environment the interface lives in — a place, a time, a mood. Lock `theme=` owns light vs dark (briefing Theme / Packet). The scene owns temperature. It replaces reflex temperature ("cool because tools", "warm to be safe").
 
 | Scene sentence                                          | Implies                      |
 | ------------------------------------------------------- | ---------------------------- |
@@ -15,7 +15,7 @@ Before any hex value, write one sentence describing the environment the interfac
 | "A clinical lab dashboard read under fluorescent light" | Light, neutral-cool, calm    |
 | "A backstage pass to a sold-out concert"                | Dark, saturated, high-energy |
 
-On `theme=system`, Implies is first paint only ([System theme](#system-theme)). One visible mode for the whole page ([layout-patterns.md](layout-patterns.md#page-theme-lock)).
+On `theme=system`, Implies is first paint only ([System theme](#system-theme)). One visible mode for the whole page (no mid-page flip unless the brief names a color-block story).
 
 ## Color strategies
 
@@ -76,7 +76,7 @@ After occupancy is locked, matching the domain is validation when Packet *object
 
 ## Building a palette
 
-1. **Anchor from the scene**, not from a generator. Name a real reference (a brand, a film still, a physical material) before opening a color tool. On `you-decide` / invent-all, park the canvas on that reference — not on the model-default triad (cream ~`#F4F1EA` + terracotta, near-black + one acid or vermilion, or broadsheet ink-on-newsprint) unless Packet *tension* names that axis ([design-styles.md](design-styles.md#pick)).
+1. **Anchor from the scene**, not from a generator. Name a real reference (a brand, a film still, a physical material) before opening a color tool. On `you-decide` / invent-all, park the canvas on that reference — not on the model-default triad (cream ~`#F4F1EA` + terracotta, near-black + one acid or vermilion, or broadsheet ink-on-newsprint) unless Packet *tension* names that axis or Look named that catalog id.
 2. **Pick the dominant surface.** Restrained and product UI: near-neutral (charcoal, off-white). A named hue is the accent, not the canvas, unless Palette named a tinted field or Lock `color=drenched`.
 3. **Keep the neutral ramp near chroma 0.** A 1–2% wash is optional. Recasting `--surface` as olive, forest, or navy fails Restrained. Avoid pure `#000` / `#fff`.
 4. **Choose one accent** with enough chroma to carry action and selection. Verify it clears contrast on its own background (buttons, links).
@@ -94,7 +94,7 @@ States communicate meaning, so they answer to recognition first and brand second
 | Error   | Red family          | High contrast; must read at small sizes   |
 | Info    | Blue/neutral family | Lowest urgency                            |
 
-Never rely on hue alone to carry meaning — pair with icon, label, or weight for color-blind users ([ux-principles.md](ux-principles.md)). Each state needs a foreground/background pair that clears WCAG AA.
+Never rely on hue alone to carry meaning — pair with icon, label, or weight for color-blind users. Each state needs a foreground/background pair that clears WCAG AA.
 
 ## System theme
 

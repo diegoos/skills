@@ -1,23 +1,23 @@
 # Design Read examples
 
-Load from the Direction slot ([dispatch.md](dispatch.md)) if the Lock shape is unclear. If Name, Audience, Success, Use, Scene, Theme, Palette, or Stack is still blank: close this file; the parent opens [briefing.md](briefing.md). Unnamed greenfield marketing Look is `you-decide` and does not block. Unnamed Behave and Constraints are `none` and do not block. Origin `redesign` with Aim, Keep, or Scope blank: same. App UI Scene is skipped (`none`) and does not block.
+Load from the Direction slot ([dispatch.md](dispatch.md)) if the Lock shape is unclear. If Job is still blank, greenfield marketing still lacks occupancy, or Look still lacks the Style answer: close this file and return to the parent. The parent opens [briefing.md](briefing.md). Direction does not open briefing. Look `you-decide` after Style **no** does not block. Unnamed Behave and Constraints are `none` and do not block. Origin `redesign` with Aim, Keep, or Scope blank: same. App UI Scene is skipped (`none`) and does not block. Theme and Palette without a user/disk owner do not block; Direction crafts them after Frame.
 
-One sentence plus one Lock line before markup. These examples are **after** briefing answers (or invent-all). The personal-work-page prompt is [briefing.md](briefing.md#worked-example), not a Lock in this file.
+One sentence plus one Lock line before markup. These examples are **after** briefing answers (or invent-all). The personal-work-page prompt is a briefing worked example, not a Lock in this file.
 
 ## Format
 
 ```txt
 Reading this as: <page kind> for <audience>, with a <vibe> language, leaning toward <register or design system>.
-Lock: mode=<full|solo|fast>; origin=<greenfield|redesign|polish>; name=<briefing name or invented>; scene=<place/time/mood>; style=<id|custom|none>; theme=<light|dark|system>; color=<restrained|committed|full|drenched>; layout=<contained|offset|wild>; motion=<still|fluid|cinematic>; density=<airy|regular|dense>; stack=<detected, asked, or html+css+js>.
+Lock: mode=<full|solo|fast>; origin=<greenfield|redesign|polish>; name=<briefing name or invented>; scene=<quoted Scene or composition occupancy sentence>; style=<id|custom|none>; theme=<light|dark|system>; color=<restrained|committed|full|drenched>; layout=<contained|offset|wild>; motion=<still|fluid|cinematic>; density=<airy|regular|dense>; stack=<detected, asked, or html+css+js>.
 ```
 
-Product Locks also name the 1–2 Pareto screens. CMS/admin/CRM/list/editor/accounts also name `recipe=`. Settings outside those four: `recipe=none`. Marketing Locks name the one memorable break (or `break=none`) and, on greenfield/redesign, `folds=` from the *map*. `scene=` quotes briefing Scene or the composition sentence. `object-swap=` is a foreign P0 plus *because*, or `n/a` when Inventory has fewer than two domain nouns ([composition.md](composition.md#frame)). App UI, redesign, and polish lock `style=none` and leave [design-styles.md](design-styles.md) closed. Greenfield **marketing** `style=` is a craft path only when *tension* requires a named look; *composition* writes *job*, *objects*, *kinship*, the *frame*, the Sketch, the *thesis*, and the *map* ([composition.md](composition.md)). App UI recipes: [product-register.md](product-register.md#dashboards). Briefing runs first unless *invent-all*. Unanswered blanks: no Read, no Lock, no markup ([briefing.md](briefing.md)).
+Product Locks also name the 1–2 Pareto screens. CMS/admin/CRM/list/editor/accounts also name `recipe=`. Settings outside those four: `recipe=none`. Marketing Locks name the one memorable break (or `break=none`) and, on greenfield/redesign, `folds=` from the Packet. `scene=` quotes briefing Scene or the composition occupancy sentence. App UI, redesign, and polish lock `style=none` and leave design-styles closed. Greenfield **marketing** `style=` is a named catalog `id` from the brief, or `none` on `you-decide`. Direction does not match catalog **When** to invent an id. Sketch occupancy is already in the Packet when marketing Direction attached composition. App UI recipes stay on Packet `recipe=`. Unanswered blanks: no Read, no Lock, no markup — return to the parent.
 
 ## Example 1: SaaS landing page
 
 **Brief:** "Create a landing page for our new developer tool Uptime that monitors API uptime." Scene filled by the user: "the live status fills the left; the CTA sits in a narrow rail."
 
-**Composition.** *job:* The user is here to start monitoring before the next outage. *objects:* live status (monitor), alert path (do), named outage (know), Start monitoring (decide). P0 perception = live status; P0 action = Start monitoring. *tension:* industrial heat + on-call precision. *joins:* split | stack | full-bleed. *discarded:* stack (three-up feature cards: status becomes a tile); full-bleed (manifesto-only type: CTA leaves the first viewport). *frame* from named Scene: enter = live status larger track; rest = Start monitoring in the rail; `break=none` — rack-LED is material on the enter *object*, not a gutter badge. *Sketch:* `[======= live status 8 =======][== Start monitoring 4 ==]` `join=split tracks=enter 8 rest 4 break none`. *thesis:* Start monitoring while the live status is still in view. Live status on the named larger track, Start monitoring in the rail. *folds=* live status | alert path | cut. *object-swap:* a kiln photo in enter does not read because the live status *is* the field.
+**Composition.** *job:* The user is here to start monitoring before the next outage. *objects:* live status (monitor), alert path (do), named outage (know), Start monitoring (decide). P0 perception = live status; P0 action = Start monitoring. *tension:* industrial heat + on-call precision. *Sketch:* `[======= live status 8 =======][== Start monitoring 4 ==]` `join=split tracks=enter 8 rest 4 break none`. *thesis:* Start monitoring while the live status is still in view. *folds=* live status | alert path | cut.
 
 > Reading this as: product landing for technical practitioners (SREs, backend devs), with a sharp / industrial language, leaning toward brand register with minimal color and monospace accents.
 >
@@ -35,9 +35,9 @@ Product Locks also name the 1–2 Pareto screens. CMS/admin/CRM/list/editor/acco
 
 ## Example 3: Portfolio site (after briefing answers)
 
-**Brief:** "Design a portfolio for a ceramic artist." Name, audience, success, use, scene, theme, and stack were blank, so the question interface ran one field per turn (Scene: `You decide from the brief` plus two occupancy readings). Look was unnamed (`you-decide`; no Catalog table). Behave unnamed = `none` (`motion=still`). The user answered: name=Atelier Sol; collectors; book a studio visit; Use=a scan of minutes; Scene=`you-decide`; light; html+css+js.
+**Brief:** "Design a portfolio for a ceramic artist." Job named. Parent inferred `character=` (trust + scan + kiln + mid) and `first-character-costume=studio hero + three work cards`. One A/B question; user picked overlap with kiln in enter. Look unnamed (`you-decide`). Behave unnamed = `none`. Working title Atelier Sol. Stack default html+css+js. Theme/Palette left to Direction craft (light, object material, not the costume).
 
-**Composition.** *job:* The user is here to book a studio visit. *objects:* kiln in fire (discover), featured works (compare), Book a studio visit (decide). P0 perception = kiln; P0 action = book. *tension:* industrial heat + calendar precision. *joins:* overlap | split | stack. *discarded:* split (equal three-up catalog); stack (manifesto type). `fallback=no`. *frame:* enter = kiln full-bleed; rest = Book a studio visit on the same mass; `break=none`. *Sketch:* `[============ kiln in fire 12 ============]` `join=overlap tracks=enter 12 rest inset break none`. *thesis:* Book the visit on the kiln that is still on. Kiln full-bleed, Book on that mass. *folds=* kiln in fire | featured works | cut. *object-swap:* a SaaS chart in enter does not read because the kiln photo is the field and Book is its label. Pick vests heat on the kiln mass (`industrial` only if *tension* requires that Path).
+**Composition.** *job:* The user is here to book a studio visit. *objects:* kiln in fire (discover), featured works (compare), Book a studio visit (decide). P0 perception = kiln; P0 action = book. *tension:* industrial heat + calendar precision. *frame:* enter = kiln full-bleed; rest = Book a studio visit on the same mass; `break=none`. *Sketch:* `[============ kiln in fire 12 ============]` `join=overlap tracks=enter 12 rest inset break none`. *thesis:* Book the visit on the kiln that is still on. *folds=* kiln in fire:one-proof | featured works:catalog-cards | cut. `scan=Z` `form=split-tasks`. Pick vests heat on the kiln mass only if Look named that Path; else `style=none`.
 
 > Reading this as: portfolio for art-world visitors and collectors, with an organic / tactile language, leaning toward brand register with generous whitespace and a sans display pairing.
 >
@@ -59,7 +59,7 @@ Drenched is the Lock exemption from 60-30-10. The scene owns the palette.
 
 **Brief:** "The marketing homepage looks generic. Keep the URLs and the navy." Aim: first fold does not state the job. Keep: wordmark + nav + navy. Scope: this page.
 
-**Composition.** *job* from Aim: The user is here to complete the action the first fold currently hides. *objects* from keep: current hero photo (discover), Aim action (decide), navy tokens (know). *tension:* current brand + a first fold that states the job. *discarded:* interchangeable slogan on the same split; three equal feature cards. *frame* from Aim + keep (no Scene ask): enter = existing photo on the larger track the photo already occupies; rest = Aim action; `break=none` unless a keep *object* is orphaned. *Sketch:* cells named from keep *objects*; `tracks=` matches that photo's current span. *thesis:* the first fold states the job on the current photo. *map:* from keep *objects* and those numbers.
+**Composition.** *job* from Aim: The user is here to complete the action the first fold currently hides. *objects* from keep: current hero photo (discover), Aim action (decide), navy tokens (know). *tension:* current brand + a first fold that states the job. *frame* from Aim + keep (no Scene ask): enter = existing photo on the larger track the photo already occupies; rest = Aim action; `break=none` unless a keep *object* is orphaned. *Sketch:* cells named from keep *objects*; `tracks=` matches that photo's current span. *thesis:* the first fold states the job on the current photo. *map:* from keep *objects* and those numbers.
 
 > Reading this as: existing product landing for returning visitors, with a sharper language on the current tokens, leaning toward brand register on the current CSS stack.
 >
@@ -71,9 +71,9 @@ Audit listed before the first visual edit, keep/retire against Aim. Navy stays. 
 
 **Brief:** "Create a unique web page to showcase my work. My background: I have been a software engineer for N years and created software … engineer pipeline …"
 
-Filled: Job, Constraints (keep the named software). Blank: Name, Audience, Success, Use, Scene, Theme, Stack. Behave unnamed = `none`. Look unnamed = `you-decide`. "Unique" is not invent-all.
+Filled: Job, Constraints (keep the named software). Infer `character=` and `first-character-costume=`. Look unnamed = `you-decide`. Behave unnamed = `none`. "Unique" is not invent-all.
 
-Do not write a Design Read or Lock in this turn. Close this file. Open [briefing.md](briefing.md) and ask **Name** through the host's question interface ([briefing.md](briefing.md#worked-example)). After every field has an owner, open [after-briefing.md](after-briefing.md).
+Do not write a Design Read or Lock in this turn. Close this file. Return to the parent: occupancy is still blank. The parent reopens [briefing.md](briefing.md) and asks A/B. Direction does not open briefing or catalog.
 
 ## Example 7: Polish an existing settings page
 
@@ -87,7 +87,7 @@ Existing markup, DESIGN.md, and tokens. Origin=`polish`. Look, Name, Stack fille
 
 ## When to ask
 
-This file is after answers. Missing briefing fields: close this file and ask the next blank through the host's question interface ([briefing.md](briefing.md)). Extra asks after answers only when:
+This file is after answers. Missing briefing fields: close this file and return to the parent. The parent asks the next blank. Do not open [briefing.md](briefing.md) from Direction. Extra asks after answers only when:
 
 - Brief says "for everyone" and the product is niche.
 - Brief describes a dashboard and asks for wow-factor animation on every chrome control.
@@ -97,8 +97,8 @@ Skip the briefing form on *invent-all*. Still split files and still write DESIGN
 
 ## Done when
 
-- Briefing answers (or invent-all) completed; `name=` is the user's string, `invented`, or disk. Greenfield **marketing** Scene is an occupancy sentence or `you-decide`; Look is a catalog id, refs, or `you-decide` (unnamed is `you-decide`). App UI Scene and Look are skipped (`none`) unless the user named an `id`. Redesign and polish Look is disk; `style=none`; Scene was not asked. Greenfield `theme=` is `light` / `dark` / `system` from briefing Theme; redesign and polish Theme is disk. Lock `theme=system` at Implement: [color.md](color.md#system-theme).
+- Briefing answers (or invent-all) completed; `name=` is the user's string, `invented`, or disk. Greenfield **marketing** Scene is an occupancy sentence (A/B pick or named occupancy). Look is a catalog id, Item, craft refs, Style **no** → `you-decide`, or invent-all `you-decide`. App UI Scene and Look are skipped (`none`) unless the user named an `id`. Redesign and polish Look is disk; `style=none`; Scene was not asked. Greenfield `theme=` is `light` / `dark` / `system` from briefing Theme or Direction craft; redesign and polish Theme is disk. Lock `theme=system` at Implement: two palettes plus a chrome control.
 - Both Read and Lock lines exist before markup. They do not exist in the same turn as unanswered blanks.
 - Origin is in the Lock (`greenfield`, `redesign`, or `polish`). Redesign Lock also has `aim=`, `keep=`, `scope=`.
-- The sentence names audience and register. "Clean and modern" fails this. Greenfield marketing `you-decide` includes the Pick sentences matched to *tension* (or `style=none` when *tension* needs no named look). App UI does not write Pick.
+- The sentence names audience and register. "Clean and modern" fails this. Greenfield marketing `you-decide` is `style=none` with object craft; `Pick:` is `none`. Named catalog `id`: `Pick:` is 2–3 craft sentences. App UI does not write Pick.
 - App UI and marketing always have a Design Read; isolated components inherit the parent surface or skip.

@@ -1,14 +1,35 @@
 # Anti-slop
 
-Run from the QA slot ([dispatch.md](dispatch.md#qa)) after markup, before the *crit* ([crit.md](crit.md)). Isolated component: this window. Unanswered blanks: the Packet, not [briefing.md](briefing.md).
+Run from the QA slot ([dispatch.md](dispatch.md#qa)) after markup, before the *crit* ([crit.md](crit.md)). Isolated component: this window. Unanswered blanks: the Packet.
 
 Patterns that signal "AI made this." QA records matches as P0. Implement rewrites. Keep a listed pattern when the brief names it, the existing product already ships it, or the sequence is real (01, 02, 03). Document why.
+
+## Rule ids
+
+Cite `rule=<id>` in the QA table when a listed tell matches. Fail-if is a grep, computed style, or DOM count — not a vibe. Do not invent ids outside this table.
+
+| id | Fail-if |
+| --- | --- |
+| `model-default-triad` | Cream ~`#F4F1EA` + display serif + terracotta, acid-on-near-black, or broadsheet default on greenfield `style=none` ([Always](#always)) |
+| `side-stripe` | `border-left` (or inline start) >1px accent on a card or alert |
+| `gradient-text` | `background-clip: text` on a headline or CTA |
+| `glass-default` | Backdrop blur / frost on a surface the scene did not name |
+| `hero-metric` | Big number + small label + stats row as the first-viewport proof |
+| `identical-cards` | Icon + heading + blurb × N unless Packet `:<form>` is `catalog-cards` |
+| `eyebrow-every` | Uppercase eyebrow count > `ceil(sections / 3)` |
+| `numbered-markers` | `01` section markers with no real sequence |
+| `three-feature-cards` | Three equal feature cards as a fold |
+| `generic-cta` | Primary label in the CTA check list and not Packet Success |
+| `mesh-hero` | Centered hero + dark mesh gradient |
+| `nested-cards` | Card inside a card on product UI |
+| `overused-font-inter` | Inter / Geist / Outfit as unexamined brand default ([Typography tells](#typography-tells)) |
+| `costume-vest` | First viewport matches Packet `first-character-costume=` |
 
 ## The slop test
 
 Run this before the *crit* ([crit.md](crit.md)). Layout and copy each have to pass. Start with what must be on screen, then **Always**, then the branch for this task type. Isolated component: Always only, unless the component is a KPI strip or chart ([Dashboard tells](#dashboard-tells)).
 
-**On screen (marketing greenfield/redesign):** Sketch masses at measured `tracks=`. Logo-swap breaks the read. Skip the object-swap fail when Packet `object-swap=n/a`; when the line is not `n/a`, still-reads fails ([composition.md](composition.md#frame)).
+**On screen (marketing greenfield/redesign):** First viewport **is** the Sketch masses at measured `tracks=`, the enter object noun is visible in that rectangle (not only `data-mass`), `scale=` holds, and the primary CTA is Packet Success. Occupancy grammar: [crit.md](crit.md) Q1. Costume vest fails.
 
 **On screen (app UI):** Packet `recipe=` (or `none` on settings) occupies `main`. Greeting nodes in `main` = 0. Implement returned `main=` / `proof=`.
 
@@ -16,7 +37,7 @@ Run this before the *crit* ([crit.md](crit.md)). Layout and copy each have to pa
 
 **Cross-register:** If someone could identify the output as AI-generated without hesitation, it failed.
 
-**Model-default triad:** Greenfield marketing with Look `you-decide` or Lock `style=none`: cream ~`#F4F1EA` + high-contrast serif + terracotta, near-black + one acid or vermilion, or broadsheet (hairline, radius 0, dense columns) fails unless Packet *tension* named that axis. A named catalog `id` or a brief that asked for one of these looks still passes. Skip on origin `polish` / `redesign` (disk owns the look). Pick clusters: [design-styles.md](design-styles.md#pick).
+**Model-default triad:** Greenfield marketing with Look `you-decide` or Lock `style=none`: cream ~`#F4F1EA` + high-contrast serif + terracotta, near-black + one acid or vermilion, or broadsheet (hairline, radius 0, dense columns) fails unless Packet *tension* named that axis. A named catalog `id` or a brief that asked for one of these looks still passes. Skip on origin `polish` / `redesign` (disk owns the look).
 
 **Deletion check:** *Cut* already ran in Direction on marketing greenfield/redesign. Confirm Packet Cut competitors stayed off the page. Then name **one** remaining craft accessory the brief did not ask for (grain overlay, overlap-badge, `01` markers, a second card family, marquee) and fail if it is still on the page. Isolated component and app UI: name three competing blocks; remove extra until Job + Success still hold. Extra chrome (parallax, custom cursor, uniform fade-in, 3D blobs) fails unless the brief named it. What remains after the *cut* is the composition.
 
@@ -24,11 +45,17 @@ Run this before the *crit* ([crit.md](crit.md)). Layout and copy each have to pa
 
 ### Marketing
 
-**Common-layout check:** First viewport shows the Sketch masses at measured `tracks=` ([crit.md](crit.md) Q1). Origin `polish`: name an in-place craft fix; keep the current family. Missing Sketch, missing `tracks=`, or missing *thesis* on greenfield or redesign: fail this check; the parent re-dispatches. `object-swap=` against measured enter still reads, or the line is missing: re-dispatch Direction — skip this fail when the line is `n/a`. A media-column + CTA-rail split without *kinship* of two sibling tasks: unjustified split; rewrite until Sketch masses are on screen. Centered hero + three equal feature cards, dark mesh, purple glow, cream-and-brass craft, Inter-on-slate, dark charcoal + one orange accent, spec-sheet title block, fake git-diff or terminal card, years-as-handle wordmark: rewrite until the Sketch masses are on screen.
+**Common-layout check:** First viewport shows the Sketch masses at measured `tracks=` ([crit.md](crit.md) Q1). Origin `polish`: name an in-place craft fix; keep the current family. Missing Sketch, `tracks=`, `scan=` / `form=`, or *thesis*: fail; the parent re-dispatches. Rewrite until those masses are on screen. Layout and visual tells stay in [Layout tells](#layout-tells) and [Visual tells](#visual-tells) — do not treat this check as a second list. Unjustified split (media column + CTA rail without two sibling tasks) and `break=none` with three equal bands fail Q1.
 
-**UX-expert check:** Name the *map* (first viewport + remaining folds from Packet *objects*, matched to Sketch `tracks=`), not a palette tweak. Origin `polish`: name an in-place craft fix.
+**UX-expert check:** Name the *map* (first viewport + remaining folds from Packet *objects* with `:<form>`, matched to Sketch `tracks=`), not a palette tweak. Origin `polish`: name an in-place craft fix.
 
-**Category-reflex check:** Logo-swap breaks the read, and each first-viewport mass is a Packet *object*. Matching the domain is validation when occupancy traces to those *objects* (a studio site whose enter mass *is* the kiln). Rework when the first viewport is the category default *scaffold* with no *object* in the lead rectangle. Palette first-idea vectors: [color.md](color.md#category-reflex-rework-if-this-was-the-first-idea). A *scene* written on `you-decide` / invent-all is occupancy from *kinship*, not the category-default place ("desk at night" for a developer portfolio). Skip on origin `polish`.
+**Category-reflex check:** Logo-swap breaks the read, and each first-viewport mass is a Packet *object*. Matching the domain is validation when occupancy traces to those *objects*. Rework when the first viewport vests `first-character-costume=`. First-idea palettes that fail: navy-for-law, indigo-for-SaaS, Neutrals-as-fear-default, mesh-HUD-for-tech. A *scene* written on `you-decide` / invent-all is occupancy from *kinship*, not the category-default place. Skip on origin `polish`.
+
+**Costume-id check:** Lock `style=` is `professional` on a firm, `saas` / `enterprise` on "my SaaS", or `terminal` / `cyberpunk` on "tech", and briefing Look did **not** name that id: fail. Prefer `style=none` vesting the enter object. User named that id (prompt or Style pick): record the costume risk in the finding; do not P0 the authorship.
+
+#### CTA check
+
+The visible primary label is the Success verb+object. These strings fail as a generic closer unless that string **is** the user's Success: "Saiba mais", "Learn more", "Get started", "Compre aqui", "Book now". Other files point here; they do not recopy the list.
 
 **Second-order check:** The hop “not SaaS-purple, so editorial serif with mono labels” fails unless Packet *tension* names that axis. Rework the hop; do not invent a farther costume. Skip on origin `polish`.
 
@@ -36,7 +63,7 @@ Run this before the *crit* ([crit.md](crit.md)). Layout and copy each have to pa
 
 ### App UI
 
-**Common-layout check:** Four equal KPI cards + donut + area/line + "Welcome back", or default kit chrome as the look. If yes, pick the matching recipe from [product-register.md](product-register.md#dashboards) (queue vs gallery) before adding polish. Origin `polish`: retire the tells in place; do not invent a new recipe. Do not pick a novel layout family.
+**Common-layout check:** Four equal KPI cards + donut + area/line + "Welcome back", or default kit chrome as the look. If yes, Packet `recipe=` must be the matching queue vs gallery (`queue-home` / `list-filter` / `editor` / `accounts`) before adding polish. Origin `polish`: retire the tells in place; do not invent a new recipe. Do not pick a novel layout family.
 
 **UX-expert check:** Name the product recipe (queue home, list+filter, editor, accounts) or an in-place craft fix if that recipe is already on screen. Not a marketing spine.
 
@@ -48,16 +75,16 @@ Rewrite any element that matches unless the brief, existing system, semantic nee
 
 | Pattern                                         | Why                                        | Do instead                                                                                |
 | ----------------------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| Side-stripe borders (`border-left` >1px accent) | Never intentional on cards/alerts          | Hairline or inset from [material-craft.md](material-craft.md) on brand; tokens on product |
+| Side-stripe borders (`border-left` >1px accent) | Never intentional on cards/alerts          | Hairline or inset from DESIGN.md tokens on brand; tokens on product                       |
 | Gradient text (`background-clip: text`)         | Decorative                                 | Solid ink on the display face                                                             |
 | Glassmorphism as default                        | Rare                                       | Matte, hairline, or ink; glass only if the scene asks                                     |
 | Hero-metric template                            | Big number + small label + stats row       | One proof point with a source, or cut                                                     |
-| Identical card grids                            | Icon + heading + blurb × N                 | Magazine, container-free, or one card family ([layout-patterns.md](layout-patterns.md))   |
+| Identical card grids                            | Icon + heading + blurb × N                 | Packet `:<form>`; catalog-cards only when the object is a catalog                         |
 | Eyebrow on every section                        | Small caps `ABOUT` `PROCESS` above each H2 | Cap eyebrows at `ceil(sections / 3)`                                                      |
 | Numbered section markers (`01 · About`)         | Fake sequence                              | Numbers only on a real sequence                                                           |
 | Text overflowing container                      | Unchecked H1                               | Wide H1 container; test every breakpoint                                                  |
 | Decorative em dashes (`—`) in UI copy           | Templated aside or LLM residue             | Use a comma, period, or hyphen; keep an em dash when the copy register genuinely needs it |
-| Three equal feature cards                       | Default SaaS scaffold                      | Split, bento, or a comparison table                                                       |
+| Three equal feature cards                       | Default SaaS scaffold                      | The Packet fold `:<form>` (`magazine` / `table` / `one-proof` / `list`). Not a bento.     |
 
 ## Visual tells
 
@@ -71,7 +98,7 @@ Rewrite any element that matches unless the brief, existing system, semantic nee
 
 ## Typography tells
 
-**Reflex-risk fonts** (training-data defaults). Look further unless the pairing procedure in [typography.md](typography.md#font-pairing-structure-not-a-fashion-list), the project, or the selected visual language chose them on purpose:
+**Reflex-risk fonts** (training-data defaults). Look further unless DESIGN.md, the selected visual language, or the project stack chose them on purpose:
 
 Fraunces, Newsreader, Lora, Crimson family, Playfair Display, Cormorant, Syne, IBM Plex family, Space Mono, Space Grotesk, Inter (as **brand** default; product may follow the project), DM Sans/Serif, Instrument Sans/Serif.
 
@@ -103,7 +130,7 @@ Geist, Clash Display, and PP Editorial New are the next Inter. Skip them as a pr
 
 ## Dashboard tells
 
-App UI only. Rewrite if present. Keep only if the brief named that scaffold or disk already ships it. Do-instead: [product-register.md](product-register.md#dashboards). Chrome: [surfaces.md](surfaces.md).
+App UI only. Rewrite if present. Keep only if the brief named that scaffold or disk already ships it. Do-instead: Packet `recipe=` (`queue-home`, `list-filter`, `editor`, `accounts`).
 
 | Tell                                                      | Fail when                                                            |
 | --------------------------------------------------------- | -------------------------------------------------------------------- |
@@ -122,11 +149,13 @@ App UI only. Rewrite if present. Keep only if the brief named that scaffold or d
 
 Every visible string is in scope: headlines, subtext, CTAs, nav, empty/error/success, quotes, sample data, alt text, `aria-label`, meta title/description.
 
-**Self-audit:** re-read every string before pre-flight. If a sentence could move unchanged to another product, rewrite it with a fact, mechanism, or judgment from this brief. Doubt: write a functional sentence. One copy register per page. Invent no stats, names, or citations. User-supplied copy: keep the voice; cut only the tells below.
+**Self-audit:** re-read every string before pre-flight. Every marketing sentence names a fact, mechanism, or object from Inventory or Success. If a sentence could move unchanged to another product, rewrite it until that holds. Doubt: write a functional sentence. One copy register per page: this Job's nouns. Invent no stats, names, or citations. User-supplied copy: keep the voice; cut only the tells below.
+
+**Divide check:** H1 names an Inventory or Success object. Subtext, when present, adds one fact or mechanism the H1 does not carry. Cover the H1: the sub still informs. Cover both: the CTA still names Packet Success ([CTA check](#cta-check)). Feeling copy (`easy`, `great`, `amazing`, `you'll love`, `Don't worry`) fails this target. Chrome-speak (`button`, `click here`, `abaixo`, `the tab below`) fails: cite the control's visible label. `role=alert`, empty, and error copy stay dry: what is missing or what failed, plus the one next step. They do not inherit the hero pitch. A copy fail leaves occupancy as it is: cut words if the H1 wraps past two desktop lines.
 
 **Second-order:** swapping `elevate` for `unlock your potential` still fails. The replacement has to name a real action or object.
 
-Empty, error, and loading shapes: [ux-principles.md](ux-principles.md#microcopy-and-sample-content).
+Empty: name what is missing and the action that fills it. Loading: skeleton; add text only for a long wait. Error: what happened and how to recover; no blame. Sample names and stats fit this Job's locale; never `Lorem ipsum`, `John Doe`, `Acme`, or unsourced `92%`.
 
 | Pattern                 | Example                                                                                                                                                                                                                                                                                                          | Do instead                                                 |
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
@@ -152,6 +181,7 @@ Empty, error, and loading shapes: [ux-principles.md](ux-principles.md#microcopy-
 | Fake-precise stats      | `92%`, `4.1×`, `99.99%` with no source                                                                                                                                                                                                                                                                           | Real data, or qualitative proof, or cut                    |
 | Poetic craftsman labels | "Field notes", "On our desks", "Quietly in use at"                                                                                                                                                                                                                                                               | Ordinary section names                                     |
 | Duplicate CTA intent    | "Get in touch" + "Let's talk"                                                                                                                                                                                                                                                                                    | One intent, one label                                      |
+| Generic CTA             | closer that is not Packet Success                                                                                                                                                                                                                                                                                | [CTA check](#cta-check)                                    |
 | CTA wrap                | primary wrapping to 2+ lines at desktop                                                                                                                                                                                                                                                                          | ≤3 words, one line                                         |
 | Long pull-quotes        | quotes >3 lines on a landing                                                                                                                                                                                                                                                                                     | One short line or cut                                      |
 | Lorem / latin           | `Lorem ipsum`, `Your catchy headline here`                                                                                                                                                                                                                                                                       | Real draft copy at real length                             |
@@ -185,7 +215,7 @@ Filler adverbs (`just`, `literally`, `simply`, `actually`, `truly`, `fundamental
 | ----------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | Default warm cream body for "traditional" brief | Carry warmth via accent, type, imagery                                                     |
 | New accent color per section                    | One accent locked for whole page                                                           |
-| Dark because tools look cool                    | [briefing.md](briefing.md#theme) owns mode; scene owns temperature                         |
-| Light to be safe                                | [briefing.md](briefing.md#theme) owns mode; scene owns temperature                         |
-| Both / system shipped as one locked mode        | Two palettes plus a chrome control ([color.md](color.md#system-theme))                     |
-| Tinted dark canvas (green/navy field)           | Charcoal surfaces; accent on actions ([color.md](color.md#dark-mode-construct-dont-invert))|
+| Dark because tools look cool                    | Lock `theme=` owns mode; occupancy owns temperature                                        |
+| Light to be safe                                | Lock `theme=` owns mode; occupancy owns temperature                                        |
+| Both / system shipped as one locked mode        | Two palettes plus a labeled chrome control that sets `data-theme` or a class on `html`     |
+| Tinted dark canvas (green/navy field)           | Charcoal surfaces; accent on actions                                                       |

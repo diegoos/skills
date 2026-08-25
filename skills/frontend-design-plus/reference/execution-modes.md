@@ -8,11 +8,11 @@ The mode changes orchestration, not the quality bar. A mode is a capability cont
 
 | Mode | Use when | Contract |
 | --- | --- | --- |
-| `full` | A page or app UI needs the complete workflow and the harness supports hand-offs | Batch remaining briefing blanks in one structured question call when the host tool allows, then run Direction, Implement, QA, and the verification pass as separate slots. |
-| `solo` | The harness has no worker or child-agent capability | Same briefing question contract as `full`. Keep the slot order in one window. Read only the current slot's references, close them before moving to the next slot, and preserve the Packet as the hand-off. |
-| `fast` | An isolated component or a complete, low-risk prompt does not benefit from repeated turns | Pack fields already owned by the prompt or disk. Ask only remaining blanks; independent low-risk blanks share the same structured call. Run Implement, Tier A, the rubric, and verification. |
+| `full` | A page or app UI needs the complete workflow and the harness supports hand-offs | Briefing questions already ran. Run Direction, Implement, QA as separate workers. Parent holds card + Packet + return blocks only. |
+| `solo` | The harness has no worker or child-agent capability | Same slot order as `full` in one window. Read only the current slot's references, close them before moving to the next slot, and preserve the Packet as the hand-off. |
+| `fast` | Isolated component, `origin=polish`, or a complete low-risk prompt | Greenfield/redesign: same Direction → Implement → QA order as `full`. Polish skips Direction ([polish.md](polish.md)). Also stay closed: the Fast list in [load-map.md](load-map.md#fast). Isolated component still skips this file's Direction ([after-briefing.md](after-briefing.md#isolated-component)). |
 
-`full` is the default for marketing and app UI. Use `solo` when `full` cannot be executed. Use `fast` for isolated components, polish with a named focus, or a prompt that already owns every field that changes the surface.
+`full` is the default for marketing and app UI. Use `solo` when `full` cannot be executed. Use `fast` for isolated components, polish, or a prompt that already owns every field that changes the surface. `fast` does not skip Direction on greenfield or redesign marketing or app UI and does not skip quality gates. `origin=polish` skips Direction ([polish.md](polish.md)). `fast` stay-closed files: [load-map.md](load-map.md#fast). Polish stay-closed: [load-map.md](load-map.md#polish).
 
 ## Capability fallback
 
@@ -29,15 +29,11 @@ Do not name a tool that the host did not provide. Name the capability and its ev
 
 ## Question budget
 
-Score every applicable briefing field against the prompt and disk in one pass before any question. Then:
+This file does not reopen [briefing.md](briefing.md) or [catalog.md](catalog.md). Questions already ran in briefing. Preserve `questions=serial` on the Lock when the briefing declared it.
 
-- Host tool accepts multiple questions in one call: send **every remaining blank** in briefing order in that one call, then end the turn. Do not rescore or reopen this file between those fields.
-- Host tool accepts only one question per call: ask the first remaining blank, declare `questions=serial` on the Lock, and end the turn.
-- Origin still unclear belongs to Classify, not this budget. Do not mix origin with briefing fields.
+A numbered list of questions in the chat message still fails if a leftover blank appears after the card. An eight-field dump fails. A structured A/B call is not a dump.
 
-A numbered list of questions in the chat message fails. A structured multi-question tool call is not a dump.
-
-`fast` may omit fields the prompt or disk already own. `full` and `solo` batch the same remaining set when the tool allows. Never put task type, origin, Scene, Success, or Stack in the same **option list** as another field; each field is its own question inside the one call.
+`fast` may omit fields the prompt or disk already own. Never put task type or origin in the same **option list** as another field.
 
 ## Declaration
 
@@ -45,4 +41,4 @@ The parent prints `mode=<full|solo|fast>` in the Lock. When the host could not b
 
 ## Done
 
-The selected mode is declared, its capability fallbacks are honest, `questions=serial` is present when the host could not batch, and the same Direction → Implement → QA order and quality gates apply to every mode.
+The selected mode is declared, its capability fallbacks are honest, `questions=serial` is present when the host could not batch, and the same quality gates apply. Direction → Implement → QA holds on greenfield and redesign. Polish skips Direction ([polish.md](polish.md)).

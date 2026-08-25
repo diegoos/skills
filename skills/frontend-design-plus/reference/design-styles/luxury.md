@@ -50,10 +50,10 @@ Section padding sits near `py-24` to `py-32`. Offset columns (`col-start-2` or `
 
 Done criteria that name a hex apply only when that fallback token is in use. Prefer the user's mapped token.
 
-1. Keep Frame occupancy and Packet folds when task is marketing. If occupancy is missing, stop and open [composition.md](../composition.md). Do not name a hero family here. App UI: keep the recipe in [product-register.md](../product-register.md). Done when occupancy (marketing) or recipe (app UI) is already in the Lock.
+1. Keep Frame occupancy and Packet folds when task is marketing. Do not name a hero family here. Do not reopen composition.md. App UI: keep Packet `recipe=`. Do not open product-register.md from this file. Done when occupancy (marketing) or recipe (app UI) is already in the Lock.
 2. Keep the user's tokens. Fill empty DESIGN.md slots from Craft. Done when CSS uses the named user palette when one exists.
 3. If the user named a control language, keep it. Otherwise treat primary controls as charcoal rectangles whose hover reveals gold. Done when the primary is `#1A1A1A` fill, uppercase tracked label, radius `0`, height at least 48px, and hover either fills gold or inverts through a 500ms ease with no rounded corners.
-4. Run anti-slop + crit. Done when the common-layout check fails for this style's own cliché: cream-and-brass craft landing (beige field, gold ornaments, centered serif hero).
+4. Subtract this Path cliché in Commit. QA owns anti-slop and crit. Done when the common-layout check fails for this style's own cliché: cream-and-brass craft landing (beige field, gold ornaments, centered serif hero).
 
 ## A11y
 

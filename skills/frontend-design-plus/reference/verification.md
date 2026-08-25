@@ -1,6 +1,6 @@
 # Verification
 
-Open from Implement after the first viewport exists, then from QA. This file records evidence; it does not replace visual judgment. A DOM measurement is not a screenshot, and a static inspection is not a browser pass.
+Open from Implement after the first viewport exists, then from QA. This file records evidence; it does not replace visual judgment. A DOM measurement is not a screenshot, and a static inspection is not a browser pass. This file is evidence of *this run* (render, DOM, grep). It is not a usability study with people.
 
 ## Evidence levels
 
@@ -24,12 +24,12 @@ Run the checks that apply to the surface. Use 320px, 768px, and 1024px for respo
 ### Interaction and accessibility
 
 - Exercise the primary action, keyboard order, visible focus, and any changed state.
-- Check labels, accessible names, reduced motion, and contrast pairs that the surface actually uses.
+- Check labels, accessible names, reduced motion, and contrast pairs that the surface actually uses. Accessibility holds on the enter object (contrast, name, alt, reduced-motion branch). Replacing that mass with a generic card fails occupancy, not a11y.
 - Record whether an automated accessibility checker ran. Source inspection alone is not an automated pass.
 
 ### Performance
 
-Use `performance=guided` when only implementation rules were followed, `performance=measured` when runtime metrics were captured, and `performance=verified` only when the measured result meets the targets in [performance.md](performance.md). Do not convert a target into a result by assumption.
+Use `performance=guided` when only implementation rules were followed, `performance=measured` when runtime metrics were captured, and `performance=verified` only when those metrics meet the targets already attached this run ([performance.md](performance.md) on marketing greenfield/redesign Implement, and on QA when that row is attached). Without that file in this slot, cap at `measured` or `guided`. Do not convert a target into a result by assumption.
 
 ## Return block
 
@@ -51,8 +51,8 @@ The block is valid only when every field exists. `not-verified=none` is allowed 
 
 ## Ship rule
 
-A P0, a failed required check, or a missing return field blocks the surface. An `unverified` field does not become a pass; it remains a limitation in the final hand-off. If the harness had a browser or screenshot tool this run and the slot did not use it, that unused capability is a **P1** (not a visual P0). If the user asked for measured performance, browser QA, or real-device confidence, `unverified` is a P1 until the requested evidence exists. Honesty `0` on the visual rubric blocks ship.
+A P0, a failed required check, or a missing return field blocks the surface. An `unverified` field does not become a pass; it remains a limitation in the final hand-off. If the harness had a browser or screenshot tool this run and marketing greenfield/redesign occupancy visual claims (costume off screen, logo-swap, `See:` visible in enter) were not inspected on a render, that unused capability is a **P0**. Other unused browser checks stay **P1**. Without that tool, `proof=dom` may pass geometry; Domain and Language on the rubric may not be scored `2`. If the user asked for measured performance, browser QA, or real-device confidence, `unverified` is a P1 until the requested evidence exists. Honesty `0` on the visual rubric blocks ship.
 
 ## Done
 
-The return block exists, each applicable check is marked with evidence, and the hand-off states what was not verified.
+The return block exists, each applicable check is marked with evidence, and the hand-off states what was not verified. Do not claim user testing.

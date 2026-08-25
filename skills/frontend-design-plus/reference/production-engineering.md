@@ -1,12 +1,12 @@
 # Production engineering
 
-Load when [load-map.md](load-map.md) attaches this file (component and app UI; marketing only when the surface has forms or async). Unanswered blanks belong to the Packet.
+Load when [load-map.md](load-map.md) attaches this file. Component and app UI attach the full file. Marketing always attaches [Resilient text](#resilient-text); attach the rest of this file when the surface has forms or async, or when the Harden row matches. Unanswered blanks belong to the Packet.
 
 Build UIs that look designed and ship reliably.
 
 Patterns below are shown in HTML/CSS for clarity. Translate the syntax to the project's framework (JSX, Vue/Svelte SFCs, template engines, native components) while preserving the semantics: native elements, state separation, and accessibility behavior carry across all of them.
 
-See also: [performance.md](performance.md), [typography.md](typography.md). Anti-slop high-risk tells: [anti-slop.md](anti-slop.md). Pre-flight: [preflight-checklist.md](preflight-checklist.md).
+See also: [performance.md](performance.md) and [typography.md](typography.md) when those paths are attached. Anti-slop and pre-flight stay in the QA slot.
 
 ## Component architecture
 
@@ -66,7 +66,7 @@ Separate data fetching from rendering. The component that loads data should hand
 <div class="task-list-container" data-state="empty">
   <div class="empty-state">
     <h3>No tasks</h3>
-    <p>Get started by creating a task.</p>
+    <p>Create a task to see it here.</p>
     <button type="button" class="create">Create task</button>
   </div>
 </div>
@@ -140,7 +140,7 @@ The same glyph has three jobs. Decorative beside visible text: `aria-hidden="tru
 <div role="status">
   <span class="icon-empty" aria-hidden="true"></span>
   <h3>No tasks</h3>
-  <p>Get started by creating a task.</p>
+  <p>Create a task to see it here.</p>
   <button type="button">Create task</button>
 </div>
 ```
@@ -168,6 +168,8 @@ Field contract — every control:
 - Password fields include a show/hide toggle
 - Auth: paste allowed; never `autocomplete="off"` on username/password
 
+**Effort.** Do not add a step that restates a value the user already entered. Keep fields the browser can fill (`autocomplete` tokens above). On app UI, the P0 action is in `main` without a greeting hop; a visible control or documented shortcut is enough.
+
 **Layout.** Field groups are CSS Grid cells (one group = label + control + error/helper). An inline error may grow its row; the next row's labels share a y. Paint one error on the first field of a paired row to prove it. An odd last field spans remaining columns. Two stacked columns of fields fail this. Recheck at 768 and 1024.
 
 Validate **on blur and on submit**. Do not paint errors on every keystroke.
@@ -194,7 +196,7 @@ Native `<select>`, `<dialog>`, and date inputs on product UI unless the brand re
 
 In any viewport, at most three visual weights: **primary** (one filled), **secondary** (outline or quieter fill), **tertiary** (text/ghost). Destructive is a fourth weight and sits apart from the primary and from nav.
 
-Product: one filled primary per **view**. Marketing: one filled primary per **fold** (AIDA may repeat the same primary later).
+Product: one filled primary per **view**. Marketing: one filled primary per **fold** (the same Success verb may repeat later; that is not a new family).
 
 ## Responsive design
 
@@ -271,3 +273,27 @@ Motion rules:
 - Scroll/mouse-driven animation: use CSS `scroll-timeline` or compositor-only transforms — never update layout-triggering properties on every frame
 - Drag/sort: provide a keyboard and simple-pointer alternative; do not rely on drag alone
 - Prefer native interactive elements (`button`, `a`, `select`) over clickable `div`s
+
+## Harden
+
+Open this heading when [load-map.md](load-map.md) attaches it: Focus is a11y (or the user named edge cases / production-ready), Constraints named i18n or RTL, or the surface already ships locale. Skip on default greenfield marketing.
+
+**Data overflow.** Layout holds a long unbreakable string, a 1000-row list (paginate or virtualize), and an oversized number without clipping the control or the chrome.
+
+**i18n.** If Constraints named locale or RTL: `html` has `lang`; `dir` matches the locale; copy and labels still fit at ~30% longer strings. Unnamed Constraints: do not invent `lang`/`dir` work.
+
+**Error taxonomy.** Validation (fix this field), network (retry), and permission (who can act) are distinct messages. Do not reuse the hero pitch.
+
+**Offline / slow.** If the Job is async: timeout or degraded copy plus a retry. Skip when the surface is static.
+
+Done when each applicable row has a DOM fact. Do not reopen the occupancy Sketch.
+
+## Resilient text
+
+Heading wrap is progressive enhancement, not a promise that one word stays on the last line. Essential labels reflow at 320px, browser zoom, and text scaling without clipping. Long URLs and identifiers may wrap.
+
+Chip and tag collections wrap or use an operable `+n` disclosure. A compact label stays whole when practical; unavoidable truncation needs an accessible full-value path (tooltip, `title` plus keyboard access, or expand).
+
+Badge meaning cannot rely on color alone. Interactive chips use native semantics, visible focus, and programmatic state.
+
+Rapid interactions may cancel animation. The final semantic state, focus, and content stay correct. `prefers-reduced-motion` still wins. Do not open [motion.md](motion.md) from this heading.

@@ -50,10 +50,10 @@ Icons sit in 48px ink squares at 1-1.5px stroke. A drop cap may open a lead para
 
 Done criteria that name a hex apply only when that fallback token is in use. Prefer the user's mapped token.
 
-1. Keep Frame occupancy and Packet folds when task is marketing. If occupancy is missing, stop and open [composition.md](../composition.md). Do not name a hero family here. App UI: keep the recipe in [product-register.md](../product-register.md). Done when occupancy (marketing) or recipe (app UI) is already in the Lock.
+1. Keep Frame occupancy and Packet folds when task is marketing. Do not name a hero family here. Do not reopen composition.md. App UI: keep Packet `recipe=`. Do not open product-register.md from this file. Done when occupancy (marketing) or recipe (app UI) is already in the Lock.
 2. Keep the user's tokens. Fill empty DESIGN.md slots from Craft. Done when CSS uses the named user palette when one exists.
 3. If the user named a control language, keep it. Otherwise treat primary controls as ink blocks that invert to paper with a black rule. Done when the primary button is `#111111` fill, `#F9F9F7` label, radius `0`, uppercase widest tracking, min-height 44px, and hover inverts fill and ink.
-4. Run anti-slop + crit. Done when the common-layout check fails for this style's own cliché: three equal cards with a red BREAKING pill on a fashion-monochrome hero.
+4. Subtract this Path cliché in Commit. QA owns anti-slop and crit. Done when the common-layout check fails for this style's own cliché: three equal cards with a red BREAKING pill on a fashion-monochrome hero.
 
 ## A11y
 

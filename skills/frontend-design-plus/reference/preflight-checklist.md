@@ -1,6 +1,6 @@
 # Pre-Flight Checklist
 
-Run from the QA slot ([dispatch.md](dispatch.md#qa)) after *crit*. Isolated component: this window. Unanswered blanks: the Packet. Run the tier that matches [task routing](../SKILL.md#task-routing). QA records each box pass or fail and does not edit. The parent resumes Implement with failed boxes as P0. Skip tiers that do not apply.
+Run from the QA slot ([dispatch.md](dispatch.md#qa)) after *crit*. Isolated component: this window. Origin `polish` on marketing or app UI: this window after Implement ([polish.md](polish.md)); **Tier A only** — skip Tier B and C. Unanswered blanks: the Packet (or the slim packet on polish). Run the tier that matches [task routing](../SKILL.md#task-routing), except polish. QA records each box pass or fail and does not edit. The parent resumes Implement with failed boxes as P0. Skip tiers that do not apply. Score boxes from the Packet, DESIGN.md, and the DOM. Do not open other `reference/` files to complete a box.
 
 Tier B and C are **mechanical**: count in the DOM. A failed count means the page is not done.
 
@@ -9,13 +9,13 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 ### Direction
 
 - [ ] Task type identified (component / app UI / marketing)
-- [ ] Origin named: `greenfield` (new UI), `redesign` (existing page from the briefing), or `polish` (improve existing UI). Existing surface: [redesign.md](redesign.md) read; audit listed (redesign: keep/retire vs Aim; polish: [craft audit](redesign.md#craft-audit) with P0/P1 closed); Lock `style=none`; Catalog closed
-- [ ] Briefing: every remaining blank has an owner through the selected mode's question contract, or *invent-all*. A chat dump of questions fails. Skipping Scene, Theme, Palette, Use, or Stack while still blank (when those apply) fails. Unnamed Behave and Constraints are owner `none`; asking them when the prompt did not name motion, states, or artifacts fails. App UI: Scene and Look skipped as `none`; a Catalog table in chat fails. Greenfield marketing Scene blank required `You decide from the brief` plus two occupancy readings ([briefing.md](briefing.md#scene)). Greenfield marketing Look was not asked: unnamed Look is owner `you-decide`; a Catalog table in the parent chat fails ([briefing.md](briefing.md#look)). Greenfield marketing Scene `you-decide` / invent-all: occupancy from *objects* and *kinship* in [composition.md](composition.md); `fallback=yes` only with “fallback, not thesis”. Greenfield marketing Look `you-decide` (including silence) / invent-all: Pick or a custom register written and matched to Packet *tension* ([design-styles.md](design-styles.md#pick), [visual-language.md](visual-language.md)). Redesign: Aim, Keep, and Scope have owners ([briefing.md](briefing.md#redesign)); Scene was not asked; Use asked if still blank; Behave and Constraints not asked unless Aim named them. Polish: form skipped, or one Focus ask when the goal was mute ([briefing.md](briefing.md#polish)). Redesign, polish, and app UI: Catalog closed; app UI Look is `none` unless the user named an `id` or explicitly requested a custom register. Inferred wordmark, audience, CTA, style-from-job, theme-from-job, palette-from-job, or occupancy-from-job fails — [briefing.md](briefing.md)
-- [ ] `DESIGN.md` followed or created; CSS tokens match — [design-md.md](design-md.md)
-- [ ] Files match [file-architecture.md](file-architecture.md) (default: `index.html` + `main.css` + `main.js`; no stylesheet dumped into HTML)
-- [ ] Design Read declared (required for app UI and marketing)
-- [ ] Lock line present: mode, origin, name, scene (quoted Scene or composition sentence; owner exists), theme (`light` / `dark` / `system`), color strategy, layout/motion/density bands, stack. Marketing greenfield/redesign: Sketch; `folds=`; Packet `job=`, `P0=`, `tension=`, `object-swap=` (foreign P0 + because, or `n/a` per [composition.md](composition.md#frame)), `fallback=` (`yes` includes “fallback, not thesis”). Custom language: `style=custom`, supported register, and `language_path=`. CMS/admin/CRM/list/editor/accounts: `recipe=` and `Pareto=`. Other app UI: `Pareto=`; `recipe=none` valid on settings. Redesign: `aim=`, `keep=`, `scope=`
-- [ ] *Crit* written; that file's done criterion holds for this task type and origin — [crit.md](crit.md)
+- [ ] Origin named: `greenfield` (new UI), `redesign` (existing page from the briefing), or `polish` (improve existing UI). Existing surface: redesign keep/retire vs Aim; polish Audit P0/P1 closed ([polish.md](polish.md)); Lock `style=none`; Catalog closed
+- [ ] Briefing card is complete (every applicable field has an owner) — skip on polish; slim packet instead
+- [ ] `DESIGN.md` followed or created; CSS tokens match that file
+- [ ] Files match the greenfield default when origin is greenfield: `index.html` + `main.css` + `main.js`; no stylesheet dumped into HTML
+- [ ] Design Read declared (required for app UI and marketing) — skip on polish
+- [ ] Packet Lock `layout=` does not pick `join=`
+- [ ] *Crit* written; that file's done criterion holds for this task type and origin — skip this box on an isolated component or polish (no crit slot)
 - [ ] Register correct when not an isolated component (brand vs product)
 
 ### Viewport and type
@@ -37,8 +37,8 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 
 - [ ] One color strategy chosen; single accent locked page-wide (not a new accent per section)
 - [ ] Lock `theme=light` or `theme=dark`: that one palette on `html`; theme-control count = 0
-- [ ] Lock `theme=system`: light tokens and dark tokens both in CSS; labeled theme control count ≥ 1 in chrome; activating it sets `data-theme` or a class on `html` and surface tokens change. Media-query-only (control count = 0) fails. Dark-only or light-only CSS fails — [color.md](color.md#system-theme)
-- [ ] Dark `--surface` / `--surface-raised` are near-neutral charcoal unless Palette named a tinted field or Lock `color=drenched` — [color.md](color.md#dark-mode-construct-dont-invert)
+- [ ] Lock `theme=system`: light tokens and dark tokens both in CSS; labeled theme control count ≥ 1 in chrome; activating it sets `data-theme` or a class on `html` and surface tokens change. Media-query-only (control count = 0) fails. Dark-only or light-only CSS fails
+- [ ] Dark `--surface` / `--surface-raised` are near-neutral charcoal unless Palette named a tinted field or Lock `color=drenched`
 
 ### Typography and contrast
 
@@ -46,6 +46,9 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 - [ ] Body contrast ≥4.5:1; buttons readable on their background
 - [ ] Meaningful icons/controls ≥3:1 against adjacent color
 - [ ] Headings do not overflow at mobile/tablet breakpoints
+- [ ] Chip, badge, and compact labels reflow at 320 without clipping; overflow uses `+n` or an accessible full-value path
+- [ ] Emoji-as-icon count in nav, settings, and controls = 0
+- [ ] Interactive controls that a reset left as `cursor: default` use `cursor: pointer`
 
 ### Tap quality
 
@@ -59,44 +62,54 @@ Tier B and C are **mechanical**: count in the DOM. A failed count means the page
 - [ ] Loading, error, empty states where the flow needs them
 - [ ] Async submit: control disabled (or second click ignored) with a loading label
 - [ ] Keyboard navigable; semantic HTML; visible focus
-- [ ] Visible control text is in the accessible name (`aria-label` contains it, or there is no `aria-label`) — [production-engineering.md](production-engineering.md#labels)
+- [ ] Visible control text is in the accessible name (`aria-label` contains it, or there is no `aria-label`)
 - [ ] Sticky/fixed chrome and overlays do not cover the focused control (`scroll-padding` matches chrome height)
 - [ ] Primary actions work on click/tap — hover is enhancement, not the only path
 - [ ] `prefers-reduced-motion` respected when motion is used
 
+### Harden (when attached)
+
+Skip unless Packet `focus=a11y`, Constraints named i18n/RTL, or the user named edge cases / production-ready. Do not open other `reference/` files for these boxes.
+
+- [ ] Long strings, dense lists, and large numbers do not clip chrome
+- [ ] `lang` (and `dir` when RTL) present when Constraints named i18n
+- [ ] Validation, network, and permission errors are distinct messages
+
 ### Responsive
 
 - [ ] Works at 320px, 768px, and 1024px without horizontal scroll
-- [ ] At 768 and 1024, a multi-column grid has N items in N cells (odd last item spans remaining columns; an empty bordered shell fails) — [layout-patterns.md](layout-patterns.md#grids-and-lists)
+- [ ] At 768 and 1024, a multi-column grid has N items in N cells (odd last item spans remaining columns; an empty bordered shell fails)
 
 ### Forms (when the surface has a form)
 
-- [ ] Field groups follow [production-engineering.md](production-engineering.md#forms) (visible label + control + error in one grid cell). One inline error on a paired row: the next row's labels share a y. Odd last field spans remaining columns.
+- [ ] Field groups: visible label + control + error in one grid cell. One inline error on a paired row: the next row's labels share a y. Odd last field spans remaining columns.
+- [ ] Real `autocomplete` tokens (`name`, `email`, `username`, `current-password`, address). Auth fields allow paste; no `autocomplete="off"` on username/password
+- [ ] No extra step that asks the user to retype a value already on the form. App UI: the P0 action is reachable without a greeting hop in `main`
 
 ### Honesty
 
-- [ ] The [verification.md](verification.md) block exists with an evidence level, viewport results, automated accessibility status, performance level, and `not-verified=`. An unverified visual tell is not a pass. Missing Sketch or missing `tracks=` on marketing greenfield/redesign is a fail, not unverified. Missing `main=` / `proof=` on app UI is a fail, not unverified.
+- [ ] The [verification.md](verification.md) block exists with an evidence level, viewport results, automated accessibility status, performance level, and `not-verified=`. An unverified visual tell is not a pass. Missing Sketch, `tracks=`, or `scale=` on marketing greenfield/redesign is a fail, not unverified. Polish: Sketch absence is expected. Unused screenshot/browser this run on occupancy visual claims is P0. Missing `main=` / `proof=` on app UI is a fail, not unverified.
 - [ ] The [visual-rubric.md](visual-rubric.md) block exists, every applicable criterion has evidence, and any threshold failure is in the P0/P1 table.
 
 ---
 
 ## Tier B — Marketing surfaces only
 
-Add when building landing pages, portfolios, or campaigns. Also read [layout-patterns.md](layout-patterns.md). Count in the markup.
+Skip on origin `polish` ([polish.md](polish.md)). Add when building landing pages, portfolios, or campaigns. Count in the markup.
 
 ### Layout (count)
 
-- [ ] Hero: headline ≤2 lines desktop; subtext ≤20 words; stack ≤4 text elements; top padding ≤6rem; primary CTA visible without scroll
-- [ ] Logo / "used by" wall lives **under** the hero, not inside it
-- [ ] Eyebrows: count `uppercase` + wide tracking above section headlines; count ≤ `ceil(sectionCount / 3)`; hero counts as 1
-- [ ] Greenfield/redesign: DESIGN.md **Layout** contains the *thesis*, occupancy, and the Sketch ([composition.md](composition.md#frame)). Implement returned `tracks=`; Q1 in [crit.md](crit.md) holds. Packet `object-swap=`: skip the still-reads fail when the line is `n/a`; otherwise a foreign P0 in measured enter still reading fails. Lock `scene=` has an owner. Packet `fallback=yes` is visible and includes “fallback, not thesis”. Packet `folds=` names leftover *objects*; those sections exist; each fold shows its *object*. A two-fold page is valid when P0 cut removed the third object. Polish: current family kept; no new folds; `Sketch=none`
-- [ ] Each layout family appears at most once; no 3 consecutive image+text zigzags
+- [ ] First viewport: headline ≤2 lines desktop, primary CTA visible without scroll, top padding ≤`6rem`, Packet `scan=` / `form=` hold
+- [ ] Logo / "used by" wall lives **under** the first viewport, not inside it
+- [ ] Eyebrows: count `uppercase` + wide tracking above section headlines; count ≤ `ceil(sectionCount / 3)`; first viewport counts as 1
+- [ ] Greenfield/redesign: Q1 in [crit.md](crit.md) holds. Packet `folds=` sections exist in named `:<form>`. A two-fold page is valid. Polish: current family kept; no new folds
+- [ ] Each layout family appears at most once; no extra fold to vary the page; no 3 consecutive image+text zigzags
 - [ ] Mixed-span grids: ≥2 cells have real visual variation (image, tint, pattern)
 - [ ] Stacked CTAs below `md` fill the content column (no unused track beside a short button)
-- [ ] Intra-fold gaps follow Lock `density=` ([design-systems.md](design-systems.md#density-bands)); `6rem`–`10rem` is between sections only
-- [ ] Horizontal marquee ≤1 per page
+- [ ] Intra-fold gaps follow Lock `density=`; `6rem`–`10rem` is between sections only
+- [ ] Horizontal marquee ≤1 per page, and only when Lock `motion=cinematic` and Behave named cinematic
 - [ ] Nav: one line at desktop `lg`; height ≤80px
-- [ ] One filled primary per fold (same CTA may repeat later in AIDA; two competing filled buttons in one fold fail)
+- [ ] One filled primary per fold (same Success verb may repeat later; two competing filled buttons in one fold fail)
 
 ### Visual
 
@@ -108,13 +121,13 @@ Add when building landing pages, portfolios, or campaigns. Also read [layout-pat
 
 - [ ] No duplicate CTA intent on the same page
 - [ ] CTA labels fit one line at desktop
-- [ ] Copy self-audit against [anti-slop.md](anti-slop.md#copy-tells): every visible string re-read; portable or LLM-pattern sentences rewritten; one copy register per page
+- [ ] Copy self-audit against [anti-slop.md](anti-slop.md#copy-tells): every visible string re-read; *divide* holds; portable or LLM-pattern sentences rewritten; one copy register per page
 
 ---
 
 ## Tier C — App UI and dashboards only
 
-Add when building dashboards, settings, admin, or dense tools. Count from the Packet and the DOM. Dashboard tells: [anti-slop.md](anti-slop.md#dashboard-tells).
+Skip on origin `polish` ([polish.md](polish.md)). Add when building dashboards, settings, admin, or dense tools. Count from the Packet and the DOM. Dashboard tells: [anti-slop.md](anti-slop.md#dashboard-tells).
 
 ### Product UI
 
@@ -132,7 +145,7 @@ Add when building dashboards, settings, admin, or dense tools. Count from the Pa
 - [ ] Each field: visible label, semantic `type`/`inputmode`, real `autocomplete`, required indicator, helper/error via `aria-describedby`
 - [ ] Validate on blur and submit (errors stay off during typing)
 - [ ] Failed submit: focusable error summary plus inline errors
-- [ ] Auth fields (if present): paste allowed; `autocomplete` for username/password; no `autocomplete="off"` on those fields
+- [ ] Auth fields (if present): paste allowed; `autocomplete` for username/password; no `autocomplete="off"` on those fields. 2FA/passkey copy names the next step (enter code, use device) without a new pitch
 
 ### Dashboard (if applicable)
 
@@ -145,7 +158,7 @@ Add when building dashboards, settings, admin, or dense tools. Count from the Pa
 - [ ] Each widget and the main list: empty, loading/skeleton, and error exist in markup
 - [ ] One primary nav pattern. Destinations include the Job objects (list, create/edit, users), not Analytics-only
 - [ ] Avatar control count in chrome ≤ 1. Filled primary count per view = 1
-- [ ] Chrome containment: every nav and toolbar control sits inside the rail padding box at 1024 and 1440 ([surfaces.md](surfaces.md#chrome-containment))
+- [ ] Chrome containment: every nav and toolbar control sits inside the rail padding box at 1024 and 1440
 - [ ] KPI Value and Delta, live counters, and numeric table columns use `tabular-nums`
 - [ ] Zero `transition: all` / `transition-all` in shipped CSS
 - [ ] One icon family and one stroke weight in sidebar, header, and row actions

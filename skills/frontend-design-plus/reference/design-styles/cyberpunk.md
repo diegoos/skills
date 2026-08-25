@@ -62,10 +62,10 @@ Reduced-motion freezes glitch and scanline travel and keeps a static chromatic o
 
 Done criteria that name a hex apply only when that fallback token is in use. Prefer the user's mapped token.
 
-1. Keep Frame occupancy and Packet folds when task is marketing. If occupancy is missing, stop and open [composition.md](../composition.md). Do not name a hero family here. App UI: keep the recipe in [product-register.md](../product-register.md). Done when occupancy (marketing) or recipe (app UI) is already in the Lock.
+1. Keep Frame occupancy and Packet folds when task is marketing. Do not name a hero family here. Do not reopen composition.md. App UI: keep Packet `recipe=`. Do not open product-register.md from this file. Done when occupancy (marketing) or recipe (app UI) is already in the Lock.
 2. Keep the user's tokens. Fill empty DESIGN.md slots from Craft. Done when CSS uses the named user palette when one exists.
 3. If the user named a control language, keep it. Otherwise treat primary controls as chamfered signal plates. Done when the primary has a 2px `#00ff88` border, a chamfer clip, height ≥44px, uppercase mono label, and glow attached to that control only.
-4. Run anti-slop + crit. Done when the common-layout check fails for this style's own cliché: developer-portfolio git-diff or fake terminal hero.
+4. Subtract this Path cliché in Commit. QA owns anti-slop and crit. Done when the common-layout check fails for this style's own cliché: developer-portfolio git-diff or fake terminal hero.
 
 ## A11y
 
