@@ -52,7 +52,7 @@ Done when this Origin's work for the turn is finished (mute polish: the Focus qu
 Write `DESIGN.md` **before** markup. Spec: [design-md.md](reference/design-md.md). Occupancy first, then type and color.
 
 1. Job in one line. Objects: ≤7 domain nouns (opinion letter, kiln, queue), not hero / card / sidebar.
-2. ASCII of the first viewport. Enter is the object's mass. Squint: what leads, what supports, the groups. Proximity before a container. Numbered markers only on a real sequence.
+2. ASCII of the first viewport. Enter is the object's mass. The enter rectangle must fit at 375 below the chrome; otherwise the plan is already wrong. Squint: what leads, what supports, the groups. Proximity before a container. Numbered markers only on a real sequence.
 3. Mode. `Persuade`: occupy what / why / how / trust / act. `Operate`: open [app-ui.md](reference/app-ui.md); `main` is the work. `Read`: structure for comprehension. `Experience`: the artifact leads; chrome recedes.
 4. Dials, one line: `variance` / `motion` / `density` on 1–10. Operate: density high, motion low. Persuade/Experience may go asymmetric. Trust-first: low variance.
 5. Signature on the enter mass. Then 4–6 named hex values and 2+ type roles. A component exists only if an object asked for it.
@@ -61,15 +61,15 @@ If the plan would pass on any similar page, retune **one** role and say what cha
 
 Spend boldness on Signature. Remove one accessory before shipping.
 
-Copy is material. Name what people control. Active voice. Same action, same label. Error and empty: what happened + the next step. Sentence case.
+Copy is material. Name what people control. Same action, same label. Fail-ifs: [critique.md](reference/critique.md#copy).
 
 Done when DESIGN.md exists, Layout names Job, objects, Mode, ASCII (polish: live family), and Signature, and color/type slots are filled. Then write the code from that file. CSS tokens match 1:1.
 
 ## Floor
 
-Viewport zoomable (`width=device-width, initial-scale=1`, no `user-scalable=no`). Body and inputs ≥16px. One `h1`. Page shell: skip link → `#main`. Contrast ≥4.5:1 body, ≥3:1 icons. Visible focus. Keyboard reaches every action. Targets ≥44px with ≥8px gap. `prefers-reduced-motion` when motion exists. No overflow at 375. One filled primary per view (`Operate`) or per fold (`Persuade`). Hover is enhancement.
+Viewport zoomable (`width=device-width, initial-scale=1`, no `user-scalable=no`). Body and inputs ≥16px. One `h1`. Page shell: skip link → `#main`. Contrast ≥4.5:1 body, ≥3:1 icons. Visible focus. Keyboard reaches every action. Targets ≥44px with ≥8px gap. `prefers-reduced-motion` when motion exists. No overflow at 375. One filled primary per view (`Operate`) or per fold (`Persuade`). At 375 the header is wordmark plus a text control or menu; the Job's filled primary lives in the hero, one line, inside the padding box, hit ≥44px. Hover is enhancement.
 
-Browser or screenshot tool: Walk 1440 and 375, hit the primary CTA. Unused tool fails. No browser tool: skip Walk.
+Browser or screenshot tool: Walk 1440 and 375 on the header and the first viewport. Hit the Job primary. Snapshot or screenshot: header controls do not intersect; the Job primary is reachable without covering wordmark or menu. Unused tool fails. No browser tool: skip Walk.
 
 Done when every row that applies holds.
 

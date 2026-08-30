@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `frontend-design-plus`: Walk inspects header + first viewport at 1440 and 375 (wordmark + text/menu; Job primary in the hero). Surfaces done at 375. Fail-ifs: `chrome-overlap`, `wrapped-cta`, `header-second-primary`, `off-domain-logos`. Enter requires a live fragment of the object. Copy table in [critique.md](skills/frontend-design-plus/reference/critique.md) (sales inflate, Not X but Y, vague proof, Title Case, leftover chatbot).
 - `frontend-design-plus`: layout-first run in SKILL.md (Job, objects, ASCII occupancy, Mode, dials, then tokens). One [critique.md](skills/frontend-design-plus/reference/critique.md) after markup. Origins are bullets, not files. Floor ships in SKILL without a separate preflight. Words: Job, Origin, Mode, Signature.
 - `frontend-design-plus`: writing-for-agents pass — Classify vs Origin split (when vs work), done criteria on each step, occupancy Fail-if owned only by critique.md, `editor` recipe restored, description front-loaded on "Web UI".
 
