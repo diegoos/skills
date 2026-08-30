@@ -14,9 +14,7 @@ metadata:
 
 # Frontend Design Plus
 
-Work as the design lead at a small studio. This client rejected templated proposals. Make opinionated choices about palette, type, and layout that belong to this brief. Take one aesthetic risk you can justify.
-
-Occupancy first: rectangles of the Job's objects, then tokens.
+Occupancy first: rectangles of the Job's objects, then tokens. Hex comes from the object's materials. One risk lives on the enter fragment; the rest stays quiet.
 
 ## Words
 
@@ -25,7 +23,9 @@ Occupancy first: rectangles of the Job's objects, then tokens.
 | **Job** | What the person came to do. One line. |
 | **Origin** | `greenfield` \| `redesign` \| `polish`. |
 | **Mode** | `Persuade` \| `Operate` \| `Read` \| `Experience`. |
-| **Signature** | The one memorable risk. Everything else stays quiet. |
+| **Signature** | The one risk: a treatment of the enter fragment. |
+| **Claim** | One line of using this product. Not a style name. |
+| **Pair** | Two traits this object justifies. |
 
 ## Classify
 
@@ -41,7 +41,7 @@ Isolated component: Classify, then Origin on that control. Leave [app-ui.md](ref
 
 ## Origin
 
-- **greenfield** — Infer the first costume (navy+justice, indigo+three cards, cream+serif). Invent hex and occupancy from the object. Invent-the-look is this path.
+- **greenfield** — Name the costume you would reach for first. Invent occupancy and hex from the object's materials (ink, newsprint, kiln). Invent-the-look is this path.
 - **redesign** — Disk owns color, type, radius. Keep / retire / missing against the Aim in the prompt. Blocks that still serve Aim stay (news, list, catalog stay that form). Unify CSS to filled DESIGN.md; patch DESIGN.md only when the user asked or contrast fails.
 - **polish** — Keep the live palette. Mute ("improve this"): ask **one** Focus question, Finish the path first, end the turn. Named focus or finish: audit (P0 contrast, overflow, hidden action; P1 rhythm, states), then close those rows. Filled DESIGN.md wins. Ask before changing routes, nav labels, form names, wordmark, legal copy, or the CSS library.
 
@@ -51,25 +51,25 @@ Done when this Origin's work for the turn is finished (mute polish: the Focus qu
 
 Write `DESIGN.md` **before** markup. Spec: [design-md.md](reference/design-md.md). Occupancy first, then type and color.
 
-1. Job in one line. Objects: ≤7 domain nouns (opinion letter, kiln, queue), not hero / card / sidebar.
-2. ASCII of the first viewport. Enter is the object's mass. The enter rectangle must fit at 375 below the chrome; otherwise the plan is already wrong. Squint: what leads, what supports, the groups. Proximity before a container. Numbered markers only on a real sequence.
+1. Job in one line. Claim. Pair. Objects: ≤7 domain nouns (opinion letter, kiln, queue), not hero / card / sidebar.
+2. ASCII of the first viewport. Enter is the object's mass. The enter rectangle must fit at 375 below the chrome; otherwise the plan is already wrong. Squint: what leads, what supports, the groups. Proximity before a container. A real sequence is the object's control, not `01`/`02`/`03` cards.
 3. Mode. `Persuade`: occupy what / why / how / trust / act. `Operate`: open [app-ui.md](reference/app-ui.md); `main` is the work. `Read`: structure for comprehension. `Experience`: the artifact leads; chrome recedes.
 4. Dials, one line: `variance` / `motion` / `density` on 1–10. Operate: density high, motion low. Persuade/Experience may go asymmetric. Trust-first: low variance.
-5. Signature on the enter mass. Then 4–6 named hex values and 2+ type roles. A component exists only if an object asked for it.
+5. Signature on the enter mass. Disk-filled DESIGN.md: those hex, type, and radius; Signature is still a treatment of the live fragment (mark, crop, stamp). Greenfield: hex from the object's materials. Then 4–6 named hex values and 2+ type roles. A component exists only if an object asked for it.
 
-If the plan would pass on any similar page, retune **one** role and say what changed. If the user named a look in the prompt, follow those words. Free axis: hex from the object. Brief wins when it names a default look.
+If the ASCII would fit another product in the same Mode, retune **one** role and say what changed. If the user named a look in the prompt, follow those words. Free axis: hex from the object. Brief wins when it names a default look.
 
-Spend boldness on Signature. Remove one accessory before shipping.
+Spend boldness on Signature. Cut one extra before shipping.
 
-Copy is material. Name what people control. Same action, same label. Fail-ifs: [critique.md](reference/critique.md#copy).
+Copy: name what people control. Same action, same label. Fail-ifs: [critique.md](reference/critique.md#copy).
 
-Done when DESIGN.md exists, Layout names Job, objects, Mode, ASCII (polish: live family), and Signature, and color/type slots are filled. Then write the code from that file. CSS tokens match 1:1.
+Done when DESIGN.md exists, Layout names Job, objects, Mode, ASCII (polish: live family), Claim, Pair, and Signature, and color/type slots are filled. Then write the code from that file. CSS tokens match 1:1.
 
 ## Floor
 
-Viewport zoomable (`width=device-width, initial-scale=1`, no `user-scalable=no`). Body and inputs ≥16px. One `h1`. Page shell: skip link → `#main`. Contrast ≥4.5:1 body, ≥3:1 icons. Visible focus. Keyboard reaches every action. Targets ≥44px with ≥8px gap. `prefers-reduced-motion` when motion exists. No overflow at 375. One filled primary per view (`Operate`) or per fold (`Persuade`). At 375 the header is wordmark plus a text control or menu; the Job's filled primary lives in the hero, one line, inside the padding box, hit ≥44px. Hover is enhancement.
+Viewport zoomable (`width=device-width, initial-scale=1`, no `user-scalable=no`). Body and inputs ≥16px. One `h1`. Page shell: skip link → `#main`. Contrast ≥4.5:1 body, ≥3:1 icons. Visible focus. Keyboard reaches every action. Targets ≥44px with ≥8px gap. `prefers-reduced-motion` when motion exists. No overflow at 375. One filled primary per view (`Operate`) or per fold (`Persuade`). Hover is enhancement.
 
-Browser or screenshot tool: Walk 1440 and 375 on the header and the first viewport. Hit the Job primary. Snapshot or screenshot: header controls do not intersect; the Job primary is reachable without covering wordmark or menu. Unused tool fails. No browser tool: skip Walk.
+Browser or screenshot tool: Walk 1440 and 375 on the header and the first viewport. Hit the Job primary. Fit target: [critique.md](reference/critique.md) chrome rows. Unused tool fails. No browser tool: skip Walk.
 
 Done when every row that applies holds.
 

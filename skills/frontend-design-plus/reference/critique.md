@@ -18,35 +18,38 @@ Done when every Fail-if in scope is gone, or each remaining match has a written 
 
 Cite `rule=` when a tell matches. Keep a listed pattern only when the brief names it, disk already ships it, or the sequence is real.
 
-At most **one** fold of N equal blocks. How-it-works is the object's UI, not `01`–`04` plus a second pain grid.
+At most **one** fold of N equal blocks. How-it-works is the object's control (the create form, the queue), not `01`–`04` cards plus a second pain grid.
 
-| id                      | Fail-if                                                                                                                                                           |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `model-default-triad`   | Greenfield: cream/sand/beige + display serif + any accent; near-black + acid/vermilion/orange; broadsheet (hairline, radius 0, dense columns)                     |
-| `side-stripe`           | `border-left` (or inline start) >1px accent on a card, alert, **or blockquote**                                                                                   |
-| `gradient-text`         | `background-clip: text` on a headline or CTA                                                                                                                      |
-| `glass-default`         | Backdrop blur the scene did not name                                                                                                                              |
-| `hero-metric`           | Big number + small label + stats row as first-viewport proof                                                                                                      |
-| `identical-cards`       | Icon + heading + blurb × N unless the object is a real catalog. A second equal-block fold fails                                                                   |
-| `eyebrow-every`         | Uppercase eyebrow count > `ceil(sections / 3)`                                                                                                                    |
-| `numbered-markers`      | `01`–`05` as section or “practice area” markers with no real sequence                                                                                             |
-| `three-feature-cards`   | Three equal feature cards as a fold                                                                                                                               |
-| `generic-cta`           | Learn more / Saiba mais / Get started / Book now / Compre aqui and that string is not the Job                                                                     |
-| `mesh-hero`             | Centered hero + dark mesh                                                                                                                                         |
-| `nested-cards`          | Card inside a card on Operate                                                                                                                                     |
-| `overused-font-inter`   | Inter / Geist / Outfit as unexamined brand default                                                                                                                |
-| `costume-vest`          | First viewport is navy+justice, indigo+three cards, or mesh-HUD                                                                                                   |
-| `placeholder-mass`      | Rectangle, letter-in-box, or `Texto` where the object's mass belongs                                                                                              |
-| `off-domain-logos`      | “Used by” / source ticker uses brands the brief did not name and that are not the Job's objects (fintech logos on a clipping product; Notion/Figma on a news Job) |
-| `chrome-overlap`        | A control intersects another control, the wordmark, or the padding edge (circular “Criar meu primeiro tópico” over the nav)                                       |
-| `wrapped-cta`           | Primary label wraps to 2+ lines, or the button collapses to a circle or square because width ran out                                                              |
-| `header-second-primary` | Header and hero both show a filled primary in the same 375 viewport                                                                                               |
+| id                      | Fail-if                                                                                                                                                                                                                                    |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `model-default-triad`   | Greenfield costume: cream field + display serif + accent; ink field + acid or vermilion; hairline broadsheet, radius 0. Keep only when the inventory **is** paper/clipping **and** Signature is mass (stack of briefs), not H1 serif alone |
+| `side-stripe`           | `border-left` (or inline start) >1px accent on a card, alert, **or blockquote**                                                                                                                                                            |
+| `gradient-text`         | `background-clip: text` on a headline or CTA                                                                                                                                                                                               |
+| `glass-default`         | Backdrop blur the scene did not name                                                                                                                                                                                                       |
+| `hero-metric`           | Big number + small label + stats row as first-viewport proof                                                                                                                                                                               |
+| `identical-cards`       | Icon + heading + blurb × N unless the object is a real catalog. A second equal-block fold fails                                                                                                                                            |
+| `eyebrow-every`         | Uppercase eyebrow count > `ceil(sections / 3)`                                                                                                                                                                                             |
+| `numbered-markers`      | `01`–`05` as section cards (Criar / Varrer / Entregar) when the enter fragment already shows the Job, or as “practice area” markers with no real sequence. A real sequence is the object's control, not numbered cards                     |
+| `three-feature-cards`   | Three equal feature cards as a fold                                                                                                                                                                                                        |
+| `repeat-hero`           | A fold that only restates the enter (before/after, three gestures, four pains) after a live enter fragment                                                                                                                                 |
+| `generic-cta`           | Learn more / Saiba mais / Get started / Book now / Compre aqui and that string is not the Job                                                                                                                                              |
+| `mesh-hero`             | Centered hero + dark mesh                                                                                                                                                                                                                  |
+| `nested-cards`          | Card inside a card on Operate                                                                                                                                                                                                              |
+| `overused-font-inter`   | Inter / Geist / Outfit as unexamined brand default                                                                                                                                                                                         |
+| `costume-vest`          | First viewport is navy+justice, indigo+three cards, or mesh-HUD                                                                                                                                                                            |
+| `placeholder-mass`      | Rectangle, letter-in-box, or `Texto` where the object's mass belongs                                                                                                                                                                       |
+| `off-domain-logos`      | “Used by” / source ticker uses brands the brief did not name and that are not the Job's objects (fintech logos on a clipping product; Notion/Figma on a news Job)                                                                          |
+| `chrome-overlap`        | A control intersects another control, the wordmark, or the padding edge (circular “Criar meu primeiro tópico” over the nav)                                                                                                                |
+| `wrapped-cta`           | Primary label wraps to 2+ lines, or the button collapses to a circle or square because width ran out                                                                                                                                       |
+| `header-second-primary` | Header and hero both show a filled primary in the same 375 viewport                                                                                                                                                                        |
+| `header-chrome-budget`  | At 375, more than two controls besides the wordmark                                                                                                                                                                                        |
+| `cta-pair-375`          | At 375, two CTAs in one row. Secondary stacks below or is text                                                                                                                                                                             |
 
-If someone could identify the output as generated without hesitation, it failed.
+If the page could swap subjects and still look finished, it failed.
 
 **Enter.** First viewport includes a live fragment of the object (the brief, the queue, the kiln), not H1 plus CTA alone. A noun only in the H1 fails. At 375 that fragment sits below the header with no overlap.
 
-**Deletion.** Name one accessory the brief did not ask for and that is not Signature. Fail if it remains. Extra chrome (parallax, custom cursor, uniform fade-in) fails unless named.
+**Deletion.** Name one extra the brief did not ask for and that is not Signature. Fail if it remains. Motion chrome (parallax, custom cursor, uniform fade-in) fails unless named.
 
 **CTA.** Visible primary is the Job verb+object.
 
@@ -54,15 +57,16 @@ If someone could identify the output as generated without hesitation, it failed.
 
 **Operate.** Four equal KPIs + donut + "Welcome back" fails. `h1` in `main` is the queue or the view. Domain nouns live in rows and empty copy.
 
-**Visual leftover.** Neon glow, pure `#000`/`#fff`, cream body as warmth, 6-line H1, empty grid cells, zigzag ×3, scroll-cue icons, overlap pills, fake title-block portfolio.
+**Visual leftover.** Neon glow, pure `#000`/`#fff`, cream as warmth, six-line H1, empty grid cells, zigzag ×3, scroll-cue chevrons, overlapping pills, fake title-block.
 
 ## Copy
 
-UI strings. Active voice. Name the control. One specific claim from the object. Sentence case. Keep a listed pattern only when the brief names it, disk already ships it, or the string is legal/FAQ. One short fragment for emphasis is not a fail. Error and empty: what happened + the next step.
+UI strings. Name the control. One specific claim from the object. Sentence case. Keep a listed pattern only when the brief names it, disk already ships it, or the string is legal/FAQ. One short fragment for emphasis is not a fail. Error and empty: what happened + the next step.
 
 | id                  | Fail-if                                                                                                                                            |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sales-inflate`     | vibrant / seamless / elevate / unleash / groundbreaking, or a portable slogan (“radar de inteligência”, “sem o ruído”) that the brief did not name |
+| `clever-h1`         | H1 metaphor the object does not speak (“já mastigado”, “radar”) unless it is domain vernacular                                                     |
 | `not-x-but-y`       | “Não é feed, é…” / “It's not X, it's Y” in the H1 or lead                                                                                          |
 | `forced-triad-copy` | Three parallel phrases or three benefits that exist only to close the rhythm                                                                       |
 | `vague-proof`       | “2.400+ profissionais”, “4.9/5”, “usado por Stone” (or unsourced `92%`) when the brief and disk do not give the number or the brand                |
@@ -74,7 +78,7 @@ UI strings. Active voice. Name the control. One specific claim from the object. 
 
 ## Operate UX
 
-Product chrome stays predictable. Same control, same result. One vocabulary. Platform back and search stay where people expect them. Mixing tab + sidebar + bottom nav at the same hierarchy fails.
+Product chrome stays predictable. Same control, same result. One vocabulary. Platform back and search stay where people expect them. One nav pattern per hierarchy.
 
 Proximity groups; one accent; not everything bold. Every action gets hover/active; async gets loading; errors say what happened and how to recover. Exit on every overlay. Undo on destructive when feasible.
 
@@ -86,7 +90,7 @@ Task completion, then a11y, then brand.
 
 Nav, header, toolbar, rails. Done at 375, 1024, and 1440, or failed and fixed.
 
-Controls sit inside the chrome padding box. Inset, `min-width: 0` on the flex child, truncate with a keyboard-reachable full string. Rail padding ≥ control padding. One filled primary per view. At 375 the header is wordmark plus a text control or menu; the filled primary lives in the hero (`chrome-overlap`, `wrapped-cta`, `header-second-primary`).
+Controls sit inside the chrome padding box. Inset, `min-width: 0` on the flex child, truncate with a keyboard-reachable full string. Rail padding ≥ control padding. One filled primary per view. At 375 the header is wordmark plus at most two controls (`header-chrome-budget`); the filled primary lives in the hero, one row (`chrome-overlap`, `wrapped-cta`, `header-second-primary`, `cta-pair-375`).
 
 Nested chrome: `outerRadius = innerRadius + padding` (choose independently if padding >24px). Nested cards fail. Icon+label: icon-side padding = text-side minus `2px`, still inside the box.
 

@@ -1,6 +1,6 @@
 # App UI
 
-Recipes for product surfaces: dashboard, admin, CMS, settings, data tables, authenticated tools. The interface disappears into the task.
+Recipes for product surfaces: dashboard, admin, CMS, settings, data tables, authenticated tools. `main` is the work.
 
 Open when Mode is `Operate` and Origin is greenfield or redesign. Polish keeps the live recipe.
 
@@ -8,7 +8,7 @@ Done when `main` matches the recipe (or settings with no recipe), greeting nodes
 
 ## Pick
 
-Write "the user is here to ______," then pick **one** recipe per view. Settings and odd tools stay on the [app shell](#app-shell) with no recipe id.
+Name the Job, then pick **one** recipe per view. Settings and odd tools stay on the [app shell](#app-shell) with no recipe id.
 
 | Surface                                        | Recipe                                                                       |
 | ---------------------------------------------- | ---------------------------------------------------------------------------- |
