@@ -24,7 +24,7 @@ The global rules can be defined in the `~/.codex/AGENTS.md` for Codex, `~/.claud
 | `[deep-security-review](skills/deep-security-review/)` | Security-first review: threat model with hotspots, parallel domain hunts, disprove/verify, findings + hardening notes (P0-P3). Branches: review, `fix`/`apply`/`implement`. Invoke by name.                                                                                                                                                                                          |
 | `[make-docs](skills/make-docs/)`                       | Architecture docs and behavioral specs under `docs/`. Branches: `explore`, `update` (since the `Updated on` stamp), `adr`.                                                                                                                                                                                                                                                           |
 | `[markdown-editor](skills/markdown-editor/)`           | Create or edit `.md` / `.mdc` / `.mdx` with Google Markdown Style Guide rules and YAML frontmatter. No prose hard line breaks.                                                                                                                                                                                                                                                       |
-|`[frontend-design-plus](skills/frontend-design-plus/)`  |Build, redesign, or polish web UI. Marketing asks one A/B occupancy then optional catalog Style, and ships from a Sketch, DESIGN.md, Lock, crit, and pre-flight. Polish skips briefing and catalog. Loose marketing starts with one occupancy question, not an industry palette.                                                                                                      |
+| `[frontend-design-plus](skills/frontend-design-plus/)` | Build, redesign, or polish web UI. Occupancy from Job objects in DESIGN.md, then code. One critique after markup. Mode Persuade/Operate/Read/Experience.                                                                                                                                                                                                                             |
 | `[sass-with-bem](skills/sass-with-bem/)`               | Write or review BEM with Sass/SCSS (flat compiled selectors, `is-` / `has-` states, 7-1 partials). Branches: `write`, `review`.                                                                                                                                                                                                                                                      |
 
 Each skill's `SKILL.md` is what the agent follows. Some skills also ship a human `README.md`, a `PATTERNS.md`, or templates under `references/`.
@@ -58,9 +58,9 @@ Some skills load from intent (you do not have to name them):
 "Add a BEM card component in SCSS"               → sass-with-bem (write)
 "Review these styles for BEM compliance"         → sass-with-bem (review)
 "Fix the formatting in this README"              → markdown-editor
-"Build a landing page for this product"          → frontend-design-plus (marketing, greenfield)
-"Restyle this dashboard from a new brief"        → frontend-design-plus (app UI, redesign)
-"Tighten contrast and loading states on settings" → frontend-design-plus (app UI, polish)
+"Build a landing page for this product"          → frontend-design-plus (Persuade, greenfield)
+"Restyle this dashboard from a new brief"        → frontend-design-plus (Operate, redesign)
+"Tighten contrast and loading states on settings" → frontend-design-plus (Operate, polish)
 "Add a modal with loading and error states"      → frontend-design-plus (component)
 ```
 
@@ -120,7 +120,7 @@ Harnesses also accept forms like `/make-docs explore`.
 │   ├── frontend-design-plus/   # Visual frontend: greenfield / redesign / polish
 │   │   ├── SKILL.md
 │   │   ├── README.md
-│   │   └── reference/          # briefing, DESIGN.md, file split, crit, anti-slop, …
+│   │   └── reference/          # critique, DESIGN.md spec, Operate recipes
 │   └── sass-with-bem/          # BEM + Sass/SCSS
 │       ├── SKILL.md
 │       └── references/

@@ -1,7 +1,7 @@
 ---
 name: frontend-design-plus
 description: >-
-  Build, redesign, or polish web UI (page, landing, dashboard, component, HTML/CSS). Review or fix layout, spacing, type, and a11y on existing markup. Loose marketing starts with one occupancy question, not an industry palette. Skip backend, SQL, CI, docs-only, and native mobile/desktop (SwiftUI, Flutter).
+  Web UI: build, redesign, or polish a landing, dashboard, or component (HTML/CSS). Fix layout, spacing, type, or a11y on existing markup. Skip backend, SQL, CI, docs-only, and native mobile/desktop (SwiftUI, Flutter).
 metadata:
   version: 0.0.1
   author: "Diego Oliveira"
@@ -14,55 +14,65 @@ metadata:
 
 # Frontend Design Plus
 
-The first user-facing output on an unanswered greenfield marketing run is one structured question: two layout directions, Job if the prompt named none, or Style yes/no once occupancy exists and Look is still unnamed. The host's question interface may be `AskQuestion` or an equivalent structured tool. A numbered list of questions in the chat message fails this turn. An eight-field briefing dump fails this turn.
+Work as the design lead at a small studio. This client rejected templated proposals. Make opinionated choices about palette, type, and layout that belong to this brief. Take one aesthetic risk you can justify.
+
+Occupancy first: rectangles of the Job's objects, then tokens.
 
 ## Words
 
 | Term | Meaning |
 | --- | --- |
-| **Job** | What the person came to *do*. One line. |
-| **Success** | Primary action: verb + object. |
+| **Job** | What the person came to do. One line. |
 | **Origin** | `greenfield` \| `redesign` \| `polish`. |
-| **Mode** | `full` \| `solo` \| `fast` — orchestration, not quality. |
-| **Lock** | Closed decisions for this run. |
-| **Packet** | Card the next slot receives. |
-| **Occupancy** | What occupies the first viewport (masses, not “hero”). |
-| **Sketch** | 12-column ASCII of those masses; `none` on app UI and polish. |
-| **Token** | Named visual in DESIGN.md, not a raw value. |
-| **Slot** | Direction \| Implement \| QA. |
-| **Recipe** | Product layout (`queue-home`, `list-filter`, `editor`, `accounts`). |
-| **Verification** | Evidence block (`proof=`, viewports). Not a user study. |
+| **Mode** | `Persuade` \| `Operate` \| `Read` \| `Experience`. |
+| **Signature** | The one memorable risk. Everything else stays quiet. |
 
-## Execution mode
+## Classify
 
-Choose the mode from these three lines. Do not open [execution-modes.md](reference/execution-modes.md) here.
+Name Origin and Mode from the prompt plus a repo glance (`package.json`, existing markup, `DESIGN.md`). Done when both are named.
 
-- `full` — default for marketing and app UI when the harness can hand off slots.
-- `solo` — same slot order in one window when no child-agent tool exists.
-- `fast` — isolated component, `origin=polish`, or a complete low-risk prompt. Extra stay-closed: [load-map.md](reference/load-map.md#fast). Does not skip Direction on greenfield or redesign marketing or app UI.
+**Origin.** Polish, tighten, craft, spacing, contrast, states, or a11y, and no new look → `polish`. Redesign, restyle, new IA, or rethink → `redesign`. Existing markup plus a new job or composition → `redesign`. Else `greenfield`. Unclear: ask once and end the turn.
 
-`origin=polish` sets `mode=fast` and skips Direction ([polish.md](reference/polish.md)). The mode changes orchestration, not the quality gates. Declare `mode=` in the Lock. Question-interface fallbacks live in [execution-modes.md](reference/execution-modes.md); open that file at dispatch, or in `solo` when closing slot files.
+**Mode.** Landing, campaign, pricing → `Persuade`. Dashboard, admin, editor, settings → `Operate`. Docs, article, help → `Read`. Portfolio, gallery, the work itself → `Experience`. Choose from the surface, not the company. A tool's marketing page is still `Persuade`.
 
-## Pace
+**Idea.** If the prompt names no concrete subject and Job, ask **one** Job question and end the turn. If the idea is in the prompt, continue. Done when Job is named in the prompt or that question was the only user-facing output.
 
-- **Classify from disk.** Name only task type and origin from the prompt plus a repo glance (`package.json`, existing markup, `DESIGN.md`). No `reference/` files. Classify does not fill briefing fields. If origin is unclear, ask once through the host's question interface and end the turn. Do not mix origin with briefing fields.
-- **Polish.** Origin `polish` on marketing or app UI: this turn's file is [polish.md](reference/polish.md). Do not open briefing.md. Isolated component: [after-briefing.md](reference/after-briefing.md#isolated-component).
-- **Else this turn's file is [briefing.md](reference/briefing.md).** Open it once. Greenfield marketing with a named Job: infer the domain's layout behavior and the category cliché to refuse, then send **one** A/B occupancy question. After occupancy exists, if Look is still unnamed, send **one** Style yes/no. If yes, next turn print [catalog.md](reference/catalog.md) and ask one id. No Job: ask Job only. invent-all or an isolated component skip it (then [after-briefing.md](reference/after-briefing.md)).
-- **Unanswered.** A greenfield marketing run missing Job, the A/B pick (when occupancy is unnamed), or the Style answer (when Look is unnamed): that one structured question is the user-facing output, then end the turn. Markup, Design Read, Lock, and a multi-field dump fail this turn. Mute polish: the Focus question in polish.md is the output, then end the turn.
-- **After answers.** Polish: stay on [polish.md](reference/polish.md). Otherwise, when every applicable owner exists (including inferred domain behavior, the A/B pick, and Look on marketing), or briefing.md skipped the form, open [after-briefing.md](reference/after-briefing.md). That file orchestrates Direction, Implement, and QA ([dispatch.md](reference/dispatch.md)). If Job, occupancy, or Style is still blank, stay on briefing.md.
+Isolated component: Classify, then Origin on that control. Leave [app-ui.md](reference/app-ui.md) closed.
 
-## Workflow
+## Origin
 
-0. **Mode.** Choose `full`, `solo`, or `fast` from the three lines above. Done when the mode is named. Do not open `reference/` this step.
-1. **Classify.** Pick component, app UI, or marketing ([task routing](#task-routing)). Glance at `package.json` for whether a stack exists. Name **origin**: `greenfield` (new UI), `redesign` (existing UI, new composition from the user briefing), or `polish` (existing UI, improve craft, keep the look). If origin is unclear, ask once and end the turn. Polish: set `mode=fast` and open [polish.md](reference/polish.md); skip step 2. Redesign with no `DESIGN.md` on disk: Direction extracts tokens from current CSS; do not invent a palette here. Done when task type and origin are named, no briefing field was filled, and no `reference/` file was opened this step except polish.md after origin is named.
-2. **Briefing.** Skip on polish. Open [briefing.md](reference/briefing.md) and follow it. Done when that file's done criterion holds for the selected mode.
+- **greenfield** — Infer the first costume (navy+justice, indigo+three cards, cream+serif). Invent hex and occupancy from the object. Invent-the-look is this path.
+- **redesign** — Disk owns color, type, radius. Keep / retire / missing against the Aim in the prompt. Blocks that still serve Aim stay (news, list, catalog stay that form). Unify CSS to filled DESIGN.md; patch DESIGN.md only when the user asked or contrast fails.
+- **polish** — Keep the live palette. Mute ("improve this"): ask **one** Focus question, Finish the path first, end the turn. Named focus or finish: audit (P0 contrast, overflow, hidden action; P1 rhythm, states), then close those rows. Filled DESIGN.md wins. Ask before changing routes, nav labels, form names, wordmark, legal copy, or the CSS library.
 
-## Task routing
+Done when this Origin's work for the turn is finished (mute polish: the Focus question; otherwise DESIGN.md is ready for Layout or already law on disk).
 
-Name the type at Classify. Do not open `reference/` this step except polish.md or the briefing file named in Pace. After answers, [after-briefing.md](reference/after-briefing.md) packs a Briefing card and [dispatch.md](reference/dispatch.md) attaches slot files from [load-map.md](reference/load-map.md). Use the selected execution mode's worker interface. Parent closed-file list lives in load-map Parent; open that heading only after the card exists. Isolated component: after-briefing Isolated (Implement + Tier A in this window; skip Direction and crit). Polish marketing or app UI: [polish.md](reference/polish.md) (same window; skip Direction and crit).
+## Layout
 
-| Task type     | Examples                                                        | Pre-flight |
-| ------------- | --------------------------------------------------------------- | ---------- |
-| **Component** | Button, modal, card, form field                                 | A          |
-| **App UI**    | Dashboard, CMS, CRM, admin. Recipe, not a poster.               | A + C      |
-| **Marketing** | Landing, portfolio, campaign, about                             | A + B      |
+Write `DESIGN.md` **before** markup. Spec: [design-md.md](reference/design-md.md). Occupancy first, then type and color.
+
+1. Job in one line. Objects: ≤7 domain nouns (opinion letter, kiln, queue), not hero / card / sidebar.
+2. ASCII of the first viewport. Enter is the object's mass. Squint: what leads, what supports, the groups. Proximity before a container. Numbered markers only on a real sequence.
+3. Mode. `Persuade`: occupy what / why / how / trust / act. `Operate`: open [app-ui.md](reference/app-ui.md); `main` is the work. `Read`: structure for comprehension. `Experience`: the artifact leads; chrome recedes.
+4. Dials, one line: `variance` / `motion` / `density` on 1–10. Operate: density high, motion low. Persuade/Experience may go asymmetric. Trust-first: low variance.
+5. Signature on the enter mass. Then 4–6 named hex values and 2+ type roles. A component exists only if an object asked for it.
+
+If the plan would pass on any similar page, retune **one** role and say what changed. If the user named a look in the prompt, follow those words. Free axis: hex from the object. Brief wins when it names a default look.
+
+Spend boldness on Signature. Remove one accessory before shipping.
+
+Copy is material. Name what people control. Active voice. Same action, same label. Error and empty: what happened + the next step. Sentence case.
+
+Done when DESIGN.md exists, Layout names Job, objects, Mode, ASCII (polish: live family), and Signature, and color/type slots are filled. Then write the code from that file. CSS tokens match 1:1.
+
+## Floor
+
+Viewport zoomable (`width=device-width, initial-scale=1`, no `user-scalable=no`). Body and inputs ≥16px. One `h1`. Page shell: skip link → `#main`. Contrast ≥4.5:1 body, ≥3:1 icons. Visible focus. Keyboard reaches every action. Targets ≥44px with ≥8px gap. `prefers-reduced-motion` when motion exists. No overflow at 375. One filled primary per view (`Operate`) or per fold (`Persuade`). Hover is enhancement.
+
+Browser or screenshot tool: Walk 1440 and 375, hit the primary CTA. Unused tool fails. No browser tool: skip Walk.
+
+Done when every row that applies holds.
+
+## Critique
+
+After markup, open [critique.md](reference/critique.md) once. Done when that file's done criterion holds.

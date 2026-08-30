@@ -7,21 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-- `frontend-design-plus`: [polish.md](skills/frontend-design-plus/reference/polish.md) slim path for `origin=polish` on marketing and app UI — Focus question when mute, craft audit + Implement + Tier A in one window, no Direction slot. Stay-closed SSOT in [load-map.md](skills/frontend-design-plus/reference/load-map.md#polish). Packet header `Intent` / `Layout` / `Tokens` on greenfield and redesign. Form effort boxes (`autocomplete`, no retype step, app UI P0 without a greeting hop).
-- `frontend-design-plus`: skill for landings, dashboards, and components. Classify origin (`greenfield`, `redesign`, `polish`). Marketing infers `character=`, asks one A/B occupancy, then Style yes/no (prints `catalog.md` only after yes). Direction returns a Sketch Packet and DESIGN.md. Implement returns `See:` / `tracks=` / `scale=` (marketing) or `main=` / `proof=` (app UI). QA runs anti-slop, crit, rubric, verification, and pre-flight. Isolated component skips dispatch.
-- `frontend-design-plus`: [product-context.md](skills/frontend-design-plus/reference/product-context.md) reads `PRODUCT.md` / AGENTS.md UX / DESIGN.md Overview when present (`evidence=absent` if not). Harden pass (data overflow, i18n `lang`/`dir`, error taxonomy) when Focus or Constraints ask. Anti-slop `rule=` ids. Polish Focus ids `distill` and `copy`. Onboard section on app UI. Resilient text (chips, badges, interruptible motion). Pre-flight boxes for emoji-as-icon, `cursor: pointer`, chip reflow.
-
-### Fixed
-
-- `frontend-design-plus`: routing holes after the Impeccable/Pro Max pass — `product-context.md` on invent-all / empty Job / complete; Packet `focus=`; marketing Implement attaches resilient-text (and Harden when the signal matches); pre-flight boxes no longer require files QA cannot open; polish Harden via [load-map.md](skills/frontend-design-plus/reference/load-map.md#polish); craft audit opens owner files only when load-map attached them.
-- `frontend-design-plus`: second routing pass — stay-closed files no longer follow links into composition, briefing, anti-slop, or crit; Packet `constraints=` and optional Lock `questions=serial`; `fast` extras inlined in SKILL.md; isolated component skips Direction and crit; dispatch Direction bullets are origin-gated; catalog stay-closed except Item number or sites+why; execution-modes does not rescore briefing after the card; design-styles Path step 4 is Commit subtraction (QA owns slop/crit).
-
 ### Changed
 
-- `frontend-design-plus`: twelve public terms in SKILL.md Words; occupancy jargon stays in composition.md. Polish skips briefing, catalog, and composition. Implement layout-first, 3–4 wrapper extract, token-only CSS after Lock. Verification is run evidence, not a user study.
-- `frontend-design-plus`: Implement layout kit is the full Packet + DESIGN.md + Implement rows (`layout-patterns.md` on marketing; `product-register.md` recipe heading on app UI). Parent keeps card, Packet, and return blocks; discards worker walks. Resume after QA still sends the full Packet, not a Lock/Sketch slice.
+- `frontend-design-plus`: layout-first run in SKILL.md (Job, objects, ASCII occupancy, Mode, dials, then tokens). One [critique.md](skills/frontend-design-plus/reference/critique.md) after markup. Origins are bullets, not files. Floor ships in SKILL without a separate preflight. Words: Job, Origin, Mode, Signature.
+- `frontend-design-plus`: writing-for-agents pass — Classify vs Origin split (when vs work), done criteria on each step, occupancy Fail-if owned only by critique.md, `editor` recipe restored, description front-loaded on "Web UI".
 
 ## [0.1.1] - 2026-08-12
 
