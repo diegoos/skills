@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `code-review-plus`: persist each review under `docs/code-review/` in the reviewed repo (`YYYY-MM-DD-HH-MM.md` with Findings and `## Fix`); `knowns.md` when the user marks a false positive or won't-fix; Scope reads knowns and the latest review; `metadata.version` → `0.5.0`.
 - `code-review-plus`: Quality `test-quality.md` when tests are in the diff (name-the-break, real SUT, mutation check, AI-slop / utility questions); `### Test quality` on the report.
 - `code-review-plus`: human `README.md` with commands, memory layout, and a mermaid flow of review vs fix.
-- `frontend-design-plus`: ship working web UI (component / app UI / marketing) with origin `greenfield` or `redesign`, Design Read + Lock before markup, routed `reference/` files, anti-slop, and pre-flight tiers A / A+B / A+C.
+- `frontend-design-plus`: skill for building, restyling, or polishing web UI (HTML/CSS). README says when it runs (create a page, improve a layout, restyle, polish) and why occupancy in DESIGN.md plus Fail-ifs come before a second look. The run is Classify, Origin, Layout, markup from DESIGN.md, Floor, then Critique. DESIGN.md holds Job, objects, Claim, Pair, Signature, and the enter ASCII. After markup, [critique.md](skills/frontend-design-plus/reference/critique.md) checks that spine; [anti-slop.md](skills/frontend-design-plus/reference/anti-slop.md) holds the design and copy Fail-ifs. If the harness has a browser tool, Walk covers 1440 and 375.
 - `markdown-writer`: human `README.md` with the CommonMark 0.31.2, GFM, and markdownlint Rules URLs used to write the skill.
 
 ### Changed
