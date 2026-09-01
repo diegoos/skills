@@ -1,25 +1,20 @@
 # Frontend Design Plus
 
-The skill tells an agent how to ship working web UI that does not look or read like default model output. Use it for a new page or a restyle of one that already exists: landings, dashboards, components, posters, HTML/CSS layouts.
+This skill runs when you ask to create a page, improve a layout, restyle a dashboard, or polish existing HTML and CSS.
 
-Skip it when the work is backend, SQL, CI, or docs. The instructions the agent follows are in [`SKILL.md`](SKILL.md). Extra rules live in [`reference/`](reference/) and load only for the kind of surface being built.
+Without it, the agent often ships a page it already knows: cream field, serif H1, one accent, three equal cards... slop.
 
-## What it is for
+Follow [`SKILL.md`](SKILL.md). Occupancy is written first (the object's rectangles in DESIGN.md), then markup that matches that spine, then one critique against Fail-ifs. Critique does not invent a second look.
 
-Two jobs, different stances.
+The run is Classify → Origin → Layout → markup from DESIGN.md → Floor → Critique once. Origin is greenfield (hex from the object's materials), redesign (disk owns tokens), or polish (keep the live palette; or ask focus). After markup, [critique.md](reference/critique.md) checks the spine. Design and copy Fail-ifs live in [anti-slop.md](reference/anti-slop.md). Operate recipes: [app-ui.md](reference/app-ui.md). Isolated component skips that file.
 
-On a landing or campaign, design is the product. The visitor's first impression is the deliverable.
+## This skill is not for
 
-On a dashboard or settings screen, the interface should disappear into the task. Familiar chrome, one primary action, the project's tokens.
+- Backend, SQL, CI, docs-only, and native mobile/desktop.
+- CLI detector, live variant picker, or industry-to-palette matching.
 
-Either way the output is code, not a mock. Touch targets, contrast, and real copy are part of done.
+If the harness has a browser tool, Walk is a served render of header (one row, drawer closed), first viewport, one scroll past enter, and the close fold at 1440 and 375.
 
-## How it works
+## References
 
-The agent names the surface (component, app UI, or marketing) and whether this is a new UI or a redesign. It reads only the refs for that case. Before markup it writes a one-line Design Read and a Lock: origin, scene, color strategy, layout, motion, density, stack.
-
-Then it builds. A new UI gets new files. A redesign patches what is already there, on the current stack, after a short audit.
-
-It finishes by counting things in the DOM (pre-flight A always, B on marketing, C on app UI) and by checking layout and copy against [`anti-slop.md`](reference/anti-slop.md).
-
-Ask for a landing, a settings page, or a restyle, or invoke `/frontend-design-plus`. Put this folder in whatever directory your harness uses for skills.
+- [DESIGN.md format](https://github.com/google-labs-code/design.md/blob/main/docs/spec.md)
