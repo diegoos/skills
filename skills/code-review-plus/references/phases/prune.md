@@ -1,6 +1,6 @@
 # Branch prune — drop old review files
 
-Invoked only by `/code-review-plus prune`. Do not open scope, dispatch, verify, synthesize, persist, fix, perspective, shape, or report files.
+Invoked only by `/code-review-plus prune`. This file is the only skill reference for this branch.
 
 ## Count first
 

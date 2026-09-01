@@ -10,6 +10,7 @@ Hunt language and runtime pitfalls.
 - `Any` / unchecked casts that erase a typed boundary the rest of the code relies on
 - `eval` / `exec` / `pickle.loads` on untrusted input, or SQL/command strings built by concatenation or unchecked f-strings
 - Files, sockets, DB sessions, or locks opened without `with` / `async with` (or equivalent close on all paths)
+- If the project configures ruff `C901` or radon, run it on touched functions and cite `file:line` + score
 
 ## Pass A
 

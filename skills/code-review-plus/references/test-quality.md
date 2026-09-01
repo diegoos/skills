@@ -1,6 +1,6 @@
 # Test quality
 
-Quality-only. Open when the review source includes test paths. Hunt tests **already in the diff**. Missing tests belong to Correctness/scope.
+Quality-only. Open when the review source includes test paths. Hunt tests **already in the diff**. Missing tests belong to Correctness.
 
 Judge the artifact. Leave TDD write-order (red-green, delete-and-restart) to implementation skills.
 

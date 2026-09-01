@@ -2,14 +2,14 @@
 
 Reject false positives after all pipelines return. Only candidates that survive Pass B (and optional P0 verifier) enter synthesis.
 
-When keep/drop is unclear, read `../examples/kept-vs-dropped.md` (do not preload).
+When keep/drop is unclear, read `../examples/kept-vs-dropped.md`. When a candidate is about branching, nesting, a complexity score, speculative abstraction, or YAGNI, also read `../complexity.md`.
 
 ## Pass A — hunter (already done in dispatch)
 
 Confirm each candidate still carries:
 
 - `evidence_level: proven | likely`
-- `exploit_or_break_path` with a pointable line today
+- `exploit_or_break_path` with a pointable line today (break, exploit, or cost)
 - `suggested_fix` that is minimal and local when possible
 
 Drop immediately if Pass A fields are missing or speculative.
@@ -26,29 +26,29 @@ Re-open `file:line` plus callers, middleware, shared helpers, and consumers as n
 - [ ] Is there a comment explaining intentional design? Did I respect it?
 - [ ] Did I verify framework behavior before asserting failure modes?
 - [ ] Did I verify all call paths before calling something dead/redundant?
-- [ ] Can I reproduce the break/exploit by reading the code without "if in the future"?
+- [ ] Can I reproduce the break, exploit, or today's cost by reading the code without "if in the future"?
 - [ ] Does this contradict another candidate or a likely "What Looks Good" strength? (self-consistency)
 - [ ] Would the suggested fix pass the regression gate (minimal, local, respects what-must-not-change)?
 - [ ] Does suggested_fix preserve error behavior and side effects (no over-simplify)?
-- [ ] Can I point to the exact line that makes this exploitable or broken today?
+- [ ] Can I point to the exact line that makes this exploitable, broken, or costly today (reader slower, zero-caller carry, unused after consumer search)?
 ```
 
-Drop or downgrade any item that fails. Future-only risks become hardening (downgrade), not blockers.
+Drop or downgrade any item that fails. Future-only risks become hardening (downgrade), not blockers. Maintainability stays `kept` when the cost is pointable today (nesting, YAGNI with zero callers, verified unused). Dead-code candidates that survive the consumer search stay `kept` for the report Dead Code section, not as P0.
 
 ### P0 bar
 
-A candidate may become P0 in synthesize only if Pass B is complete and the exploit/break path is reconfirmed today with a pointable `file:line`. Claims that need deployed config or runtime observation (`needs-runtime`) are never P0 without proof in code; mark them unverified or hardening.
+A candidate may become P0 in synthesize only if Pass B is complete and the exploit/break path is reconfirmed today with a pointable `file:line`. Maintainability, YAGNI-without-a-hole, and verified unused code are never P0. Claims that need deployed config or runtime observation (`needs-runtime`) are never P0 without proof in code; mark them unverified or hardening.
 
 ## Optional P0 verifier (one subagent)
 
-After Pass B, if **≥1** remaining candidate still could be P0 (Pass B complete + exploit/break path today + pointable `file:line`), the orchestrator **may** dispatch **one** verifier subagent.
+After Pass B, if **≥1** remaining candidate still could be P0 (Pass B complete + exploit/break path today + pointable `file:line`), dispatch **one** verifier subagent when a trigger below is true. Otherwise skip and record `verifier: skipped` (reason).
 
 **Trigger (dispatch when either is true):**
 
 1. Real ambiguity remains (middleware vs route, framework return shape, `needs-runtime` borderline), or
 2. **≥2** candidates still look like P0 after Pass B
 
-**Skip when:** zero P0-capable candidates remain, or Pass B already settled every P0-capable candidate without residual ambiguity and there is at most one such candidate. Pass B + P0 bar alone are enough; record `verifier: skipped` (reason) in working notes if useful for the report.
+**Skip when:** zero P0-capable candidates remain, or Pass B already settled every P0-capable candidate without residual ambiguity and there is at most one such candidate. Pass B + P0 bar alone are enough. Record `verifier: skipped` (reason) for persist Notes and the report Verification block.
 
 **Do not:** re-dispatch the five review pipelines; give the verifier a perspective or shape; ask the verifier for final P0–P3 severity.
 
@@ -80,7 +80,7 @@ verification_note: # files and callers/middleware re-read, then why it survived 
 
 Pass B is complete only when `verification_note` cites what was re-read (`file` plus callers / middleware / helpers as needed). A note with no citation is not Pass B.
 
-**Report bar:** only `kept` and `downgraded` (with severity already adjusted in Phase 3) enter the report. Record verified vs dropped/downgraded counts for the summary.
+**Report bar:** only `kept` and `downgraded` enter Phase 3. Phase 3 assigns severity; those findings (with adjusted severity) enter the report. Record verified vs dropped/downgraded counts for the summary.
 
 ## Recurring false positives
 
@@ -109,6 +109,10 @@ Pass B is complete only when `verification_note` cites what was re-read (`file` 
 | "Missing docs" without a documentable surface change or docs in scope       | Do not invent tutorials.                                                                                                                               |
 | Reviewer bias: "tests pass => good", "agent code => fine", "clean later"    | Still verify the path today.                                                                                                                           |
 | "Refactor is cleaner" when it only relocated the same concept count         | Relocate != reduce.                                                                                                                                    |
+| CC / complexity score on a linear long function (one concept, nesting < 3)  | CC ranks test paths, not quality. Drop unless a reader is slower today.                                                                                |
+| Extract helper only to lower a complexity score                             | Third-use and a clarity win required. A score move with no responsibility name is gaming.                                                              |
+| Go `if err != nil { return err }` series as a complexity hotspot            | Explicit error paths inflate CC; they are not nested jungle. Drop.                                                                                     |
+| "YAGNI / speculative abstraction" when callers or a shipped contract exist  | Unused-today is the test. Abstraction with real callers is not YAGNI.                                                                                  |
 
 ## Post-report calibration (optional)
 
