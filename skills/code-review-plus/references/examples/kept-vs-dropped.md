@@ -90,3 +90,30 @@ Read this file only when Pass B is unsure whether to keep or drop a candidate. D
 
 - **Signal:** `def f(x, items=[])` (or `dict`/`set` default) mutated in the body.
 - **Why keep:** Default is shared across calls; state leaks today. Use `None` + assign inside.
+
+### Tests (Quality)
+
+#### Dropped — mock of slow I/O, no assert on the mock
+
+- **Signal:** Network/DB/startup mocked; assertion is on the real component's result.
+- **Why drop:** Mock sits below the side effects the test needs. Structure is complete. The mock earns no assertion.
+
+#### Dropped — no test on a trivial getter
+
+- **Signal:** Diff adds a getter/reexport with no validate, default, or side effect.
+- **Why drop:** Trivial code earns no test. Do not emit "missing tests".
+
+#### Kept — mirror assertion
+
+- **Signal:** `expect(fn(x)).toEqual(fn(x))` or both sides from the same builder/helper.
+- **Why keep:** The assertion passes no matter what the code does. Use a literal or hand-checked fixture.
+
+#### Kept — mock-as-SUT
+
+- **Signal:** `expect(mock).toHaveBeenCalledTimes(n)` (or `*-mock` test id) while the real unit is not observed.
+- **Why keep:** The test proves the double, not the component. Assert real behavior or drop the test.
+
+#### Kept — getter-only test in the diff
+
+- **Signal:** New test whose only assertion is a trivial getter/reexport.
+- **Why keep:** Coverage theater. List as removable; ask before delete.
