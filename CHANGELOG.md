@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `frontend-design-plus`: skill for building, restyling, or polishing web UI (HTML/CSS). README says when it runs (create a page, improve a layout, restyle, polish) and why occupancy in DESIGN.md plus Fail-ifs come before a second look. The run is Classify, Origin, Layout, markup from DESIGN.md, Floor, then Critique. DESIGN.md holds Job, objects, Claim, Pair, Signature, and the enter ASCII. After markup, [critique.md](skills/frontend-design-plus/reference/critique.md) checks that spine; [anti-slop.md](skills/frontend-design-plus/reference/anti-slop.md) holds the design and copy Fail-ifs. If the harness has a browser tool, Walk covers 1440 and 375.
+
 ## [0.1.1] - 2026-08-12
 
 ### Changed
