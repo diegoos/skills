@@ -22,6 +22,7 @@ The same rules can live in `~/.codex/AGENTS.md` for Codex, `~/.claude/CLAUDE.md`
 | `[commit-message](skills/commit-message/)`                     | Draft [Conventional Commits](https://www.conventionalcommits.org/) from the real git status and diff. One atomic commit per concern by default; a single commit only when you ask.            |
 | `[code-review-plus](skills/code-review-plus/)`                 | Multi-pipeline PR/diff review (≤5 hunters or one on demand), optional shapes, test-quality, `docs/code-review/` memory, P0-P3 report. Branches: `review`, `fix`/`apply`/`implement`, `prune`. |
 | `[deep-security-review](skills/deep-security-review/)`         | Security-first review: threat model with hotspots, parallel domain hunts, disprove/verify, findings + hardening notes (P0-P3). Branches: review, `fix`/`apply`/`implement`. Invoke by name.   |
+| `[make-code](skills/make-code/)`                               | XP Simple Design for app code: make it work, right, then fast. YAGNI, cyclomatic cap. Branches: `write`, `refactor`, `improve`.                                                               |
 | `[make-docs](skills/make-docs/)`                               | Architecture docs and behavioral specs under `docs/`. Branches: `explore`, `update` (stamp), `refresh` (re-survey), `adr`. Confirm gate; ≤3 hunters.                                          |
 | `[makefile-expert](skills/makefile-expert/)`                   | Author or review GNU Make Makefiles (last-mile glue vs compile graph). Branches: `write`, `review`.                                                                                           |
 | `[markdown-writer](skills/markdown-writer/)`                   | Create or edit `.md` / `.mdc` / `.mdx` that scans for humans and parses for agents. One-line prose unless dest requires wrap. YAML frontmatter when dest uses it.                             |
@@ -54,6 +55,9 @@ Some skills load from intent (you do not have to name them):
 "Write an AGENTS.md for this project"            → write-great-instructions
 "Tighten this CLAUDE.md"                         → write-great-instructions
 "Write Cursor rules for our TSX components"      → write-great-instructions
+"Add an endpoint that lists orders"              → make-code (write)
+"This function is too nested"                    → make-code (refactor)
+"This loop is doing N+1 queries"                 → make-code (improve)
 "Generate docs for this codebase"                → make-docs (explore)
 "Update the docs after these changes"            → make-docs (update)
 "Refresh the docs against current code"          → make-docs (refresh)
@@ -123,6 +127,9 @@ Harnesses also accept forms like `/make-docs explore`.
 │   │       ├── shapes/         # api, web, languages, cloud, llm, …
 │   │       ├── examples/       # gates, FP table, kept-vs-dropped (Phase 3)
 │   │       └── optional/       # OWASP map (on request)
+│   ├── make-code/              # XP Simple Design: write / refactor / improve
+│   │   ├── SKILL.md
+│   │   └── agents/openai.yaml
 │   ├── make-docs/              # Architecture + observable specs
 │   │   ├── SKILL.md            # Router: explore / update / refresh / adr
 │   │   ├── README.md
