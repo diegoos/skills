@@ -1,6 +1,6 @@
 # Skills
 
-Personal collection of AI agent skills. Each skill is Markdown. The agent reads it and runs a fixed process: code review, docs, commits, security, and similar engineering work.
+Personal collection of AI agent skills in Markdown. Each one gives the agent a fixed process for code review, docs, commits, security, and similar work.
 
 Notable changes live in [CHANGELOG.md](CHANGELOG.md).
 
@@ -16,17 +16,17 @@ The same rules can live in `~/.codex/AGENTS.md` for Codex, `~/.claude/CLAUDE.md`
 
 ## Available skills
 
-| Skill                                                  | What it does                                                                                                                                                                                |
-| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `[write-great-agentsmd](skills/write-great-agentsmd/)` | Create, update, or lint an `AGENTS.md` (or tool mirrors). Branches: `bootstrap`, `update`, `lint`, `slim`.                                                                                  |
-| `[commit-message](skills/commit-message/)`             | Draft [Conventional Commits](https://www.conventionalcommits.org/) from the real git status and diff. One atomic commit per concern by default; a single commit only when you ask.          |
-| `[code-review-plus](skills/code-review-plus/)`         | Multi-pipeline PR/diff review (≤5 hunters), optional shapes, test-quality hunt, memory under `docs/code-review/`, P0-P3 report. Branches: `review`, `fix`/`apply`/`implement`, `prune`.     |
-| `[deep-security-review](skills/deep-security-review/)` | Security-first review: threat model with hotspots, parallel domain hunts, disprove/verify, findings + hardening notes (P0-P3). Branches: review, `fix`/`apply`/`implement`. Invoke by name. |
-| `[make-docs](skills/make-docs/)`                       | Architecture docs and behavioral specs under `docs/`. Branches: `explore`, `update` (stamp), `refresh` (re-survey), `adr`. Confirm gate; ≤3 hunters.                                        |
-| `[makefile-expert](skills/makefile-expert/)`           | Author or review GNU Make Makefiles (last-mile glue vs compile graph). Branches: `write`, `review`.                                                                                         |
-| `[markdown-writer](skills/markdown-writer/)`           | Create or edit `.md` / `.mdc` / `.mdx` that scans for humans and parses for agents. One-line prose unless dest requires wrap. YAML frontmatter when dest uses it.                           |
-| `[frontend-design-plus](skills/frontend-design-plus/)` | Build or restyle visual frontend (component, app UI, marketing). Origin `greenfield` or `redesign`; Design Read + Lock before markup; routed refs; anti-slop pre-flight (A / A+B / A+C).    |
-| `[sass-with-bem](skills/sass-with-bem/)`               | Write or review BEM with Sass/SCSS (flat compiled selectors, `is-` / `has-` states, 7-1 partials). Branches: `write`, `review`.                                                             |
+| Skill                                                          | What it does                                                                                                                                                                                |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `[write-great-instructions](skills/write-great-instructions/)` | Helps you write `AGENTS.md`, `CLAUDE.md`, Cursor rules, and Copilot instructions. Loads when you create or edit one.                                                                        |
+| `[commit-message](skills/commit-message/)`                     | Draft [Conventional Commits](https://www.conventionalcommits.org/) from the real git status and diff. One atomic commit per concern by default; a single commit only when you ask.          |
+| `[code-review-plus](skills/code-review-plus/)`                 | Multi-pipeline PR/diff review (≤5 hunters), optional shapes, test-quality hunt, memory under `docs/code-review/`, P0-P3 report. Branches: `review`, `fix`/`apply`/`implement`, `prune`.     |
+| `[deep-security-review](skills/deep-security-review/)`         | Security-first review: threat model with hotspots, parallel domain hunts, disprove/verify, findings + hardening notes (P0-P3). Branches: review, `fix`/`apply`/`implement`. Invoke by name. |
+| `[make-docs](skills/make-docs/)`                               | Architecture docs and behavioral specs under `docs/`. Branches: `explore`, `update` (stamp), `refresh` (re-survey), `adr`. Confirm gate; ≤3 hunters.                                        |
+| `[makefile-expert](skills/makefile-expert/)`                   | Author or review GNU Make Makefiles (last-mile glue vs compile graph). Branches: `write`, `review`.                                                                                         |
+| `[markdown-writer](skills/markdown-writer/)`                   | Create or edit `.md` / `.mdc` / `.mdx` that scans for humans and parses for agents. One-line prose unless dest requires wrap. YAML frontmatter when dest uses it.                           |
+| `[frontend-design-plus](skills/frontend-design-plus/)`         | Build or restyle visual frontend (component, app UI, marketing). Origin `greenfield` or `redesign`; Design Read + Lock before markup; routed refs; anti-slop pre-flight (A / A+B / A+C).    |
+| `[sass-with-bem](skills/sass-with-bem/)`                       | Write or review BEM with Sass/SCSS (flat compiled selectors, `is-` / `has-` states, 7-1 partials). Branches: `write`, `review`.                                                             |
 
 The agent follows each skill's `SKILL.md`. Some skills also ship a human `README.md`, a `PATTERNS.md`, or templates under `references/`.
 
@@ -41,7 +41,7 @@ Install with the [skills.sh](https://www.skills.sh/) CLI:
 npx skills add diegoos/skills
 
 # one skill
-npx skills add diegoos/skills --skill write-great-agentsmd
+npx skills add diegoos/skills --skill write-great-instructions
 ```
 
 After install, call them from the harness with a slash command or with natural language, depending on the skill.
@@ -51,7 +51,9 @@ After install, call them from the harness with a slash command or with natural l
 Some skills load from intent (you do not have to name them):
 
 ```text
-"Create an AGENTS.md for this project"           → write-great-agentsmd (bootstrap)
+"Write an AGENTS.md for this project"            → write-great-instructions
+"Tighten this CLAUDE.md"                         → write-great-instructions
+"Write Cursor rules for our TSX components"      → write-great-instructions
 "Generate docs for this codebase"                → make-docs (explore)
 "Update the docs after these changes"            → make-docs (update)
 "Refresh the docs against current code"          → make-docs (refresh)
@@ -90,10 +92,12 @@ Harnesses also accept forms like `/make-docs explore`.
 ├── global-rules.md         # Global agent defaults (layered or fused with repo AGENTS.md)
 ├── README.md
 ├── skills/
-│   ├── write-great-agentsmd/   # AGENTS.md: bootstrap / update / lint / slim
-│   │   ├── SKILL.md
-│   │   ├── PATTERNS.md
-│   │   └── README.md
+│   ├── write-great-instructions/ # Writing guide for harness instruction files
+│   │   ├── SKILL.md            # Principles, floor, how to write an edit
+│   │   ├── README.md
+│   │   └── references/
+│   │       ├── formats.md      # path, frontmatter, attach, adapter per harness
+│   │       └── patterns.md     # works vs anti-pattern smells
 │   ├── commit-message/         # Conventional Commits
 │   │   └── SKILL.md
 │   ├── code-review-plus/       # Multi-perspective code review
