@@ -1,0 +1,6 @@
+interface:
+  display_name: "Make Docs"
+  short_description: "Architecture docs, specs, and ADRs under docs/"
+
+policy:
+  allow_implicit_invocation: true

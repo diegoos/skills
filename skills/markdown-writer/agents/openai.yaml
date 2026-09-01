@@ -1,0 +1,6 @@
+interface:
+  display_name: "Markdown Writer"
+  short_description: "Write Markdown that scans and parses cleanly"
+
+policy:
+  allow_implicit_invocation: true

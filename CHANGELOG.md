@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Every skill has `agents/openai.yaml` for ChatGPT and Codex (picker name, short blurb, default `$skill` prompt). Skills with `disable-model-invocation` set `allow_implicit_invocation: false`.
 - `make-docs`: `/make-docs refresh` re-surveys the current tree against existing `docs/`; ADRs stay unless the code contradicts them; confirm before any write; up to three read-only hunters (structure, behavior, voice) with serial fallback; language lock; docs anti-slop; `metadata.version` → `0.2.0`.
 - `code-review-plus`: `/code-review-plus prune` counts timestamped files under `docs/code-review/` first, then asks whether to keep the last 3, the last 5, delete all, or keep a typed N; never deletes `knowns.md`.
 - `code-review-plus`: persist each review under `docs/code-review/` in the reviewed repo (`YYYY-MM-DD-HH-MM.md` with Findings and `## Fix`); `knowns.md` when the user marks a false positive or won't-fix; Scope reads knowns and the latest review; `metadata.version` → `0.5.0`.

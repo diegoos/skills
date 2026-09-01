@@ -1,0 +1,6 @@
+interface:
+  display_name: "Write Great Instructions"
+  short_description: "Write AGENTS.md and harness instruction files"
+
+policy:
+  allow_implicit_invocation: true

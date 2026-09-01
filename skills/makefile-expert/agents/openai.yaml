@@ -1,0 +1,6 @@
+interface:
+  display_name: "Makefile Expert"
+  short_description: "Write or review GNU Makefiles"
+
+policy:
+  allow_implicit_invocation: true
