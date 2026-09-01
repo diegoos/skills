@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `frontend-design-plus`: ship working web UI (component / app UI / marketing) with origin `greenfield` or `redesign`, Design Read + Lock before markup, routed `reference/` files, anti-slop, and pre-flight tiers A / A+B / A+C.
+- `frontend-design-plus`: skill for building, restyling, or polishing web UI (HTML/CSS). README says when it runs (create a page, improve a layout, restyle, polish) and why occupancy in DESIGN.md plus Fail-ifs come before a second look. The run is Classify, Origin, Layout, markup from DESIGN.md, Floor, then Critique. DESIGN.md holds Job, objects, Claim, Pair, Signature, and the enter ASCII. After markup, [critique.md](skills/frontend-design-plus/reference/critique.md) checks that spine; [anti-slop.md](skills/frontend-design-plus/reference/anti-slop.md) holds the design and copy Fail-ifs. If the harness has a browser tool, Walk covers 1440 and 375.
 - `markdown-writer`: human `README.md` with the CommonMark 0.31.2, GFM, and markdownlint Rules URLs used to write the skill.
 
 ### Changed
