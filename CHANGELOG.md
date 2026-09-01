@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `make-code`: *new skill*. XP Simple Design (work, right, then fast), YAGNI, CC ≤ 10. Branches `write` / `refactor` / `improve`. Floor `Match` (nearest `AGENTS.md` or a neighbor of the same kind, or `conventions: none`) and `Balance` (*intent* over *fewest*). Refactor Done is a faster read against the Match neighbor; a shorter diff alone does not count. `agents/openai.yaml`. `metadata.version` → `0.0.1`. Root `README.md` lists it.
 - Every skill has `agents/openai.yaml` for ChatGPT and Codex (picker name, short blurb, default `$skill` prompt). Skills with `disable-model-invocation` set `allow_implicit_invocation: false`.
 - `make-docs`: `/make-docs refresh` re-surveys the tree against existing `docs/`. ADRs stay unless the code contradicts them. Confirm before any write. Up to three read-only hunters (structure, behavior, voice) with serial fallback. Language lock and docs anti-slop. `metadata.version` → `0.2.0`.
 - `code-review-plus`: each review is written under `docs/code-review/` in the reviewed repo (`YYYY-MM-DD-HH-MM.md`). `/code-review-plus prune` counts those files, then asks keep 3, keep 5, delete all, or keep N. `knowns.md` records false positives and won't-fix; prune leaves it in place. Scope reads knowns and the latest review. `metadata.version` → `0.5.0`.

@@ -27,7 +27,7 @@ Pick a **branch** and state it at the start of the run:
 ## Workflow
 
 1. **Classify.** Branch from the request. **Improve** only when a hotspot is named (profile, N+1, accidental quadratic, extra I/O or alloc in a hot loop, or the user named it). No hotspot → **refactor**, or ask. **Done when:** the branch is named; **improve** cites the hotspot.
-2. **Trace.** Name the problem, the entrypoints, the symbols you will change, their callers (search every caller), and the check that proves the change. Read existing docs. Reuse what already covers the need. **Done when:** those five are named, or **YAGNI** stops the work.
+2. **Trace.** Name the problem, the entrypoints, the symbols you will change, their callers (search every caller), the check that proves the change, and the convention source (nearest `AGENTS.md` / `CLAUDE.md` and one neighbor of the same kind, or `conventions: none`). Read existing docs. Reuse what already covers the need. **Done when:** those six are named, or **YAGNI** stops the work.
 3. **Climb.** Stop at the first rung that holds: (1) skip (2) in-repo helper (3) stdlib (4) platform (5) installed dependency (6) one line (7) minimum new code. **Done when:** the chosen rung is named.
 4. **Apply** the matching branch. **Done when:** that branch's criterion holds.
 5. **Prove.** Smallest *red* check of observable behavior. Mock only at the trust boundary (network, clock, filesystem, paid API). Call through real internals. Trivial one-liners need no extra test. **Done when:** **write** — the check is red before the slice and green after; **refactor** / **improve** — the same check stays green.
@@ -42,7 +42,7 @@ Do the *simplest thing* that could work. One slice.
 
 Preserve behavior. Prefer deletion. Flatten with guard clauses before extract. Extract only with a responsibility name.
 
-**Done when:** behavior matches the original (proof from Prove); every touched function is **CC** ≤ 10 (or the project's bar); the diff is smaller or clearer than the starting shape.
+**Done when:** behavior matches the original (proof from Prove); every touched function is **CC** ≤ 10 (or the project's bar); a reader of the Match neighbor is faster; every extract or inline obeys **Balance**.
 
 ## Branch improve
 
@@ -55,6 +55,10 @@ Keep behavior. Remove the named hotspot. Ship the cheap fast path (stdlib, one p
 **YAGNI.** Build the need in this request. The second real duplicate earns extract; the first does not.
 
 **CC.** Decision points + 1 (`if`, loops, `case`, `catch`, `??`, `||`, `&&`, `.?`, boolean short-circuit, ternary). `else` = 0. Cap **10** on new or rewritten functions unless the project sets another bar (`eslint complexity`, ruff `C901`, gocyclo, etc). Keep branches visible (guard clauses, named predicates). A linear validation chain or a flat `switch` is not a split trigger. Use the project's existing complexity command when one exists.
+
+**Match.** The diff follows naming, errors, imports, and function shape from the convention source Trace named. Personal preference loses. `conventions: none`: follow the Floor; do not invent a second style.
+
+**Balance.** *intent* outranks *fewest*. Keep the helper whose name still carries a concept. Split unrelated work. Fewer lines only when a reader of the Match neighbor is faster.
 
 **Tight performance.** Default is the cheap fast path. Speculative optimization is **YAGNI** — that work belongs on **improve** with a named hotspot.
 
