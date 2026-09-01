@@ -46,6 +46,8 @@ Agent confirmed:
 - [ ] Tests — not run
 - [ ] Build — not run
 
+P0 verifier: skipped (reason: one P0-capable candidate, Pass B settled it)
+
 ### Verdict
 
 Request changes — one verified P0 before merge. Hardening items are follow-ups.

@@ -12,6 +12,7 @@ Hunt language and runtime pitfalls.
 - `panic` (or `Must*`) for recoverable failure across a package boundary; ok only at init / `main` setup
 - Secrets, tokens, or keys from `math/rand` instead of `crypto/rand`
 - Slice or map stored from / returned to a caller without a defensive copy when the receiver keeps it
+- If the project already runs `gocyclo` or golangci-lint `gocyclo`, run it on touched files and cite `file:line` + score; a series of `if err != nil { return err }` is not a complexity finding
 
 ## Pass A
 

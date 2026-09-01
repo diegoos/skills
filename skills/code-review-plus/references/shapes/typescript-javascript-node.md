@@ -9,6 +9,7 @@ Hunt language and runtime pitfalls.
 - `JSON.parse` or similar on user/HTTP input without try/catch or safe parser
 - Fetch/SDK envelopes treated as success without checking error/`ok` / thrown shapes
 - `process.env` used without validation at startup for required config
+- If the project configures eslint/oxlint/biome `complexity` or sonarjs, run it on touched functions and cite `file:line` + score
 
 ## Pass A
 

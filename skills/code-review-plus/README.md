@@ -4,17 +4,17 @@ Review a PR or diff across correctness, security, architecture, quality, and per
 
 ## Commands
 
-| Command | When |
-| ------- | ---- |
-| `/code-review-plus` | Review the current diff, branch, or named files |
-| `/code-review-plus fix` | Apply kept findings from the last report (aliases: `apply`, `implement`) |
+| Command                   | When                                                                                 |
+| ------------------------- | ------------------------------------------------------------------------------------ |
+| `/code-review-plus`       | Review the current diff, branch, or named files                                      |
+| `/code-review-plus fix`   | Apply kept findings from the last report (aliases: `apply`, `implement`)             |
 | `/code-review-plus prune` | Drop old files under `docs/code-review/` (count first, then choose how many to keep) |
 
 ## How it works
 
 The orchestrator scopes the change (intent, size, dispatch tier, stack tags) and, when they exist, reads `docs/code-review/knowns.md` and the latest review file. Known false positives stay closed unless the cited path changed.
 
-It then runs up to five hunters in parallel. Each hunter gets one perspective and at most one stack shape (web, API, language, or LLM), picked by priority. A `web`+`api`+`ts` PR gets shapes. Quality also reads test-quality rules when the diff includes tests.
+It then runs up to five hunters in parallel. Each hunter gets one perspective and at most one stack shape (web, API, language, or LLM), picked by priority. A `web`+`api`+`ts` PR gets shapes. Quality hunts nesting, speculative abstraction (YAGNI), and the project's complexity rules when they are configured. Quality also reads test-quality rules when the diff includes tests.
 
 When the hunters return, the orchestrator verifies every candidate against the code (Pass B), may dispatch one P0 verifier, synthesizes severity, and fills the report skeleton. It writes memory under `docs/code-review/` in the reviewed repo, then replies with the report.
 
@@ -57,4 +57,5 @@ The next review reads those files. Fix loads findings from this conversation or 
 - [`references/perspectives/`](references/perspectives/): the five hunters
 - [`references/shapes/`](references/shapes/): optional stack overlays
 - [`references/test-quality.md`](references/test-quality.md): tests already in the diff (Quality)
+- [`references/complexity.md`](references/complexity.md): cyclomatic vs cognitive load, YAGNI (orchestrator, Pass B)
 - [`references/templates/report.md`](references/templates/report.md): report skeleton

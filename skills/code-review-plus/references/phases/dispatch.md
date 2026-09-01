@@ -2,7 +2,7 @@
 
 Dispatch pipelines per Phase 1 tier. Orchestrator builds prompts; each hunter receives exactly one perspective and optionally one shape.
 
-Same model as the orchestrator. Read-only. One hunter per perspective.
+Same model as the orchestrator. No writes to the reviewed repo. Project lint / complexity / test commands that do not write are allowed. One hunter per perspective.
 
 ## Serial fallback (no subagent)
 
@@ -81,7 +81,7 @@ Before flagging anything (Pass A — hunter self-check):
 - Read comments explaining intentional design before calling it a bug.
 - Verify all consumers before calling code dead or redundant.
 - Raise a candidate only when evidence_level is proven or likely (never speculative).
-- Point to the exact line that makes the problem exploitable or broken today.
+- Point to the exact line that makes the problem exploitable, broken, or costly today (reader slower, carry with zero callers, unused after a full consumer search).
 - suggested_fix is minimal and local when possible; preserves error behavior and side effects; note regression_risk for callers / contracts / tests / what-must-not-change.
 
 Return CandidateFinding list (YAML or bullets):
@@ -89,7 +89,7 @@ Return CandidateFinding list (YAML or bullets):
 - pipeline: Correctness | Security | Architecture | Quality | Performance
 - title: short title
 - category_hint: vulnerability | hardening | maintainability
-- exploit_or_break_path: why it breaks or is exploitable today (concrete path)
+- exploit_or_break_path: why it breaks, is exploitable, or costs today (concrete path)
 - data_provenance: user | llm | backend | n/a
 - evidence_level: proven | likely
 - suggested_fix: minimal, local when possible
@@ -97,7 +97,7 @@ Return CandidateFinding list (YAML or bullets):
 
 Do not open other files under references/. Do not review outside your pipeline.
 Do not assign final P0/P1/P2/P3 severity.
-Read-only. Same model as the orchestrator.
+No writes to the reviewed repo. Same model as the orchestrator.
 ```
 
 ## CandidateFinding schema
@@ -116,8 +116,9 @@ regression_risk: Error response shape for this route; existing happy-path tests
 
 ## Orchestrator-only refs (not hunter paths)
 
-- If `package.json` / lockfile is in the review source, read `./references/dependency-review.md` during Phase 3 synthesize (after hunters return).
-- Structural `suggested_fix` values may name a move from `./references/remedies.md` (orchestrator / Architecture / Quality authors may open it; hunters need not).
+- If `package.json` / lockfile is in the review source (Phase 1 `Lockfile in source: yes`), read `./references/dependency-review.md` during Phase 3 synthesize (after hunters return).
+- `./references/remedies.md` is orchestrator-only (Phase 3 when a kept finding is structural). Name the move from that file on `suggested_fix`. Never give it to hunters.
+- `./references/complexity.md` is orchestrator-only (Phase 2.5 when a candidate is about branching, nesting, a complexity score, or YAGNI). Never give it to hunters.
 - `./references/examples/*` are orchestrator-only (Pass B doubt, optional eval notes, report sample). Never give them to hunters.
 - `./references/phases/persist.md` is orchestrator-only (Phase 4.5). Never give it to hunters.
 - `./references/phases/knowns.md` is orchestrator-only (user dismiss). Never give it to hunters.
@@ -126,4 +127,4 @@ Quality extra path (not orchestrator-only): `./references/test-quality.md` when 
 
 ## Completion criterion
 
-Every pipeline required by the tier has returned. Each candidate includes `location`, `exploit_or_break_path`, and `evidence_level` (`proven` or `likely`). Record which pipelines ran and which shapes were attached for the report summary. Serial fallback: the carry list holds every CandidateFinding from finished pipelines (including the current one) before the next hunt starts.
+Every pipeline required by the tier has returned (an empty CandidateFinding list is valid). Each candidate includes `location`, `exploit_or_break_path`, and `evidence_level` (`proven` or `likely`). Record which pipelines ran and which shapes were attached for the report summary. Serial fallback: the carry list holds every CandidateFinding from finished pipelines (including the current one) before the next hunt starts.

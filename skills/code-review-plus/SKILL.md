@@ -3,7 +3,7 @@ name: code-review-plus
 description: Multi-perspective PR/diff review with a P0–P3 report; apply findings or prune saved reviews.
 disable-model-invocation: true
 metadata:
-  version: 0.5.0
+  version: 0.6.0
   author: "Diego Oliveira"
   tags:
     - code
@@ -19,7 +19,7 @@ metadata:
 
 **Invariants:** Each pipeline runs as a separate hunter (subagent). Every finding is reproducible from the code. Keep only `proven` or `likely` issues with a pointable line today. Prefer a minimal local fix over a broad refactor.
 
-**Reference budget:** The orchestrator selects paths and opens a file when that phase starts. Each hunter gets exactly **1** perspective plus **0 or 1** shape (`≤2` paths). Quality may also open `./references/test-quality.md` when the review source includes tests (`≤3`). Orchestrator-only refs (`dependency-review`, `remedies`, `examples`, `persist`, `knowns`, `prune`) are not hunter paths.
+**Reference budget:** The orchestrator selects paths and opens a file when that phase starts. Each hunter gets exactly **1** perspective plus **0 or 1** shape (`≤2` paths). Quality may also open `./references/test-quality.md` when the review source includes tests (`≤3`). Orchestrator-only refs (`dependency-review`, `remedies`, `complexity`, `examples`, `persist`, `knowns`, `prune`) are not hunter paths.
 
 ## Commands
 

@@ -2,7 +2,7 @@
 
 Hunt structural alignment, boundaries, and pattern consistency.
 
-For named structural moves, see `../remedies.md`.
+Name the structural move in `suggested_fix` when the finding is structural (guard clauses, dispatcher, extract, collapse branches, move feature logic out of a shared module, delete a pass-through wrapper).
 
 ## Hunt for
 
@@ -22,4 +22,4 @@ For named structural moves, see `../remedies.md`.
 
 - Architecture findings need a concrete boundary or pattern break visible today
 - Prefer the codebase's existing patterns over ideal textbook structure
-- Name a remedy from `../remedies.md` when the finding is structural; broad refactors → high `regression_risk` / follow-up
+- Broad refactors → high `regression_risk` / follow-up

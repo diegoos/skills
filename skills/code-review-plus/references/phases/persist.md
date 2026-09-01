@@ -8,7 +8,7 @@ Create `docs/code-review/` (and `docs/` if needed). Leave git untouched.
 
 Filename: `docs/code-review/YYYY-MM-DD-HH-MM.md` (local time, 24h). If that path exists, append `-2` (then `-3`). H1 is the file stem.
 
-Fill this skeleton. Emit a heading only when that section has content. Always write the metadata block, `## Findings`, and `## Notes`. Add `## Test quality` only when the review source includes tests. Omit `## Fix` until the fix branch runs (see `fix.md`).
+Fill this skeleton. Emit a heading only when that section has content. Always write the metadata block, `## Findings`, and `## Notes`. Add `## Test quality` only when the review source includes tests. Omit `## Fix` until the `/code-review-plus fix` branch runs.
 
 ```markdown
 # YYYY-MM-DD-HH-MM
@@ -36,6 +36,7 @@ Pipelines: … (tier: …)[; shapes: …]
 
 Verified: … / dropped: … / downgraded: …
 P0 verifier: ran | skipped (reason: …)
+serial: yes | (omit line when parallel)
 ```
 
 Findings rows match the report table (kept / adjusted downgraded only). Header + separator only when kept is 0.
@@ -48,9 +49,9 @@ Phase 4.5 is done when the file exists (or the read-only gap is stated). Only th
 
 ## Fix branch
 
-The fix branch loads Findings from this conversation or from `docs/code-review/`, then reads `## Fix` to skip work already done. Instructions live in `fix.md`. Write one timestamped file per review.
+The fix branch loads Findings from this conversation or from `docs/code-review/`, then reads `## Fix` to skip work already done. Instructions live in the fix branch (`/code-review-plus fix`). Write one timestamped file per review.
 
-To drop old timestamped files: `/code-review-plus prune` (see `prune.md`).
+To drop old timestamped files: `/code-review-plus prune`.
 
 ## Completion criterion
 

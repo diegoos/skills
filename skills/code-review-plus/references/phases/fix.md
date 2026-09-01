@@ -1,6 +1,6 @@
 # Branch fix — apply findings
 
-Invoked only by `/code-review-plus fix`, `/code-review-plus apply`, or `/code-review-plus implement`. Open `docs/code-review/` in the **reviewed** repo. Leave scope, dispatch, verify, synthesize, persist, perspective, shape, and report template files closed.
+Invoked only by `/code-review-plus fix`, `/code-review-plus apply`, or `/code-review-plus implement`. Open `docs/code-review/` in the **reviewed** repo. Leave other files under this skill's `references/` closed.
 
 ## Resolve targets
 

@@ -117,3 +117,25 @@ Read this file only when Pass B is unsure whether to keep or drop a candidate. D
 
 - **Signal:** New test whose only assertion is a trivial getter/reexport.
 - **Why keep:** Coverage theater. List as removable; ask before delete.
+
+### Complexity / YAGNI
+
+#### Dropped — extract helper only to lower a complexity score
+
+- **Signal:** Hunter proposes splitting a readable function because CC is 12 (or the linter said so).
+- **Why drop:** No nesting ≥3 and no third use. A score move without a responsibility name is gaming. Keep the function unless a reader is slower today.
+
+#### Dropped — Go `if err != nil` series as complexity
+
+- **Signal:** Function CC is high; most branches are `if err != nil { return err }`.
+- **Why drop:** Explicit error paths inflate CC. They are not nested jungle. Inspect remaining business branches only.
+
+#### Kept — new function with nesting ≥3
+
+- **Signal:** Diff adds (or substantially rewrites) a function; control structures nest three or more levels; a reader cannot state the happy path without simulating the tree.
+- **Why keep:** Readability today. Suggested fix: guard clauses or extract the inner block with a name that states the responsibility. Cite CC in the finding body if counted; the keep reason is the nesting.
+
+#### Kept — plugin / strategy with one implementer
+
+- **Signal:** Diff adds an interface, factory, or provider enum with a single live implementation and no second caller or shipped contract.
+- **Why keep:** YAGNI. Carry starts now. Suggested fix: call the concrete type. P2 for a type tree; P3 for a dead field.

@@ -37,7 +37,7 @@ Estimate logic lines changed (ignore pure formatting noise when counting):
 | Medium | ~300 lines              | OK if one logical change                                                                          |
 | Large  | ~1000+ or many concerns | Ask for split: stack / horizontal / vertical / by file group; keep refactor separate from feature |
 
-Also watch **file size**: a small diff that grows an already-huge file may need extract-before-add. Record oversized in the context summary so the report can ask for a split.
+Also watch **file size**: a small diff that grows an already-huge file may need extract-before-add. Set `Oversized: yes` in the context summary (sizing large, or a small diff into a huge file) so Phase 4 can ask for a split.
 
 ## Dispatch tier (checkable)
 
@@ -61,6 +61,8 @@ These select optional shapes in Phase 2.
 
 Also note if the diff touches a **documentable surface** (public API, CLI, contract, build/test/release, user-facing behavior) so Quality can check docs sync.
 
+Mark **lockfile in source** when the review source includes `package.json`, a lockfile, or an equivalent manifest. Phase 3 then opens `dependency-review.md`.
+
 ## Prior memory
 
 If `docs/code-review/` exists in the reviewed repo:
@@ -81,7 +83,7 @@ Tests reveal intent and coverage gaps (missing tests → Correctness signal, not
 - Are edge cases covered?
 - Would tests catch a regression?
 
-Mark **tests in source** when the review source includes test paths (`**/*test*`, `**/*.spec.*`, `**/tests/**`, `**/__tests__/**`, `*_test.go`, `*_spec.rb`, and equivalents). Quality then opens `test-quality.md`.
+Mark **tests in source** when the review source includes test paths (`**/*test*`, `**/*.spec.*`, `**/tests/**`, `**/__tests__/**`, `*_test.go`, `*_spec.rb`, and equivalents). Phase 2 then puts `test-quality.md` on the Quality hunter prompt.
 
 If the repo documents test/lint scripts, the orchestrator may run them readonly and record results; never claim they passed if they did not run.
 
@@ -96,13 +98,15 @@ Source: …
 Tier: trivial | normal | large/sensitive
 Stack tags: web | api | ts | py | go | rs | llm | (none)
 Documentable surface: yes | no
+Lockfile in source: yes | no
 Tests in source: yes | no
 Tests observed: …
 Sizing: small | medium | large
+Oversized: yes | no
 Knowns: … | none
 Prior review: stem / HEAD / none
 ```
 
 ## Completion criterion
 
-Scope answers written; review source, sizing, tier, and stack tags identified; knowns and prior review read or recorded as none; context summary ready for Phase 2.
+Scope answers written; review source, sizing, oversized, tier, stack tags, documentable surface, and lockfile-in-source identified; knowns and prior review read or recorded as none; context summary ready for Phase 2.
