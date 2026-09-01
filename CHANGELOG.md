@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Root `README.md`: Structure tree moved to [docs/structure.md](docs/structure.md). Every skill lists `agents/openai.yaml`. Adding or removing a skill updates that tree (see `AGENTS.md`).
 - `write-great-instructions`: writing guide only (no bootstrap/update/lint/slim pipelines). `SKILL.md` has principles, always-on floor, and edit steps. `formats.md` holds harness adapters and caps; `patterns.md` lists smells. Invokes on create or edit. `metadata.version` → `0.3.0`.
 - `make-docs`: `SKILL.md` is a router (commands, invariants, Done → phase READ). Unattended assume-and-record is gone. `update` asks when the stamp is missing or a refactor vs behavior is unclear. Templates mark example rows as replace-or-cut. Confirm-brief headings stay English (`Understood`, `Is this correct?`, `Unknowns`); bullets and questions follow the user's chat language. Spec keywords follow BCP 14 ([RFC 2119](https://www.rfc-editor.org/rfc/rfc2119.html) as updated by [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174.html)), ALL CAPS only, with the incorporation sentence in each spec file. Opening sentences in the skill and root `README.md` name the job, without mid-sentence bold.
 - `code-review-plus`: Scope writes the hunter names that will run plus `Isolated`. Dispatch runs that list. `dependency-review.md` opens in synthesize when Security is in `Pipelines`. `### Test quality` only when Quality ran.

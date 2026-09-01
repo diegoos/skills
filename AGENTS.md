@@ -6,7 +6,7 @@ No package manager, build, or test suite — ship Markdown skills only.
 
 ## Commands
 
-- Lint Markdown: `markdownlint -c .markdownlint.yaml 'skills/*/SKILL.md' README.md AGENTS.md CHANGELOG.md` (exit 0)
+- Lint Markdown: `markdownlint -c .markdownlint.yaml 'skills/*/SKILL.md' README.md AGENTS.md CHANGELOG.md 'docs/*.md'` (exit 0)
 - MD013 is **off** in `.markdownlint.yaml` and `.editorconfig` (`[*.md] max_line_length = off`)
 
 ## Permission boundaries
@@ -14,7 +14,7 @@ No package manager, build, or test suite — ship Markdown skills only.
 | Mode             | Paths                                                                                                        |
 | ---------------- | ------------------------------------------------------------------------------------------------------------ |
 | READ             | `**`                                                                                                         |
-| WRITE            | `skills/**`, `README.md`, `AGENTS.md`, `CHANGELOG.md`, `.editorconfig`, `.markdownlint.yaml`, `.opencode/**` |
+| WRITE            | `skills/**`, `docs/**`, `README.md`, `AGENTS.md`, `CHANGELOG.md`, `.editorconfig`, `.markdownlint.yaml`, `.opencode/**` |
 | NEVER            | `.env*`, credentials, force-push, rewriting git history                                                      |
 | HUMAN_CHECKPOINT | publishing/removing a skill from the public registry, deleting a skill directory                             |
 
@@ -39,7 +39,7 @@ No package manager, build, or test suite — ship Markdown skills only.
 - Keep `SKILL.md` thin; push depth to `references/` (progressive disclosure).
 - **Do not soft-wrap Markdown** (MD013). Do not break prose, list items, or table cells to fit 80/120 columns. Break only on semantic boundaries (heading, new list item, blank line, fence).
 - After edits, run `markdownlint -c .markdownlint.yaml` on every changed `.md` path — exit 0. If MD013 fires, fix the config — never insert wraps to silence it.
-- Adding or removing a skill: update the skills table in `README.md` in the same change.
+- Adding or removing a skill: update the skills table in `README.md` and the tree in `docs/structure.md` in the same change.
 - Update `CHANGELOG.md` in the same change (see Changelog above).
 - Proof artifact: diff has no reflow-only edits; long instructional lines stay on one line.
 
