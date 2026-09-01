@@ -1,7 +1,7 @@
 ---
 name: frontend-design-plus
 description: >-
-  Build or restyle web UI: components, pages, landings, dashboards, posters, HTML/CSS layouts. Use when the work is visual frontend (layout, type, color, motion, a11y) and the output must pass anti-slop craft. Classify each task as greenfield (new UI) or redesign (existing page). Skip backend-only, SQL, CI, or docs-only tasks.
+  Web UI: build, redesign, or polish a landing, dashboard, or component (HTML/CSS). Fix layout, spacing, type, or a11y on existing markup. Skip backend, SQL, CI, docs-only, and native mobile/desktop (SwiftUI, Flutter).
 metadata:
   version: 0.0.1
   author: "Diego Oliveira"
@@ -14,80 +14,69 @@ metadata:
 
 # Frontend Design Plus
 
-Ship working frontend. The user names a component, page, app, or surface, and may add audience, constraints, or an existing system.
+You invoked this skill to ship a layout like a senior frontend engineer. The run is Classify → Origin → Layout → markup from DESIGN.md → Floor → Critique once. Do not write markup before Layout is done. Mute polish may stop after the Focus question. Isolated component skips [app-ui.md](reference/app-ui.md).
 
-## Pace
+Quality is the same chain the whole way: object's rectangles, then tokens, then the live page matching that spine, then every Fail-if in scope. Critique does not invent a second look.
 
-Read routed references before the first markup.
+Occupancy first. Hex from the object's materials. One risk on the enter fragment; the rest stays quiet.
 
-- **Routed refs only.** Load the files [task routing](#task-routing) assigns.
-- **Inspect the repo.** Tokens, components, neighboring screens. Detect stack from `package.json`, CSS, framework files. If stack matters and nothing is detectable, ask once. Decide **origin** (greenfield vs redesign) before markup; existing page files mean redesign until the user says otherwise.
-- **One intent per lookup.** Open the one owning file; retry once narrower; if still empty, follow the [priority table](#priority-order) and say the fallback is the table.
-- **Design Read + Lock before markup** on app UI and marketing. Name color strategy before any hex ([color.md](reference/color.md#color-strategies)).
-- **One surface per pass.** Finish that surface's pre-flight before the next page or variant.
-- **Pause on reflex.** Centered hero, three equal cards, or purple gradient means return to direction.
-- **Slop test.** Run [anti-slop.md](reference/anti-slop.md) before calling the surface done.
+## Words
 
-## Workflow
+| Term          | Meaning                                            |
+| ------------- | -------------------------------------------------- |
+| **Job**       | What the person came to do. One line.              |
+| **Origin**    | `greenfield` \| `redesign` \| `polish`.            |
+| **Mode**      | `Persuade` \| `Operate` \| `Read` \| `Experience`. |
+| **Signature** | The one risk: a treatment of the enter fragment.   |
+| **Claim**     | One line of using this product. Not a style name.  |
+| **Pair**      | Two traits this object justifies.                  |
 
-1. **Classify.** Pick component, app UI, or marketing. Detect stack. Name **origin**: `greenfield` (new UI) or `redesign` (the page or component already exists). If origin is unclear, ask once. `redesign`: read [redesign.md](reference/redesign.md) before step 3. Done when the Task routing row **and** origin are named.
-2. **Prioritize.** Walk the [priority table](#priority-order) top-down; skip rows that do not apply. Done when each applicable row has an owner file.
-3. **Read.** Routed refs plus project tokens/CSS. Done when those files are in context.
-4. **Declare.** Design Read + Lock on app UI and marketing. Color strategy when palette or theme is in play. Done when both lines exist. No markup before that.
-5. **Direction.** Pick one aesthetic that fits the brief (brutalist, editorial, industrial, luxury, organic, maximalist, art deco, playful). Marketing Lock names one material or spatial break. App UI Lock names the 1–2 Pareto screens. Done when those names are in the Lock.
-6. **Implement.** Greenfield: write the new surface. Redesign: patch the existing files on the current stack (scan → diagnose → fix in [redesign.md](reference/redesign.md)); keep functionality. Reuse the project design system when it exists.
-7. **Pre-flight.** Run the matching tier in [preflight-checklist.md](reference/preflight-checklist.md). Tiers B and C pass as DOM counts. Tab interactive elements. State what was not verified. Done when every applicable box is checked or failed and fixed.
+## Classify
 
-**Design Read** (one sentence):
+Name Origin and Mode from the prompt plus a repo glance (`package.json`, existing markup, `DESIGN.md`). Done when both are named.
 
-> Reading this as: \<page kind> for \<audience>, with a \<vibe> language, leaning toward \<register or design system>.
+**Origin.** Polish, tighten, craft, spacing, contrast, states, or a11y, and no new look → `polish`. Redesign, restyle, new IA, or rethink → `redesign`. Existing markup plus a new job or composition → `redesign`. Else `greenfield`. Unclear: ask once and end the turn.
 
-**Lock** (next line):
+**Mode.** Landing, campaign, pricing → `Persuade`. Dashboard, admin, editor, settings → `Operate`. Docs, article, help → `Read`. Portfolio, gallery, the work itself → `Experience`. Choose from the surface, not the company. A tool's marketing page is still `Persuade`.
 
-> Lock: origin=\<greenfield|redesign>; scene=\<place/time/mood>; color=\<restrained|committed|full|drenched>; layout=\<contained|offset|wild>; motion=\<still|fluid|cinematic>; density=\<airy|regular|dense>; stack=\<detected or asked>.
+**Idea.** If the prompt names no concrete subject and Job, ask **one** Job question and end the turn. If the idea is in the prompt, continue. Done when Job is named in the prompt or that question was the only user-facing output.
 
-Quiet constraints (a11y-first, regulated, public-sector, kids) override Lock bands. Each dial must change spacing, layout family, or motion recipe ([design-systems.md](reference/design-systems.md#density-bands), [brand-register.md](reference/brand-register.md#lock-bands)). A Lock that only labels fails step 4. Redesign Lock also names `mode=preserve|overhaul`.
+Isolated component: Classify, then Origin on that control.
 
-Product chrome stays consistent. Ask one clarifying question when the read diverges from the brief. Worked examples: [design-read-examples.md](reference/design-read-examples.md).
+## Origin
 
-## Priority order
+- **greenfield** — Name the costume you would reach for first. Invent occupancy and hex from the object's materials (ink, newsprint, kiln). Invent-the-look is this path.
+- **redesign** — Disk owns color, type, radius. Keep / retire / missing against the Aim in the prompt. Blocks that still serve Aim stay (news, list, catalog stay that form). Unify CSS to filled DESIGN.md; patch DESIGN.md only when the user asked or contrast fails.
+- **polish** — Keep the live palette. Mute ("improve this"): ask **one** Focus question, Finish the path first, end the turn. Named focus or finish: audit (P0 contrast, overflow, hidden action; P1 rhythm, states), then close those rows. Filled DESIGN.md wins. Ask before changing routes, nav labels, form names, wordmark, legal copy, or the CSS library.
 
-Work top-down. Pre-flight is the ship gate; this table is work order.
+Done when this Origin's work for the turn is finished (mute polish: the Focus question; otherwise DESIGN.md is ready for Layout or already law on disk).
 
-| #   | Focus      | Check                                      | Anti-pattern                              | Read                                                                                                      |
-| --- | ---------- | ------------------------------------------ | ----------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| 1   | A11y       | Contrast 4.5:1, visible focus, keyboard    | Removing focus rings                      | [preflight A](reference/preflight-checklist.md)                                                           |
-| 2   | Touch      | Targets ≥44px, 8px gap, press feedback     | Hover-only actions                        | [production-engineering.md](reference/production-engineering.md)                                          |
-| 3   | Perf       | LCP/CLS, reserved space                    | Layout shift                              | [performance.md](reference/performance.md)                                                                |
-| 4   | Direction  | Design Read + Lock with origin             | Markup without Lock or origin             | this file                                                                                                 |
-| 5   | Layout     | Mobile-first, no horizontal scroll         | Fixed-px cages on every surface           | [layout-patterns.md](reference/layout-patterns.md) / [product-register.md](reference/product-register.md) |
-| 6   | Type/color | Named strategy, tokens                     | Raw hex, gray-on-gray                     | [color.md](reference/color.md), [typography.md](reference/typography.md)                                  |
-| 7   | Motion     | Recipe matches the Lock band               | One duration for everything               | [motion.md](reference/motion.md)                                                                          |
-| 8   | Forms      | Visible labels, blur+submit, error summary | Placeholder-as-label; error per keystroke | [production-engineering.md](reference/production-engineering.md#forms)                                    |
-| 9   | Nav        | Predictable back, one primary per view     | Overloaded chrome                         | [ux-principles.md](reference/ux-principles.md)                                                            |
-| 10  | Data       | Chart matches the question                 | Chart gallery, color-only encoding        | [ux-principles.md](reference/ux-principles.md#dashboards-and-data-ui)                                     |
+## Layout
 
-## Task routing
+This step **is** the layout. Write `DESIGN.md` **before** markup. Spec: [design-md.md](reference/design-md.md). Occupancy first, then type and color.
 
-Read only what the task needs.
+1. Job in one line. Claim. Pair. Objects: ≤7 domain nouns (opinion letter, kiln, queue), not hero / card / sidebar.
+2. ASCII of the first viewport, then 3–5 fold names down the page. Enter is the object's mass. Chrome is one row; a drawer is closed. The enter rectangle must fit at 375 below that row; otherwise the plan is already wrong. Squint: what leads, what supports, the groups. Proximity before a container. A real sequence is the object's control, not `01`/`02`/`03` cards. If the second fold is named how-it-works, benefits, or three gestures, or is a second layout of the same enter object, the plan is already wrong.
+3. Mode. `Persuade`: enter is the object plus the act. The next fold is another object (price, archive, sources) or the create control — not a paraphrase of enter. `Operate`: open [app-ui.md](reference/app-ui.md); `main` is the work. `Read`: structure for comprehension. `Experience`: the artifact leads; chrome recedes.
+4. Dials, one line: `variance` / `motion` / `density` on 1–10. Operate: density high, motion low. Persuade/Experience may go asymmetric. Trust-first: low variance.
+5. Signature on the enter mass. Disk-filled DESIGN.md: those hex, type, and radius; Signature is still a treatment of the live fragment (mark, crop, stamp). Greenfield: hex from the object's materials. Then 4–6 named hex values and 2+ type roles. A component exists only if an object asked for it.
 
-| Task type     | Examples                            | Read                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Pre-flight |
-| ------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |
-| **Component** | Button, modal, card, form field     | [production-engineering.md](reference/production-engineering.md)                                                                                                                                                                                                                                                                                                                                                                                             | A          |
-| **App UI**    | Dashboard, settings, admin, tool    | [product-register.md](reference/product-register.md), [ux-principles.md](reference/ux-principles.md), [production-engineering.md](reference/production-engineering.md)                                                                                                                                                                                                                                                                                       | A + C      |
-| **Marketing** | Landing, portfolio, campaign, about | [brand-register.md](reference/brand-register.md), [layout-patterns.md](reference/layout-patterns.md), [assets.md](reference/assets.md). Add [color.md](reference/color.md) when the Lock is committed, full, or drenched, or the scene is dark. Add [motion.md](reference/motion.md) when entrance or scroll choreography is in scope. Add [material-craft.md](reference/material-craft.md) when the Lock names a nested enclosure, hairline, or island CTA. | A + B      |
+If the ASCII would fit another product in the same Mode, retune **one** role and say what changed. If the user named a look in the prompt, follow those words. Free axis: hex from the object. Brief wins when it names a default look.
 
-**Redesign** (`origin=redesign`): also [redesign.md](reference/redesign.md) before changing tokens, IA, or copy. Skip that file on greenfield.
+Spend boldness on Signature. Cut one fold before shipping.
 
-**On demand:** [typography.md](reference/typography.md), [performance.md](reference/performance.md), [design-systems.md](reference/design-systems.md).
+Copy: name what people control. Same action, same label. Fail-ifs: [anti-slop.md](reference/anti-slop.md#copy).
 
-## Production baseline
+Done when DESIGN.md exists, Layout names Job, objects, Mode, ASCII plus spine folds (polish: live family), Claim, Pair, and Signature, and color/type slots are filled. Then write the code from that file. CSS tokens match 1:1. Markup that is not this spine already failed.
 
-| Requirement       | Minimum                                                                                                |
-| ----------------- | ------------------------------------------------------------------------------------------------------ |
-| **States**        | Default, hover, focus, active, disabled; loading, error, empty when async                              |
-| **Accessibility** | Semantic HTML, labels, keyboard nav, visible focus, WCAG 2.2 AA contrast                               |
-| **Responsive**    | Mobile-first; touch targets ≥44px with ≥8px gap; no horizontal overflow on 320px; viewport allows zoom |
-| **Design system** | Reuse project tokens and components                                                                    |
+## Floor
 
-Patterns: [production-engineering.md](reference/production-engineering.md).
+The live page is the Layout. Viewport zoomable (`width=device-width, initial-scale=1`, no `user-scalable=no`). Body and inputs ≥16px. One `h1`. Page shell: skip link → `#main`. Contrast ≥4.5:1 body, ≥3:1 icons. Visible focus. Keyboard reaches every action. Targets ≥44px with ≥8px gap. `prefers-reduced-motion` when motion exists. No overflow at 375. One filled primary per view (`Operate`) or per fold (`Persuade`). Hover is enhancement.
+
+Browser or screenshot tool: open [anti-slop.md](reference/anti-slop.md#walk). Unused tool fails. No browser tool: skip Walk.
+
+Done when every row that applies holds.
+
+## Critique
+
+After markup, open [critique.md](reference/critique.md) once. That file opens [anti-slop.md](reference/anti-slop.md) when Design or Copy is in scope. Confirm the spine held. Done when critique.md's done criterion holds.
