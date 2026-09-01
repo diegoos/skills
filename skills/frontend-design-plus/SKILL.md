@@ -14,18 +14,22 @@ metadata:
 
 # Frontend Design Plus
 
-Occupancy first: rectangles of the Job's objects, then tokens. Hex comes from the object's materials. One risk lives on the enter fragment; the rest stays quiet.
+You invoked this skill to ship a layout like a senior frontend engineer. The run is Classify → Origin → Layout → markup from DESIGN.md → Floor → Critique once. Do not write markup before Layout is done. Mute polish may stop after the Focus question. Isolated component skips [app-ui.md](reference/app-ui.md).
+
+Quality is the same chain the whole way: object's rectangles, then tokens, then the live page matching that spine, then every Fail-if in scope. Critique does not invent a second look.
+
+Occupancy first. Hex from the object's materials. One risk on the enter fragment; the rest stays quiet.
 
 ## Words
 
-| Term | Meaning |
-| --- | --- |
-| **Job** | What the person came to do. One line. |
-| **Origin** | `greenfield` \| `redesign` \| `polish`. |
-| **Mode** | `Persuade` \| `Operate` \| `Read` \| `Experience`. |
-| **Signature** | The one risk: a treatment of the enter fragment. |
-| **Claim** | One line of using this product. Not a style name. |
-| **Pair** | Two traits this object justifies. |
+| Term          | Meaning                                            |
+| ------------- | -------------------------------------------------- |
+| **Job**       | What the person came to do. One line.              |
+| **Origin**    | `greenfield` \| `redesign` \| `polish`.            |
+| **Mode**      | `Persuade` \| `Operate` \| `Read` \| `Experience`. |
+| **Signature** | The one risk: a treatment of the enter fragment.   |
+| **Claim**     | One line of using this product. Not a style name.  |
+| **Pair**      | Two traits this object justifies.                  |
 
 ## Classify
 
@@ -37,7 +41,7 @@ Name Origin and Mode from the prompt plus a repo glance (`package.json`, existin
 
 **Idea.** If the prompt names no concrete subject and Job, ask **one** Job question and end the turn. If the idea is in the prompt, continue. Done when Job is named in the prompt or that question was the only user-facing output.
 
-Isolated component: Classify, then Origin on that control. Leave [app-ui.md](reference/app-ui.md) closed.
+Isolated component: Classify, then Origin on that control.
 
 ## Origin
 
@@ -49,30 +53,30 @@ Done when this Origin's work for the turn is finished (mute polish: the Focus qu
 
 ## Layout
 
-Write `DESIGN.md` **before** markup. Spec: [design-md.md](reference/design-md.md). Occupancy first, then type and color.
+This step **is** the layout. Write `DESIGN.md` **before** markup. Spec: [design-md.md](reference/design-md.md). Occupancy first, then type and color.
 
 1. Job in one line. Claim. Pair. Objects: ≤7 domain nouns (opinion letter, kiln, queue), not hero / card / sidebar.
-2. ASCII of the first viewport. Enter is the object's mass. The enter rectangle must fit at 375 below the chrome; otherwise the plan is already wrong. Squint: what leads, what supports, the groups. Proximity before a container. A real sequence is the object's control, not `01`/`02`/`03` cards.
-3. Mode. `Persuade`: occupy what / why / how / trust / act. `Operate`: open [app-ui.md](reference/app-ui.md); `main` is the work. `Read`: structure for comprehension. `Experience`: the artifact leads; chrome recedes.
+2. ASCII of the first viewport, then 3–5 fold names down the page. Enter is the object's mass. Chrome is one row; a drawer is closed. The enter rectangle must fit at 375 below that row; otherwise the plan is already wrong. Squint: what leads, what supports, the groups. Proximity before a container. A real sequence is the object's control, not `01`/`02`/`03` cards. If the second fold is named how-it-works, benefits, or three gestures, or is a second layout of the same enter object, the plan is already wrong.
+3. Mode. `Persuade`: enter is the object plus the act. The next fold is another object (price, archive, sources) or the create control — not a paraphrase of enter. `Operate`: open [app-ui.md](reference/app-ui.md); `main` is the work. `Read`: structure for comprehension. `Experience`: the artifact leads; chrome recedes.
 4. Dials, one line: `variance` / `motion` / `density` on 1–10. Operate: density high, motion low. Persuade/Experience may go asymmetric. Trust-first: low variance.
 5. Signature on the enter mass. Disk-filled DESIGN.md: those hex, type, and radius; Signature is still a treatment of the live fragment (mark, crop, stamp). Greenfield: hex from the object's materials. Then 4–6 named hex values and 2+ type roles. A component exists only if an object asked for it.
 
 If the ASCII would fit another product in the same Mode, retune **one** role and say what changed. If the user named a look in the prompt, follow those words. Free axis: hex from the object. Brief wins when it names a default look.
 
-Spend boldness on Signature. Cut one extra before shipping.
+Spend boldness on Signature. Cut one fold before shipping.
 
-Copy: name what people control. Same action, same label. Fail-ifs: [critique.md](reference/critique.md#copy).
+Copy: name what people control. Same action, same label. Fail-ifs: [anti-slop.md](reference/anti-slop.md#copy).
 
-Done when DESIGN.md exists, Layout names Job, objects, Mode, ASCII (polish: live family), Claim, Pair, and Signature, and color/type slots are filled. Then write the code from that file. CSS tokens match 1:1.
+Done when DESIGN.md exists, Layout names Job, objects, Mode, ASCII plus spine folds (polish: live family), Claim, Pair, and Signature, and color/type slots are filled. Then write the code from that file. CSS tokens match 1:1. Markup that is not this spine already failed.
 
 ## Floor
 
-Viewport zoomable (`width=device-width, initial-scale=1`, no `user-scalable=no`). Body and inputs ≥16px. One `h1`. Page shell: skip link → `#main`. Contrast ≥4.5:1 body, ≥3:1 icons. Visible focus. Keyboard reaches every action. Targets ≥44px with ≥8px gap. `prefers-reduced-motion` when motion exists. No overflow at 375. One filled primary per view (`Operate`) or per fold (`Persuade`). Hover is enhancement.
+The live page is the Layout. Viewport zoomable (`width=device-width, initial-scale=1`, no `user-scalable=no`). Body and inputs ≥16px. One `h1`. Page shell: skip link → `#main`. Contrast ≥4.5:1 body, ≥3:1 icons. Visible focus. Keyboard reaches every action. Targets ≥44px with ≥8px gap. `prefers-reduced-motion` when motion exists. No overflow at 375. One filled primary per view (`Operate`) or per fold (`Persuade`). Hover is enhancement.
 
-Browser or screenshot tool: Walk 1440 and 375 on the header and the first viewport. Hit the Job primary. Fit target: [critique.md](reference/critique.md) chrome rows. Unused tool fails. No browser tool: skip Walk.
+Browser or screenshot tool: open [anti-slop.md](reference/anti-slop.md#walk). Unused tool fails. No browser tool: skip Walk.
 
 Done when every row that applies holds.
 
 ## Critique
 
-After markup, open [critique.md](reference/critique.md) once. Done when that file's done criterion holds.
+After markup, open [critique.md](reference/critique.md) once. That file opens [anti-slop.md](reference/anti-slop.md) when Design or Copy is in scope. Confirm the spine held. Done when critique.md's done criterion holds.

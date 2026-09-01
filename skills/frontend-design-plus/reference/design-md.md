@@ -63,7 +63,7 @@ Hex is the default color format. Token references use `{path.to.token}`. Omit un
 1. **Overview** — Job, enter object, Claim, Pair, Signature, audience. Mood adjectives are not Overview. Operate: Signature is how the work object reads, not a campaign beat.
 2. **Colors** — each token with hex and job (ink, accent, surface)
 3. **Typography** — families, roles, weights
-4. **Layout** — fields from SKILL.md Layout: Job, objects, Claim, Pair, Mode, dials, ASCII (greenfield and redesign; polish keeps the live family), spacing rhythm. Motion `150–250ms ease-out` unless cinematic.
+4. **Layout** — fields from SKILL.md Layout: Job, objects, Claim, Pair, Mode, dials, ASCII of enter plus 3–5 spine folds (greenfield and redesign; polish keeps the live family), spacing rhythm. Motion `150–250ms ease-out` unless cinematic.
 5. **Elevation & Depth** — shadow vs tonal vs hairline
 6. **Shapes** — radius language
 7. **Components** — only controls an object asked for

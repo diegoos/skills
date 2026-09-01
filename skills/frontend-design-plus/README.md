@@ -1,18 +1,19 @@
 # Frontend Design Plus
 
-An agent skill for web UI: landing pages, dashboards, isolated components, HTML and CSS.
+This skill runs when you ask to create a page, improve a layout, restyle a dashboard, or polish existing HTML and CSS.
 
-Follow [`SKILL.md`](SKILL.md). DESIGN.md holds the Job, objects, Claim, Pair, Signature, and an ASCII of the first viewport. After markup, open [`reference/critique.md`](reference/critique.md) once.
+Without it, the agent often ships a page it already knows: cream field, serif H1, one accent, three equal cards... slop.
 
-## Use
+Follow [`SKILL.md`](SKILL.md). Occupancy is written first (the object's rectangles in DESIGN.md), then markup that matches that spine, then one critique against Fail-ifs. Critique does not invent a second look.
 
-Put this folder in the skills directory your harness uses, then ask for a landing, a settings page, a restyle, or a polish pass.
+The run is Classify → Origin → Layout → markup from DESIGN.md → Floor → Critique once. Origin is greenfield (hex from the object's materials), redesign (disk owns tokens), or polish (keep the live palette; or ask focus). After markup, [critique.md](reference/critique.md) checks the spine. Design and copy Fail-ifs live in [anti-slop.md](reference/anti-slop.md). Operate recipes: [app-ui.md](reference/app-ui.md). Isolated component skips that file.
 
-Occupancy is the object's rectangles; tokens come after. Hex from the materials. Mute "improve this" gets a Focus question first. Operate uses a product recipe.
+## This skill is not for
 
-## Not this skill
+- Backend, SQL, CI, docs-only, and native mobile/desktop.
+- CLI detector, live variant picker, or industry-to-palette matching.
 
-No CLI detector, live variant picker, or industry-to-palette matching. If the harness has a browser tool, Walk is a served render of header plus first viewport at 1440 and 375.
+If the harness has a browser tool, Walk is a served render of header (one row, drawer closed), first viewport, one scroll past enter, and the close fold at 1440 and 375.
 
 ## References
 
