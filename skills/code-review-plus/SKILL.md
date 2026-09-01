@@ -1,6 +1,6 @@
 ---
 name: code-review-plus
-description: Multi-perspective PR/diff review with a P0–P3 report; apply findings or prune saved reviews.
+description: Multi-perspective PR/diff review with a P0–P3 report; one hunter on demand; fix/apply findings or prune saved reviews.
 disable-model-invocation: true
 metadata:
   version: 0.6.0
@@ -19,17 +19,29 @@ metadata:
 
 **Invariants:** Each pipeline runs as a separate hunter (subagent). Every finding is reproducible from the code. Keep only `proven` or `likely` issues with a pointable line today. Prefer a minimal local fix over a broad refactor.
 
-**Reference budget:** The orchestrator selects paths and opens a file when that phase starts. Each hunter gets exactly **1** perspective plus **0 or 1** shape (`≤2` paths). Quality may also open `./references/test-quality.md` when the review source includes tests (`≤3`). Orchestrator-only refs (`dependency-review`, `remedies`, `complexity`, `examples`, `persist`, `knowns`, `prune`) are not hunter paths.
+**Reference budget:** Open a phase file when that phase starts. Each hunter: **1** perspective + **0 or 1** shape. Quality + tests in source: also `./references/test-quality.md`. Orchestrator-only refs stay off hunter prompts (list in dispatch.md).
 
 ## Commands
 
-| Invocation                    | Branch     | Behavior                                              |
-| ----------------------------- | ---------- | ----------------------------------------------------- |
-| `/code-review-plus`           | **review** | Phases 1→4.5, then emit                               |
-| `/code-review-plus fix`       | **fix**    | `./references/phases/fix.md` only                     |
-| `/code-review-plus prune`     | **prune**  | `./references/phases/prune.md` only                   |
+| Invocation                         | Branch     | Behavior                                                      |
+| ---------------------------------- | ---------- | ------------------------------------------------------------- |
+| `/code-review-plus`                | **review** | Phases 1→4.5; pipelines by tier                               |
+| `/code-review-plus <hunter>`       | **review** | Phases 1→4.5; that hunter only                                |
+| `/code-review-plus fix`            | **fix**    | `./references/phases/fix.md` only                             |
+| `/code-review-plus prune`          | **prune**  | `./references/phases/prune.md` only                           |
 
-`apply` and `implement` are aliases of `fix`. Without a subcommand, open the review phases only. Fix and prune skip review pipelines.
+Hunter names (case-insensitive): `correctness` \| `security` \| `architecture` \| `quality` \| `performance`. `apply` and `implement` are aliases of `fix`.
+
+Parse the text after `/code-review-plus` (first reserved token wins):
+
+1. `fix` \| `apply` \| `implement` → **fix** (even if the rest names a hunter)
+2. `prune` → **prune**
+3. Two or more hunter names and no `only` → **review**, pipelines by tier
+4. A hunter name as the first token → **review**, `Pipelines` = that hunter
+5. Else, case-insensitive phrases: `code quality` → Quality; `page performance` → Performance; `only` + a hunter name → that hunter
+6. Empty or no match → **review**, pipelines by tier
+
+`/code-review-plus security` is this skill's Security hunter.
 
 When the user marks a finding as a false positive or won't-fix, READ `./references/phases/knowns.md`.
 
@@ -41,8 +53,8 @@ Done for each phase is the completion criterion in its READ file. Open the next 
 
 | Phase        | Done when                                                                                   | READ                                |
 | ------------ | ------------------------------------------------------------------------------------------- | ----------------------------------- |
-| 1 Scope      | Intent + source + sizing + tier + stack tags + knowns/prior + context summary ready         | `./references/phases/scope.md`      |
-| 2 Dispatch   | Tier pipelines returned candidates; shapes recorded when attached                           | `./references/phases/dispatch.md`   |
+| 1 Scope      | Intent + source + sizing + tier + Pipelines + Isolated + tags + knowns + context ready      | `./references/phases/scope.md`      |
+| 2 Dispatch   | Each Pipelines name returned candidates; shapes recorded when attached                      | `./references/phases/dispatch.md`   |
 | 2.5 Verify   | Every candidate has status + cited note; P0 verifier ran or skipped                         | `./references/phases/verify.md`     |
 | 3 Synthesize | Surviving findings have required fields + severity                                          | `./references/phases/synthesize.md` |
 | 4 Report     | Skeleton filled (not yet sent)                                                              | `./references/templates/report.md`  |
@@ -68,4 +80,4 @@ Prerequisite: a review report in this conversation, a `docs/code-review/` memory
 
 ## Relation to `deep-security-review`
 
-Both skills are user-invoked. Use this skill for multi-perspective PR/diff review (optional stack shapes, including `llm`). Use `/deep-security-review` when security is the primary goal. That skill replaces this skill's Security pass on the same scope. Tell the user to invoke it.
+Both skills are user-invoked. Use this skill for multi-perspective PR/diff review (optional stack shapes, including `llm`), including `/code-review-plus security`. Hint `/deep-security-review` as a deeper pass.

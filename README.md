@@ -20,7 +20,7 @@ The same rules can live in `~/.codex/AGENTS.md` for Codex, `~/.claude/CLAUDE.md`
 | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `[write-great-agentsmd](skills/write-great-agentsmd/)` | Create, update, or lint an `AGENTS.md` (or tool mirrors). Branches: `bootstrap`, `update`, `lint`, `slim`.                                                                                      |
 | `[commit-message](skills/commit-message/)`             | Draft [Conventional Commits](https://www.conventionalcommits.org/) from the real git status and diff. One atomic commit per concern by default; a single commit only when you ask.              |
-| `[code-review-plus](skills/code-review-plus/)`         | Multi-pipeline PR/diff review (≤5 hunters), optional shapes, test-quality hunt, memory under `docs/code-review/`, P0-P3 report. Branches: `review`, `fix`/`apply`/`implement`, `prune`.         |
+| `[code-review-plus](skills/code-review-plus/)`         | Multi-pipeline PR/diff review (≤5 hunters or one on demand), optional shapes, test-quality, `docs/code-review/` memory, P0-P3 report. Branches: `review`, `fix`/`apply`/`implement`, `prune`.   |
 | `[deep-security-review](skills/deep-security-review/)` | Security-first review: threat model with hotspots, parallel domain hunts, disprove/verify, findings + hardening notes (P0-P3). Branches: review, `fix`/`apply`/`implement`. Invoke by name.     |
 | `[make-docs](skills/make-docs/)`                       | Architecture docs and behavioral specs under `docs/`. Branches: `explore`, `update` (since the `Updated on` stamp), `adr`.                                                                      |
 | `[makefile-expert](skills/makefile-expert/)`           | Author or review GNU Make Makefiles (last-mile glue vs compile graph). Branches: `write`, `review`.                                                                                             |
@@ -70,6 +70,7 @@ User-invoked only (`disable-model-invocation`). Call by name:
 
 ```text
 /code-review-plus              → multi-perspective PR/diff review
+/code-review-plus quality      → Quality hunter only (also: correctness, security, architecture, performance)
 /code-review-plus fix          → apply findings from the last report (aliases: apply, implement)
 /code-review-plus prune        → drop old docs/code-review review files (count first, then choose)
 /deep-security-review          → deep security review (domain + shape hunts)
@@ -157,7 +158,7 @@ Optional agents under `.opencode/agents/`. They are not part of the skills insta
 
 ### `code-review-plus` vs `deep-security-review`
 
-Use `code-review-plus` for a PR or diff review covering correctness, security, architecture, quality, and performance, with adaptive tiers and optional stack shapes including `llm` (`1` perspective + `0` or `1` shape per hunter; Quality may add `test-quality.md` when tests are in scope). Shape pick is a priority list on `normal` and `large/sensitive`. Reviews persist under `docs/code-review/` in the reviewed repo.
+Use `code-review-plus` for a PR or diff review covering correctness, security, architecture, quality, and performance, with adaptive tiers and optional stack shapes including `llm` (`1` perspective + `0` or `1` shape per hunter; Quality may add `test-quality.md` when tests are in scope). Name one hunter (`/code-review-plus security`) to run that pass only. Shape pick is a priority list on `normal` and `large/sensitive`. Reviews persist under `docs/code-review/` in the reviewed repo.
 
 Use `deep-security-review` when security is the main goal: threat model with hotspots/bypasses, domain hunts (`1` domain + `1` shape per subagent), disprove gates, and security-calibrated severity with separate hardening notes. Apply findings with `/deep-security-review fix` (aliases: `apply`, `implement`).
 

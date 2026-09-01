@@ -2,7 +2,7 @@
 
 Assign categories, severity, and required finding fields after Pass B verification.
 
-If manifest/lockfile is in scope, read `../dependency-review.md` and fold dependency findings that survive the same evidence bar.
+If manifest/lockfile is in scope and Security is in Phase 1 `Pipelines`, read `../dependency-review.md` and fold dependency findings that survive the same evidence bar.
 
 ## Steps
 
@@ -12,9 +12,9 @@ If manifest/lockfile is in scope, read `../dependency-review.md` and fold depend
 4. Prioritize: map category + impact to P0/P1/P2/P3
 5. Attach **regression_risk** on every kept finding's suggested fix
 6. Self-consistency: no contradictions with "What Looks Good"
-7. Do not invent findings. Only `kept` / `downgraded` from Phase 2.5 plus dependency-review items that pass the same evidence bar.
+7. Findings are `kept` / `downgraded` from Phase 2.5 plus dependency-review items that pass the same evidence bar (only when that file was opened)
 8. Strengths: if 1–2 specific things were done well and they do not contradict findings, they go in What Looks Good; otherwise omit that section
-9. Tests in source: answer the three Test quality questions for the report (useful / efficient / removable). Use Quality candidates plus the test diff.
+9. Tests in source **and** Quality in `Pipelines`: answer the three Test quality questions for the report (useful / efficient / removable). Use Quality candidates plus the test diff.
 10. Verified unused code (all consumers checked) goes to Dead Code, not P0–P3, unless it also breaks behavior today
 
 ## Categories

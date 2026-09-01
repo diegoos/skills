@@ -1,6 +1,6 @@
 # Phase 1 — Scope
 
-Establish intent, review source, dispatch tier, and stack tags before any pipeline runs.
+Establish intent, review source, dispatch tier, `Pipelines`, and stack tags before any pipeline runs.
 
 ## Intent questions
 
@@ -22,7 +22,7 @@ If a PR/commit description exists in context, note whether the first line stands
 | Source              | Action                                                       |
 | ------------------- | ------------------------------------------------------------ |
 | Specific files      | Review those files in full context                           |
-| Uncommitted changes | `git diff`                                                   |
+| Uncommitted changes | `git diff` (current worktree)                                |
 | Feature branch      | `git diff <base>...HEAD` (use repo's default base)           |
 | Pasted code         | Review directly                                              |
 | Large diff          | Prioritize: new files → modified logic → config → formatting |
@@ -49,6 +49,8 @@ Pick exactly one tier:
 | **normal**          | Default feature/bugfix/refactor                                      | All five: Correctness, Security, Architecture, Quality, Performance                                         | At most **1** per hunter (priority in Phase 2)                                               |
 | **large/sensitive** | ≥~300 logic lines, or touches auth, payments, secrets, raw user HTML | All five                                                                                                    | At most **1** per hunter (same priority as `normal`)                                         |
 
+Record `Pipelines` as the hunter names that will run. Isolated (SKILL.md named one hunter): that name, and `Isolated: yes` (Performance still runs on `trivial`). Otherwise expand the tier table and set `Isolated: no`.
+
 ## Stack tags
 
 From paths/extensions and content cues in the review source, record zero or more:
@@ -61,7 +63,7 @@ These select optional shapes in Phase 2.
 
 Also note if the diff touches a **documentable surface** (public API, CLI, contract, build/test/release, user-facing behavior) so Quality can check docs sync.
 
-Mark **lockfile in source** when the review source includes `package.json`, a lockfile, or an equivalent manifest. Phase 3 then opens `dependency-review.md`.
+Mark **lockfile in source** when the review source includes `package.json`, a lockfile, or an equivalent manifest.
 
 ## Prior memory
 
@@ -70,7 +72,7 @@ If `docs/code-review/` exists in the reviewed repo:
 1. Read `docs/code-review/knowns.md` when present.
 2. Read the latest timestamped review file (`YYYY-MM-DD-HH-MM.md`, not `knowns.md`).
 
-Skip a known false-positive or won't-fix unless the cited path's behavior changed. When a prior review recorded HEAD, focus this pass on the delta since that commit.
+Skip a known false-positive or won't-fix unless the cited path's behavior changed. When a prior review recorded HEAD, focus this pass on the delta since that commit. A prior `isolated` Pipelines line covers only the hunters it lists.
 
 Record `Knowns` and `Prior review` in the context summary (or `none`).
 
@@ -83,7 +85,7 @@ Tests reveal intent and coverage gaps (missing tests → Correctness signal, not
 - Are edge cases covered?
 - Would tests catch a regression?
 
-Mark **tests in source** when the review source includes test paths (`**/*test*`, `**/*.spec.*`, `**/tests/**`, `**/__tests__/**`, `*_test.go`, `*_spec.rb`, and equivalents). Phase 2 then puts `test-quality.md` on the Quality hunter prompt.
+Mark **tests in source** when the review source includes test paths (`**/*test*`, `**/*.spec.*`, `**/tests/**`, `**/__tests__/**`, `*_test.go`, `*_spec.rb`, and equivalents).
 
 If the repo documents test/lint scripts, the orchestrator may run them readonly and record results; never claim they passed if they did not run.
 
@@ -96,6 +98,8 @@ Intent: …
 Must NOT change: …
 Source: …
 Tier: trivial | normal | large/sensitive
+Pipelines: Correctness, Quality | … (names that will run)
+Isolated: yes | no
 Stack tags: web | api | ts | py | go | rs | llm | (none)
 Documentable surface: yes | no
 Lockfile in source: yes | no
@@ -109,4 +113,4 @@ Prior review: stem / HEAD / none
 
 ## Completion criterion
 
-Scope answers written; review source, sizing, oversized, tier, stack tags, documentable surface, and lockfile-in-source identified; knowns and prior review read or recorded as none; context summary ready for Phase 2.
+Scope answers written; review source, sizing, oversized, tier, `Pipelines` names, `Isolated`, stack tags, documentable surface, and lockfile-in-source identified; knowns and prior review read or recorded as none; context summary ready for Phase 2.

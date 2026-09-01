@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `code-review-plus`: `/code-review-plus quality` (also `correctness`, `security`, `architecture`, `performance`) runs that hunter only; `fix` / `prune` still win as the first token; phrases `code quality`, `page performance`, and `only` + hunter isolate; report and persist mark `isolated`; a prior isolated file does not cover the hunters that did not run.
 - `code-review-plus`: Quality hunts nesting, YAGNI (speculative abstraction with no real callers), and project complexity rules on touched functions; orchestrator-only `references/complexity.md` for cyclomatic vs cognitive load, FLAG vs silence, and anti-gaming; `metadata.version` → `0.6.0`.
 - `code-review-plus`: `/code-review-plus prune` counts timestamped files under `docs/code-review/` first, then asks whether to keep the last 3, the last 5, delete all, or keep a typed N; never deletes `knowns.md`.
 - `code-review-plus`: persist each review under `docs/code-review/` in the reviewed repo (`YYYY-MM-DD-HH-MM.md` with Findings and `## Fix`); `knowns.md` when the user marks a false positive or won't-fix; Scope reads knowns and the latest review; `metadata.version` → `0.5.0`.
@@ -19,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `code-review-plus`: rewriting pass. Scope writes concrete `Pipelines` names plus `Isolated`; dispatch runs those names (no second tier table); `dependency-review.md` opens from synthesize when Security is in `Pipelines`.
+- `code-review-plus`: isolated pass gates `dependency-review.md` on Security in `Pipelines` (not lockfile alone) and omits `### Test quality` when Quality did not run.
 - `code-review-plus`: Pass B drops complexity-score gaming, Go `if err != nil` series as a hotspot, and YAGNI flags when callers exist; remedies add guard clauses and named predicates; report cites CC inline in the finding body (no extra table).
 - `code-review-plus`: hunter paths no longer point at orchestrator-only `remedies.md`; missing tests land on Correctness; lockfile-in-source gates `dependency-review.md`; P0 verifier skip and serial fallback emit on the report; hunters may run write-free lint/complexity commands; `Oversized` in the scope context summary feeds the report split ask; Pass B keeps maintainability when today's cost is pointable (does not require an exploit).
 - `code-review-plus`: report and persist emit a heading only when the section has content (P0–P3, Dead Code, Test quality, What Looks Good, Author claimed, Manual/UI); `## Fix` is created on first apply, not as an empty placeholder.

@@ -2,7 +2,7 @@
 
 Reject false positives after all pipelines return. Only candidates that survive Pass B (and optional P0 verifier) enter synthesis.
 
-When keep/drop is unclear, read `../examples/kept-vs-dropped.md` (do not preload). When a candidate is about branching, nesting, a complexity score, speculative abstraction, or YAGNI, also read `../complexity.md` (do not preload).
+When keep/drop is unclear, read `../examples/kept-vs-dropped.md`. When a candidate is about branching, nesting, a complexity score, speculative abstraction, or YAGNI, also read `../complexity.md`.
 
 ## Pass A — hunter (already done in dispatch)
 

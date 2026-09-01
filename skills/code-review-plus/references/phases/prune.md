@@ -1,6 +1,6 @@
 # Branch prune — drop old review files
 
-Invoked only by `/code-review-plus prune`. Leave other files under this skill's `references/` closed.
+Invoked only by `/code-review-plus prune`. This file is the only skill reference for this branch.
 
 ## Count first
 

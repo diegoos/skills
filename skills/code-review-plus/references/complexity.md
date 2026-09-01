@@ -1,6 +1,6 @@
 # Complexity and YAGNI (orchestrator)
 
-Open this file in Phase 2.5 only when a candidate is about branching, nesting, a complexity score, speculative abstraction, or YAGNI. Do not preload. Do not give it to hunters.
+Open this file in Phase 2.5 only when a candidate is about branching, nesting, a complexity score, speculative abstraction, or YAGNI.
 
 Project complexity config wins (eslint `complexity`, ruff `C901`, radon, sonar, gocyclo, golangci-lint). No config: estimate on **touched** functions only.
 
