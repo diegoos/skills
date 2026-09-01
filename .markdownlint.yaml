@@ -2,6 +2,10 @@
 # Aligns with `.editorconfig` `[*.md] max_line_length = off`.
 MD013: false
 
+# Recipe lines in `makefile` fences must be real tabs (GNU Make).
+MD010:
+  code_blocks: false
+
 # Keep a Changelog repeats Added/Changed/Fixed under each version heading.
 MD024:
   siblings_only: true
