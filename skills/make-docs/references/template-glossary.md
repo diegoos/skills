@@ -1,10 +1,12 @@
 # Domain language
 
+> Example rows are not defaults. Replace every placeholder from evidence, or cut the row or section.
+
 | Term | Definition | Where used |
 | ---- | ---------- | ---------- |
-| Order | Confirmed purchase, immutable once placed. | architecture.md, specs/orders.md |
+| `{term from this repo}` | `{definition used in this repo}` | `{path}` |
 
 ## Rules
 
-- Order transitions: `cart → placed → paid → fulfilled → shipped`.
-- A placed Order is immutable; corrections are adjustments.
+- `{invariant this codebase enforces}`
+- Cut this section when survey listed no domain rules.

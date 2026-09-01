@@ -1,145 +1,82 @@
 # Anti-slop
 
-Patterns that signal "AI made this." Rewrite matches. Keep a listed pattern when the brief names it, the existing product already ships it, or the sequence is real (01, 02, 03). Document why.
+Open from [critique.md](critique.md) when that file's table lists Design or Copy. Open from Floor when a browser or screenshot tool exists ([Walk](#walk)). Cite `rule=` when a tell matches. Fail-if is a grep, computed style, or DOM count.
 
-## The slop test
+Keep a listed pattern only when the brief names it or disk already ships it. A real sequence does not save icon+heading+blurb columns.
 
-**Cross-register (always):** If someone could identify the output as AI-generated without hesitation, it failed. Layout and copy each have to pass.
+Done when every Fail-if in scope is gone, or each remaining match has a written reason. Fix this turn.
 
-**Category-reflex check:** If someone could guess the palette and layout from the product category alone ("SaaS landing", "fintech app", "restaurant site"), rework until the answer is not obvious from the domain. Vectors: [color.md](color.md#category-reflex-rework-if-this-was-the-first-idea).
+Warmth rides on accent and type. Proof is the object. Destinations sit in one row. At 375 an equal row stacks. Name the control; one claim from the object.
 
-**Second-order check:** The next saturated move ("not SaaS-purple, so editorial serif with mono labels") also fails. Rework until both levels pass.
+## Design
 
-## Absolute bans
+At most **one** fold of N equal blocks. How-it-works is the object's control (the create form, the queue), not step cards plus a second pain grid. Signature on the fragment does not license cream+serif.
 
-Rewrite any element that matches:
+| id                      | Fail-if                                                                                                                                                                                                                                                                              |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `model-default-triad`   | Greenfield first viewport: display serif H1 + off-white/cream/sand body + one accent; or ink field + acid/vermilion; or hairline broadsheet, radius 0. Signature on the fragment does not keep this costume. Brief named that pairing: keep. Cream page field is also `cream-warmth` |
+| `cream-warmth`          | Greenfield `html`/`body` is cream, sand, beige, or warm off-white (computed high L, warm hue — not only `#f5f1ea`). Paper/newsprint lives on the enter fragment. Brief or DESIGN.md named that field: keep                                                                           |
+| `side-stripe`           | `border-left` (or inline start) >1px accent on a card, alert, **or blockquote**                                                                                                                                                                                                      |
+| `gradient-text`         | `background-clip: text` on a headline or CTA                                                                                                                                                                                                                                         |
+| `glass-default`         | Backdrop blur the scene did not name                                                                                                                                                                                                                                                 |
+| `hero-metric`           | Number + small label + stats strip in the first viewport, even beside a live fragment                                                                                                                                                                                                |
+| `identical-cards`       | Icon + heading + blurb × N (with or without `01`), unless the object is a real catalog. A second equal-block fold fails                                                                                                                                                              |
+| `eyebrow-every`         | Uppercase eyebrow count > `ceil(sections / 3)`                                                                                                                                                                                                                                       |
+| `numbered-markers`      | Step columns (Create / Scan / Deliver) when the enter fragment already shows the Job, numbered or not. A real sequence is the object's control, not equal cards                                                                                                                      |
+| `three-feature-cards`   | Three equal feature cards as a fold                                                                                                                                                                                                                                                  |
+| `repeat-hero`           | The fold after a live enter, or the close fold, restates it (benefits, three gestures, four pains, how-it-works cards, “what happens next” steps, or a second layout of the same enter object)                                                                                       |
+| `generic-cta`           | Learn more / Get started / Book now / Buy here and that string is not the Job                                                                                                                                                                                                        |
+| `mesh-hero`             | Centered hero + dark mesh                                                                                                                                                                                                                                                            |
+| `nested-cards`          | Card inside a card on Operate                                                                                                                                                                                                                                                        |
+| `overused-font-inter`   | Greenfield `font-family` is Inter, Geist, Outfit, Plus Jakarta Sans, Space Grotesk, or DM Sans unless the brief or DESIGN.md named that family                                                                                                                                       |
+| `costume-vest`          | First viewport is navy+justice, indigo+three cards, or mesh-HUD                                                                                                                                                                                                                      |
+| `placeholder-mass`      | Rectangle, letter-in-box, or `Text` where the object's mass belongs                                                                                                                                                                                                                  |
+| `off-domain-logos`      | “Used by” / source ticker uses brands the brief did not name and that are not the Job's objects (fintech logos on a clipping product; Notion/Figma on a news Job)                                                                                                                    |
+| `split-header`          | Section header is left H2 + right floating explainer, and the right column has no object                                                                                                                                                                                             |
+| `chrome-overlap`        | A control intersects another control, the wordmark, or the padding edge (circular “Create my first topic” over the nav)                                                                                                                                                              |
+| `wrapped-cta`           | Primary label wraps to 2+ lines, or the button collapses to a circle or square because width ran out                                                                                                                                                                                 |
+| `header-second-primary` | Header and hero both show a filled primary in the same 375 viewport                                                                                                                                                                                                                  |
+| `header-chrome-budget`  | At 375, more than two controls besides the wordmark                                                                                                                                                                                                                                  |
+| `cta-pair-375`          | At 375, two CTAs in one row. Secondary stacks below or is text                                                                                                                                                                                                                       |
+| `equal-row-375`         | At 375, two or more equal cards or stat tiles in one row                                                                                                                                                                                                                             |
+| `drawer-stuck`          | First paint: nav destinations as a stacked list below the header, or the same labels in the header row **and** in a list. At 1440 destinations are one row. At 375 the list is a closed overlay, not in flow                                                                         |
 
-| Pattern | Why | Do instead |
-| --- | --- | --- |
-| Side-stripe borders (`border-left` >1px accent) | Never intentional on cards/alerts | Hairline or inset from [material-craft.md](material-craft.md) on brand; tokens on product |
-| Gradient text (`background-clip: text`) | Decorative | Solid ink on the display face |
-| Glassmorphism as default | Rare | Matte, hairline, or ink; glass only if the scene asks |
-| Hero-metric template | Big number + small label + stats row | One proof point with a source, or cut |
-| Identical card grids | Icon + heading + blurb × N | Magazine, container-free, or one card family ([layout-patterns.md](layout-patterns.md)) |
-| Eyebrow on every section | Small caps `ABOUT` `PROCESS` above each H2 | Cap eyebrows at `ceil(sections / 3)` |
-| Numbered section markers (`01 · About`) | Fake sequence | Numbers only on a real sequence |
-| Text overflowing container | Unchecked H1 | Wide H1 container; test every breakpoint |
-| Em dashes (`—`) anywhere visible | LLM signature | `-`, commas, periods |
-| Three equal feature cards | Default SaaS scaffold | Split, bento, or a comparison table |
+If the page could swap subjects and still look finished, it failed.
 
-## Visual tells
+**Visual leftover.** Neon glow, pure `#000`/`#fff`, six-line H1, empty grid cells, zigzag ×3, scroll-cue chevrons, overlapping pills, fake title-block.
 
-- Neon outer glows on buttons
-- Pure `#000000` / `#ffffff` (use off-black, off-white)
-- Oversaturated accents on everything
-- Custom mouse cursors
-- Purple/blue gradient glow as default accent
-- Cream/sand/beige body backgrounds (`#f5f1ea`, `--paper`, `--cream`, etc.) as default "warmth"
-- Warm craft palette as default for premium consumer (beige + brass + oxblood + espresso) without brand justification
+## Copy
 
-## Typography tells
+UI strings. Name the control. One specific claim from the object. Sentence case. A sentence that could move to another product fails until it names this object's fact or control. Keep a listed pattern only when the brief names it, disk already ships it, or the string is legal/FAQ. One short fragment for emphasis is not a fail. Error and empty: what happened + the next step. Same Job action, same label.
 
-**Reflex-reject fonts** (training-data defaults). Look further unless the pairing procedure in [typography.md](typography.md#font-pairing-structure-not-a-fashion-list) selected them on purpose:
+Re-read every visible string. If a sentence is cute and unclear, replace it with a functional one.
 
-Fraunces, Newsreader, Lora, Crimson family, Playfair Display, Cormorant, Syne, IBM Plex family, Space Mono, Space Grotesk, Inter (as **brand** default; product may follow the project), DM Sans/Serif, Instrument Sans/Serif.
+| id                  | Fail-if                                                                                                                                                                                                                                              |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sales-inflate`     | vibrant / seamless / elevate / unleash / groundbreaking / showcasing / nestled / boasts / highlighting, a portable slogan (“intelligence radar”, “without the noise”, “all-in-one platform”), or platform/solution/ecosystem cycling for one product |
+| `clever-h1`         | H1 metaphor the object does not speak (“pre-chewed”, “radar”), or “X is the Y of Z”, unless it is domain vernacular                                                                                                                                  |
+| `not-x-but-y`       | “It's not a feed, it's…” / “It's not X, it's Y” / “not for X, for Y” in the H1, lead, or the fold-2 heading or first sentence                                                                                                                        |
+| `forced-triad-copy` | Three parallel phrases, three benefits, or three clipped “No X.” sentences that exist only to close the rhythm                                                                                                                                       |
+| `vague-proof`       | “2,400+ professionals”, “4.9/5”, “used by Acme”, “experts agree”, “trusted by thousands” (or unsourced `92%`), or an overlapping avatar stack with no names from the brief                                                                           |
+| `title-case-ui`     | Title Case in headlines or nav labels                                                                                                                                                                                                                |
+| `em-dash-ui`        | Em dash or en dash in labels, the H1, or a primary CTA, or any `—`                                                                                                                                                                                   |
+| `chatbot-leftover`  | “I hope this helps”, “Great question”, “Let's dive in”, “Of course”, `Lorem ipsum`, John Doe                                                                                                                                                         |
+| `heading-echo`      | First sentence under an H2 only restates the heading                                                                                                                                                                                                 |
+| `pointer-copy`      | Hover / mouse / click here / below as the instruction for a control on a page that ships at 375                                                                                                                                                      |
+| `label-drift`       | Same Job action, two different button strings on the page                                                                                                                                                                                            |
+| `optimistic-close`  | Closing band is a slogan with no Job verb, or a how-it-works list (`repeat-hero`)                                                                                                                                                                    |
 
-Outfit and Plus Jakarta Sans: overused as unexamined defaults. Allowed when the pairing procedure chose them.
+## Walk
 
-Geist, Clash Display, and PP Editorial New are the next Inter. Skip them as a premium default stack.
+Browser or screenshot tool only. Unused tool fails. No browser tool: skip this heading.
 
-**Serif:** reach for a sans display unless the brief names serif or the aesthetic is editorial, luxury, or publication.
+Walk 1440 and 375 on the header and the first viewport, then one scroll past enter, then the close fold. Hit the Job primary.
 
-**Emphasis:** italic/bold of the same font. Keep serif words out of a sans headline.
-
-## Layout tells
-
-- Centered hero + dark mesh gradient (default LLM landing)
-- 6-line wrapped H1 in a narrow container (use a wide container, fewer lines)
-- Empty cells in bento grids
-- `border-t` + `border-b` on every row of long lists
-- Zigzag image+text split repeated 3+ times consecutively
-- Split-header: left big headline + right floating explainer paragraph
-- Decoration strip at hero bottom (`BRAND. MOTION. SPATIAL.`)
-- Scroll cues (`Scroll to explore`, animated mouse icons)
-- Locale/weather strips (`LIS 14:23 · 18°C`) without a place-focused brief
-- Version labels in hero (`V0.6`, `BETA`) unless a launch brief
-- Pills overlaid on images (`Plate · Brand`)
-
-## Copy tells
-
-Every visible string is in scope: headlines, subtext, CTAs, nav, empty/error/success, quotes, sample data, alt text, `aria-label`, meta title/description.
-
-**Self-audit:** re-read every string before pre-flight. If a sentence could move unchanged to another product, rewrite it with a fact, mechanism, or judgment from this brief. Doubt: write a functional sentence. One copy register per page. Invent no stats, names, or citations. User-supplied copy: keep the voice; cut only the tells below.
-
-**Second-order:** swapping `elevate` for `unlock your potential` still fails. The replacement has to name a real action or object.
-
-Empty, error, and loading shapes: [ux-principles.md](ux-principles.md#microcopy-and-sample-content).
-
-| Pattern | Example | Do instead |
-| --- | --- | --- |
-| Banned words | elevate, seamless, unleash, next-gen, revolutionize, empower, delve, foster, leverage, utilize, facilitate, streamline, robust, cutting-edge, game changer, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, transformative, embark, supercharge, harness, ever-evolving, paradigm shift | Plain verb + object: "Save the invoice", "Ship on Tuesday" |
-| Throat-clearing | "Here's the thing.", "Welcome to the future of X.", "Let's dive in." | Start with the claim or the CTA |
-| Binary contrast | "This is not a tool. It's a partner." / "Not just X, but Y." | State Y |
-| Faux-insight | "What most teams get wrong", "The part everyone misses" | Make the claim with no setup |
-| Colon reveal | "The difference: it just works." | A full sentence |
-| Superficial `-ing` | "highlighting our commitment", "showcasing innovation" | Cause or consequence: "so you can find last week's draft" |
-| Importance puffery | "marks a pivotal moment", "stands as a testament" | The fact: "first paid plan" |
-| Weasel attribution | "experts agree", "trusted by thousands", "studies show" | Name the source or cut |
-| Fake-strong verbs | "serves as a hub", "enables teams to" | "is" / "has" / the concrete verb |
-| Synonym cycling | "platform… solution… ecosystem" for one product | Repeat the clear word |
-| Rule of three | "Fast. Simple. Powerful." as the whole pitch | One specific promise |
-| Dramatic fragments | "That's it. That's the whole thing." | Complete sentences |
-| Rhetorical setup | "What if we told you…", "Ready to transform?" | The action |
-| Fake-profound kicker | closing metaphor or mic-drop under the CTA | End on the action or the next step |
-| Chatbot residue | "Oops!", "Great question!", "I hope this helps!" | Direct error or empty copy |
-| Title Case Headlines | "Strategic Insights For Modern Teams" | Sentence case, except proper nouns |
-| Emoji as voice | headings or buttons with 🚀✨ | Words only, unless the brief is playful/social |
-| Generic people/brands | John Doe, Sarah Chan, Acme, Nexus, SmartFlow | Names that fit the domain and locale |
-| Fake-precise stats | `92%`, `4.1×`, `99.99%` with no source | Real data, or qualitative proof, or cut |
-| Poetic craftsman labels | "Field notes", "On our desks", "Quietly in use at" | Ordinary section names |
-| Duplicate CTA intent | "Get in touch" + "Let's talk" | One intent, one label |
-| CTA wrap | primary wrapping to 2+ lines at desktop | ≤3 words, one line |
-| Long pull-quotes | quotes >3 lines on a landing | One short line or cut |
-| Lorem / latin | `Lorem ipsum`, `Your catchy headline here` | Real draft copy at real length |
-| Em dash / `--` | decorative `—` in UI copy | `-`, comma, or period. Zero in short UI strings |
-
-Filler adverbs (`just`, `literally`, `simply`, `actually`, `truly`, `fundamentally`, `crucially`) and phrases (`at its core`, `in today's world`, `when it comes to`, `in order to`) come out when they delay the point. Keep them only when they are the product's spoken voice.
-
-## Asset tells
-
-- Div-based fake screenshots (styled rectangles as "product UI")
-- Hand-rolled SVG icons (use icon libraries)
-- Hand-rolled decorative illustrations as default
-- Plain text wordmarks in logo walls (use SVG marks from project assets or icon libraries)
-- Industry labels under logos (brand name + category caption under each logo)
-- Broken or unverified remote image URLs
-
-## Motion tells
-
-- `window.addEventListener('scroll')` driving UI state every frame
-- Motion claimed but page is static
-- Animation library on every section without purpose
-- Two+ horizontal marquees on one page
-- Infinite loops on every card
-- Bounce/elastic easing on product UI
-
-## Color strategy anti-patterns
-
-| Wrong | Right |
-| --- | --- |
-| Default warm cream body for "traditional" brief | Carry warmth via accent, type, imagery |
-| New accent color per section | One accent locked for whole page |
-| Dark because tools look cool | [Scene sentence](color.md#scene-sentence-decide-theme-before-picking-colors) decides theme |
-| Light to be safe | [Scene sentence](color.md#scene-sentence-decide-theme-before-picking-colors) decides theme |
-
-## AI aesthetic table (quick reference)
-
-| AI default | Replace with |
-| --- | --- |
-| Inter everywhere | Brand-appropriate font from brief |
-| Purple gradients | Project palette or committed single accent |
-| Big rounded corners everywhere | Token radius system with intentional variation |
-| Stock card grid | Varied layout families |
-| Lorem ipsum | Realistic copy at realistic lengths |
-| Spinner in content area | Skeleton matching layout |
-| Gray muted body on tinted bg | Darker text for contrast |
+- At 1440, destinations are one row under the wordmark (`drawer-stuck`).
+- At 375 the drawer is closed and the enter fragment is in that viewport below the header.
+- Count uppercase eyebrows (`eyebrow-every`).
+- Count folds of N equal cards; a second fails (`identical-cards`).
+- First viewport: no stats strip (`hero-metric`); at 375 no equal-card row (`equal-row-375`).
+- Grep `—` in buttons (`em-dash-ui`); grep “it's not” / “this is not” in H1, lead, and fold-2 (`not-x-but-y`).
+- Next fold names a different object noun than enter (`repeat-hero`).
+- Fit: [critique.md](critique.md#surfaces) plus Design chrome rows (`drawer-stuck`, `chrome-overlap`, `wrapped-cta`, `header-second-primary`, `header-chrome-budget`, `cta-pair-375`).

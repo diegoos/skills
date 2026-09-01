@@ -1,20 +1,22 @@
-# ADR-NNNN: <title>
+# ADR-NNNN: {title}
 
-Date: <ISO date> Status: proposed | accepted | deprecated | superseded by [ADR-MMMM]
+Example rows are not defaults. Replace every placeholder from evidence, or cut the row or section.
+
+Date: {ISO date} Status: proposed | accepted | deprecated | superseded by [ADR-MMMM]
 
 ## Context
 
-<the constraint, problem, and options — state the world *before* the choice>
+{the constraint, problem, and options. State the world before the choice. Ask if the why is unclear.}
 
 ## Decision
 
-<one paragraph>
+{one paragraph}
 
 ## Consequences
 
-- **Gains:** <...>
-- **Costs:** <...>
+- **Gains:** {gains}
+- **Costs:** {costs}
 
 ## Alternatives considered
 
-- <alternative> — rejected because <reason>
+- {alternative}: rejected because {reason}
