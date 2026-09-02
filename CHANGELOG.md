@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `make-code`: *new skill*. XP Simple Design (work, right, then fast), YAGNI, CC ≤ 10. Branches `write` / `refactor` / `improve`. Floor `Match` (nearest `AGENTS.md` or a neighbor of the same kind, or `conventions: none`) and `Balance` (*intent* over *fewest*). Refactor Done is a faster read against the Match neighbor; a shorter diff alone does not count. `agents/openai.yaml`. `metadata.version` → `0.0.1`. Root `README.md` lists it.
 - Every skill has `agents/openai.yaml` for ChatGPT and Codex (picker name, short blurb, default `$skill` prompt). Skills with `disable-model-invocation` set `allow_implicit_invocation: false`.
 - `make-docs`: `/make-docs refresh` re-surveys the tree against existing `docs/`. ADRs stay unless the code contradicts them. Confirm before any write. Up to three read-only hunters (structure, behavior, voice) with serial fallback. Language lock and docs anti-slop. `metadata.version` → `0.2.0`.
 - `code-review-plus`: each review is written under `docs/code-review/` in the reviewed repo (`YYYY-MM-DD-HH-MM.md`). `/code-review-plus prune` counts those files, then asks keep 3, keep 5, delete all, or keep N. `knowns.md` records false positives and won't-fix; prune leaves it in place. Scope reads knowns and the latest review. `metadata.version` → `0.5.0`.
@@ -22,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Root `README.md`: Structure tree moved to [docs/structure.md](docs/structure.md). Every skill lists `agents/openai.yaml`. Adding or removing a skill updates that tree (see `AGENTS.md`).
 - `write-great-instructions`: writing guide only (no bootstrap/update/lint/slim pipelines). `SKILL.md` has principles, always-on floor, and edit steps. `formats.md` holds harness adapters and caps; `patterns.md` lists smells. Invokes on create or edit. `metadata.version` → `0.3.0`.
 - `make-docs`: `SKILL.md` is a router (commands, invariants, Done → phase READ). Unattended assume-and-record is gone. `update` asks when the stamp is missing or a refactor vs behavior is unclear. Templates mark example rows as replace-or-cut. Confirm-brief headings stay English (`Understood`, `Is this correct?`, `Unknowns`); bullets and questions follow the user's chat language. Spec keywords follow BCP 14 ([RFC 2119](https://www.rfc-editor.org/rfc/rfc2119.html) as updated by [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174.html)), ALL CAPS only, with the incorporation sentence in each spec file. Opening sentences in the skill and root `README.md` name the job, without mid-sentence bold.
 - `code-review-plus`: Scope writes the hunter names that will run plus `Isolated`. Dispatch runs that list. `dependency-review.md` opens in synthesize when Security is in `Pipelines`. `### Test quality` only when Quality ran.

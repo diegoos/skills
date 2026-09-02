@@ -22,6 +22,7 @@ The same rules can live in `~/.codex/AGENTS.md` for Codex, `~/.claude/CLAUDE.md`
 | `[commit-message](skills/commit-message/)`                     | Draft [Conventional Commits](https://www.conventionalcommits.org/) from the real git status and diff. One atomic commit per concern by default; a single commit only when you ask.            |
 | `[code-review-plus](skills/code-review-plus/)`                 | Multi-pipeline PR/diff review (≤5 hunters or one on demand), optional shapes, test-quality, `docs/code-review/` memory, P0-P3 report. Branches: `review`, `fix`/`apply`/`implement`, `prune`. |
 | `[deep-security-review](skills/deep-security-review/)`         | Security-first review: threat model with hotspots, parallel domain hunts, disprove/verify, findings + hardening notes (P0-P3). Branches: review, `fix`/`apply`/`implement`. Invoke by name.   |
+| `[make-code](skills/make-code/)`                               | XP Simple Design for app code: make it work, right, then fast. YAGNI, cyclomatic cap. Branches: `write`, `refactor`, `improve`.                                                               |
 | `[make-docs](skills/make-docs/)`                               | Architecture docs and behavioral specs under `docs/`. Branches: `explore`, `update` (stamp), `refresh` (re-survey), `adr`. Confirm gate; ≤3 hunters.                                          |
 | `[makefile-expert](skills/makefile-expert/)`                   | Author or review GNU Make Makefiles (last-mile glue vs compile graph). Branches: `write`, `review`.                                                                                           |
 | `[markdown-writer](skills/markdown-writer/)`                   | Create or edit `.md` / `.mdc` / `.mdx` that scans for humans and parses for agents. One-line prose unless dest requires wrap. YAML frontmatter when dest uses it.                             |
@@ -54,6 +55,9 @@ Some skills load from intent (you do not have to name them):
 "Write an AGENTS.md for this project"            → write-great-instructions
 "Tighten this CLAUDE.md"                         → write-great-instructions
 "Write Cursor rules for our TSX components"      → write-great-instructions
+"Add an endpoint that lists orders"              → make-code (write)
+"This function is too nested"                    → make-code (refactor)
+"This loop is doing N+1 queries"                 → make-code (improve)
 "Generate docs for this codebase"                → make-docs (explore)
 "Update the docs after these changes"            → make-docs (update)
 "Refresh the docs against current code"          → make-docs (refresh)
@@ -86,74 +90,7 @@ Harnesses also accept forms like `/make-docs explore`.
 
 ## Structure
 
-```text
-.
-├── AGENTS.md               # Policy for agents working in this repo
-├── CHANGELOG.md            # Keep a Changelog
-├── global-rules.md         # Global agent defaults (layered or fused with repo AGENTS.md)
-├── README.md
-├── skills/
-│   ├── write-great-instructions/ # Writing guide for harness instruction files
-│   │   ├── SKILL.md            # Principles, floor, how to write an edit
-│   │   ├── README.md
-│   │   ├── agents/openai.yaml  # ChatGPT/Codex UI + invocation policy
-│   │   └── references/
-│   │       ├── formats.md      # path, frontmatter, attach, adapter per harness
-│   │       └── patterns.md     # works vs anti-pattern smells
-│   ├── commit-message/         # Conventional Commits
-│   │   └── SKILL.md
-│   ├── code-review-plus/       # Multi-perspective code review
-│   │   ├── SKILL.md            # Router: review vs fix|apply|implement
-│   │   ├── README.md           # Human: flow, memory, commands
-│   │   └── references/
-│   │       ├── phases/         # scope, dispatch, verify, synthesize, persist, knowns, fix, prune
-│   │       ├── perspectives/   # correctness, security, architecture, quality, performance
-│   │       ├── shapes/         # web, api, ts/js/node, python, go, rust, llm (optional, ≤1 per hunter)
-│   │       ├── examples/       # kept-vs-dropped, report-sample
-│   │       ├── test-quality.md # tests already in the diff (Quality)
-│   │       ├── dependency-review.md
-│   │       ├── remedies.md
-│   │       └── templates/      # final report
-│   ├── deep-security-review/   # Deep security review
-│   │   ├── SKILL.md
-│   │   └── references/
-│   │       ├── phases/         # plan, hunt, verify-and-synthesize, fix
-│   │       ├── templates/      # final report
-│   │       ├── domains/        # authz, injection, secrets, infra, business-llm
-│   │       ├── shapes/         # api, web, languages, cloud, llm, …
-│   │       ├── examples/       # gates, FP table, kept-vs-dropped (Phase 3)
-│   │       └── optional/       # OWASP map (on request)
-│   ├── make-docs/              # Architecture + observable specs
-│   │   ├── SKILL.md            # Router: explore / update / refresh / adr
-│   │   ├── README.md
-│   │   └── references/
-│   │       ├── phases/         # survey, confirm, generate, verify, update, refresh, adr
-│   │       ├── hunters/        # structure, behavior, voice (≤3)
-│   │       ├── examples/       # generic-vs-earned
-│   │       ├── language.md     # suite language lock
-│   │       ├── anti-slop.md    # docs prose tells
-│   │       └── template-*.md   # architecture, ADR, specs, …
-│   ├── makefile-expert/        # GNU Make: write / review
-│   │   ├── SKILL.md
-│   │   └── references/         # glue, graph, variables
-│   ├── markdown-writer/        # Write Markdown
-│   │   ├── SKILL.md
-│   │   ├── README.md           # Spec and lint pointers (human)
-│   │   └── references/         # frontmatter
-│   ├── frontend-design-plus/   # Visual frontend: greenfield / redesign / polish
-│   │   ├── SKILL.md
-│   │   ├── README.md
-│   │   └── reference/          # critique, DESIGN.md spec, Operate recipes
-│   └── sass-with-bem/          # BEM + Sass/SCSS
-│       ├── SKILL.md
-│       └── references/
-│           ├── conventions.md
-│           └── examples.md
-└── .opencode/                  # Optional OpenCode agents (not part of the skills contract)
-    └── agents/
-        ├── ask.md              # Read-only
-        └── reviewer.md         # Single-pass review
-```
+Repo layout (every skill has `SKILL.md` and `agents/openai.yaml`) is in [docs/structure.md](docs/structure.md).
 
 ---
 
