@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-01
+
 ### Added
 
 - `make-code`: *new skill*. XP Simple Design (work, right, then fast), YAGNI, CC ≤ 10. Branches `write` / `refactor` / `improve`. Floor `Match` (nearest `AGENTS.md` or a neighbor of the same kind, or `conventions: none`) and `Balance` (*intent* over *fewest*). Refactor Done is a faster read against the Match neighbor; a shorter diff alone does not count. `agents/openai.yaml`. `metadata.version` → `0.0.1`. Root `README.md` lists it.
