@@ -1,0 +1,6 @@
+interface:
+  display_name: "Make Code"
+  short_description: "XP Simple Design: work, right, then fast"
+
+policy:
+  allow_implicit_invocation: true

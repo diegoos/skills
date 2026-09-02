@@ -1,17 +1,22 @@
 # Phase 2 — Dispatch
 
-Dispatch pipelines per Phase 1 tier. Orchestrator builds prompts; each hunter receives exactly one perspective and optionally one shape.
+Dispatch each name in Phase 1 `Pipelines`. Orchestrator builds prompts; each hunter receives exactly one perspective and optionally one shape.
 
-## Dispatch by tier
+Same model as the orchestrator. Hunters return CandidateFinding lists. Project lint / complexity / test commands that do not write are allowed. One hunter per perspective.
 
-| Tier            | Pipelines to run                                                        | Shapes                                                                              |
-| --------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| trivial         | Correctness + Quality (+ Security only per Scope rule)                  | None                                                                                |
-| normal          | Correctness, Security, Architecture, Quality, Performance (in parallel) | At most **1** per hunter only if exactly one eligible tag applies; multi-tag → omit |
-| large/sensitive | All five (in parallel)                                                  | At most **1** shape per hunter if tags match (majority / tie below)                 |
+## Serial fallback (no subagent)
 
-- No shared findings until Phase 2.5
+If the harness has no subagent, run the names **in series** (one perspective at a time). Record `serial: yes` under Verification only when **two or more** pipelines ran in series. One hunter: omit `serial:`.
+
+**Carry list.** After each pipeline returns, append its CandidateFinding list to a running carry list (YAML or bullets). Restate the **full** carry list (every pipeline finished so far, including the one just completed) before starting the next pipeline. Auto-compact drops earlier hunts: restore from that restated list first, then continue. Mid-series with an empty carry list is a failed dispatch; rebuild from the last restated block before the next hunt.
+
+Carry is orchestrator storage. The next hunter still receives only its own perspective (prompt template below). Deduplicate in Phase 2.5.
+
+Run each name in Phase 1 `Pipelines` (one prompt per name).
+
+- No shared findings until Phase 2.5 (serial carry list is orchestrator memory, not hunter input)
 - Each prompt includes: scope summary (compact) + perspective path + optional shape path
+- Quality also receives `./references/test-quality.md` when Quality is in `Pipelines` and Phase 1 marked **tests in source**
 - Hunters assign no final P0–P3
 - Report which shapes were attached (for the report `shapes:` line), including on `normal`
 
@@ -43,17 +48,12 @@ Pick at most one shape for a hunter from Phase 1 stack tags:
 
 Omit shapes.
 
-### Tier `normal` (single obvious stack only)
+### Tiers `normal` and `large/sensitive` (priority)
 
-Eligible tags for the hunter's pipeline (same sets as below). If **exactly one** tag is present in that eligible set, attach its shape. If **zero or more than one** compete, omit the shape (do not run majority/tie on `normal`).
+Count changed paths (or lines on a language tie). At most **one** shape per hunter:
 
-### Tier `large/sensitive` (majority / tie)
-
-Count changed paths per tag. At most **one** shape per hunter:
-
-1. **Security / Quality:** build the eligible set from `web`, `api`, and `llm` when present. If none of those, use language tags (`ts` \| `py` \| `go` \| `rs`). Pick the majority in the eligible set. If only `llm` is present among surface tags, attach `llm`.
-2. **Correctness / Architecture / Performance:** language tags only (`ts` \| `py` \| `go` \| `rs`). Omit when none apply. Do **not** attach `web`, `api`, or `llm`.
-3. **Tie** on the eligible set → omit the shape.
+1. **Security / Quality:** `llm` if that tag is present, else `web`, else `api`, else the majority language tag (`ts` \| `py` \| `go` \| `rs`). Omit when none apply.
+2. **Correctness / Architecture / Performance:** language tags only (`ts` \| `py` \| `go` \| `rs`). Majority of changed paths. If two languages tie, pick the one with more changed lines. Omit when none apply. Do **not** attach `web`, `api`, or `llm`.
 
 ## Subagent prompt template
 
@@ -66,6 +66,7 @@ Context (from Phase 1):
 Reference (read ONLY these paths, then review code):
 - [perspective path]
 - [shape path or omit this line]
+- [Quality + tests in source only: ./references/test-quality.md]
 
 Before flagging anything (Pass A — hunter self-check):
 - Read the entire cited file, not just the diff snippet.
@@ -74,7 +75,7 @@ Before flagging anything (Pass A — hunter self-check):
 - Read comments explaining intentional design before calling it a bug.
 - Verify all consumers before calling code dead or redundant.
 - Raise a candidate only when evidence_level is proven or likely (never speculative).
-- Point to the exact line that makes the problem exploitable or broken today.
+- Point to the exact line that makes the problem exploitable, broken, or costly today (reader slower, carry with zero callers, unused after a full consumer search).
 - suggested_fix is minimal and local when possible; preserves error behavior and side effects; note regression_risk for callers / contracts / tests / what-must-not-change.
 
 Return CandidateFinding list (YAML or bullets):
@@ -82,7 +83,7 @@ Return CandidateFinding list (YAML or bullets):
 - pipeline: Correctness | Security | Architecture | Quality | Performance
 - title: short title
 - category_hint: vulnerability | hardening | maintainability
-- exploit_or_break_path: why it breaks or is exploitable today (concrete path)
+- exploit_or_break_path: why it breaks, is exploitable, or costs today (concrete path)
 - data_provenance: user | llm | backend | n/a
 - evidence_level: proven | likely
 - suggested_fix: minimal, local when possible
@@ -90,6 +91,7 @@ Return CandidateFinding list (YAML or bullets):
 
 Do not open other files under references/. Do not review outside your pipeline.
 Do not assign final P0/P1/P2/P3 severity.
+No writes to the reviewed repo. Same model as the orchestrator.
 ```
 
 ## CandidateFinding schema
@@ -108,10 +110,17 @@ regression_risk: Error response shape for this route; existing happy-path tests
 
 ## Orchestrator-only refs (not hunter paths)
 
-- If `package.json` / lockfile is in the review source, read `./references/dependency-review.md` during Phase 3 synthesize (after hunters return).
-- Structural `suggested_fix` values may name a move from `./references/remedies.md` (orchestrator / Architecture / Quality authors may open it; hunters need not).
-- `./references/examples/*` are orchestrator-only (Pass B doubt, optional eval notes). Never give them to hunters.
+Hunters receive only the prompt template paths. Open these in the named phase:
+
+- `./references/dependency-review.md` during Phase 3 (gate in synthesize.md)
+- `./references/remedies.md` during Phase 3 when a kept finding is structural. Name the move from that file on `suggested_fix`
+- `./references/complexity.md` during Phase 2.5 when a candidate is about branching, nesting, a complexity score, or YAGNI
+- `./references/examples/*` during Pass B doubt, optional eval notes, or report sample
+- `./references/phases/persist.md` during Phase 4.5
+- `./references/phases/knowns.md` when the user dismisses a finding
+
+Quality extra path (not orchestrator-only): `./references/test-quality.md` when Quality is in `Pipelines` and tests are in the review source.
 
 ## Completion criterion
 
-Every pipeline required by the tier has returned. Each candidate includes `location`, `exploit_or_break_path`, and `evidence_level` (`proven` or `likely`). Record which pipelines ran and which shapes were attached for the report summary.
+Every name in Phase 1 `Pipelines` has returned (an empty CandidateFinding list is valid). Each candidate includes `location`, `exploit_or_break_path`, and `evidence_level` (`proven` or `likely`). Record which pipelines ran and which shapes were attached for the report summary. Serial fallback with two or more pipelines: the carry list holds every CandidateFinding from finished pipelines (including the current one) before the next hunt starts.

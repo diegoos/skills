@@ -1,0 +1,6 @@
+interface:
+  display_name: "Code Review Plus"
+  short_description: "Multi-pipeline PR review with a P0-P3 report"
+
+policy:
+  allow_implicit_invocation: false

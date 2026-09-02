@@ -1,0 +1,6 @@
+interface:
+  display_name: "Deep Security Review"
+  short_description: "Security-first review with domain hunts"
+
+policy:
+  allow_implicit_invocation: false

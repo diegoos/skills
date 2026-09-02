@@ -15,5 +15,6 @@ Hunt language and runtime pitfalls.
 ## Pass A
 
 - Do not duplicate `clippy` / `cargo check` diagnostics when those tools ran
+- If clippy already emitted a complexity lint, cite it; do not add a second complexity bar
 - Check `edition` / MSRV in Cargo.toml before edition-2024-specific advice
 - Re-read SAFETY comments and surrounding invariants before flagging unsafe

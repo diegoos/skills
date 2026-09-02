@@ -1,23 +1,28 @@
 # Phase 4 — Report template
 
-Fill the Template skeleton below with synthesized findings. The skeleton is the deliverable shape — emit those headings and the Findings Overview pipe table in the user-facing reply. Skip empty severity sections. Only `kept` / adjusted `downgraded` findings appear. Report secrets as `file:line` + type only. When kept count is **0**, state that nothing was found, Approve (or Approve with follow-ups if only hardening remains), and leave Findings Overview with header + separator only (no invented data rows).
+Fill the Template skeleton below with synthesized findings. The skeleton is the deliverable shape. Do not send it to the user until Phase 4.5 persist is done. Emit a heading only when that section has content. Only `kept` / adjusted `downgraded` findings appear. Report secrets as `file:line` + type only. When kept count is **0**, state that nothing was found **in this pass**, Approve (or Approve with follow-ups if only hardening remains), and leave Findings Overview with header + separator only (no invented data rows). Isolated: verdict covers this pass only.
+
+If the heading order is unclear, READ `../examples/report-sample.md`. Do not preload it.
 
 ## Render rules
 
-1. **Skeleton fill** — paste the Template headings in order; put content under each heading. Severity detail sections expand findings; they do not replace Findings Overview.
+1. **Skeleton fill** — emit Template headings in order, only those with a body. Always emit `## Review Summary`, `### Findings Overview`, `### Verification`, and `### Verdict`. Severity detail sections expand findings; they do not replace Findings Overview. Complexity scores stay in the finding body (`parseOrder` CC 14→4), never as a seventh Overview column or a separate heading.
 2. **Findings Overview is a Markdown pipe table** — six columns exactly: `ID | Severity | Category | Perspective | File | Issue`. One data row per kept/downgraded finding. Severity/category cells use: 🚨 vulnerability · 🔴 P0 · 🟠 P1 · 🟡 P2 · ⚪️ P3. Use 🚨 only when `category` is vulnerability/vuln.
-3. **Heading strings** — keep the Template's English heading text (`## Review Summary`, `### Findings Overview`, `### P0 — Critical (must fix before merge)`, `### P1 — Important (should fix)`, `### P2 — Suggestions (optional improvements)`, `### P3 — Nits (optional)`, `### Dead Code (if any)`, `### What Looks Good`, `### Verification`, `### Verdict`). Translate prose inside sections when the user language differs; keep these heading strings so the shape stays stable.
-4. **Pipelines line** — under Review Summary, include `Pipelines: … (tier: …)` and `shapes:` when shapes were attached.
-5. **Verdict** — end with one of Approve / Approve with follow-ups / Request changes per the Template rules, plus the fix hint when actionable findings remain.
+3. **Heading strings** — when a section is present, use the Template's English heading text (`## Review Summary`, `### Findings Overview`, `### P0 — Critical (must fix before merge)`, `### P1 — Important (should fix)`, `### P2 — Suggestions (optional improvements)`, `### P3 — Nits (optional)`, `### Dead Code (if any)`, `### Test quality`, `### What Looks Good`, `### Verification`, `### Verdict`). Translate prose inside sections when the user language differs. Omit the heading when the body would be empty: P0–P3 with no findings at that severity, Dead Code with no verified unused items, `### Test quality` when the review source has no tests or Quality did not run, `### What Looks Good` when there is no specific positive that does not contradict findings.
+4. **Pipelines line** — under Review Summary, include `Must NOT change: …`, `Pipelines: … (tier: …)` and `shapes:` when shapes were attached. `Isolated: yes`: `Pipelines: Quality (isolated; tier: normal)`. Isolated Review Summary names the hunter and states the others did not run.
+5. **Verification blocks** — emit Author claimed only when the author claimed something. Emit the Manual / UI line only when the review source has a UI. Always emit P0 verifier ran/skipped. Emit `serial: yes` only when **two or more** pipelines ran in series.
+6. **Verdict** — end with one of Approve / Approve with follow-ups / Request changes per the Template rules, plus the fix hint when actionable findings remain. Score only this pass's findings. Isolated: this pass only.
 
 ## Template
 
 ```markdown
 ## Review Summary
 
-[2-3 sentences. Direct assessment: ship it, minor fixes needed, or serious issues. State how many findings were verified vs downgraded/dropped.]
+[2-3 sentences. Direct assessment: ship it, minor fixes needed, or serious issues. State how many findings were verified vs downgraded/dropped. Isolated: name the hunter; state the others did not run.]
 
-Pipelines: [list] (tier: trivial | normal | large/sensitive)[; shapes: …]
+Must NOT change: [concrete APIs, contracts, UX, callers from Phase 1]
+
+Pipelines: [list] (isolated; tier: trivial | normal | large/sensitive)[; shapes: …]
 
 ### Findings Overview
 
@@ -35,23 +40,41 @@ Omit this section entirely if none exist.
 
 ### P1 — Important (should fix)
 
+Omit this section entirely if none exist.
+
 **file.ts:67** — Issue, rationale, regression_risk.
 
 ### P2 — Suggestions (optional improvements)
+
+Omit this section entirely if none exist.
 
 Keep focused. If more than 5, keep the most impactful. Label hardening items explicitly.
 
 ### P3 — Nits (optional)
 
+Omit this section entirely if none exist.
+
 Max 3. Pick the most impactful only.
 
 ### Dead Code (if any)
 
+Omit this section entirely if none exist.
+
 List candidates only after verifying all consumers. Ask: "Should I remove these now-unused items: [list]?"
+
+### Test quality
+
+Omit this section entirely when the review source has no tests or Quality did not run.
+
+- Useful: yes | no — [which are not, with file:line]
+- Efficient: yes | no — [which are not, with file:line]
+- Removable (non-critical): [list] | none. Ask before delete.
 
 ### What Looks Good
 
-1-2 specific positives (e.g. stable vocabulary, no unshipped compat stubs, no PR-history comments). Must not contradict findings above.
+Omit this section entirely when there is no specific positive that does not contradict findings.
+
+1-2 specific positives (e.g. stable vocabulary, no unshipped compat stubs, no PR-history comments).
 
 ### Verification
 
@@ -65,15 +88,19 @@ Agent confirmed:
 - [ ] Build — ran / not run
 - [ ] Manual / UI — done / not done
 
-State what was **not** verified. "I did not run the build" is better than an unproven "tests pass".
+P0 verifier: ran | skipped (reason: …)
+
+serial: yes
+
+State what was **not** verified. "I did not run the build" is better than an unproven "tests pass". Omit the `serial:` line when hunters ran in parallel or only one hunter ran.
 
 ### Verdict
 
-- **Approve** — ready to merge (no verified P0)
+- **Approve** — no verified P0 in this pass (isolated: this pass only; not a full review)
 - **Approve with follow-ups** — no verified P0; hardening/style items listed by priority
 - **Request changes** — at least one **verified** P0 exists
 
-If Scope marked the diff oversized, ask for a split before further review rounds.
+If Scope set `Oversized: yes`, ask for a split before further review rounds.
 
 To apply fixes: `/code-review-plus fix` (aliases: `apply`, `implement`).
 ```
@@ -82,60 +109,6 @@ To apply fixes: `/code-review-plus fix` (aliases: `apply`, `implement`).
 
 If the user asks to calibrate after the report, follow `../examples/eval-notes.md` in the conversation. Do not preload it during Phase 4. Do not create that file in the reviewed target repo unless they ask.
 
-## Sample output
-
-### Review Summary
-
-Webhook handler. One verified P0 correctness issue before merging. Two hardening items deferred as P2 follow-ups. Verified 3, dropped 1 (CSRF covered by global middleware), downgraded 0.
-
-Pipelines: Correctness, Security, Architecture, Quality, Performance (tier: normal)
-
-### Findings Overview
-
-| ID  | Severity | Category  | Perspective | File                  | Issue                       |
-| --- | -------- | --------- | ----------- | --------------------- | --------------------------- |
-| 1   | 🔴 P0    | bug       | Correctness | webhook-handler.ts:42 | Unhandled JSON.parse crash  |
-| 2   | 🟡 P2    | hardening | Performance | webhook-handler.ts:67 | Fixed retry delay           |
-| 3   | 🟡 P2    | style     | Quality     | webhook-handler.ts:89 | Mixed validation/processing |
-
-### P0 — Critical
-
-**webhook-handler.ts:42** — Request body passed to `JSON.parse()` without try-catch. Malformed payload crashes the worker. Category: current bug. Provenance: direct user input (HTTP body). Regression risk: error response shape for this route; existing happy-path tests.
-
-```typescript
-let payload;
-try {
-  payload = JSON.parse(req.body);
-} catch {
-  return res.status(400).json({ error: "Invalid JSON" });
-}
-```
-
-### P2 — Suggestions
-
-**webhook-handler.ts:67** — Fixed 1-second retry delay. Category: hardening. Use exponential backoff to avoid hammering downstream during outages. Not exploitable today. Regression risk: retry timing assumptions in integration tests.
-
-### What Looks Good
-
-Idempotency key check at line 35 prevents duplicate processing during retries.
-
-### Verification
-
-Author claimed:
-
-- (none in context)
-
-Agent confirmed:
-
-- [ ] Tests — not run
-- [ ] Build — not run
-
-### Verdict
-
-Request changes — one verified P0 before merge. Hardening items are follow-ups.
-
-To apply fixes: `/code-review-plus fix` (aliases: `apply`, `implement`).
-
 ## Completion criterion
 
-Phase 4 is done when the user-facing reply is a skeleton fill of this Template: English heading strings above, a Findings Overview pipe table with columns `ID | Severity | Category | Perspective | File | Issue` (header + separator always; one data row per kept finding, or header-only when kept is 0), pipelines/tier line (shapes when used), verified-vs-dropped counts in Review Summary, Verification with explicit unverified claims, and Verdict. Apply hint included when actionable findings remain.
+Phase 4 is done when the skeleton is filled and **not yet sent**: always-on headings (`## Review Summary`, `### Findings Overview`, `### Verification`, `### Verdict`) with English strings; a Findings Overview pipe table with columns `ID | Severity | Category | Perspective | File | Issue` (header + separator always; one data row per kept finding, or header-only when kept is 0); `Must NOT change` plus pipelines/tier line (`isolated` when `Isolated: yes`; shapes when used); verified-vs-dropped counts in Review Summary (isolated names skipped hunters); Verification with P0 verifier ran/skipped, explicit unverified claims, and `serial: yes` only when two or more pipelines ran in series; optional headings (P0–P3, Dead Code, Test quality, What Looks Good) present only when they have a body. Apply hint included when actionable findings remain. Emit only after Phase 4.5.

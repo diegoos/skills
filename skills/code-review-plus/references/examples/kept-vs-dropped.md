@@ -90,3 +90,52 @@ Read this file only when Pass B is unsure whether to keep or drop a candidate. D
 
 - **Signal:** `def f(x, items=[])` (or `dict`/`set` default) mutated in the body.
 - **Why keep:** Default is shared across calls; state leaks today. Use `None` + assign inside.
+
+### Tests (Quality)
+
+#### Dropped — mock of slow I/O, no assert on the mock
+
+- **Signal:** Network/DB/startup mocked; assertion is on the real component's result.
+- **Why drop:** Mock sits below the side effects the test needs. Structure is complete. The mock earns no assertion.
+
+#### Dropped — no test on a trivial getter
+
+- **Signal:** Diff adds a getter/reexport with no validate, default, or side effect.
+- **Why drop:** Trivial code earns no test. Do not emit "missing tests".
+
+#### Kept — mirror assertion
+
+- **Signal:** `expect(fn(x)).toEqual(fn(x))` or both sides from the same builder/helper.
+- **Why keep:** The assertion passes no matter what the code does. Use a literal or hand-checked fixture.
+
+#### Kept — mock-as-SUT
+
+- **Signal:** `expect(mock).toHaveBeenCalledTimes(n)` (or `*-mock` test id) while the real unit is not observed.
+- **Why keep:** The test proves the double, not the component. Assert real behavior or drop the test.
+
+#### Kept — getter-only test in the diff
+
+- **Signal:** New test whose only assertion is a trivial getter/reexport.
+- **Why keep:** Coverage theater. List as removable; ask before delete.
+
+### Complexity / YAGNI
+
+#### Dropped — extract helper only to lower a complexity score
+
+- **Signal:** Hunter proposes splitting a readable function because CC is 12 (or the linter said so).
+- **Why drop:** No nesting ≥3 and no third use. A score move without a responsibility name is gaming. Keep the function unless a reader is slower today.
+
+#### Dropped — Go `if err != nil` series as complexity
+
+- **Signal:** Function CC is high; most branches are `if err != nil { return err }`.
+- **Why drop:** Explicit error paths inflate CC. They are not nested jungle. Inspect remaining business branches only.
+
+#### Kept — new function with nesting ≥3
+
+- **Signal:** Diff adds (or substantially rewrites) a function; control structures nest three or more levels; a reader cannot state the happy path without simulating the tree.
+- **Why keep:** Readability today. Suggested fix: guard clauses or extract the inner block with a name that states the responsibility. Cite CC in the finding body if counted; the keep reason is the nesting.
+
+#### Kept — plugin / strategy with one implementer
+
+- **Signal:** Diff adds an interface, factory, or provider enum with a single live implementation and no second caller or shipped contract.
+- **Why keep:** YAGNI. Carry starts now. Suggested fix: call the concrete type. P2 for a type tree; P3 for a dead field.
