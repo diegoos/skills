@@ -90,7 +90,7 @@ Harnesses also accept forms like `/make-docs explore`.
 
 ## Structure
 
-Repo layout (every skill has `SKILL.md` and `agents/openai.yaml`) is in [docs/structure.md](docs/structure.md)
+Repo layout (every skill has `SKILL.md` and `agents/openai.yaml`) is in [docs/structure.md](docs/structure.md).
 
 ---
 

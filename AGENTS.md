@@ -11,12 +11,12 @@ No package manager, build, or test suite — ship Markdown skills only.
 
 ## Permission boundaries
 
-| Mode             | Paths                                                                                                        |
-| ---------------- | ------------------------------------------------------------------------------------------------------------ |
-| READ             | `**`                                                                                                         |
+| Mode             | Paths                                                                                                                   |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| READ             | `**`                                                                                                                    |
 | WRITE            | `skills/**`, `docs/**`, `README.md`, `AGENTS.md`, `CHANGELOG.md`, `.editorconfig`, `.markdownlint.yaml`, `.opencode/**` |
-| NEVER            | `.env*`, credentials, force-push, rewriting git history                                                      |
-| HUMAN_CHECKPOINT | publishing/removing a skill from the public registry, deleting a skill directory                             |
+| NEVER            | `.env*`, credentials, force-push, rewriting git history                                                                 |
+| HUMAN_CHECKPOINT | publishing/removing a skill from the public registry, deleting a skill directory                                        |
 
 ## Precedence
 
