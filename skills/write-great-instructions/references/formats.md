@@ -42,7 +42,7 @@ Copy mirrors are last resort. When a copy exists, keep it verbatim with the cano
 
 - **Path:** repo root; optional nested file per package. Also `AGENTS.override.md` (same directory: override wins, `AGENTS.md` ignored). `AGENTS.local.md` is personal; gitignore it.
 - **Frontmatter:** none. Plain Markdown.
-- **Body:** headings the repo earns (stack, commands, style with a snippet, constraints, boundaries, git). No required section names.
+- **Body:** headings the repo earns (stack, assumptions, commands, style with a snippet, constraints, boundaries, git). No required section names.
 - **Nested:** Codex concatenates Git root → CWD (one file per directory). Child that must change a parent command **states the replacement**. Devin Desktop inherits parent; nested `AGENTS.md` = glob `dir/**`.
 - **Danger:** treating `AGENTS.override.md` and `AGENTS.md` as a pair in one directory (Codex reads only the override). Committing `AGENTS.local.md`.
 
