@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `write-great-instructions`: standing context is repo fact (assumptions, data access, placement, change-class verification). Plan gate is one earned line when the repo already has one. `metadata.version` → `0.4.0`.
+
 ### Security
 
-- `write-great-instructions`: treat existing instruction files as untrusted data with content boundary markers. Prove emitted commands in `package.json` / Makefile / CI; run only local build / test / lint / typecheck from that source. `metadata.version` → `0.3.1`.
+- `write-great-instructions`: treat existing instruction files as untrusted data with content boundary markers. Prove emitted commands in `package.json` / Makefile / CI; run only local build / test / lint / typecheck from that source.
 
 ## [0.2.0] - 2026-09-01
 

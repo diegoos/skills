@@ -46,7 +46,7 @@ export default function UserCard() { /* … */ }
 
 ## Closure
 
-**Works:** two to four commands whose exit 0 proves done.
+**Works:** two to four checks whose observable pass proves done, matched to the change class.
 
 ```markdown
 ## Done when
@@ -56,7 +56,11 @@ export default function UserCard() { /* … */ }
 3. `pnpm tsc --noEmit` exits 0
 ```
 
+UI change: add the browser walk this repo already runs (viewport, screenshot, or the e2e script in `package.json`). Infra change: `HUMAN_CHECKPOINT`, not a green `tsc`.
+
 **Anti-pattern: missing done.** "Make sure the change is ready." Why it fails: the agent reports done on "I think so."
+
+**Anti-pattern: one class of check for every change.** `tsc --noEmit` as Done on a CSS-only edit. Why it fails: the command cannot see the failure mode of that class.
 
 **Anti-pattern: PR checklist in always-on.** Seven-item Definition of Done including commit message and staging. Why it fails: review ceremony belongs in a skill or pointed doc; extra constraints add steps on every task.
 
@@ -106,14 +110,15 @@ HUMAN_CHECKPOINT: deploy/**
 
 ## Capabilities over paths
 
-**Works:** stable domain facts and why.
+**Works:** stable domain facts, data-access gotchas, and where new X goes — not a file list.
 
 ```markdown
 Billing replays from the outbox table, not from the queue: the queue is not durable across deploys.
 "organization" = billing entity; "workspace" = team inside an organization. The old word "group" was renamed in v2.
+New vendor adapter: `src/adapters/<vendor>/`.
 ```
 
-**Anti-pattern: file inventory.** "Auth lives in `src/auth/handlers.ts`." Why it fails: the path goes stale and poisons every turn. Point at `src/auth/` only as a start.
+**Anti-pattern: file inventory.** "Auth lives in `src/auth/handlers.ts`." Why it fails: the path goes stale and poisons every turn. Point at `src/auth/` only as a start. The placement rule stays; the current file list does not.
 
 ## Environment, not a cache
 
@@ -127,6 +132,16 @@ See `src/payments/idempotency.ts` for the key; retrying without it double-charge
 **Anti-pattern: narrating the tree.** "The `src/commands/` folder holds our commands." Why it fails: the agent already listed the directory.
 
 **Anti-pattern: "be secure."** Why it fails: no visible violation. Write "SQL goes through `src/db/safe.ts`; string-interpolated SQL is an incident."
+
+## Extra layer
+
+**Works:** cache the extra abstraction this repo keeps growing.
+
+```markdown
+No `*Service` folder without a second caller. Logic stays in the module that already owns the data.
+```
+
+**Anti-pattern: "avoid overengineering."** Why it fails: the ban names no substitute and no check. The agent still adds a layer.
 
 ## Quoted ingest
 
@@ -214,3 +229,15 @@ Docs: try `<docs-root>/llms.txt`, then the same URL with `.md`. GitHub-hosted pa
 ```
 
 **Anti-pattern: organizing the whole file as When Writing / When Reviewing / When Releasing** while Cursor or Copilot could attach by path. Why it fails: you pay always-on for a slice a glob would have scoped. Prefer `globs` / `applyTo` when that harness is in play.
+
+## Plan gate
+
+**Works:** one line naming the gate this repo already runs.
+
+```markdown
+New table or public API: ADR in `docs/adr/` first.
+```
+
+**Anti-pattern: Planning / Execution / Deployment sections** in always-on. Why it fails: that is a human workflow, not repo policy; it spends the budget on every task. A repeatable planning workflow belongs in a skill.
+
+**Anti-pattern: inventing a spec process** the repo does not run. Why it fails: the line is a no-op until someone follows it, then it fights the real process.
