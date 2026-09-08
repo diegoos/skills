@@ -44,7 +44,7 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │       ├── shapes/         # api, web, languages, cloud, llm, …
 │   │       ├── examples/       # gates, FP table, kept-vs-dropped (Phase 3)
 │   │       └── optional/       # OWASP map (on request)
-│   ├── make-code/              # XP Simple Design: write / refactor / improve
+│   ├── make-code/              # KISS / DRY / YAGNI / CC: write / refactor / improve
 │   │   ├── SKILL.md
 │   │   └── agents/openai.yaml
 │   ├── make-docs/              # Architecture + observable specs
