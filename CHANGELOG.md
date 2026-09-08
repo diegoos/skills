@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-09-08
+
 ### Changed
 
 - `make-code`: Floor is **KISS**, **DRY**, **YAGNI**, **CC** (drop XP Simple Design as the frame). Checkable rules: simplest path, one representation earned on the second duplicate, current need, cyclomatic cap. Balance: a DRY extract that hides intent loses to KISS. Trace/write fix the shared root. `metadata.version` → `0.1.0`.
