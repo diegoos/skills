@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+
+- `write-great-instructions`: treat existing instruction files as untrusted data with content boundary markers. Prove emitted commands in `package.json` / Makefile / CI; run only local build / test / lint / typecheck from that source. `metadata.version` → `0.3.1`.
+
 ## [0.2.0] - 2026-09-01
 
 ### Added
