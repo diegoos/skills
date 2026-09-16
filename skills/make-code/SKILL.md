@@ -1,9 +1,9 @@
 ---
 name: make-code
 description: >-
-  KISS, DRY, YAGNI, and CC (cyclomatic cap) for application code. Make it work, right, then fast. Use when writing, refactoring, simplifying, or speeding up code. Branches: write (new behavior), refactor (simpler), improve (faster).
+  Write application code. Use when implementing or fixing a feature, endpoint, or function; simplifying existing behavior; or speeding up a named hotspot (N+1, hot loop, extra I/O). Skip docs, agent instructions, Makefiles, and CSS-only restyles.
 metadata:
-  version: 0.1.0
+  version: 0.2.0
   author: "Diego Oliveira"
   tags:
     - code
@@ -37,13 +37,13 @@ Pick a **branch** and state it at the start of the run:
 
 Do the *simplest thing* that could work. One slice. A bug is one change at the shared root.
 
-**Done when:** the requested behavior is observable; every new or rewritten function is **CC** ≤ 10 (or the project's bar); no type or file exists that this slice does not call.
+**Done when:** the requested behavior is observable; every new or rewritten function is **CC** ≤ 20 (or the project's bar); no type or file exists that this slice does not call.
 
 ## Branch refactor
 
 Preserve behavior. Prefer deletion. Flatten with guard clauses before extract. Extract only with a responsibility name.
 
-**Done when:** behavior matches the original (proof from Prove); every touched function is **CC** ≤ 10 (or the project's bar); a reader of the Match neighbor is faster; every extract or inline obeys **Balance**.
+**Done when:** behavior matches the original (proof from Prove); every touched function is **CC** ≤ 20 (or the project's bar); a reader of the Match neighbor is faster; every extract or inline obeys **Balance**.
 
 ## Branch improve
 
@@ -59,9 +59,31 @@ Keep behavior. Remove the named hotspot. Ship the cheap fast path (stdlib, one p
 
 **YAGNI.** Build the need in this request. The extra caller, provider, or flag arrives with its own request.
 
-**CC.** Decision points + 1 (`if`, loops, `case`, `catch`, `??`, `||`, `&&`, `.?`, boolean short-circuit, ternary). `else` = 0. Cap **10** on new or rewritten functions unless the project sets another bar (`eslint complexity`, ruff `C901`, gocyclo, etc). Keep branches visible (guard clauses, named predicates). A linear validation chain or a flat `switch` is not a split trigger. Use the project's existing complexity command when one exists.
+**CC.** Decision points + 1 (`if`, loops, `case`, `catch`, `??`, `||`, `&&`, `.?`, boolean short-circuit, ternary). `else` = 0. Cap **20** on new or rewritten functions unless the project sets another bar (`eslint complexity`, ruff `C901`, gocyclo, etc). Keep branches visible (guard clauses, named predicates). A linear validation chain or a flat `switch` is not a split trigger. Use the project's existing complexity command when one exists.
 
 **Match.** The diff follows naming, errors, imports, and function shape from the convention source Trace named. Personal preference loses. `conventions: none`: follow the Floor; do not invent a second style.
+
+**Comment.** Concise comments that explain the operation. Follow the project's language comment convention.
+
+**Breath.** Same-kind declarations stay together. A blank line sits between distinct blocks, after a closed `if`/`for`/`while`, and before `return`/`throw`. `else`, a continued line, and the `}` that closes the current block stay attached.
+
+```js
+const trimmed = input.trim();
+
+if (!trimmed) {
+  return '';
+}
+
+if (/^https?:\/\//i.test(trimmed)) {
+  return trimmed;
+}
+
+for (let index = 0; index < array.length; index++) {
+  const element = array[index];
+}
+
+return `${DEFAULT_SCHEME}${trimmed}`;
+```
 
 **Balance.** *intent* outranks *fewest*. A **DRY** extract that hides the idea loses to **KISS**. Keep the helper whose name still carries a concept. Split unrelated work. Fewer lines only when a reader of the Match neighbor is faster.
 
@@ -69,6 +91,6 @@ Keep behavior. Remove the named hotspot. Ship the cheap fast path (stdlib, one p
 
 **Keep.** Understanding before the diff. Validation and fail-closed at trust boundaries. Errors that prevent data loss. Secrets and authorization. Accessibility. Platform calibration (clocks, sensors). Anything the user named. A non-trivial change with no *red* check is unfinished. An authorized corner that cuts a real limit: mark `ceiling: <limit>; upgrade: <path>`.
 
-## Ask
+## Inform
 
-Ask when the choice is architecture, a contract, data, security, two designs of similar size with different costs, or a layer whose current need is unclear. For a small reversible choice, pick the *simplest thing* and state the assumption.
+Inform the user of the options and the consequences of each when the choice is sensitive architecture, a contract, data, or security. For a small reversible choice, pick the *simplest thing* and state the assumption.

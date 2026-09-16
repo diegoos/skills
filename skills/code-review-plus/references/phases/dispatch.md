@@ -75,9 +75,9 @@ Reference (read these skill paths, then the changed hunks, callees, and enough o
 - [Quality + tests in source only: ./references/test-quality.md]
 
 [Quality only — paste this block; omit for other hunters]
-Quality bar: if the make-code skill is available in this environment, READ it and hunt its Floor (KISS, DRY, YAGNI, Match, Balance). Hunt (no Apply, Prove, or edit).
+Quality bar: if the make-code skill is available in this environment, READ it and hunt its Floor. Hunt (no Apply, Prove, or edit).
 Else READ ./references/perspectives/quality.md and hunt that Floor.
-Read exactly one of those two. For **CC**, use the make-code skill cap. If its not available, use **CC** cap **20** on new or rewritten functions (or the project's bar), including when Floor comes from make-code.
+Read exactly one of those two. For **CC**, use the make-code Floor cap when that skill is the Quality bar; else cap **20** on new or rewritten functions (or the project's bar).
 Always cover: the Floor; docs sync when Documentable surface is yes; dead code after a full consumer search; test-quality.md when that path is in this prompt; plus any other quality cost in this diff with today's pointable line.
 Return quality_source: make-code | slim-fallback with the candidate list.
 
