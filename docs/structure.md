@@ -22,11 +22,11 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │   ├── SKILL.md
 │   │   └── agents/openai.yaml
 │   ├── code-review-plus/       # PR/diff review (bugs, security, quality)
-│   │   ├── SKILL.md            # Router: review vs fix|apply|implement
+│   │   ├── SKILL.md            # Router: review vs fix|fix all|ids vs prune vs help
 │   │   ├── README.md           # Human: flow, memory, commands
 │   │   ├── agents/openai.yaml
 │   │   └── references/
-│   │       ├── phases/         # scope, dispatch, verify, synthesize, persist, knowns, fix, prune
+│   │       ├── phases/         # scope, dispatch, verify, synthesize, persist, knowns, fix, prune, help
 │   │       ├── perspectives/   # correctness, security, architecture, quality, performance
 │   │       ├── shapes/         # web, api, ts/js/node, python, go, rust, llm (optional, ≤1 per hunter)
 │   │       ├── examples/       # kept-vs-dropped, report-sample

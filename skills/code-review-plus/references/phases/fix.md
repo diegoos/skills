@@ -1,6 +1,20 @@
 # Branch fix — apply findings
 
-Invoked only by `/code-review-plus fix`, `/code-review-plus apply`, or `/code-review-plus implement`. Open `docs/code-review/` in the **reviewed** repo. This file is the only skill reference for this branch.
+Invoked only by `/code-review-plus fix` (aliases `apply`, `implement`), with an optional **selection**. Open `docs/code-review/` in the **reviewed** repo. This file is the only skill reference for this branch.
+
+## Selection
+
+Parse the remainder after `fix` \| `apply` \| `implement` (case-insensitive). First matching row wins:
+
+| Remainder                         | Selection   | Apply                                                              |
+| --------------------------------- | ----------- | ------------------------------------------------------------------ |
+| `all`                             | **all**     | Every kept P0–P3 finding (nits included). Order P0 → P1 → P2 → P3  |
+| integers (`2,3,6` or `2 3 6`)     | **ids**     | Those Findings IDs in given order. Unknown IDs: skip and name them |
+| empty (no `all`, no integers)     | **default** | P0, P1, and vuln (🚨). Order P0 → P1 → remaining vuln              |
+
+Dead Code and Test quality "removable" stay ask-before-delete; they are not in **all** or **default** unless the user listed their Findings ID. Inside a severity, keep Findings-table order. Unknown IDs do not stop the rest of **ids**.
+
+`all` as the first remainder token wins over any IDs that follow.
 
 ## Resolve targets
 
@@ -9,7 +23,7 @@ Invoked only by `/code-review-plus fix`, `/code-review-plus apply`, or `/code-re
 3. If step 1 found nothing, use `## Findings` from that memory file.
 4. If both are empty and the user gave no list, ask. Leave the list empty until they answer.
 5. Read `## Fix` when present. Skip an ID listed as Closed when re-reading `file:line` shows the break path is gone. Apply it when the Closed line is stale and the break path still holds. Skip locations in `knowns.md`.
-6. Default order: P0 → P1. Apply P2/P3 only when the user asks or lists them.
+6. Restrict the loaded list to the **selection**. Apply only that set.
 
 ## Apply loop
 
@@ -67,9 +81,20 @@ Also report to the user:
 - Already closed, no edit (ID + why the path is gone)
 - Deferred findings (and why)
 - Checks run vs not run
+- Unknown IDs skipped (when **selection** is **ids**)
+
+When **selection** is **default**, end the user summary with remaining kept findings that were out of this set (still open: not Closed and the break path still holds). Name each leftover ID + severity. Then the two invocations:
+
+```txt
+Remaining: 2 (P2), 5 (P3), 6 (P2)
+`/code-review-plus fix all`
+`/code-review-plus fix 2,5,6`
+```
+
+Omit that block when no leftover IDs remain. **all** and **ids** omit it.
 
 Skip review pipelines. The next `/code-review-plus` is **delta**: closed paths plus new P0/P1 on the fix hunks. Do not re-dispatch the full hunter set.
 
 ## Completion criterion
 
-Every targeted finding is closed (gate passed), skipped because the break path is already gone, or explicitly deferred. No new demonstrable P0/P1 left by the fixes. The memory file's `## Fix` section is updated (or the missing-file gap is stated). Summary of closed vs skipped vs deferred delivered.
+Every finding in the **selection** is closed (gate passed), skipped because the break path is already gone, or explicitly deferred. Unknown IDs named when **ids**. No new demonstrable P0/P1 left by the fixes. The memory file's `## Fix` section is updated (or the missing-file gap is stated). Summary of closed vs skipped vs deferred delivered. **default** summary includes leftover IDs plus `fix all` and `fix <ids>` when leftovers exist.

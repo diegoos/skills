@@ -8,10 +8,13 @@ Review a PR or diff for bugs, security, and code quality. Invoke the skill by na
 | ------------------------------- | ------------------------------------------------------------------------------------ |
 | `/code-review-plus`             | Review the current diff, branch, or named files (hunters the tier requires)          |
 | `/code-review-plus <hunter>`    | One hunter (`correctness`, `security`, `architecture`, `quality`, `performance`)     |
-| `/code-review-plus fix`         | Apply kept findings from the last report (aliases: `apply`, `implement`)             |
+| `/code-review-plus fix`         | Apply P0, P1, and vuln; then leftover IDs (`fix all` or `fix 2,5`)                   |
+| `/code-review-plus fix all`     | Apply every P0–P3 finding (nits included)                                            |
+| `/code-review-plus fix 2,3,6`   | Apply those Findings IDs (spaces also work)                                          |
 | `/code-review-plus prune`       | Drop old files under `docs/code-review/` (count first, then choose how many to keep) |
+| `/code-review-plus help`        | Explain how this skill works                                                         |
 
-First reserved token (`fix` / `apply` / `implement` / `prune`) wins. Isolation: a hunter name, or `code quality` / `page performance` / `only` + hunter. Two hunter names without `only` stay a full review.
+First reserved token (`fix` / `apply` / `implement` / `prune` / `help`) wins. After `fix`, remainder is `all`, finding IDs, or empty (default). Isolation: a hunter name, or `code quality` / `page performance` / `only` + hunter. Two hunter names without `only` stay a full review.
 
 ## How it works
 
@@ -32,6 +35,7 @@ flowchart TD
   invoke -->|hunter token or isolate phrase| scope
   invoke -->|fix apply implement| fix[Fix branch]
   invoke -->|prune| prune[Prune memory]
+  invoke -->|help| help[Help reply]
   scope --> mode{Prior persist?}
   mode -->|no| fresh[Mode fresh]
   mode -->|yes| delta[Mode delta]
@@ -58,12 +62,12 @@ These files belong in the reviewed repo, not in this skill folder. The skill doe
 - `docs/code-review/YYYY-MM-DD-HH-MM.md`: findings from that review. `/code-review-plus fix` adds a `## Fix` section on first apply.
 - `docs/code-review/knowns.md`: created when you mark a finding as a false positive or out of scope
 
-The next review reads those files and is **delta** when a prior HEAD exists. Fix loads findings from this conversation or from that memory, reads `## Fix` for already-closed items, and updates the same file. After fix, the next `/code-review-plus` is delta (closed paths plus new P0/P1). `/code-review-plus prune` counts timestamped review files first, then asks whether to keep the last 3, the last 5, delete all, or keep a number you type. `knowns.md` stays.
+The next review reads those files and is **delta** when a prior HEAD exists. Fix loads findings from this conversation or from that memory, reads `## Fix` for already-closed items, and updates the same file. Bare `fix` applies P0, P1, and vuln, then names leftover IDs. After fix, the next `/code-review-plus` is delta (closed paths plus new P0/P1). `/code-review-plus prune` counts timestamped review files first, then asks whether to keep the last 3, the last 5, delete all, or keep a number you type. `knowns.md` stays.
 
 ## Files
 
-- [`SKILL.md`](SKILL.md): router (review vs fix vs prune; hunter override on review)
-- [`references/phases/`](references/phases/): scope, dispatch, verify, synthesize, persist, knowns, fix, prune
+- [`SKILL.md`](SKILL.md): router (review vs fix vs prune vs help; hunter override on review)
+- [`references/phases/`](references/phases/): scope, dispatch, verify, synthesize, persist, knowns, fix, prune, help
 - [`references/perspectives/`](references/perspectives/): the five hunters (`quality.md` is the Floor fallback)
 - [`references/shapes/`](references/shapes/): optional stack overlays
 - [`references/test-quality.md`](references/test-quality.md): tests already in the diff (Quality)

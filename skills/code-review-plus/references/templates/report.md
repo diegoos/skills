@@ -89,7 +89,7 @@ Omit this section entirely when there is no specific positive that does not cont
 
 If Scope set `Oversized: yes`, ask for a split before further review rounds.
 
-To apply fixes: `/code-review-plus fix` (aliases: `apply`, `implement`).
+To apply: `/code-review-plus fix` (P0, P1, vuln) · `/code-review-plus fix all` · `/code-review-plus fix 2,3` (ids). Aliases: `apply`, `implement`.
 
 [slim-fallback only, last line] make-code was not in this environment; Quality used the built-in Floor.
 ```

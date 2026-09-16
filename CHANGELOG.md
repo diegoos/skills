@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `code-review-plus`: `/code-review-plus help` explains how the skill works (commands, review tiers, fix selection, memory). No review, fix, prune, or writes.
+- `code-review-plus`: `/code-review-plus fix` applies P0, P1, and vuln, then names leftover IDs (`fix all` or `fix 2,5`). `fix all` applies every P0–P3 finding. `fix 2,3,6` applies those Findings IDs. Aliases `apply` / `implement` take the same remainder.
 - `code-review-plus`: Scope **delta** reuses prior HEAD and a Skip list (knowns + prior Findings). Quality hunter chooses `make-code` (Floor, no Apply) or built-in `quality.md` and returns `quality_source`. `metadata.version` → `0.7.0`.
 
 ### Changed

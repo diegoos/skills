@@ -44,6 +44,6 @@ try {
 
 Request changes — one verified P0 before merge. Quality follow-up is optional.
 
-To apply fixes: `/code-review-plus fix` (aliases: `apply`, `implement`).
+To apply: `/code-review-plus fix` (P0, P1, vuln) · `/code-review-plus fix all` · `/code-review-plus fix 2` (ids). Aliases: `apply`, `implement`.
 
 make-code was not in this environment; Quality used the built-in Floor.

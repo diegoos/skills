@@ -20,7 +20,7 @@ The same rules can live in `~/.codex/AGENTS.md` for Codex, `~/.claude/CLAUDE.md`
 | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `[write-great-instructions](skills/write-great-instructions/)` | Helps you write `AGENTS.md`, `CLAUDE.md`, Cursor rules, and Copilot instructions. Loads when you create or edit one.                                                                          |
 | `[commit-message](skills/commit-message/)`                     | Draft [Conventional Commits](https://www.conventionalcommits.org/) from the real git status and diff. One atomic commit per concern by default; a single commit only when you ask.            |
-| `[code-review-plus](skills/code-review-plus/)`                 | PR/diff review: Correctness, Security, Quality by default; Architecture on large diffs. Memory under `docs/code-review/`. P0-P3. Branches: `review`, `fix`/`apply`/`implement`, `prune`.      |
+| `[code-review-plus](skills/code-review-plus/)`                 | PR/diff review: Correctness, Security, Quality by default; Architecture on large diffs. Memory under `docs/code-review/`. P0-P3. Branches: `review`, `fix`/`fix all`/`ids`, `prune`.          |
 | `[deep-security-review](skills/deep-security-review/)`         | Security-first review: threat model with hotspots, parallel domain hunts, disprove/verify, findings + hardening notes (P0-P3). Branches: review, `fix`/`apply`/`implement`. Invoke by name.   |
 | `[make-code](skills/make-code/)`                               | KISS, DRY, YAGNI, CC for app code: make it work, right, then fast. Branches: `write`, `refactor`, `improve`.                                                                                  |
 | `[make-docs](skills/make-docs/)`                               | Architecture docs and behavioral specs under `docs/`. Branches: `explore`, `update` (stamp), `refresh` (re-survey), `adr`. Confirm gate; ≤3 hunters.                                          |
@@ -78,8 +78,11 @@ User-invoked only (`disable-model-invocation`). Call by name:
 ```text
 /code-review-plus              → PR/diff review (Correctness, Security, Quality by default)
 /code-review-plus quality      → Quality hunter only (also: correctness, security, architecture, performance)
-/code-review-plus fix          → apply findings from the last report (aliases: apply, implement)
+/code-review-plus fix          → P0, P1, and vuln from the last report; leftover IDs printed (aliases: apply, implement)
+/code-review-plus fix all      → every P0–P3 finding
+/code-review-plus fix 2,3,6    → those Findings IDs
 /code-review-plus prune        → drop old docs/code-review review files (count first, then choose)
+/code-review-plus help         → explain how the skill works
 /deep-security-review          → deep security review (domain + shape hunts)
 /deep-security-review fix      → apply review findings (aliases: apply, implement)
 ```
