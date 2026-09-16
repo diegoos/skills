@@ -40,7 +40,7 @@ For a deeper security pass, use `/deep-security-review` instead of this skill's 
 
 ## After a review
 
-Mark a false positive or won't-fix in the conversation; that updates `docs/code-review/knowns.md`. Then `/code-review-plus fix` (or `fix all` / `fix <ids>`). `/code-review-plus prune` counts timestamped review files, then asks how many to keep. `knowns.md` stays.
+Mark a false positive or won't-fix in the conversation; that updates `docs/code-review/knowns.md`. Then `/code-review-plus fix` (or `fix all` / `fix <ids>`). Fix reads `make-code` when that skill is in the environment. `/code-review-plus prune` counts timestamped review files, then asks how many to keep. `knowns.md` stays.
 ```
 
 ## Completion criterion

@@ -25,13 +25,26 @@ Dead Code and Test quality "removable" stay ask-before-delete; they are not in *
 5. Read `## Fix` when present. Skip an ID listed as Closed when re-reading `file:line` shows the break path is gone. Apply it when the Closed line is stale and the break path still holds. Skip locations in `knowns.md`.
 6. Restrict the loaded list to the **selection**. Apply only that set.
 
+## Make-code
+
+Before the Apply loop: if the make-code skill is available in this environment, READ it once and set **fix source** `make-code`. Else set **fix source** `slim-fallback`.
+
+When **fix source** is `make-code`, each finding uses that skill's workflow on its slice:
+
+- Branch: **write** (bug, vuln, new behavior) · **refactor** (same behavior) · **improve** only when the finding is Performance with a named hotspot
+- Trace, Climb, Apply, Prove
+- **Must NOT change** and the **fix acceptance gate** still bind
+- **CC** on new or rewritten functions: this skill's cap **20** (or the project's bar), not make-code's write cap of 10
+
+When **fix source** is `slim-fallback`, step 3 of the Apply loop is **Clean fix** only.
+
 ## Apply loop
 
 For each target finding (one at a time, or one atomic cluster that must ship together):
 
 1. Re-read the cited `file:line` and the finding's `regression_risk` / suggested fix.
 2. Apply a **clean minimal local fix** that closes the issue and respects **Must NOT change** from the memory file or the report (Review Summary). Scope = finding path + callers you must touch; no drive-by work outside the finding.
-3. Follow **Clean fix** below while editing.
+3. Follow **make-code** Apply when **fix source** is `make-code`; else follow **Clean fix** below.
 4. Redact secret values in commits, comments, and logs; rotate out-of-band if the finding was a leaked secret.
 5. Do not relax auth or validation to make checks pass.
 6. Inspect the fix's own diff and re-read touched callers.
@@ -56,7 +69,7 @@ The finding is closed only when all are true:
 - The original break/exploit path no longer holds on reading the code today
 - No new demonstrable P0/P1 break or vuln was introduced by this fix
 - Documented intentional design and named what-must-not-change still hold
-- The fix is clean per the section above (reuse, names, no leftover narration/compat)
+- The edit matches make-code Floor when **fix source** is `make-code`; else it matches **Clean fix**
 - Checks that were run passed, or failures are explained and fixed before continuing
 
 If the gate fails: revert or narrow the fix, then retry. Do not proceed to the next finding while a gate failure remains open.
@@ -71,6 +84,7 @@ Fill `## Fix` on the memory file from Resolve targets. Create the heading after 
 - Closed: [ID / severity / file] …
 - Deferred: [ID + why] … | none
 - Checks: ran … | not run …
+- fix source: make-code | slim-fallback
 ```
 
 If that file is missing (read-only gap or no persist), say so in the summary and still report closed vs deferred vs already closed (break path gone, no edit).
@@ -82,6 +96,7 @@ Also report to the user:
 - Deferred findings (and why)
 - Checks run vs not run
 - Unknown IDs skipped (when **selection** is **ids**)
+- `fix source: make-code | slim-fallback`. When slim-fallback, last line: make-code was not in this environment; fixes used this skill's Clean fix.
 
 When **selection** is **default**, end the user summary with remaining kept findings that were out of this set (still open: not Closed and the break path still holds). Name each leftover ID + severity. Then the two invocations:
 
@@ -97,4 +112,4 @@ Skip review pipelines. The next `/code-review-plus` is **delta**: closed paths p
 
 ## Completion criterion
 
-Every finding in the **selection** is closed (gate passed), skipped because the break path is already gone, or explicitly deferred. Unknown IDs named when **ids**. No new demonstrable P0/P1 left by the fixes. The memory file's `## Fix` section is updated (or the missing-file gap is stated). Summary of closed vs skipped vs deferred delivered. **default** summary includes leftover IDs plus `fix all` and `fix <ids>` when leftovers exist.
+Every finding in the **selection** is closed (gate passed), skipped because the break path is already gone, or explicitly deferred. Unknown IDs named when **ids**. No new demonstrable P0/P1 left by the fixes. The memory file's `## Fix` section is updated (or the missing-file gap is stated), including **fix source**. Summary of closed vs skipped vs deferred delivered. **default** summary includes leftover IDs plus `fix all` and `fix <ids>` when leftovers exist.

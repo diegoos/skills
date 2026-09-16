@@ -19,7 +19,7 @@ metadata:
 
 **Invariants:** Each pipeline is a separate hunter. **silence** is the default; emit when the break, exploit, or quality cost is **proven** today with a pointable line. **delta** reads persist. Prefer a minimal local fix over a broad refactor.
 
-**Reference budget:** Open a phase file when that phase starts. Each hunter: **1** perspective + **0 or 1** shape. Quality: the prompt names `make-code` and `./references/perspectives/quality.md`; the hunter reads **one**. Quality + tests in source: also `./references/test-quality.md`. Orchestrator-only refs stay off hunter prompts (list in dispatch.md).
+**Reference budget:** Open a phase file when that phase starts. Each hunter: **1** perspective + **0 or 1** shape. Quality: the prompt names `make-code` and `./references/perspectives/quality.md`; the hunter reads **one**. Quality + tests in source: also `./references/test-quality.md`. Fix: READ `make-code` when that skill is in the environment (`fix.md`). Orchestrator-only refs stay off hunter prompts (list in dispatch.md).
 
 ## Commands
 
