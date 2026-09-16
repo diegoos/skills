@@ -123,12 +123,17 @@ Read this file only when Pass B is unsure whether to keep or drop a candidate. D
 #### Dropped — extract helper only to lower a complexity score
 
 - **Signal:** Hunter proposes splitting a readable function because CC is 12 (or the linter said so).
-- **Why drop:** No nesting ≥3 and no third use. A score move without a responsibility name is gaming. Keep the function unless a reader is slower today.
+- **Why drop:** CC ≤ 20 Floor; no nesting ≥3 and no third use. A score move without a responsibility name is gaming. Keep the function unless a reader is slower today.
 
 #### Dropped — Go `if err != nil` series as complexity
 
 - **Signal:** Function CC is high; most branches are `if err != nil { return err }`.
 - **Why drop:** Explicit error paths inflate CC. They are not nested jungle. Inspect remaining business branches only.
+
+#### Kept — new or rewritten function with CC > 20
+
+- **Signal:** Diff adds or substantially rewrites a function; CC is above the Floor cap (20) with no project bar, or above the project's configured bar.
+- **Why keep:** Maintainability today. Suggested fix: local split, table, or tests — not a wholesale rewrite. Cite the counted score in the finding body.
 
 #### Kept — new function with nesting ≥3
 

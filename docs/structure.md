@@ -21,7 +21,7 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   ├── commit-message/         # Conventional Commits
 │   │   ├── SKILL.md
 │   │   └── agents/openai.yaml
-│   ├── code-review-plus/       # Multi-perspective code review
+│   ├── code-review-plus/       # PR/diff review (bugs, security, quality)
 │   │   ├── SKILL.md            # Router: review vs fix|apply|implement
 │   │   ├── README.md           # Human: flow, memory, commands
 │   │   ├── agents/openai.yaml

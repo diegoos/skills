@@ -1,9 +1,9 @@
 ---
 name: code-review-plus
-description: Multi-perspective PR/diff review with a P0–P3 report; one hunter on demand; fix/apply findings or prune saved reviews.
+description: PR/diff review for bugs, security, and quality; one hunter on demand; fix or prune saved reviews.
 disable-model-invocation: true
 metadata:
-  version: 0.6.0
+  version: 0.7.0
   author: "Diego Oliveira"
   tags:
     - code
@@ -15,11 +15,11 @@ metadata:
 
 # Code Review Plus
 
-**Branches:** review (default) → parallel pipelines → double verify → synthesize → report skeleton → persist → emit. Fix branch applies findings with a **regression gate**. Prune drops old `docs/code-review/` files.
+**Branches:** review (default) → pipelines by tier → validator → synthesize → persist → emit. Fix applies findings with a **regression gate**. Prune drops old `docs/code-review/` files.
 
-**Invariants:** Each pipeline runs as a separate hunter (subagent). Every finding is reproducible from the code. Keep only `proven` or `likely` issues with a pointable line today. Prefer a minimal local fix over a broad refactor.
+**Invariants:** Each pipeline is a separate hunter. **silence** is the default; emit when the break, exploit, or quality cost is **proven** today with a pointable line. **delta** reads persist. Prefer a minimal local fix over a broad refactor.
 
-**Reference budget:** Open a phase file when that phase starts. Each hunter: **1** perspective + **0 or 1** shape. Quality + tests in source: also `./references/test-quality.md`. Orchestrator-only refs stay off hunter prompts (list in dispatch.md).
+**Reference budget:** Open a phase file when that phase starts. Each hunter: **1** perspective + **0 or 1** shape. Quality: the prompt names `make-code` and `./references/perspectives/quality.md`; the hunter reads **one**. Quality + tests in source: also `./references/test-quality.md`. Orchestrator-only refs stay off hunter prompts (list in dispatch.md).
 
 ## Commands
 
@@ -55,8 +55,8 @@ Done for each phase is the completion criterion in its READ file. Open the next 
 | ------------ | ------------------------------------------------------------------------------------------- | ----------------------------------- |
 | 1 Scope      | Intent + source + sizing + tier + Pipelines + Isolated + tags + knowns + context ready      | `./references/phases/scope.md`      |
 | 2 Dispatch   | Each Pipelines name returned candidates; shapes recorded when attached                      | `./references/phases/dispatch.md`   |
-| 2.5 Verify   | Every candidate has status + cited note; P0 verifier ran or skipped                         | `./references/phases/verify.md`     |
-| 3 Synthesize | Surviving findings have required fields + severity                                          | `./references/phases/synthesize.md` |
+| 2.5 Verify   | Every candidate has status + cited note                                                     | `./references/phases/verify.md`     |
+| 3 Synthesize | Surviving findings have required fields + severity and go in the report                     | `./references/phases/synthesize.md` |
 | 4 Report     | Skeleton filled (not yet sent)                                                              | `./references/templates/report.md`  |
 | 4.5 Persist  | `docs/code-review/<timestamp>.md` written (or read-only gap stated); then emit the skeleton | `./references/phases/persist.md`    |
 
@@ -80,4 +80,4 @@ Prerequisite: a review report in this conversation, a `docs/code-review/` memory
 
 ## Relation to `deep-security-review`
 
-Both skills are user-invoked. Use this skill for multi-perspective PR/diff review (optional stack shapes, including `llm`), including `/code-review-plus security`. Hint `/deep-security-review` as a deeper pass.
+Both skills are user-invoked. Use this skill for PR/diff review (Correctness, Security, Quality by default; optional stack shapes, including `llm`), including `/code-review-plus security`. Hint `/deep-security-review` as a deeper pass.

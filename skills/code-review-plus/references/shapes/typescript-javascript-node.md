@@ -13,5 +13,4 @@ Hunt language and runtime pitfalls.
 
 ## Pass A
 
-- Verify the framework's real return shape before asserting failure
-- Note `regression_risk` for callers of the typed API
+Verify the framework's real return shape before asserting failure.

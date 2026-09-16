@@ -2,7 +2,7 @@
 
 Hunt hot-path cost, unbounded work, and UI churn.
 
-For profiling guidance, use `performance-optimization` when available.
+For profiling guidance, use `performance-optimization` when available. Speculative optimization without a named hotspot is Quality YAGNI.
 
 ## Hunt for
 
@@ -13,7 +13,6 @@ For profiling guidance, use `performance-optimization` when available.
 - Large object creation in critical paths
 - N instances with N listeners is optimization, not a leak, when cleanup exists
 
-## Pass A reminders
+## Pass A
 
-- Prefer demonstrated hot paths or clear production-scale breakage over theoretical cost
-- Note `regression_risk` for caching semantics and pagination contracts
+Emit when the hot path or production-scale cost is visible in the code today. Note `regression_risk` for caching semantics and pagination contracts.

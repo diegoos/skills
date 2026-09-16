@@ -1,8 +1,8 @@
 # Pipeline — Security
 
-Hunt input validation, injection, auth gaps, and data exposure.
+Hunt input validation, injection, auth gaps, and data exposure that are exploitable **today**.
 
-Deeper threat modeling: tell the user to invoke `/deep-security-review` (see skill Relation; do not auto-start).
+When the surface needs threat modeling beyond this pass, tell the user to invoke `/deep-security-review` (do not auto-start).
 
 ## Hunt for
 
@@ -15,15 +15,6 @@ Deeper threat modeling: tell the user to invoke `/deep-security-review` (see ski
 - Sensitive data exposure in logs, errors, or responses
 - Dependency trust and known vulnerabilities
 
-## Security-specific rules
+## Pass A
 
-- Check global middleware before flagging a route as missing CSRF/auth
-- Classify data provenance: direct user input, LLM content, or backend value
-- Evaluate the **final output** of sanitization pipelines, not one step
-- Defense-in-depth gaps are hardening (P2)
-- Report secrets as `file:line` and secret type only; redact the value
-- Suggest `/deep-security-review` when the surface needs threat modeling beyond this pass
-
-## Pass A reminders
-
-- Note `regression_risk` for auth contracts and shared middleware
+Check global middleware before a route finding. Classify data provenance (user / LLM / backend). Judge the **final output** of a sanitization pipeline. Hardening without a path today stays category hardening. Report secrets as `file:line` + type only. Note `regression_risk` for auth contracts and shared middleware.

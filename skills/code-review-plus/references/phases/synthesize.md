@@ -7,7 +7,7 @@ If manifest/lockfile is in scope and Security is in Phase 1 `Pipelines`, read `.
 ## Steps
 
 1. Take only `kept` and `downgraded` candidates from Phase 2.5
-2. Deduplicate: merge overlapping findings across pipelines
+2. Deduplicate: merge overlapping findings across pipelines (same `file:line` + same cause = one finding)
 3. Categorize: assign exactly one category
 4. Prioritize: map category + impact to P0/P1/P2/P3
 5. Attach **regression_risk** on every kept finding's suggested fix
@@ -16,6 +16,7 @@ If manifest/lockfile is in scope and Security is in Phase 1 `Pipelines`, read `.
 8. Strengths: if 1–2 specific things were done well and they do not contradict findings, they go in What Looks Good; otherwise omit that section
 9. Tests in source **and** Quality in `Pipelines`: answer the three Test quality questions for the report (useful / efficient / removable). Use Quality candidates plus the test diff.
 10. Verified unused code (all consumers checked) goes to Dead Code, not P0–P3, unless it also breaks behavior today
+11. Copy `quality_source` from the Quality hunter when Quality ran
 
 ## Categories
 
@@ -36,14 +37,13 @@ If manifest/lockfile is in scope and Security is in Phase 1 `Pipelines`, read `.
 
 **Calibration:**
 
-- P0 blocks merge only after the Pass B P0 bar (full verify + exploit/break path today with `file:line`). `needs-runtime` without code proof is not P0.
-- One structural finding outweighs ten nits; order and cap accordingly.
+- P0 blocks merge only after the Pass B P0 bar (full verify + exploit/break path today with `file:line`). `needs-runtime` without code proof is not P0. P0/P1 require `proven`.
+- One structural finding outweighs ten nits; order by impact. Every `kept` / `downgraded` finding goes in the report.
 - Structural smells default to P2/maintainability; P1 only when the change worsens structure today (more concepts, feature logic into shared, clear boundary break).
 - Clarity is comprehension, not LOC; naming/layout are typically P3; P2 only with a concrete navigation or consistency win.
 - A complexity **score** alone is P3 at most; P2 needs a named remedy and a reader who is faster today.
 - Speculative complexity with no correctness or security hole is maintainability P2 (plugin / type tree) or P3 (dead field); never P0.
 - Structural findings name a remedy (see `../remedies.md`) or mark follow-up with high `regression_risk`.
-- If more than 5 combined P2/P3 items remain, keep only the most impactful; P3 max 3.
 - Legitimate hardening (CSP, HSTS, pagination, `.catch()` on floating promise, defensive `try/finally`) is follow-up, not blocker.
 
 ## Security classification
@@ -81,4 +81,4 @@ Approve (or Approve with follow-ups) when there is no verified P0, even if P2/P3
 
 ## Completion criterion
 
-Every surviving finding has all required fields including `regression_risk`. P2/P3 counts respect calibration caps. Dropped counts from Phase 2.5 remain available for the summary.
+Every surviving finding has all required fields including `regression_risk` and appears in the report. Dropped counts from Phase 2.5 remain available for the summary. `quality_source` is ready for the report when Quality ran.

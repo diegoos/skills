@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `code-review-plus`: Scope **delta** reuses prior HEAD and a Skip list (knowns + prior Findings). Quality hunter chooses `make-code` (Floor, no Apply) or built-in `quality.md` and returns `quality_source`. `metadata.version` → `0.7.0`.
+
+### Changed
+
+- `code-review-plus`: CC Floor cap **20** on new or rewritten functions (or project bar); Quality review uses cap 20 even when sourcing Floor from `make-code`.
+- `code-review-plus`: default pipelines are Correctness + Security + Quality (`trivial` drops Security unless the surface is sensitive; `large/sensitive` adds Architecture). Performance is isolated-only. Validator is Pass B (three questions); the extra P0 verifier subagent is gone. Report is Summary + Overview + Verdict and lists every kept finding. Serial carry is `location` + `title` + `pipeline`. Security/Quality shapes skip `web`/`api`.
+
+### Removed
+
+- `code-review-plus`: persist `## Deferred`. Every hunter finding that survives verification goes in the report (Fix-section `Deferred:` bullets for unapplied IDs stay).
+- `code-review-plus`: Phase 2.5 recurring false-positive table (examples stay in `kept-vs-dropped.md`). Report `### Verification` block and `P0 verifier: ran|skipped`.
+
 ## [0.2.1] - 2026-09-08
 
 ### Changed

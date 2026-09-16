@@ -10,8 +10,9 @@ Use after the report when the user wants calibration feedback. Fill in the conve
 Candidates: N total → kept: … / dropped: … / downgraded: …
 Pipelines: …
 Tier: trivial | normal | large/sensitive
+Mode: fresh | delta
 Shapes: … | none
-P0 verifier: ran | skipped (reason: …)
+quality source: make-code | slim-fallback | skipped
 
 False positive that survived Pass B? (one line or "none")
 True positive wrongly dropped/downgraded? (one line or "none")

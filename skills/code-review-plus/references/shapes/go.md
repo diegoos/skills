@@ -16,5 +16,4 @@ Hunt language and runtime pitfalls.
 
 ## Pass A
 
-- Read `go` from `go.mod` before version-gated advice (loop-var capture in goroutines only if `go < 1.22`)
-- Note `regression_risk` for exported API callers
+Read `go` from `go.mod` before version-gated advice.

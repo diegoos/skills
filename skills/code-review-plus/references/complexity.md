@@ -10,7 +10,7 @@ CC = decision points + 1. Count `if`, `elif` / `else if`, loops, `case`, `catch`
 
 Tools disagree on `switch` (classic: +1 per `case`; modified / Cognitive Complexity: +1 for the whole `switch`). Cite the tool. Eye count: classic, and say so.
 
-CC is a lower bound on basis-path tests and a hotspot rank. It is not a quality score, a bug predictor, or a rewrite trigger.
+CC is a lower bound on basis-path tests and a hotspot rank. It is not a quality score, a bug predictor, or a rewrite trigger. Floor cap is **20** on new or rewritten functions unless the project sets another bar.
 
 ## Cognitive load vs CC
 
@@ -22,15 +22,15 @@ Guard clauses and early returns flatten nesting. They are a fix, not a finding. 
 
 | Situation                                                                                                                         | Action                                                                 |
 | --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| CC 1–10, or readable with nesting < 3                                                                                             | Silence on CC                                                          |
-| New or substantially rewritten function, hard to follow, **and** (nesting ≥3 **or** CC ≥11)                                       | Keep as maintainability; name a remedy                                 |
-| Diff **increased** nesting or mixed booleans, even if CC stays < 10                                                               | Keep on the readability signal                                         |
+| CC 1–20, or readable with nesting < 3                                                                                             | Silence on CC                                                          |
+| New or substantially rewritten function, hard to follow, **and** nesting ≥3 in the same function                                  | Keep as maintainability; name a remedy                                 |
+| Diff **increased** nesting or mixed booleans, even if CC stays ≤ 20                                                               | Keep on the readability signal                                         |
 | CC > 20 on touched new/rewritten code                                                                                             | Keep; ask for a local split, table, or tests — not a wholesale rewrite |
 | Linear long function; flat `switch` dispatch; table-driven / input validation; Go `if err != nil` series; generated state machine | Drop the complexity candidate                                          |
 | High-CC legacy the diff barely touched                                                                                            | Drop (new-code gate)                                                   |
 | Score with no comprehension win today                                                                                             | Drop or P3 nit                                                         |
 
-One primary signal per `file:line` (nesting, size, or CC). Project threshold, if present, replaces the CC ≥11 row.
+One primary signal per `file:line` (nesting, size, or CC). Project threshold, if present, replaces the cap-20 row. Cap **20** on new or rewritten functions unless the project sets another bar.
 
 ## Anti-gaming
 
@@ -38,7 +38,7 @@ A finding's `suggested_fix` must make a reader faster today. Reject: dense one-l
 
 ## YAGNI
 
-Flag only new complexity in this diff that no real caller uses; skip tests, a refactor that simplifies the current path, and the second real duplicate. Speculative code with no correctness or security hole is Quality/Architecture P2 (plugin / type tree) or P3 (dead field). Abstraction with callers or a shipped contract is not YAGNI.
+Flag only new complexity in this diff that no real caller uses; skip tests, a refactor that simplifies the current path, and the second real duplicate. Speculative code with no correctness or security hole is Quality P2 (plugin / type tree) or P3 (dead field). Abstraction with callers or a shipped contract is not YAGNI.
 
 ## Tools (touched files only)
 

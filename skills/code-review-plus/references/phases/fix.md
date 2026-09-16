@@ -68,7 +68,7 @@ Also report to the user:
 - Deferred findings (and why)
 - Checks run vs not run
 
-Skip review pipelines. For a re-review, the user invokes `/code-review-plus` on the **fix diff**, with focus: did each fix close its finding without new P0/P1?
+Skip review pipelines. The next `/code-review-plus` is **delta**: closed paths plus new P0/P1 on the fix hunks. Do not re-dispatch the full hunter set.
 
 ## Completion criterion
 
