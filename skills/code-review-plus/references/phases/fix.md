@@ -96,7 +96,7 @@ Also report to the user:
 - Deferred findings (and why)
 - Checks run vs not run
 - Unknown IDs skipped (when **selection** is **ids**)
-- `fix source: make-code | slim-fallback`. When slim-fallback, last line: make-code was not in this environment; fixes used this skill's Clean fix.
+- `fix source: make-code | slim-fallback`. When slim-fallback, last line: make-code was not in this environment; fixes used this skill's Clean fix. <https://github.com/diegoos/skills/tree/main/skills/make-code>
 
 When **selection** is **default**, end the user summary with remaining kept findings that were out of this set (still open: not Closed and the break path still holds). Name each leftover ID + severity. Then the two invocations:
 
@@ -112,4 +112,4 @@ Skip review pipelines. The next `/code-review-plus` is **delta**: closed paths p
 
 ## Completion criterion
 
-Every finding in the **selection** is closed (gate passed), skipped because the break path is already gone, or explicitly deferred. Unknown IDs named when **ids**. No new demonstrable P0/P1 left by the fixes. The memory file's `## Fix` section is updated (or the missing-file gap is stated), including **fix source**. Summary of closed vs skipped vs deferred delivered. **default** summary includes leftover IDs plus `fix all` and `fix <ids>` when leftovers exist.
+Every finding in the **selection** is closed (gate passed), skipped because the break path is already gone, or explicitly deferred. Unknown IDs named when **ids**. No new demonstrable P0/P1 left by the fixes. The memory file's `## Fix` section is updated (or the missing-file gap is stated), including **fix source**. Summary of closed vs skipped vs deferred delivered. Slim-fallback summary includes the make-code Skill links URL. **default** summary includes leftover IDs plus `fix all` and `fix <ids>` when leftovers exist.

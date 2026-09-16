@@ -46,4 +46,4 @@ Request changes — one verified P0 before merge. Quality follow-up is optional.
 
 To apply: `/code-review-plus fix` (P0, P1, vuln) · `/code-review-plus fix all` · `/code-review-plus fix 2` (ids). Aliases: `apply`, `implement`.
 
-make-code was not in this environment; Quality used the built-in Floor.
+make-code was not in this environment; Quality used the built-in Floor. <https://github.com/diegoos/skills/tree/main/skills/make-code>

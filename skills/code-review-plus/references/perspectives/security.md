@@ -2,8 +2,6 @@
 
 Hunt input validation, injection, auth gaps, and data exposure that are exploitable **today**.
 
-When the surface needs threat modeling beyond this pass, hint `/deep-security-review` and leave that skill unstarted.
-
 ## Hunt for
 
 - SQL/command/path injection, XSS, CSRF

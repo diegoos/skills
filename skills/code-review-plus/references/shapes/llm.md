@@ -1,6 +1,6 @@
 # Shape — LLM / agent surface (PR review)
 
-Hunt prompt and tool-boundary issues in this diff. Not a full threat model; deeper pass → `/deep-security-review`.
+Hunt prompt and tool-boundary issues in this diff at PR-review depth.
 
 ## Hunt for
 

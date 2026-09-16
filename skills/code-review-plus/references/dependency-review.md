@@ -18,4 +18,4 @@ Prefer existing utilities over a new dependency.
 - Review the lockfile diff; do not hand-edit the lockfile
 - Suite green before and after when tests exist
 
-Deep supply-chain verdicts belong in `/deep-security-review` (see skill Relation).
+Supply-chain beyond this file feeds the report-end `/deep-security-review` line when warranted (`report.md`).

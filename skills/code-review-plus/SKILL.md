@@ -86,6 +86,16 @@ Prerequisite: a review report in this conversation, a `docs/code-review/` memory
 
 - Report secrets as `file:line` + type only; redact values in the report and in fixes
 
+## Skill links
+
+When suggesting `make-code` or `deep-security-review`, include that GitHub URL. Catalog only when naming the collection.
+
+| Skill                  | URL                                                                        |
+| ---------------------- | -------------------------------------------------------------------------- |
+| make-code              | <https://github.com/diegoos/skills/tree/main/skills/make-code>             |
+| deep-security-review   | <https://github.com/diegoos/skills/tree/main/skills/deep-security-review>  |
+| catalog                | <https://github.com/diegoos/skills/tree/main/skills>                       |
+
 ## Relation to `deep-security-review`
 
-Both skills are user-invoked. Use this skill for PR/diff review (Correctness, Security, Quality by default; optional stack shapes, including `llm`), including `/code-review-plus security`. Hint `/deep-security-review` as a deeper pass.
+This skill always runs its own Security hunter when Security is in `Pipelines`. Leave `deep-security-review` unstarted. When the slim pass cannot close the security question for this change, the report ends with a `/deep-security-review` suggestion plus its Skill links URL (`report.md`).

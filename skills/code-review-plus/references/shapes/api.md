@@ -1,6 +1,6 @@
 # Shape — API (PR review)
 
-Hunt HTTP/API surface issues. Not a full threat model; deeper pass → `/deep-security-review`.
+Hunt HTTP/API surface issues at PR-review depth.
 
 ## Hunt for
 

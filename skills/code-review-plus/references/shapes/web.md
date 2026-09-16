@@ -1,6 +1,6 @@
 # Shape — Web (PR review)
 
-Hunt web-facing issues. Not a full threat model; deeper pass → `/deep-security-review`.
+Hunt web-facing issues at PR-review depth.
 
 ## Hunt for
 
