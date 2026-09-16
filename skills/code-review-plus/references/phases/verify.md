@@ -4,7 +4,7 @@ Reject false positives after all pipelines return. Only candidates that survive 
 
 When keep/drop is unclear, read `../examples/kept-vs-dropped.md`. When a candidate is about branching, nesting, a complexity score, speculative abstraction, or YAGNI, also read `../complexity.md`.
 
-## Pass A — hunter (already done in dispatch)
+## Intake
 
 Confirm each candidate still carries:
 
@@ -12,7 +12,7 @@ Confirm each candidate still carries:
 - `exploit_or_break_path` with a pointable line today (break, exploit, or cost)
 - `suggested_fix` that is minimal and local when possible
 
-Drop immediately if Pass A fields are missing, speculative, or `location` is on Phase 1 `Skip` and that path's behavior did not change.
+Drop immediately if those fields are missing, speculative, or `location` is on Phase 1 `Skip` and that path's behavior did not change.
 
 ## Pass B — validator
 
@@ -22,13 +22,15 @@ Re-open `file:line` plus callers, middleware, shared helpers, and consumers as n
 2. Does this contradict another candidate or a likely "What Looks Good" strength?
 3. Would the suggested fix pass the **regression gate** (minimal, local, respects what-must-not-change)?
 
-Drop or downgrade any item that fails. Future-only risks become hardening (downgrade), not blockers. Maintainability stays `kept` when the cost is pointable today. Dead-code candidates that survive the consumer search stay `kept` for the report Dead Code section, not as P0. Configured formatter/linter owns style: drop unless the line is broken or unsafe today.
+Drop or downgrade any item that fails. Future-only risks become hardening, not blockers. Keep maintainability when today's cost is pointable, including Quality extras the Floor did not name. Keep a real issue when `pipeline` is a mismatch; synthesize assigns category. Dead-code after a full consumer search goes to Dead Code, not P0. Formatter/linter style stays unflagged unless the line is broken or unsafe today.
 
-On residual ambiguity (middleware vs route, framework return shape, `needs-runtime` borderline): downgrade or mark unverified. Do not dispatch another hunter.
+`likely` with a pointable line: re-read. Confirm → **proven**. Line holds but the path is still incomplete → keep as hardening (not P0/P1). No line today → drop.
+
+On residual ambiguity (middleware vs route, framework return shape, `needs-runtime` borderline): downgrade or mark unverified. Pass B decides on this candidate set.
 
 ### P0 bar
 
-A candidate may become P0 in synthesize only if Pass B is complete and the exploit/break path is reconfirmed today with a pointable `file:line`. Maintainability, YAGNI-without-a-hole, and verified unused code are never P0. Claims that need deployed config or runtime observation (`needs-runtime`) are never P0 without proof in code; mark them unverified or hardening. P0 and P1 require `evidence_level: proven`.
+P0 is an exploit/break path reconfirmed today with a pointable `file:line` after Pass B. Maintainability, YAGNI-without-a-hole, verified unused code, and `needs-runtime` without proof in code stay below P0 (unverified or hardening). P0 and P1 require `evidence_level: proven`.
 
 ## Verification artifact (required per candidate)
 
@@ -45,7 +47,7 @@ Pass B is complete only when `verification_note` cites what was re-read (`file` 
 
 ## Post-report calibration (optional)
 
-If the user asks to calibrate this review, follow the pattern in `../examples/eval-notes.md` in the conversation. Do not create that file in the reviewed target repo unless they ask. Do not preload eval-notes during verify.
+If the user asks to calibrate this review, follow `../examples/eval-notes.md` in the conversation (write a file in the reviewed repo only if they ask).
 
 ## Completion criterion
 

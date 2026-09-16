@@ -22,7 +22,7 @@ The orchestrator scopes the change (intent, size, dispatch tier, stack tags, con
 
 Default pipelines: **trivial** Correctness + Quality (Security if the diff touches a sensitive surface); **normal** Correctness + Security + Quality; **large/sensitive** those three plus Architecture. Performance runs only when isolated.
 
-Each hunter gets one perspective and at most one stack shape, picked by priority. Security and Quality do not attach `web`/`api` shapes (the Security perspective already hunts that surface). The Quality hunter reads `make-code` when that skill is in the environment; otherwise it reads the built-in Floor in `quality.md` and the report says so. Quality also reads test-quality rules when the diff includes tests.
+Each hunter gets one perspective and at most one stack shape, picked by priority. Security and Quality skip `web`/`api` shapes (the Security perspective already covers that surface). Hunt lists are a **floor** (Hunt bar in dispatch). The Quality hunter reads `make-code` when that skill is in the environment; otherwise it reads the built-in Floor in `quality.md` and the report says so. Either way it also covers docs sync, dead code, and tests already in the diff (`test-quality.md` when tests are in source).
 
 When the hunters return, the orchestrator validates every candidate against the code (Pass B), synthesizes severity, and puts every kept finding in the report. It writes memory under `docs/code-review/` in the reviewed repo, then replies with the report.
 

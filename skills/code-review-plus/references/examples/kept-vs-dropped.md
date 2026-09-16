@@ -29,6 +29,11 @@ Read this file only when Pass B is unsure whether to keep or drop a candidate. D
 - **Signal:** Prefer different synonym.
 - **Why drop:** Preference without codebase inconsistency. Skip.
 
+### Dropped — same behavior and Match; reviewer would have written it differently
+
+- **Signal:** Alternative structure the reviewer prefers; neighbor and Floor already hold; no load cost.
+- **Why drop:** Preference. Not a finding.
+
 ## Kept (true positives)
 
 ### `JSON.parse` on HTTP body without try/catch
@@ -118,7 +123,7 @@ Read this file only when Pass B is unsure whether to keep or drop a candidate. D
 - **Signal:** New test whose only assertion is a trivial getter/reexport.
 - **Why keep:** Coverage theater. List as removable; ask before delete.
 
-### Complexity / YAGNI
+### Complexity / YAGNI / Match
 
 #### Dropped — extract helper only to lower a complexity score
 
@@ -144,3 +149,8 @@ Read this file only when Pass B is unsure whether to keep or drop a candidate. D
 
 - **Signal:** Diff adds an interface, factory, or provider enum with a single live implementation and no second caller or shipped contract.
 - **Why keep:** YAGNI. Carry starts now. Suggested fix: call the concrete type. P2 for a type tree; P3 for a dead field.
+
+#### Kept — Match miss vs neighbor of the same kind
+
+- **Signal:** New helper names errors or imports unlike the neighbor of the same kind; a reader must learn a second pattern in this slice.
+- **Why keep:** Match cost today. Suggested fix: follow the neighbor. P2/P3 maintainability.

@@ -1,6 +1,6 @@
 # Pipeline — Quality (slim Floor)
 
-Fallback when `make-code` is not in this environment. Hunt the Floor on the review diff. Do not Apply, Prove, or edit. Derived from `make-code` Floor — not its write workflow. Review **CC** cap is **20** (Pass B: `../complexity.md`).
+Fallback when `make-code` is not in this environment. Hunt this Floor (review, no Apply). **CC** cap is **20** unless the project sets another bar (`../complexity.md`).
 
 **KISS** is the path. **DRY** is one representation, earned. **YAGNI** is the stop. **CC** is the local ceiling. **Match** and **Balance** decide naming and extract.
 
@@ -20,4 +20,4 @@ Layer and module boundary breaks → Architecture. N+1 and demonstrated hot path
 
 ## Pass A
 
-`exploit_or_break_path` names today's cost (reader cannot state the happy path, zero callers, unused after consumer search, test that never fails). Configured formatter/linter owns style. Suggested fix preserves error paths. Note `regression_risk` for public names and shared helpers.
+`exploit_or_break_path` names today's cost (reader cannot state the happy path, zero callers, unused after consumer search, test that never fails, Match miss, or another quality cost with a pointable line). Configured formatter/linter owns style. Suggested fix preserves error paths. Note `regression_risk` for public names and shared helpers.

@@ -12,11 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `code-review-plus`: any `/code-review-plus fix` (including `all` and IDs) READs `make-code` when that skill is in the environment (write / refactor per finding; **CC** cap 20). Else Clean fix (`fix source: slim-fallback`).
 - `code-review-plus`: `/code-review-plus help` explains how the skill works (commands, review tiers, fix selection, memory). No review, fix, prune, or writes.
 - `code-review-plus`: `/code-review-plus fix` applies P0, P1, and vuln, then names leftover IDs (`fix all` or `fix 2,5`). `fix all` applies every P0–P3 finding. `fix 2,3,6` applies those Findings IDs. Aliases `apply` / `implement` take the same remainder.
-- `code-review-plus`: Scope **delta** reuses prior HEAD and a Skip list (knowns + prior Findings). Quality hunter chooses `make-code` (Floor, no Apply) or built-in `quality.md` and returns `quality_source`. `metadata.version` → `0.7.0`.
+- `code-review-plus`: Scope **delta** reuses prior HEAD and a Skip list (knowns + prior Findings). Quality hunter chooses `make-code` (Floor, no Apply) or built-in `quality.md` and returns `quality_source`.
 
 ### Changed
 
-- `code-review-plus`: CC Floor cap **20** on new or rewritten functions (or project bar); Quality review uses cap 20 even when sourcing Floor from `make-code`.
+- Skill `metadata.version` bumps only when cutting a changelog release (same change, one bump per skill). Ordinary skill edits stay under `[Unreleased]` with the frontmatter version unchanged (`AGENTS.md`).
+- `code-review-plus`: hunt lists are a **floor** (SSOT: Hunt bar in `dispatch.md`). Cover them, then emit other in-pipeline issues with today's cost and a pointable line. **Pass B** drops false positives; P0/P1 require **proven**; `likely` at hunt time becomes hardening unless Pass B proves it. Quality hunts Floor plus docs sync, dead code, and tests in the diff even when sourcing `make-code`. **CC** cap **20** (or project bar) including when Floor comes from make-code. Dependency review runs when lockfile is in source.
 - `code-review-plus`: default pipelines are Correctness + Security + Quality (`trivial` drops Security unless the surface is sensitive; `large/sensitive` adds Architecture). Performance is isolated-only. Validator is Pass B (three questions); the extra P0 verifier subagent is gone. Report is Summary + Overview + Verdict and lists every kept finding. Serial carry is `location` + `title` + `pipeline`. Security/Quality shapes skip `web`/`api`.
 
 ### Removed

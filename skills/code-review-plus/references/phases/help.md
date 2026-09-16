@@ -1,6 +1,6 @@
 # Branch help — explain the skill
 
-Invoked only by `/code-review-plus help`. This file is the only skill reference for this branch. Emit the Template to the user. Skip review, fix, and prune. No writes.
+Invoked only by `/code-review-plus help`. This file is the only skill reference for this branch. Emit the Template only.
 
 Translate Template prose to the user's language. Keep command strings, hunter names, paths, and severity labels in English as written.
 
@@ -32,11 +32,11 @@ The orchestrator sizes the change and picks a tier:
 - **large/sensitive** — those three plus Architecture
 - **Performance** — isolated only (`/code-review-plus performance`)
 
-Each hunter hunts one perspective. **silence** is success: a finding needs a proven break, exploit, or quality cost today with `file:line`. A validator (Pass B) keeps or drops candidates. Every kept finding goes in the report. A later run is **delta** when a prior HEAD exists (hunks since that commit; Skip list from knowns and prior Findings).
+Each hunter covers its **floor** and may add other in-pipeline issues with today's `file:line`. **Pass B** drops false positives. Every kept finding goes in the report (empty table is valid). A later run is **delta** when a prior HEAD exists.
 
 Quality reads `make-code` when that skill is in the environment; otherwise it uses the built-in Floor and the report says so.
 
-For a deeper security pass, use `/deep-security-review` instead of this skill's Security hunter. Do not run both on the same scope.
+For a deeper security pass, use `/deep-security-review` in place of this skill's Security hunter on the same scope.
 
 ## After a review
 

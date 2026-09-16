@@ -10,19 +10,19 @@ CC = decision points + 1. Count `if`, `elif` / `else if`, loops, `case`, `catch`
 
 Tools disagree on `switch` (classic: +1 per `case`; modified / Cognitive Complexity: +1 for the whole `switch`). Cite the tool. Eye count: classic, and say so.
 
-CC is a lower bound on basis-path tests and a hotspot rank. It is not a quality score, a bug predictor, or a rewrite trigger. Floor cap is **20** on new or rewritten functions unless the project sets another bar.
+CC is a lower bound on basis-path tests and a hotspot rank. Keep on load or cap, with a named remedy. Floor cap is **20** on new or rewritten functions unless the project sets another bar.
 
 ## Cognitive load vs CC
 
 The readability signal is nesting ≥3, mixed boolean soup, nested ternaries, and unexpected non-local jumps — even when CC is low. Dense one-liners and nested calls can have low CC and high load.
 
-Guard clauses and early returns flatten nesting. They are a fix, not a finding. A higher CC with explicit steps can be the clearer form.
+Guard clauses and early returns flatten nesting. They are a remedy. A higher CC with explicit steps can be the clearer form.
 
-## FLAG vs silence (no project threshold)
+## FLAG vs skip (no project threshold)
 
 | Situation                                                                                                                         | Action                                                                 |
 | --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| CC 1–20, or readable with nesting < 3                                                                                             | Silence on CC                                                          |
+| CC 1–20, or readable with nesting < 3                                                                                             | Skip CC                                                                |
 | New or substantially rewritten function, hard to follow, **and** nesting ≥3 in the same function                                  | Keep as maintainability; name a remedy                                 |
 | Diff **increased** nesting or mixed booleans, even if CC stays ≤ 20                                                               | Keep on the readability signal                                         |
 | CC > 20 on touched new/rewritten code                                                                                             | Keep; ask for a local split, table, or tests — not a wholesale rewrite |
@@ -50,7 +50,7 @@ Flag only new complexity in this diff that no real caller uses; skip tests, a re
 | Rust     | cite clippy complexity lints; do not add a second bar |
 | Polyglot | lizard or Sonar, if already in CI                     |
 
-Do not introduce a tool the repo does not use. Conflicting numbers: report both; keep the candidate on the human-load signal.
+Use a complexity tool the repo already runs. Conflicting numbers: report both; keep the candidate on the human-load signal.
 
 ## Remedies (smallest first)
 

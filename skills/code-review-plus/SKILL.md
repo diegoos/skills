@@ -17,9 +17,9 @@ metadata:
 
 **Branches:** review (default) → pipelines by tier → validator → synthesize → persist → emit. Fix applies findings with a **regression gate**. Prune drops old `docs/code-review/` files. Help explains the skill.
 
-**Invariants:** Each pipeline is a separate hunter. **silence** is the default; emit when the break, exploit, or quality cost is **proven** today with a pointable line. **delta** reads persist. Prefer a minimal local fix over a broad refactor.
+**Invariants:** One hunter per pipeline. **floor** and **today** live in the Hunt bar (`dispatch.md`). **Pass B** drops false positives; P0/P1 require **proven**. **delta** reads persist. **regression gate** on suggested fixes.
 
-**Reference budget:** Open a phase file when that phase starts. Each hunter: **1** perspective + **0 or 1** shape. Quality: the prompt names `make-code` and `./references/perspectives/quality.md`; the hunter reads **one**. Quality + tests in source: also `./references/test-quality.md`. Fix: READ `make-code` when that skill is in the environment (`fix.md`). Orchestrator-only refs stay off hunter prompts (list in dispatch.md).
+**Reference budget:** Open a phase file when that phase starts. Hunter load: **1** perspective + **0 or 1** shape. Quality bar, shapes, and orchestrator-only paths: `dispatch.md`. Fix reads `make-code` when that skill is in the environment.
 
 ## Commands
 
@@ -45,8 +45,6 @@ Parse the text after `/code-review-plus` (first reserved token wins):
 6. Else, case-insensitive phrases: `code quality` → Quality; `page performance` → Performance; `only` + a hunter name → that hunter
 7. Empty or no match → **review**, pipelines by tier
 
-`/code-review-plus security` is this skill's Security hunter.
-
 When the user marks a finding as a false positive or won't-fix, READ `./references/phases/knowns.md`.
 
 ## Definition of Done
@@ -58,7 +56,7 @@ Done for each phase is the completion criterion in its READ file. Open the next 
 | Phase        | Done when                                                                                   | READ                                |
 | ------------ | ------------------------------------------------------------------------------------------- | ----------------------------------- |
 | 1 Scope      | Intent + source + sizing + tier + Pipelines + Isolated + tags + knowns + context ready      | `./references/phases/scope.md`      |
-| 2 Dispatch   | Each Pipelines name returned candidates; shapes recorded when attached                      | `./references/phases/dispatch.md`   |
+| 2 Dispatch   | Each Pipelines name returned (empty list valid); shapes recorded when attached              | `./references/phases/dispatch.md`   |
 | 2.5 Verify   | Every candidate has status + cited note                                                     | `./references/phases/verify.md`     |
 | 3 Synthesize | Surviving findings have required fields + severity and go in the report                     | `./references/phases/synthesize.md` |
 | 4 Report     | Skeleton filled (not yet sent)                                                              | `./references/templates/report.md`  |
