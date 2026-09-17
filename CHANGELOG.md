@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-09-17
+
 ### Added
 
 - `code-review-plus`: any `/code-review-plus fix` (including `all` and IDs) reads `make-code` when that skill is in the environment. Each finding uses write or refactor. **CC** cap is 20. Without `make-code`, it uses Clean fix (`fix source: slim-fallback`).
@@ -20,8 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `write-great-instructions`: emitted files follow **Signal** (one topic per heading, commands in backticks, depth at `h3`, familiar names when earned). The working loop prefers per-file lint/test/typecheck; a gold file in this repo beats an invented snippet; a decision table picks between equivalent approaches; a don't-wall or architecture essay stays out of always-on.
-- `make-docs`: one when-to-read pointer to `docs/README.md` on the canonical always-on file that already exists (does not create `AGENTS.md` or copy onto adapters). Architecture names units, not a file tree; ADRs keep the why; headings and commands stay scanable; patterns point at a gold file; a Choices table appears only when two mechanisms exist.
+- `write-great-instructions`: emitted files follow **Signal** (one topic per heading, commands in backticks, depth at `h3`, familiar names when earned). The working loop prefers per-file lint/test/typecheck; a gold file in this repo beats an invented snippet; a decision table picks between equivalent approaches; a don't-wall or architecture essay stays out of always-on. `metadata.version` → `0.5.0`.
+- `make-docs`: one when-to-read pointer to `docs/README.md` on the canonical always-on file that already exists (does not create `AGENTS.md` or copy onto adapters). Architecture names units, not a file tree; ADRs keep the why; headings and commands stay scanable; patterns point at a gold file; a Choices table appears only when two mechanisms exist. `metadata.version` → `0.3.0`.
 - `global-rules.md`: slimmed to communication, same-model subagents, one-line prose, tools (`rg` / `fd`), blocked + git/secrets/production guardrails, conventional-commit rules, and output (STE100 + candid). Same rules rewritten in place: git co-located with a commit CORRECT/WRONG; code judgment (*tight* ladder, YAGNI, surgical fix, *red* proof) lives in `make-code` so it is not always-on.
 - Root `README.md`: Agent rules names that slim as the trade for `make-code`. The judgment-layer / *tight*-ladder framing is gone.
 - `make-code`: **CC** cap **20** (or the project bar). Floor **Comment** (concise operational comments, language convention) and **Breath** (blank line between distinct blocks). **Inform** replaces **Ask**: options and consequences on sensitive architecture, contract, data, or security.
