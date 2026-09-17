@@ -7,6 +7,7 @@ Hunt infra, CI/CD, deps, and abuse controls. Shape adds cloud/tooling/sensitive 
 - IAM, network exposure, CI/CD permissions, env/config secrets handling
 - Dependency risk by reachability (prod vs devDependency); lockfile integrity; transitive upgrades
 - Install/publish trust; unsigned updates; CI SoD / identity ≤ runtime privilege
+- SBOM / provenance / signed-install config when those files already exist in the repo
 - Rate limiting / brute-force / replay on abuse-prone endpoints
 - Containers, edge/CDN/SRI, storage ACLs, unnecessary surface
 
@@ -25,6 +26,11 @@ Hunt infra, CI/CD, deps, and abuse controls. Shape adds cloud/tooling/sensitive 
 - CDN/cache keys include auth/tenant; private `Cache-Control`; SRI for third-party scripts
 - Object storage private by default; unsigned update channels flagged
 - Admin/debug endpoints not on the public surface without auth or network restriction
+- SBOM or CycloneDX/SPDX inventory in CI when the repo already produces one
+- Packages resolve from official/signed sources when the build already verifies checksums, signatures, or provenance
+- Promote a signed artifact across environments; rebuild-per-env is a red flag when a signed channel exists
+- Install/postinstall scripts plus a CI token that can publish (token reuse → registry worm)
+- Unsigned or unverified serialized **client** state treated as a trusted object (cookie/hidden-field round-trip)
 
 ## Red flags
 
@@ -32,4 +38,4 @@ Hunt infra, CI/CD, deps, and abuse controls. Shape adds cloud/tooling/sensitive 
 - Staging and production share credentials or databases
 - Install/postinstall scripts that can exfiltrate secrets
 - Admin endpoints public without auth or IP restriction
-- CI identity that can deploy _and_ mutate production secrets without separation
+- CI identity that can deploy *and* mutate production secrets without separation

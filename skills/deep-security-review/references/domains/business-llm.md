@@ -12,6 +12,7 @@ Shape file adds LLM or payment/wallet probes.
 - Race conditions, idempotency gaps, state-machine skips
 - Payment/wallet bypass, anti-automation gaps, scarce-inventory abuse
 - Prompt injection (direct/indirect); tool permission boundaries; confused deputy
+- **chained layers** — prompt/RAG → tool/MCP → backend sink, including a utility with no HTTP route
 - Sensitive context leakage; LLM deciding access without server enforcement
 
 ## Business-logic checks
@@ -28,7 +29,9 @@ Shape file adds LLM or payment/wallet probes.
 
 - Every **boundary-crossing** finding states attacker, identity, and new gain
 - Confused deputy: (a) no per-resource check for the user **and** (b) action the user cannot take via the normal API
+- **chained layers** (two valid shapes, both kept when pointable today): (a) a conventional defect sequenced through the model (SSRF/command/SQL); (b) every layer works as designed and the sequence still yields unauthorized gain
 - Tool calls authorized for current user/tenant in server code; schemas narrow; arguments validated
+- A tool cannot reach a sink the caller cannot reach via the normal API
 - Model cannot choose arbitrary URLs, SQL, shell, paths, or account IDs
 - Sensitive tools require confirmation or human approval
 - Tool/RAG results treated as untrusted data (not new instructions)

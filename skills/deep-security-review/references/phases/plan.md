@@ -32,7 +32,7 @@ Orchestrator-only. Build the threat model and `DispatchManifest` before any hunt
 | Feature branch      | `git diff <base>...HEAD` (repo default base)      |
 | Pasted code         | Review directly                                   |
 
-## Detect shape tags (cheap signals — do not open domain/shape files yet)
+## Detect shape tags (cheap signals — Phase 1 stays on this file)
 
 | Signal                                                     | Tag          |
 | ---------------------------------------------------------- | ------------ |
@@ -68,6 +68,7 @@ Pick **at most one** language tag (`ts-js-node` | `python` | `php`). If polyglot
 | Shape `tooling`        | `./references/shapes/tooling.md`                    |
 | Optional OWASP         | `./references/optional/owasp-map.md`                |
 | Gates / FPs / examples | `./references/examples/kept-vs-dropped.md`          |
+| Report sample          | `./references/examples/report-sample.md`            |
 
 ## Reference Plan algorithm
 
@@ -85,13 +86,13 @@ Each dispatched domain gets **slot 1 = its domain file** and **slot 2 = one shap
 
 **OWASP:** only if the user asks for an OWASP map, or the stack is unknown and the surface is public HTTP. If used, it **replaces** slot 2 for AuthZ or Injection (still ≤2 files).
 
-**Hard caps:**
+**Load:**
 
-1. Orchestrator does not open `domains/` or `shapes/` in Phase 1.
-2. Each hunter reads at most the two paths listed for its domain.
+1. Phase 1 stays on this file. Domain and shape files wait for hunt.
+2. Each hunter's **load** is the two paths listed for its domain (1 domain + 0 or 1 shape). Hunt in code after those skill files; extra model knowledge is in play.
 3. No matching tag for slot 2 → `"none"`.
-4. Do not merge domains to save reads.
-5. `examples/` is orchestrator-only (Phase 3 gates/FPs/worked cases) — never a hunter path.
+4. Keep domains separate (one hunter each).
+5. `examples/` is orchestrator-only (Phase 3 gates/FPs/worked cases, Phase 4 sample) — not a hunter path.
 
 ## Codebase sweeps (only `scope.type: codebase`)
 
@@ -151,4 +152,4 @@ auth_model: Session cookie + JWT bearer; tenant from session, never body
 
 ## Completion criterion
 
-Threat model written (assets, actors, entry points, trust boundaries, 1–3 abuse_goals, auth_model, 1–15 hotspots, bypasses or `none found`); shape tags listed; every dispatched domain has ≤2 concrete paths (or `"none"` for slot 2). Do not start Phase 2 until this is done.
+Threat model written (assets, actors, entry points, trust boundaries, 1–3 abuse_goals, auth_model, 1–15 hotspots, bypasses or `none found`); shape tags listed; every dispatched domain has ≤2 concrete paths (or `"none"` for slot 2). Open `hunt.md` when this criterion is met.

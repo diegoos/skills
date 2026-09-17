@@ -7,6 +7,7 @@ Hunt injection and untrusted-input sinks only. Shape file adds stack probes. Pro
 - SQL/NoSQL/command/LDAP/template/path injection; XSS; CSRF; SSTI/EL/OGNL
 - SSRF (allowlist + redirects + DNS rebind/TOCTOU); XXE; unsafe deserialization; uploads
 - Schema/allowlist validation before business logic; second-order (store then later sink)
+- Parser disagreement / duplicate-key last-wins that changes AuthZ or config (two components + concrete effect)
 - URL fetchers reaching private IPs, metadata endpoints, or non-HTTP schemes
 
 ## Checks
@@ -23,6 +24,7 @@ Hunt injection and untrusted-input sinks only. Shape file adds stack probes. Pro
 - CSRF protection for cookie-authenticated state changes (or equivalent)
 - Template/expression engines: user input never reaches EL/OGNL/SSTI evaluation
 - Second-order: untrusted data stored then reused at a sink — both halves proven
+- Exceptional conditions: empty/swallow catch; missing required param that still mutates; catch without releasing handles/transactions
 
 ## Specific probes
 

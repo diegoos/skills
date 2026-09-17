@@ -16,6 +16,7 @@ TypeScript types are not a security boundary. Crypto policy → `domains/secrets
 - Prefer libraries over shell; if `child_process`, no shell interpolation
 - No `eval` / `Function` / unsafe `vm` / unsafe templates
 - Regex on user input checked for catastrophic backtracking
+- Sanitizer/`replace`/`RegExp.exec` applied **per chunk** on streamed input so a blocked token reassembles across boundaries (`BAD_` + `WORD`)
 - URL fetchers block private/metadata networks and unsafe redirects (SSRF policy → injection.md)
 
 ## Prototype pollution
@@ -36,5 +37,6 @@ TypeScript types are not a security boundary. Crypto policy → `domains/secrets
 ## npm / runtime
 
 - Lockfile + reproducible CI install; audit in process
+- `package.json#imports` conditions (`browser` vs `default`) or `tsconfig` `paths` that do not match runtime — keep only when the wrong module loads on a trust boundary
 - High-risk packages: parsers, auth, crypto, markdown/HTML, image/PDF/archive
 - Current Node LTS; no debug/inspector in production; non-root containers

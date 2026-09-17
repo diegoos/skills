@@ -1,6 +1,6 @@
 # Examples — confirmation gates, FPs, kept vs dropped
 
-Orchestrator-only. Read when keep/drop is unclear, when a candidate matches a gate or recurring FP pattern, or when disprove needs a worked case. Do not preload. Do not give this file to hunters. Single source of truth for confirmation gates and recurring false positives.
+Orchestrator-only. Read when keep/drop is unclear, when a candidate matches a gate or recurring FP pattern, or when Pass B needs a worked case. Hunters do not receive this path. Single source of truth for confirmation gates and recurring false positives.
 
 ## Confirmation gates
 
@@ -13,6 +13,10 @@ Orchestrator-only. Read when keep/drop is unclear, when a candidate matches a ga
 | Unknown library / framework default | `needs-runtime` or unverifiable — do not invent P0/P1                         |
 | AuthZ fail-open on error path       | Reachable error path **and** concrete privilege or data consequence           |
 | Second-order / chained injection    | Both store and later sink proven; otherwise one finding or drop the weak half |
+| chained layers                      | Callable schema + no caller AuthZ + sink reachable today                      |
+| empty/swallow catch                 | Reachable error path **and** privilege, data, or state gain                   |
+| SBOM / signed install / `#imports`  | File or condition already in the repo **and** weakens a trust boundary        |
+| chunked sanitizer                   | Input is streamed or chunked today, not a single buffer                       |
 
 ## Recurring false positives
 
@@ -29,7 +33,7 @@ Orchestrator-only. Read when keep/drop is unclear, when a candidate matches a ga
 | Self-XSS only (attacker must paste into own session)                              | Drop unless it becomes stored/reflected for another user                             |
 | `credentials: "include"` as cross-origin cookie leak                              | Browser sends cookies only for the destination origin                                |
 | CORS `*` without credentials                                                      | Often intentional for public reads — keep only with credentialed or sensitive impact |
-| Incomplete security headers / missing CSP with no exploit path                    | Hardening note, not vulnerability                                                    |
+| Incomplete security headers / missing CSP with no exploit path                    | P2 hardening, not vulnerability                                                      |
 | Open redirect when redirect URI/host is allowlisted                               | Confirm allowlist is enforced server-side                                            |
 | SSRF when URL is constant or allowlisted after DNS+redirects                      | Confirm rebind/TOCTOU actually bypasses the check                                    |
 | GraphQL introspection "enabled" without checking production config                | Verify the deployed/prod path                                                        |
@@ -39,6 +43,11 @@ Orchestrator-only. Read when keep/drop is unclear, when a candidate matches a ga
 | Missing cookie flags on a non-session / non-sensitive cookie                      | Drop or hardening                                                                    |
 | JWT claim nit (`nbf` only) without forge/escalation path                          | Downgrade unless verify is missing or alg/key confused                               |
 | Scanner finding (SAST/DAST) without a code-backed exploit path                    | Cite `file:line` or drop                                                             |
+| Drop because SAST/DAST saw no HTTP route to a tool/MCP sink                       | Keep when chained-layers gate holds (schema + no caller AuthZ + sink today)          |
+| Empty catch that logs and rethrows, or best-effort close                          | No privilege or data gain — drop                                                     |
+| Missing SBOM / provenance / signed-install file                                   | Hunt those files when present; absence is not a vulnerability                        |
+| ReDoS or chunk sanitizer without user-controlled or streamed input                | Static pattern or one buffer — drop                                                  |
+| `package.json#imports` / tsconfig `paths` as style                                | Keep only when the wrong module loads on a trust boundary                            |
 | P0 from "if in the future" / "any evolution could"                                | Future risk is hardening                                                             |
 | Praise a global control in "What Looks Good" and flag the same control as missing | Self-consistency — drop one of them                                                  |
 | suggested_fix that relaxes auth, validation, or error handling                    | Over-simplify — rewrite the fix fail-closed                                          |
