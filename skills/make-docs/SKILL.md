@@ -18,7 +18,7 @@ Produces a documentation suite in `docs/`: **architecture** (how it is structure
 
 **Branches:** explore (survey → confirm → generate → verify). Update (delta since the docs stamp). Refresh (full re-survey vs existing `docs/`). Adr (one decision).
 
-**Invariants:** Every claim in the suite cites a path, an observable command, or a config. Missing evidence: omit the section or ask. One language per suite; code identifiers and BCP 14 keywords (ALL CAPS) stay as in source. Hunters collect; the orchestrator writes. Unearned sections are omitted with no justification paragraph in the artifact.
+**Invariants:** Every claim in the suite cites a path, an observable command, or a config. Missing evidence: omit the section or ask. One language per suite; code identifiers and BCP 14 keywords (ALL CAPS) stay as in source. Hunters collect; the orchestrator writes. Unearned sections are omitted with no justification paragraph in the artifact. Headings and commands stay scanable (one topic per heading, commands in backticks, depth at `h3`). The index is `docs/README.md`.
 
 **Reference budget:** The orchestrator opens a phase file when that phase starts. Each hunter gets exactly **1** hunter file. Orchestrator-only refs (`anti-slop`, `language`, `examples`, templates, confirm / generate / verify) are not hunter paths.
 
@@ -65,7 +65,7 @@ Refresh runs survey → confirm → generate → verify against the current tree
 
 | Phase | Done when | READ |
 | ----- | --------- | ---- |
-| Adr | Names a _why_; gains + costs present; alternatives have reasons; architecture.md updated if boundaries moved | `./references/phases/adr.md` |
+| Adr | Names a *why*; gains + costs present; alternatives have reasons; architecture.md updated if boundaries moved | `./references/phases/adr.md` |
 
 ## Layout
 
@@ -114,3 +114,5 @@ Specs describe **observable** behavior: outcomes a user or external system can s
 ## Out of scope
 
 Data model, observability, CI/CD. Survey lists them as unknowns when present. Confirm asks. Otherwise omit the files and do not narrate the omission in `docs/`.
+
+Do not write instruction-file policy (`AGENTS.md` body, adapters, glob rules). The one exception: a single when-to-read pointer to `docs/README.md` on the canonical always-on file, if that file already exists. Do not create `AGENTS.md`.

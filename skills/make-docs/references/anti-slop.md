@@ -34,6 +34,9 @@ The artifact describes the system. Confirm holds size, assumptions, and skipped 
 | Synonym cycling | "the system… the platform… the solution" for one product | Repeat the name in README / go.mod |
 | Skill meta | "Suite premise: medium-sized repository." | Nothing in the file; size lives in confirm |
 | Em dash as rhythm | decorative `—` in text | Period, comma, or colon. Keep `--` in flags and code |
+| Command in prose | "You can run the linter by running npm run lint" | Put the command in backticks: `npm run lint` |
+| Heading deeper than `h3` | `#### Mocking Strategy` | Flatten, or split the file |
+| One heading, many topics | Overview that also lists every source file | One topic per heading |
 
 Filler (`at its core`, `in order to`, `when it comes to`, `it is important to note`) comes out when it delays the point. Keep a phrase when existing docs already speak that way.
 
