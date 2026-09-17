@@ -1,12 +1,12 @@
 # Architecture
 
-Example rows are not defaults. Replace every placeholder from evidence, or cut the row or section. Draw what the code earns; cut the rest.
+Example rows are not defaults. Replace every placeholder from evidence, or cut the row or section. Draw what the code earns; cut the rest. Name units and durable entry points; do not inventory files. Design history belongs in ADRs, not here.
 
 ## Overview
 
 **Purpose:** {what the system does in one sentence, from this repo}
 **Stack:** {languages, frameworks, runtimes named in manifests}
-**Entry points:** {CLI, HTTP server, worker, library API; cite paths}
+**Entry points:** {CLI, HTTP server, worker, library API; cite the durable start path, not a folder dump}
 
 ## Structural views
 
@@ -41,7 +41,7 @@ Dependencies point inward toward the domain. The seam sits between adapters and 
 
 ## Runtime view
 
-> Key flows as Mermaid sequence diagrams. Trace the full round-trip for each load-bearing path (request, job, event, command). Cut if survey earned no flow.
+> Key flows. Round-trip (request, job, event, command): Mermaid sequence. Branching control flow: Mermaid flowchart plus a short prose judgment under the diagram. Cut if survey earned no flow. Do not put mermaid in glossary or specs.
 
 ## Deployment view
 

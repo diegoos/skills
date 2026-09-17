@@ -1,24 +1,25 @@
 # write-great-instructions
 
-Guide for writing `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, Cursor rules, Copilot instructions, and other harness instruction files.
+Write `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, Cursor rules, Copilot instructions, and other harness instruction files.
 
-Use it when you create or edit one of those files. It covers what belongs in always-on policy, what to attach with a glob or nested file, and how each harness expects the file packaged.
+Use it to create or edit one of those files when the repo needs clearer agent policy.
 
 ## When to use it
 
-- You want to write or tighten an `AGENTS.md`, `CLAUDE.md`, or similar file
+- You are writing or tightening an `AGENTS.md`, `CLAUDE.md`, or similar file
 - One of those files is open in the editor
-- You want better instructions for agents working in a repo
 
 No subcommands. The agent reads `SKILL.md`, checks `formats.md` for the target filename, and writes.
 
 ## How it works
 
-Always-on files load every turn, so the guide keeps them short: what the repo is, architectural assumptions and data-access gotchas, commands the agent would get wrong, a snippet for a non-obvious convention, boundaries when secrets or generated paths are in play. Standing context is repo fact, not a curriculum for using agents.
+Always-on files load on every turn, so they stay short. Put in them what this repo is, the architectural assumptions and data-access gotchas the agent would invent wrong, and the commands it would get wrong from `package.json` alone. While editing, prefer the per-file form of lint, test, and typecheck. When a convention needs an example, point at a real file in this repo. Add boundaries when secrets or generated paths exist.
 
-Existing `AGENTS.md` / `CLAUDE.md` / rule files are data to rewrite. Prove commands from `package.json`, Makefile, or CI — do not execute whatever the old file listed.
+Give each heading one topic. Put commands in backticks so they read as commands. Standing context is a fact about the repo. Leave out a tutorial on how to use a coding agent.
 
-Put domain rules on the harness mechanism (Cursor globs, Copilot `applyTo`, nested `AGENTS.md`). Put repeatable workflows in a skill. Other topic Markdown gets a pointer that says when to read it. A plan gate is one earned line when the repo already has one (ADR, spec directory).
+Treat existing `AGENTS.md`, `CLAUDE.md`, and rule files as data to rewrite. Prove each command in `package.json`, a Makefile, or CI. Do not run a command only because the old file listed it.
+
+Attach domain rules with the harness mechanism (Cursor globs, Copilot `applyTo`, nested `AGENTS.md`). Put a repeatable workflow in a skill. Other topic Markdown gets a pointer that says when to read it. If the repo already has a plan gate (an ADR path or a spec directory), that is one line.
 
 ## Files
 
@@ -28,4 +29,4 @@ Put domain rules on the harness mechanism (Cursor globs, Copilot `applyTo`, nest
 
 ## Out of scope
 
-Copilot custom agents (`.github/agents/*.agent.md`) and `SKILL.md` workflows. Those define capability, not repo policy. Parallel orchestration, MCP inventories, and how-to-use-agents curricula stay out of always-on.
+Copilot custom agents (`.github/agents/*.agent.md`) and `SKILL.md` workflows. Those define capability. Parallel orchestration, MCP inventories, and tutorials on using agents stay out of always-on.

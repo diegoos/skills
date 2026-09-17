@@ -11,9 +11,10 @@ Shared by explore, update, refresh, and adr. Load `./references/language.md` and
 - One language lock. Headings and prose match it. Identifiers and BCP 14 keywords stay in source form. No mixed FR/EN/PT headings.
 - `docs/README.md` lists only files that exist. `> Updated on` is today's ISO date (adr may leave the stamp if it did not touch the suite index; explore, update, and refresh always refresh it).
 - Cross-references resolve.
-- Every ADR written this run names a _why_, with gains, costs, and rejected alternatives.
-- `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, or other model-specific files reference the full documentation index on `docs/README.md`.
+- Every ADR written this run names a *why*, with gains, costs, and rejected alternatives.
+- Canonical always-on (root `AGENTS.md` if present, else the one always-on instruction file already in the repo) has a single when-to-read pointer to `docs/README.md`. Adapters do not repeat it. The index is not pasted into that file. Missing always-on: skip; do not create `AGENTS.md`.
 - Every documentation has no empty sections.
+- Commands in the suite sit in backticks. Heading depth stops at `h3`. Architecture does not inventory files or narrate design history (that is the ADR).
 
 ## Completion criterion
 

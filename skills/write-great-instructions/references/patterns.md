@@ -1,6 +1,6 @@
 # Patterns
 
-Catalogue consulted on demand. Each heading co-locates a **works** pattern with the anti-pattern it replaces. *Why* each fails is one sentence. Examples are shapes, not templates. Emit only what this repo runs.
+Catalogue consulted on demand. Each heading co-locates a **works** pattern with the anti-pattern it replaces. *Why* each fails is one sentence. Catalogue examples are shapes, not templates. The file you emit points at this repo. Emit only what this repo runs.
 
 ## Always-on budget
 
@@ -15,19 +15,43 @@ Place each instruction where attach costs the least.
 
 **Anti-pattern: everything in always-on.** A 200-line root covering TypeScript style, testing, deploy, and API design. Why it fails: irrelevant lines spend the always-on budget on every task; the middle of the file is skipped.
 
+## Signal
+
+**Works:** one topic per heading; commands in backticks; depth stops at `h3`; earned headings use a familiar name.
+
+```markdown
+## Commands
+
+- Lint one file: `oxlint src/foo.ts --fix`
+```
+
+**Anti-pattern: command in a sentence.** "You can run the linter by running npm run lint." Why it fails: in prose the command is a suggestion; in backticks it is executable.
+
+**Anti-pattern: heading deeper than `h3`.** Why it fails: nested headings dilute which level governs; split the file instead.
+
+**Anti-pattern: creative section names.** `## Quality Assurance Verification Process` when `## Testing` is earned. Why it fails: the familiar name is the scan target; the creative name is noise. No required skeleton: omit the heading when the repo did not earn it.
+
 ## Observable or attachable
 
-**Works (always-on):** a runnable command, an observable condition, or a CORRECT/WRONG snippet.
+**Works (always-on):** a runnable command in the per-file form, an observable condition, a CORRECT/WRONG snippet, or a pointer to a gold file in this repo.
 
 ```markdown
 ## Commands
 
 - Lint one file: `oxlint src/foo.ts --fix`
 - Test one file: `pnpm vitest run src/foo.test.ts`
-- Typecheck: `pnpm tsc --noEmit`
+- Typecheck one file: `pnpm tsc --noEmit src/foo.ts`
 ```
 
-A style convention with a CORRECT/WRONG snippet (always-on or glob body):
+The working loop uses that per-file form. **Done when** uses the change-class check (the suite, when that is what proves the class).
+
+A style convention: point at a gold file in this repo when one exists.
+
+```markdown
+Named exports: copy `src/components/UserCard.tsx`. Skip class components like `src/legacy/Admin.tsx`.
+```
+
+Invented CORRECT/WRONG only when this repo has no gold file (always-on or glob body):
 
 ```tsx
 // Named exports only.
@@ -44,9 +68,11 @@ export default function UserCard() { /* … */ }
 
 **Anti-pattern: adjective directives.** "Be careful with Prisma migrations", "handle errors gracefully." Why it fails: "careful" is not a behaviour.
 
+**Anti-pattern: full suite in the working loop.** `pnpm test` on every turn when `pnpm vitest run src/foo.test.ts` exists. Why it fails: minutes of suite for a one-file edit; the agent skips the check.
+
 ## Closure
 
-**Works:** two to four checks whose observable pass proves done, matched to the change class.
+**Works:** two to four checks whose observable pass proves done, matched to the change class. The working loop still uses per-file commands; these lines are the gate, not the loop.
 
 ```markdown
 ## Done when
@@ -96,7 +122,7 @@ HUMAN_CHECKPOINT: deploy/**
 
 ## Precedence
 
-**Works:** numbered tradeoffs.
+**Works:** numbered tradeoffs when rank matters.
 
 ```markdown
 1. Tests pass (`pnpm vitest run` exits 0)
@@ -104,21 +130,43 @@ HUMAN_CHECKPOINT: deploy/**
 3. Ship
 ```
 
+**Works:** a decision table when two approaches are equivalent and the repo must pick one.
+
+```markdown
+| Question | React Query | Zustand |
+| -------- | ----------- | ------- |
+| Server is the only source? | yes | |
+| Local UI state only? | | yes |
+```
+
 **Anti-pattern: unranked opposites.** "Move fast" and "comprehensive coverage" with no winner. Why it fails: the agent drops verification to dodge the conflict.
 
 **Anti-pattern: ban without substitute.** "Don't use outdated libraries." Why it fails: the model guesses from training data. Name the allowed library.
 
+**Anti-pattern: don't-wall.** Fifteen sequential don'ts with no do. Why it fails: the agent checks every warning against the task and over-explores code it should not touch.
+
 ## Capabilities over paths
 
-**Works:** stable domain facts, data-access gotchas, and where new X goes — not a file list.
+**Works:** stable domain facts, data-access gotchas, and where new X goes — not a file list. Name the durable entry (router, tokens file); that is placement.
 
 ```markdown
 Billing replays from the outbox table, not from the queue: the queue is not durable across deploys.
 "organization" = billing entity; "workspace" = team inside an organization. The old word "group" was renamed in v2.
 New vendor adapter: `src/adapters/<vendor>/`.
+Routes start at `src/App.tsx`. Tokens live in `src/theme/tokens.ts`.
+```
+
+**Works (migration):** name the target and the legacy exception.
+
+```markdown
+New UI: functional components with hooks (`src/components/UserCard.tsx`). `src/legacy/Admin.tsx` stays class-based; do not copy that shape.
 ```
 
 **Anti-pattern: file inventory.** "Auth lives in `src/auth/handlers.ts`." Why it fails: the path goes stale and poisons every turn. Point at `src/auth/` only as a start. The placement rule stays; the current file list does not.
+
+**Anti-pattern: architecture essay.** "We chose Kafka because the bus needed replay." Why it fails: the agent loads topology docs before a two-line change. Cache the gotcha; the *why* belongs in an ADR.
+
+**Anti-pattern: freeze the old pattern** while the repo is mid-migration. Why it fails: the agent copies the legacy file because standing context named it as the rule.
 
 ## Environment, not a cache
 
@@ -209,13 +257,20 @@ NEVER: edit paths outside `services/web/**`.
 
 ## External docs
 
-**Works:** the access pattern the agent will not guess.
+**Works:** the access pattern the agent will not guess. A handful of pointers from always-on; each names when to read. The target filename describes the slice (`docs/api-authentication.md`, not `docs/guide.md`).
 
 ```markdown
 Docs: try `<docs-root>/llms.txt`, then the same URL with `.md`. GitHub-hosted pages: `raw.githubusercontent.com/{owner}/{repo}/refs/heads/main/{path}`.
+Architecture and specs: read `docs/README.md` when the change needs structure or observable behavior.
 ```
 
+A pointed file that is a branching procedure: mermaid flowchart plus short prose for judgment. Keep the diagram out of always-on.
+
 **Anti-pattern: "see the docs"** with no URL. Why it fails: training-data URLs 404.
+
+**Anti-pattern: encyclopedia import.** Fifteen architecture links from always-on, or `@` of a 500-line spec dump. Why it fails: the agent loads the sprawl and the task gets worse.
+
+**Anti-pattern: vague disclosed names.** `docs/notes.md`. Why it fails: the agent must open the file to know if it applies.
 
 ## When … slices
 

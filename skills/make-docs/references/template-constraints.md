@@ -38,9 +38,17 @@ Cut this section when no budget is stated.
 
 ## Technical
 
-> Cut any rule the survey did not earn. Replace with what the codebase actually enforces.
+> Cut any rule the survey did not earn. Replace with what the codebase actually enforces. Pair a ban with the substitute. Mid-migration: name the target and the legacy exception.
 
 - `{rule with a path that enforces it}`
+
+## Choices
+
+> Cut this section unless survey found two equivalent mechanisms in this tree.
+
+| Question | `{approach A}` | `{approach B}` |
+| -------- | -------------- | -------------- |
+| `{when to pick}` | `{yes or blank}` | `{yes or blank}` |
 
 ## Quality goals
 
