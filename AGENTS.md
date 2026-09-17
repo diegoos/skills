@@ -46,14 +46,15 @@ CORRECT (skill edit): `[Unreleased]` gains a bullet; `metadata.version` in `SKIL
 - Update `CHANGELOG.md` in the same change (see Changelog above).
 - Proof artifact: diff has no reflow-only edits; long instructional lines stay on one line.
 
-## When committing
+## When using git to commit
 
-- **Never** `git push`, commit secrets, or skip hooks unless the user explicitly asks.
 - Use the `commit-message` skill to write a commit message **when available**.
 - If the `commit-message` skill is **not available**, write a commit message using `conventional commits` format. The message should be concise and descriptive.
+- If the changes are minimal, use a short descriptive message.
 
 ## When blocked
 
 - Ambiguous skill behaviour or scope: stop and ask — do not invent a second skill or a build toolchain.
 - Never soft-wrap Markdown to clear lint.
+- **Never** `git push`, commit secrets, or skip hooks unless the user explicitly asks.
 - Never treat `.opencode/agents/` as part of the skills contract (see `README.md`).
