@@ -3,7 +3,7 @@ name: write-great-instructions
 description: >-
   Write or edit agent instruction files (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, Cursor `.mdc` rules, Copilot instructions, and other harness instruction files). Use when creating, drafting, or editing those files, or when the user wants better agent instructions for a repo.
 metadata:
-  version: 0.4.0
+  version: 0.5.0
   author: "Diego Oliveira"
   tags:
     - instructions

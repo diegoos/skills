@@ -3,7 +3,7 @@ name: make-docs
 description: >-
   Use when the user wants architecture docs or behavioral specs, asks to explore a codebase for documentation, sync docs after changes, refresh existing docs against current code, or record an ADR. Branches: explore (survey, confirm, generate), update (since last docs stamp → sync), refresh (full re-survey vs existing docs/), adr (decision record).
 metadata:
-  version: 0.2.0
+  version: 0.3.0
   author: "Diego Oliveira"
   tags:
     - docs
