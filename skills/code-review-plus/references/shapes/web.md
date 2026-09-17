@@ -1,6 +1,6 @@
 # Shape — Web (PR review)
 
-Hunt web-facing issues. Not a full threat model; deeper pass → `/deep-security-review`.
+Hunt web-facing issues at PR-review depth.
 
 ## Hunt for
 
@@ -12,5 +12,4 @@ Hunt web-facing issues. Not a full threat model; deeper pass → `/deep-security
 
 ## Pass A
 
-- Check global middleware before flagging a single route
-- Defense-in-depth gaps are hardening (P2)
+Check global middleware before a route finding.

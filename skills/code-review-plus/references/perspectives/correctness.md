@@ -12,9 +12,7 @@ Hunt logical errors, edge cases, and type issues.
 - Type mismatches or unsafe coercions
 - Spec mismatch: does the code match the stated behavior? Are error flows handled?
 - Missing tests for a behavior change in this diff (trivial getter/reexport earns none). Use Phase 1 `Tests observed`. Quality does not emit this.
-- Framework behavior: verify before asserting (e.g. does this API throw or return `{ data, error }`?)
 
-## Pass A reminders
+## Pass A
 
-- Note `regression_risk` for callers and error contracts
-- Suggested fix preserves error paths
+Confirm the framework's real return shape (throw vs `{ data, error }`) before asserting a break. Note `regression_risk` for callers and error contracts. Suggested fix preserves error paths.

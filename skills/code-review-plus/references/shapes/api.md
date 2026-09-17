@@ -1,6 +1,6 @@
 # Shape — API (PR review)
 
-Hunt HTTP/API surface issues. Not a full threat model; deeper pass → `/deep-security-review`.
+Hunt HTTP/API surface issues at PR-review depth.
 
 ## Hunt for
 
@@ -12,5 +12,4 @@ Hunt HTTP/API surface issues. Not a full threat model; deeper pass → `/deep-se
 
 ## Pass A
 
-- Hardening (future caller) stays category hardening
-- Suggested fix stays local to the route or shared validator already in the codebase
+Suggested fix stays local to the route or a shared validator already in the codebase.

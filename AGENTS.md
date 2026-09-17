@@ -29,7 +29,10 @@ No package manager, build, or test suite — ship Markdown skills only.
 
 - Record every notable change in `CHANGELOG.md` under `[Unreleased]`, using Keep a Changelog sections (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`) as needed.
 - Do **not** create a dated version heading (e.g. `## [0.4.0] - YYYY-MM-DD`) or move `[Unreleased]` into a release section unless the user explicitly asks to set or cut a version.
-- Skill frontmatter `metadata.version` (when present) is independent of the changelog release cut; do not invent a changelog version to match frontmatter unless the user requests a release.
+- Leave `skills/<name>/SKILL.md` `metadata.version` unchanged while the work sits in `[Unreleased]`. Do not write a version arrow on Unreleased bullets. A new skill may set an initial `metadata.version`; do not bump it again until the next changelog cut.
+- When the user asks to cut a changelog version, bump `metadata.version` of each skill that has entries in that release **in the same change** (one bump per skill per cut). Do not invent a changelog version to match a skill bump, and do not bump a skill while `[Unreleased]` is uncut.
+
+CORRECT (skill edit): `[Unreleased]` gains a bullet; `metadata.version` in `SKILL.md` stays put.
 
 ## When writing or editing skills
 

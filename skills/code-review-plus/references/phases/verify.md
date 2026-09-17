@@ -1,10 +1,10 @@
-# Phase 2.5 — Double verify
+# Phase 2.5 — Validator
 
-Reject false positives after all pipelines return. Only candidates that survive Pass B (and optional P0 verifier) enter synthesis.
+Reject false positives after all pipelines return. Only candidates that survive Pass B enter synthesis.
 
 When keep/drop is unclear, read `../examples/kept-vs-dropped.md`. When a candidate is about branching, nesting, a complexity score, speculative abstraction, or YAGNI, also read `../complexity.md`.
 
-## Pass A — hunter (already done in dispatch)
+## Intake
 
 Confirm each candidate still carries:
 
@@ -12,62 +12,25 @@ Confirm each candidate still carries:
 - `exploit_or_break_path` with a pointable line today (break, exploit, or cost)
 - `suggested_fix` that is minimal and local when possible
 
-Drop immediately if Pass A fields are missing or speculative.
+Drop immediately if those fields are missing, speculative, or `location` is on Phase 1 `Skip` and that path's behavior did not change.
 
-## Pass B — orchestrator verify
+## Pass B — validator
 
-Re-open `file:line` plus callers, middleware, shared helpers, and consumers as needed. Run this checklist on **every** remaining candidate:
+Re-open `file:line` plus callers, middleware, shared helpers, and consumers as needed. Three questions on **every** remaining candidate:
 
-```txt
-- [ ] Did I read the entire cited file (not just the diff snippet)?
-- [ ] Did I read middleware / global layer before flagging a route?
-- [ ] What is the data provenance (user input / LLM / backend / n/a)?
-- [ ] Did I trace the full pipeline to the final output?
-- [ ] Is there a comment explaining intentional design? Did I respect it?
-- [ ] Did I verify framework behavior before asserting failure modes?
-- [ ] Did I verify all call paths before calling something dead/redundant?
-- [ ] Can I reproduce the break, exploit, or today's cost by reading the code without "if in the future"?
-- [ ] Does this contradict another candidate or a likely "What Looks Good" strength? (self-consistency)
-- [ ] Would the suggested fix pass the regression gate (minimal, local, respects what-must-not-change)?
-- [ ] Does suggested_fix preserve error behavior and side effects (no over-simplify)?
-- [ ] Can I point to the exact line that makes this exploitable, broken, or costly today (reader slower, zero-caller carry, unused after consumer search)?
-```
+1. Does the break, exploit, or today's cost hold on reading the code, with a pointable `file:line`?
+2. Does this contradict another candidate or a likely "What Looks Good" strength?
+3. Would the suggested fix pass the **regression gate** (minimal, local, respects what-must-not-change)?
 
-Drop or downgrade any item that fails. Future-only risks become hardening (downgrade), not blockers. Maintainability stays `kept` when the cost is pointable today (nesting, YAGNI with zero callers, verified unused). Dead-code candidates that survive the consumer search stay `kept` for the report Dead Code section, not as P0.
+Drop or downgrade any item that fails. Future-only risks become hardening, not blockers. Keep maintainability when today's cost is pointable, including Quality extras the Floor did not name. Keep a real issue when `pipeline` is a mismatch; synthesize assigns category. Dead-code after a full consumer search goes to Dead Code, not P0. Formatter/linter style stays unflagged unless the line is broken or unsafe today.
+
+`likely` with a pointable line: re-read. Confirm → **proven**. Line holds but the path is still incomplete → keep as hardening (not P0/P1). No line today → drop.
+
+On residual ambiguity (middleware vs route, framework return shape, `needs-runtime` borderline): downgrade or mark unverified. Pass B decides on this candidate set.
 
 ### P0 bar
 
-A candidate may become P0 in synthesize only if Pass B is complete and the exploit/break path is reconfirmed today with a pointable `file:line`. Maintainability, YAGNI-without-a-hole, and verified unused code are never P0. Claims that need deployed config or runtime observation (`needs-runtime`) are never P0 without proof in code; mark them unverified or hardening.
-
-## Optional P0 verifier (one subagent)
-
-After Pass B, if **≥1** remaining candidate still could be P0 (Pass B complete + exploit/break path today + pointable `file:line`), dispatch **one** verifier subagent when a trigger below is true. Otherwise skip and record `verifier: skipped` (reason).
-
-**Trigger (dispatch when either is true):**
-
-1. Real ambiguity remains (middleware vs route, framework return shape, `needs-runtime` borderline), or
-2. **≥2** candidates still look like P0 after Pass B
-
-**Skip when:** zero P0-capable candidates remain, or Pass B already settled every P0-capable candidate without residual ambiguity and there is at most one such candidate. Pass B + P0 bar alone are enough. Record `verifier: skipped` (reason) for persist Notes and the report Verification block.
-
-**Do not:** re-dispatch the five review pipelines; give the verifier a perspective or shape; ask the verifier for final P0–P3 severity.
-
-**Verifier prompt (minimal):**
-
-```txt
-Re-verify these P0-capable candidates only. No perspective or shape files.
-
-For each item, re-read the cited file:line plus callers / middleware / shared helpers as needed.
-Return only status + verification_note (and drop_reason when dropped/downgraded). Do not assign P0–P3.
-
-Candidates:
-- location: …
-  exploit_or_break_path: …
-  evidence_level: …
-  [optional: one-line Pass B doubt]
-```
-
-Apply verifier outcomes to the verification artifacts before synthesis. Verifier does not invent new findings.
+P0 is an exploit/break path reconfirmed today with a pointable `file:line` after Pass B. Maintainability, YAGNI-without-a-hole, verified unused code, and `needs-runtime` without proof in code stay below P0 (unverified or hardening). P0 and P1 require `evidence_level: proven`.
 
 ## Verification artifact (required per candidate)
 
@@ -80,44 +43,12 @@ verification_note: # files and callers/middleware re-read, then why it survived 
 
 Pass B is complete only when `verification_note` cites what was re-read (`file` plus callers / middleware / helpers as needed). A note with no citation is not Pass B.
 
-**Report bar:** only `kept` and `downgraded` enter Phase 3. Phase 3 assigns severity; those findings (with adjusted severity) enter the report. Record verified vs dropped/downgraded counts for the summary.
-
-## Recurring false positives
-
-| Pattern                                                                     | Why it is usually wrong                                                                                                                                |
-| --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `credentials: "include"` leaks cookies cross-origin                         | Browser sends cookies only for the destination origin. Relative-path guards are defense-in-depth, not an active vuln.                                  |
-| Route "without CSRF" when global middleware covers it                       | Check `middleware.ts` (or equivalent) first. Never praise global CSRF in "What Looks Good" and flag a route below — self-consistency check.            |
-| XSS in a pipeline that escapes everything and unescapes only fixed literals | If final step escapes `&<>` and `replaceAll` uses only literal strings, attribute/event injection is not possible today. Classify as future hardening. |
-| Memory leak on listener with cleanup                                        | `onMount` returning cleanup (or `onDestroy`) does not leak. At most P2 optimization.                                                                   |
-| Dead/redundant code without checking all consumers                          | Defensive helpers often handle raw fetch envelopes or alternate library paths. Verify before removal.                                                  |
-| P0 from "if in the future" or "any evolution could"                         | Future risk is hardening (P2), not a blocker.                                                                                                          |
-| "Missing abstraction" / "should extract helper" on first or second use      | Prefer duplication until a third real use case. Maintainability, not a bug.                                                                            |
-| Pattern mismatch that is an intentional local exception with a comment      | Respect documented intentional design; at most P3 nit.                                                                                                 |
-| "Wrong layer" when the codebase already places similar logic there          | Follow existing codebase patterns; architecture findings need a concrete boundary break.                                                               |
-| Style-only rename with no readability or consistency win                    | Skip; established local style wins.                                                                                                                    |
-| Configured formatter/linter owns style (gofmt, rustfmt, clippy, PEP8…)      | Tool owns style; drop unless the line is broken or unsafe today.                                                                                       |
-| Type mismatch that the compiler/typechecker already accepts correctly       | Verify actual types before asserting; framework return shapes often differ from intuition.                                                             |
-| N+1 or missing index without a hot path or measured cost                    | Likely P2 hardening; not P0 unless demonstrated breakage or clear production scale path.                                                               |
-| suggested_fix that removes or weakens error handling "for clarity"          | Over-simplify. Preserve error paths; drop or rewrite the fix.                                                                                          |
-| "Unnecessary abstraction" without callers, intent, and reason it exists     | Understand why it exists before removing.                                                                                                              |
-| "Fewer lines = simpler" / nested ternary one-liner as an improvement        | Clarity is comprehension speed, not LOC.                                                                                                               |
-| Inline a helper that named a useful concept                                 | Keep the name unless the inline form is clearly clearer in context.                                                                                    |
-| Merge/extract with only 1–2 aesthetic uses                                  | Respect third-use; skip or P3.                                                                                                                         |
-| Layout "exports first" against local repo convention                        | Follow the codebase's file order.                                                                                                                      |
-| "Unshipped compat" without checking main/release                            | May be real BC; verify history before proposing delete.                                                                                                |
-| "Missing docs" without a documentable surface change or docs in scope       | Do not invent tutorials.                                                                                                                               |
-| Reviewer bias: "tests pass => good", "agent code => fine", "clean later"    | Still verify the path today.                                                                                                                           |
-| "Refactor is cleaner" when it only relocated the same concept count         | Relocate != reduce.                                                                                                                                    |
-| CC / complexity score on a linear long function (one concept, nesting < 3)  | CC ranks test paths, not quality. Drop unless a reader is slower today.                                                                                |
-| Extract helper only to lower a complexity score                             | Third-use and a clarity win required. A score move with no responsibility name is gaming.                                                              |
-| Go `if err != nil { return err }` series as a complexity hotspot            | Explicit error paths inflate CC; they are not nested jungle. Drop.                                                                                     |
-| "YAGNI / speculative abstraction" when callers or a shipped contract exist  | Unused-today is the test. Abstraction with real callers is not YAGNI.                                                                                  |
+**Report bar:** only `kept` and `downgraded` enter Phase 3. Phase 3 assigns severity; those findings (with adjusted severity) enter the report. Record verified vs dropped/downgraded counts for the summary. Copy `quality_source` from the Quality hunter when Quality ran.
 
 ## Post-report calibration (optional)
 
-If the user asks to calibrate this review, follow the pattern in `../examples/eval-notes.md` in the conversation. Do not create that file in the reviewed target repo unless they ask. Do not preload eval-notes during verify.
+If the user asks to calibrate this review, follow `../examples/eval-notes.md` in the conversation (write a file in the reviewed repo only if they ask).
 
 ## Completion criterion
 
-Every candidate has `status` and a `verification_note` that cites the files/callers re-read. Dropped/downgraded counts are recorded for the summary. P0 candidates that fail the P0 bar are downgraded or marked unverified. If the optional P0 verifier ran, its outcomes are applied; if skipped, Pass B + P0 bar stand alone.
+Every candidate has `status` and a `verification_note` that cites the files/callers re-read. Dropped/downgraded counts are recorded for the summary. P0 candidates that fail the P0 bar are downgraded or marked unverified. `quality_source` is available for persist when Quality ran.

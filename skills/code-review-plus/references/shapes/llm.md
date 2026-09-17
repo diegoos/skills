@@ -1,6 +1,6 @@
 # Shape — LLM / agent surface (PR review)
 
-Hunt prompt and tool-boundary issues in this diff. Not a full threat model; deeper pass → `/deep-security-review`.
+Hunt prompt and tool-boundary issues in this diff at PR-review depth.
 
 ## Hunt for
 
@@ -12,6 +12,4 @@ Hunt prompt and tool-boundary issues in this diff. Not a full threat model; deep
 
 ## Pass A
 
-- Defense-in-depth gaps are hardening (P2); only flag vulns exploitable or broken today with a pointable line
-- Report secrets as `file:line` + type only; never echo values
-- Surface needs threat modeling beyond this pass → tell the user to invoke `/deep-security-review` (do not auto-start)
+Report secrets as `file:line` + type only. Hardening without a path today stays category hardening.

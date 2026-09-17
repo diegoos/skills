@@ -114,4 +114,4 @@ Code/architecture review — not a substitute for penetration testing. Runtime c
 
 ## Relation to `code-review-plus`
 
-Both skills are user-invoked. Use `/code-review-plus` for multi-perspective PR/diff review (including `/code-review-plus fix`). Use this skill when security is the primary goal. Do not run both Security perspectives on the same scope in parallel — this skill **replaces** the shallow security pass.
+Both skills are user-invoked. `/code-review-plus` always uses its own slim Security hunter. Invoke this skill when security is the primary goal, or after a CRP report that ends with a `/deep-security-review` suggestion. Leave `code-review-plus` unstarted from this skill.

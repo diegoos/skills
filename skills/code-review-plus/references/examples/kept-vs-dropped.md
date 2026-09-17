@@ -29,6 +29,11 @@ Read this file only when Pass B is unsure whether to keep or drop a candidate. D
 - **Signal:** Prefer different synonym.
 - **Why drop:** Preference without codebase inconsistency. Skip.
 
+### Dropped — same behavior and Match; reviewer would have written it differently
+
+- **Signal:** Alternative structure the reviewer prefers; neighbor and Floor already hold; no load cost.
+- **Why drop:** Preference. Not a finding.
+
 ## Kept (true positives)
 
 ### `JSON.parse` on HTTP body without try/catch
@@ -118,17 +123,22 @@ Read this file only when Pass B is unsure whether to keep or drop a candidate. D
 - **Signal:** New test whose only assertion is a trivial getter/reexport.
 - **Why keep:** Coverage theater. List as removable; ask before delete.
 
-### Complexity / YAGNI
+### Complexity / YAGNI / Match
 
 #### Dropped — extract helper only to lower a complexity score
 
 - **Signal:** Hunter proposes splitting a readable function because CC is 12 (or the linter said so).
-- **Why drop:** No nesting ≥3 and no third use. A score move without a responsibility name is gaming. Keep the function unless a reader is slower today.
+- **Why drop:** CC ≤ 20 Floor; no nesting ≥3 and no third use. A score move without a responsibility name is gaming. Keep the function unless a reader is slower today.
 
 #### Dropped — Go `if err != nil` series as complexity
 
 - **Signal:** Function CC is high; most branches are `if err != nil { return err }`.
 - **Why drop:** Explicit error paths inflate CC. They are not nested jungle. Inspect remaining business branches only.
+
+#### Kept — new or rewritten function with CC > 20
+
+- **Signal:** Diff adds or substantially rewrites a function; CC is above the Floor cap (20) with no project bar, or above the project's configured bar.
+- **Why keep:** Maintainability today. Suggested fix: local split, table, or tests — not a wholesale rewrite. Cite the counted score in the finding body.
 
 #### Kept — new function with nesting ≥3
 
@@ -139,3 +149,8 @@ Read this file only when Pass B is unsure whether to keep or drop a candidate. D
 
 - **Signal:** Diff adds an interface, factory, or provider enum with a single live implementation and no second caller or shipped contract.
 - **Why keep:** YAGNI. Carry starts now. Suggested fix: call the concrete type. P2 for a type tree; P3 for a dead field.
+
+#### Kept — Match miss vs neighbor of the same kind
+
+- **Signal:** New helper names errors or imports unlike the neighbor of the same kind; a reader must learn a second pattern in this slice.
+- **Why keep:** Match cost today. Suggested fix: follow the neighbor. P2/P3 maintainability.

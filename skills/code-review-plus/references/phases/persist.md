@@ -17,6 +17,7 @@ Fill this skeleton. Emit a heading only when that section has content. Always wr
 
 Source: …
 Tier: trivial | normal | large/sensitive
+Mode: fresh | delta
 HEAD: …
 Branch: …
 Must NOT change: …
@@ -37,13 +38,16 @@ Pipelines: … (isolated; tier: …)[; shapes: …]
 ## Notes
 
 Verified: … / dropped: … / downgraded: …
-P0 verifier: ran | skipped (reason: …)
+quality source: make-code | slim-fallback
 serial: yes | (omit line when parallel or one hunter)
+Checks: ran … | not run …
 ```
 
 Findings rows match the report table (kept / adjusted downgraded only). Header + separator only when kept is 0.
 
-If the **reviewed repo** is read-only, record the gap under Verification and still emit the report. Write the file or state that gap.
+Omit the `quality source:` line when Quality did not run. Omit `serial:` when hunters ran in parallel or only one hunter ran.
+
+If the **reviewed repo** is read-only, record the gap under Notes and still emit the report. Write the file or state that gap.
 
 ## Then emit
 
@@ -57,4 +61,4 @@ To drop old timestamped files: `/code-review-plus prune`.
 
 ## Completion criterion
 
-The timestamped review file is written with Findings and Notes (Test quality only when tests are in source and Quality ran; `## Fix` only after the first apply), or the read-only gap is stated. The report is ready to emit.
+The timestamped review file is written with Findings, Notes, and Mode (Test quality only when tests are in source and Quality ran; `quality source` when Quality ran; `## Fix` only after the first apply), or the read-only gap is stated. The report is ready to emit.

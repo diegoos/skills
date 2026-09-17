@@ -46,10 +46,10 @@ Pick exactly one tier:
 | Tier                | When                                                                 | Pipelines                                                                                                   | Shapes                                                                                       |
 | ------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | **trivial**         | Docs-only, formatting-only, or rename with no logic                  | Correctness + Quality; add Security only if auth, input boundary, secrets, deps, or security config touched | None                                                                                         |
-| **normal**          | Default feature/bugfix/refactor                                      | All five: Correctness, Security, Architecture, Quality, Performance                                         | At most **1** per hunter (priority in Phase 2)                                               |
-| **large/sensitive** | ≥~300 logic lines, or touches auth, payments, secrets, raw user HTML | All five                                                                                                    | At most **1** per hunter (same priority as `normal`)                                         |
+| **normal**          | Default feature/bugfix/refactor                                      | Correctness, Security, Quality                                                                              | At most **1** per hunter (priority in Phase 2)                                               |
+| **large/sensitive** | ≥~300 logic lines, or touches auth, payments, secrets, raw user HTML | Correctness, Security, Quality, Architecture                                                                | At most **1** per hunter (same priority as `normal`)                                         |
 
-Record `Pipelines` as the hunter names that will run. Isolated (SKILL.md named one hunter): that name, and `Isolated: yes` (Performance still runs on `trivial`). Otherwise expand the tier table and set `Isolated: no`.
+Record `Pipelines` as the hunter names that will run. Isolated (SKILL.md named one hunter): that name, and `Isolated: yes`. Otherwise expand the tier table and set `Isolated: no`. Performance runs only when isolated (`/code-review-plus performance`).
 
 ## Stack tags
 
@@ -70,11 +70,13 @@ Mark **lockfile in source** when the review source includes `package.json`, a lo
 If `docs/code-review/` exists in the reviewed repo:
 
 1. Read `docs/code-review/knowns.md` when present.
-2. Read the latest timestamped review file (`YYYY-MM-DD-HH-MM.md`, not `knowns.md`).
+2. Read the latest timestamped review file (`YYYY-MM-DD-HH-MM.md`, not `knowns.md`). Read `## Findings`.
 
-Skip a known false-positive or won't-fix unless the cited path's behavior changed. When a prior review recorded HEAD, focus this pass on the delta since that commit. A prior `isolated` Pipelines line covers only the hunters it lists.
+Skip a known false-positive or won't-fix unless the cited path's behavior changed. When a prior review recorded HEAD, set `Mode: delta` and focus this pass on the hunks since that commit. A prior `isolated` Pipelines line covers only the hunters it lists.
 
-Record `Knowns` and `Prior review` in the context summary (or `none`).
+Build `Skip` from knowns + prior Findings whose cited path's behavior did not change. Record `Knowns`, `Prior review`, `Mode`, and `Skip` in the context summary (or `none`).
+
+No persist or no prior HEAD → `Mode: fresh`. `Skip: none` when the skip list is empty.
 
 ## Tests first
 
@@ -98,8 +100,10 @@ Intent: …
 Must NOT change: …
 Source: …
 Tier: trivial | normal | large/sensitive
-Pipelines: Correctness, Quality | … (names that will run)
+Pipelines: Correctness, Security, Quality | … (names that will run)
 Isolated: yes | no
+Mode: fresh | delta
+Skip: file:line … | none
 Stack tags: web | api | ts | py | go | rs | llm | (none)
 Documentable surface: yes | no
 Lockfile in source: yes | no
@@ -111,6 +115,8 @@ Knowns: … | none
 Prior review: stem / HEAD / none
 ```
 
+Do not fill `quality_source` here; the Quality hunter returns it.
+
 ## Completion criterion
 
-Scope answers written; review source, sizing, oversized, tier, `Pipelines` names, `Isolated`, stack tags, documentable surface, and lockfile-in-source identified; knowns and prior review read or recorded as none; context summary ready for Phase 2.
+Scope answers written; review source, sizing, oversized, tier, `Pipelines` names, `Isolated`, `Mode`, `Skip`, stack tags, documentable surface, and lockfile-in-source identified; knowns and prior review read or recorded as none; context summary ready for Phase 2.

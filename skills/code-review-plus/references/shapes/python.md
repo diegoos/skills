@@ -14,6 +14,4 @@ Hunt language and runtime pitfalls.
 
 ## Pass A
 
-- Style, import order, and line length belong to configured linters; do not re-flag what they already own
-- Do not flag `Any` at untyped third-party edges when stubs are absent
-- Note `regression_risk` for callers of the changed API
+Configured linters own style, import order, and line length. Note `regression_risk` for callers of the changed API.

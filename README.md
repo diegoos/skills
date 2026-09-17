@@ -1,6 +1,6 @@
 # Skills
 
-Personal collection of AI agent skills in Markdown. Each one gives the agent a fixed process for code review, docs, commits, security, and similar work.
+Personal collection of AI agent skills in Markdown. Each skill is a fixed process the agent follows for code review, docs, commits, security, and similar work.
 
 Notable changes live in [CHANGELOG.md](CHANGELOG.md).
 
@@ -8,7 +8,7 @@ Notable changes live in [CHANGELOG.md](CHANGELOG.md).
 
 ## Agent rules
 
-[global-rules.md](global-rules.md) is the global judgment layer. The operating stack is always: this file → repository `AGENTS.md` → workflow skills. Use it layered (the tool loads the file globally; the repo keeps its own operational `AGENTS.md`) or fused (fold the base into the project's `AGENTS.md` with Commands, Permissions, and done criteria). Do not keep two competing policy files in the same scope.
+[global-rules.md](global-rules.md) is the global judgment layer. The operating stack is always: `global-rules.md` → repository `AGENTS.md` → workflow skills. Load it layered (the tool loads the file globally; the repo keeps its own operational `AGENTS.md`) or fused (fold the base into the project's `AGENTS.md` with Commands, Permissions, and done criteria). Keep a single policy file in each scope.
 
 The same rules can live in `~/.codex/AGENTS.md` for Codex, `~/.claude/CLAUDE.md` for Claude, `~/.config/opencode/AGENTS.md` for OpenCode, or `~/.cursor/rules/agent-rules.md` for Cursor.
 
@@ -20,7 +20,7 @@ The same rules can live in `~/.codex/AGENTS.md` for Codex, `~/.claude/CLAUDE.md`
 | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `[write-great-instructions](skills/write-great-instructions/)` | Helps you write `AGENTS.md`, `CLAUDE.md`, Cursor rules, and Copilot instructions. Loads when you create or edit one.                                                                          |
 | `[commit-message](skills/commit-message/)`                     | Draft [Conventional Commits](https://www.conventionalcommits.org/) from the real git status and diff. One atomic commit per concern by default; a single commit only when you ask.            |
-| `[code-review-plus](skills/code-review-plus/)`                 | Multi-pipeline PR/diff review (≤5 hunters or one on demand), optional shapes, test-quality, `docs/code-review/` memory, P0-P3 report. Branches: `review`, `fix`/`apply`/`implement`, `prune`. |
+| `[code-review-plus](skills/code-review-plus/)`                 | PR/diff review: Correctness, Security, Quality by default; Architecture on large diffs. Memory under `docs/code-review/`. P0-P3. Branches: `review`, `fix`/`all`/`ids`, `prune`, `help`.      |
 | `[deep-security-review](skills/deep-security-review/)`         | Security-first review: threat model with hotspots, parallel domain hunts, disprove/verify, findings + hardening notes (P0-P3). Branches: review, `fix`/`apply`/`implement`. Invoke by name.   |
 | `[make-code](skills/make-code/)`                               | KISS, DRY, YAGNI, CC for app code: make it work, right, then fast. Branches: `write`, `refactor`, `improve`.                                                                                  |
 | `[make-docs](skills/make-docs/)`                               | Architecture docs and behavioral specs under `docs/`. Branches: `explore`, `update` (stamp), `refresh` (re-survey), `adr`. Confirm gate; ≤3 hunters.                                          |
@@ -76,10 +76,13 @@ Some skills load from intent (you do not have to name them):
 User-invoked only (`disable-model-invocation`). Call by name:
 
 ```text
-/code-review-plus              → multi-perspective PR/diff review
+/code-review-plus              → PR/diff review (Correctness, Security, Quality by default)
 /code-review-plus quality      → Quality hunter only (also: correctness, security, architecture, performance)
-/code-review-plus fix          → apply findings from the last report (aliases: apply, implement)
+/code-review-plus fix          → P0, P1, and vuln from the last report; leftover IDs printed (aliases: apply, implement)
+/code-review-plus fix all      → every P0–P3 finding
+/code-review-plus fix 2,3,6    → those Findings IDs
 /code-review-plus prune        → drop old docs/code-review review files (count first, then choose)
+/code-review-plus help         → explain how the skill works
 /deep-security-review          → deep security review (domain + shape hunts)
 /deep-security-review fix      → apply review findings (aliases: apply, implement)
 ```
@@ -107,8 +110,12 @@ Optional agents under `.opencode/agents/`. They are not part of the skills insta
 
 ### `code-review-plus` vs `deep-security-review`
 
-Use `code-review-plus` for a PR or diff review covering correctness, security, architecture, quality, and performance, with adaptive tiers and optional stack shapes including `llm` (`1` perspective + `0` or `1` shape per hunter; Quality may add `test-quality.md` when tests are in scope). Name one hunter (`/code-review-plus security`) to run that pass only. Shape pick is a priority list on `normal` and `large/sensitive`. Reviews persist under `docs/code-review/` in the reviewed repo.
+Use `code-review-plus` for a PR or diff review. The default hunters are correctness, security, and quality. Architecture joins on `large/sensitive`; Performance only when isolated. Tiers adapt to the change, and optional stack shapes include `llm`. Each hunter gets one perspective and at most one shape. Quality may add `test-quality.md` when tests are in scope.
 
-Use `deep-security-review` when security is the main goal: threat model with hotspots/bypasses, domain hunts (`1` domain + `1` shape per subagent), disprove gates, and severity calibrated for security, with hardening notes kept separate. Apply findings with `/deep-security-review fix` (aliases: `apply`, `implement`).
+Hunt lists are a **floor**: cover them, then report other in-pipeline issues. Pass B drops false positives. The Quality hunter reads `make-code` when that skill is available; otherwise it uses a built-in Floor and the report says so. Name one hunter (`/code-review-plus security`) to run that pass only.
 
-`deep-security-review` replaces the shallow security pass. Do not run both Security perspectives on the same scope at once. `code-review-plus` may tell you to run `/deep-security-review`. It will not start that skill by itself.
+This skill always runs its own slim Security hunter. The report may end with a `/deep-security-review` suggestion. On `normal` and `large/sensitive`, shape pick follows a priority list. Reviews persist under `docs/code-review/` in the reviewed repo. A later run on the same branch is **delta** when a prior HEAD exists.
+
+Use `deep-security-review` when security is the main goal: a threat model with hotspots and bypasses, domain hunts (`1` domain + `1` shape per subagent), disprove gates, and severity calibrated for security. Hardening notes stay separate from findings. Apply findings with `/deep-security-review fix` (aliases: `apply`, `implement`).
+
+Start `deep-security-review` yourself after the `code-review-plus` report if you want that pass. It does not replace this skill's Security hunter.

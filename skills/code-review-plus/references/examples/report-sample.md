@@ -1,22 +1,27 @@
 # Report sample
 
-Load only if the Phase 4 skeleton fill is unclear. Do not preload during review. Do not give this path to hunters. P1, P3, Dead Code, Test quality, and Author claimed are omitted (no items).
+Load only if the Phase 4 skeleton fill is unclear. Do not preload during review. Do not give this path to hunters. P1, P3, Dead Code, Test quality, and What Looks Good extras are omitted (no items).
 
 ## Review Summary
 
-Webhook handler. One verified P0 correctness issue before merging. Two hardening items deferred as P2 follow-ups. Verified 3, dropped 1 (CSRF covered by global middleware), downgraded 0.
+Webhook handler. One verified P0 correctness issue before merging. One hardening item listed as P2 follow-up. Verified 3, dropped 1 (CSRF covered by global middleware), downgraded 0.
 
 Must NOT change: HTTP 2xx contract for valid payloads; idempotency key behavior.
 
-Pipelines: Correctness, Security, Architecture, Quality, Performance (tier: normal); shapes: ts (Correctness, Architecture, Performance), web (Security, Quality)
+Pipelines: Correctness, Security, Quality (tier: normal); shapes: ts (Correctness, Quality)
+
+Mode: fresh
+
+quality source: slim-fallback
+
+Checks: not run
 
 ### Findings Overview
 
 | ID  | Severity | Category  | Perspective | File                  | Issue                       |
 | --- | -------- | --------- | ----------- | --------------------- | --------------------------- |
 | 1   | 🔴 P0    | bug       | Correctness | webhook-handler.ts:42 | Unhandled JSON.parse crash  |
-| 2   | 🟡 P2    | hardening | Performance | webhook-handler.ts:67 | Fixed retry delay           |
-| 3   | 🟡 P2    | style     | Quality     | webhook-handler.ts:89 | Mixed validation/processing |
+| 2   | 🟡 P2    | hardening | Quality     | webhook-handler.ts:89 | Mixed validation/processing |
 
 ### P0 — Critical (must fix before merge)
 
@@ -33,23 +38,12 @@ try {
 
 ### P2 — Suggestions (optional improvements)
 
-**webhook-handler.ts:67** — Fixed 1-second retry delay. Category: hardening. Use exponential backoff to avoid hammering downstream during outages. Not exploitable today. Regression risk: retry timing assumptions in integration tests.
-
-### What Looks Good
-
-Idempotency key check at line 35 prevents duplicate processing during retries.
-
-### Verification
-
-Agent confirmed:
-
-- [ ] Tests — not run
-- [ ] Build — not run
-
-P0 verifier: skipped (reason: one P0-capable candidate, Pass B settled it)
+**webhook-handler.ts:89** — Validation and processing mixed in one function; a reader cannot state the happy path without simulating both. Category: maintainability. Suggested fix: extract validation with a responsibility name. Regression risk: error response shape for invalid payloads.
 
 ### Verdict
 
-Request changes — one verified P0 before merge. Hardening items are follow-ups.
+Request changes — one verified P0 before merge. Quality follow-up is optional.
 
-To apply fixes: `/code-review-plus fix` (aliases: `apply`, `implement`).
+To apply: `/code-review-plus fix` (P0, P1, vuln) · `/code-review-plus fix all` · `/code-review-plus fix 2` (ids). Aliases: `apply`, `implement`.
+
+make-code was not in this environment; Quality used the built-in Floor. <https://github.com/diegoos/skills/tree/main/skills/make-code>
