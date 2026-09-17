@@ -1,7 +1,8 @@
 # Domain — Business Logic & LLM
 
 Dispatch only when a Phase 2 BusinessLLM dispatch signal is true (`llm` / `sensitive` tags, payment/wallet/billing hotspots or abuse_goals, LLM tools/RAG/MCP/agents, admin agent tools, or package-publish flows).
-Shape file adds LLM or payment/wallet probes.
+
+**Floor** when dispatched. Shape file adds LLM or payment/wallet probes.
 
 ## Leading word
 

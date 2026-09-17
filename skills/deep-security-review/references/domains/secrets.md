@@ -1,6 +1,6 @@
 # Domain — Secrets & Data Exposure
 
-Hunt secrets leakage, crypto policy, and sensitive-data exposure. Browser exploitation (DOM XSS, postMessage, clickjacking, CORS attack paths) lives in `shapes/web.md`.
+**Floor** for secrets leakage, crypto policy, and sensitive-data exposure. Browser exploitation (DOM XSS, postMessage, clickjacking, CORS attack paths) lives in `shapes/web.md`.
 
 ## Hunt
 

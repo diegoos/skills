@@ -16,9 +16,9 @@ metadata:
 
 **Branches:** review (default) → plan → hunt → verify → emit. Fix applies findings with a **regression gate**.
 
-**Invariants:** Domain hunts in parallel (serial fallback in `hunt.md`). **floor** and **today** live in the Hunt bar. **Pass B** drops false positives; P0/P1 require **proven**. **regression gate** on suggested fixes. Lowest practical privilege.
+**Invariants:** Domain hunts in parallel (serial fallback in `hunt.md`). Skill files **complement** the model's security knowledge. **floor** and **today** live in the Hunt bar. **Pass B** confirms; P0/P1 require **proven**. **regression gate** on suggested fixes. Lowest practical privilege.
 
-**Load:** Open a phase file when that phase starts. Hunter load: **1** domain + **0 or 1** shape. Orchestrator-only paths: `plan.md`. Fix reads `make-code` when that skill is in the environment.
+**Load:** Open a phase file when that phase starts. Hunter load: **1** domain + **0 or 1** shape (context; hunt in code after). Orchestrator-only paths: `plan.md`. Fix reads `make-code` when that skill is in the environment.
 
 ## Commands
 

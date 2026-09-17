@@ -34,9 +34,10 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │       ├── dependency-review.md
 │   │       ├── remedies.md
 │   │       └── templates/      # final report
-│   ├── deep-security-review/   # Deep security review
-│   │   ├── SKILL.md
-│   │   ├── agents/openai.yaml
+   │   ├── deep-security-review/   # Deep security review
+   │   │   ├── SKILL.md
+   │   │   ├── README.md           # Human: commands, flow, vs code-review-plus
+   │   │   ├── agents/openai.yaml
 │   │   └── references/
 │   │       ├── phases/         # plan, hunt, verify-and-synthesize, fix
 │   │       ├── templates/      # final report

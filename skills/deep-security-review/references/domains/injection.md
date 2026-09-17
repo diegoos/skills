@@ -1,6 +1,6 @@
 # Domain — Injection & Input Boundaries
 
-Hunt injection and untrusted-input sinks only. Shape file adds stack probes. Prompt injection → BusinessLLM domain.
+**Floor** for injection and untrusted-input sinks. Shape file adds stack probes. Prompt injection → BusinessLLM domain.
 
 ## Hunt
 

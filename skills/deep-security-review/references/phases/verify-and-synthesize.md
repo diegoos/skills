@@ -11,7 +11,7 @@ Reject false positives after all hunters return. Single source of truth for seve
 
 ## Pass A — hunter fields (orchestrator intake)
 
-Before Pass B, drop immediately if a candidate is missing `location`, `exploit_path`, `data_provenance`, or `evidence_level`, or if a vulnerability claim is speculative (no pointable line today). Extra-floor extras still `likely` → drop (or downgrade to hardening). `needs-runtime` never enters Findings as P0–P3 — route to Verification Gaps.
+Before Pass B, drop immediately if a candidate is missing `location`, `exploit_path`, `data_provenance`, or `evidence_level`, or if a vulnerability claim is speculative (no pointable line today). `needs-runtime` never enters Findings as P0–P3 — route to Verification Gaps.
 
 ## Pass B — validator
 

@@ -1,6 +1,6 @@
 # Examples — confirmation gates, FPs, kept vs dropped
 
-Orchestrator-only. Read when keep/drop is unclear, when a candidate matches a gate or recurring FP pattern, or when Pass B needs a worked case. Hunters do not receive this path. Single source of truth for confirmation gates and recurring false positives.
+Orchestrator-only. Read when keep/drop is unclear, when a candidate matches a gate or recurring FP pattern, or when Pass B needs a worked case. Hunters do not receive this path. Gates confirm already-raised candidates. Single source of truth for confirmation gates and recurring false positives.
 
 ## Confirmation gates
 

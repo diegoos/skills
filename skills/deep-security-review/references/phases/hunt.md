@@ -4,7 +4,7 @@ Dispatch domain hunters. Orchestrator reads this file to build prompts; each hun
 
 ## Hunt bar
 
-Cover the domain (and shape) as a **floor**, then emit any other in-domain issue when **today**'s exploit path is **proven** at `file:line`. Floor items may be `likely`; Phase 3 confirms. Extra-floor extras are `proven` only. P0/P1 require **proven**. An empty list is valid when this domain found nothing.
+Cover the domain (and shape) as a **floor**, then emit any other in-domain issue when **today**'s exploit path is pointable at `file:line`. Skill files **complement** the hunt: they cue the **floor**; the model's security knowledge stays in play. `likely` is allowed at hunt time; **Pass B** confirms. P0/P1 require **proven**. An empty list is valid when this domain found nothing.
 
 ## Dispatch
 
@@ -44,17 +44,17 @@ Apply on every domain (SSOT here — domains do not restate):
 
 ## Soft silo
 
-Hunt primarily in the assigned domain. An incidental **proven** finding may leave with the canonical `domain` enum. Phase 3 dedupes.
+Hunt the assigned domain. An incidental **proven** finding may leave with the canonical `domain` enum. Phase 3 dedupes.
 
 ## Pass A — hunter self-check
 
 Raise a vulnerability candidate when all are true:
 
-- Floor items: `evidence_level` is `proven` or `likely`. Extra-floor items: `proven` only (`needs-runtime` when the code path is real but deploy/config proof is missing — Phase 3 routes it out of Findings P0–P3)
+- `evidence_level` is `proven` or `likely` (`needs-runtime` when the code path is real but deploy/config proof is missing — Phase 3 routes it out of Findings P0–P3)
 - `exploit_path` names a concrete attacker path with a pointable line **today**
 - Middleware / shared guards / validators were read before flagging a route
 - Data provenance is classified (user / llm / backend)
-- Speculative "if in the future" risks are omitted or marked hardening — not vulnerability
+- Future-only paths are hardening
 - A control you would praise as working is not also flagged as missing on the same path
 
 Drop the candidate yourself if Pass A fields are missing or the claim is speculative. Default `category_hint` to `vulnerability`; Phase 3 owns hardening downgrades.
@@ -67,14 +67,14 @@ Hunt security findings in [scope] from the [DOMAIN] perspective primarily.
 Threat model (from Phase 1):
 [assets / actors / entry points / trust boundaries / abuse_goals]
 auth_model: [one sentence]
-hotspots: [1–15 paths/flows]
+hotspots: [up to 15 first-hit paths; cover the domain in scope]
 bypasses: [list or "none found"]
 
 Skill files (load these, then hunt in code):
 - [domain path]
 - [shape path or omit this line]
 
-Cover the **floor** (`likely` allowed). Extra-floor in-domain issues: **proven** only. An empty list is valid when this domain found nothing.
+Cover the **floor**. Also emit other in-domain issues when today's exploit path is pointable. Skill files **complement** your security knowledge. An empty list is valid when this domain found nothing.
 suggested_fix is local; regression_risk is one line.
 
 How to hunt: sad path, boundaries, assumptions, ordering, races, parser disagreement, round-trip, config, privilege, leaked context, unverified claims, chained layers.
@@ -85,8 +85,8 @@ Before flagging anything (Pass A):
 - Read middleware / auth helpers / validators / shared config before flagging a route.
 - Trace the full data path from entry to sink (or final output). For chained layers, include prompt/RAG → tool/MCP → sink even when no HTTP route reaches the sink.
 - Classify data provenance: direct user input, LLM content, or backend value.
-- Raise floor candidates at evidence_level proven or likely with a pointable line today. Extra-floor extras: proven only.
-- Omit speculative "if in the future" paths; hardening gaps wait for Phase 3.
+- Raise candidates at evidence_level proven or likely with a pointable line today.
+- Future-only paths are hardening; Phase 3 owns that downgrade.
 - If a control works on the path, leave it unflagged (self-consistency with strengths).
 - Default category_hint to vulnerability; Phase 3 owns hardening downgrades.
 
@@ -102,11 +102,12 @@ Return CandidateFinding list (YAML or bullets):
 - suggested_fix: minimal, local when possible; fail-closed
 - regression_risk: callers / contracts / tests / intended_behavior the fix could touch
 
-Stay in this domain. Leave P0–P3 to synthesize.
+Primary domain is this assignment. Canonical `domain` enum on incidental proven finds.
+Leave P0–P3 to synthesize.
 Review is read-only. Same model as the orchestrator.
 ```
 
-## Domain scopes (one line each)
+## Domain floors (one line each)
 
 | Domain      | Hunt for                                                                                          |
 | ----------- | ------------------------------------------------------------------------------------------------- |
@@ -135,4 +136,4 @@ regression_risk: 403/404 shape for this route; existing happy-path tenant tests
 
 ## Completion criterion
 
-Every dispatched domain has returned (an empty CandidateFinding list is valid when that domain found nothing). Each candidate includes `location`, `domain`, `exploit_path`, `data_provenance`, `evidence_level`, and `regression_risk`. Floor vulnerability candidates meet the Pass A bar (`proven`/`likely` with a pointable line today) or were self-dropped; extra-floor extras are `proven`. Serial fallback with two or more domains: the compact carry list holds every finished domain before the next hunt starts.
+Every dispatched domain has returned (an empty CandidateFinding list is valid when that domain found nothing). Each candidate includes `location`, `domain`, `exploit_path`, `data_provenance`, `evidence_level`, and `regression_risk`. Vulnerability candidates meet the Pass A bar (`proven`/`likely` with a pointable line today) or were self-dropped. Serial fallback with two or more domains: the compact carry list holds every finished domain before the next hunt starts.

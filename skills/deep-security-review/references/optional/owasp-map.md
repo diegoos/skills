@@ -20,7 +20,7 @@ Load when the user asks for an OWASP map, or the stack is unknown and the surfac
 | A08:2025  | Software or Data Integrity Failures                          | `domains/infrastructure.md`                                             | `shapes/cloud.md`, `shapes/sensitive-flows.md`   |
 | A09:2025  | Security Logging and Alerting Failures                       | `domains/secrets.md`                                                    | `shapes/cloud.md`                                |
 | A10:2025  | Mishandling of Exceptional Conditions                        | `domains/authz.md` + `domains/injection.md` + `domains/business-llm.md` | language shapes                                  |
-| A01:2025  | SSRF (under Broken Access Control; hunt stays Injection)     | `domai ns/injection.md`                                                  | `shapes/api.md`, `shapes/web.md`                 |
+| A01:2025  | SSRF (under Broken Access Control; hunt stays Injection)     | `domains/injection.md`                                                  | `shapes/api.md`, `shapes/web.md`                 |
 
 ## Quick verification reminders
 

@@ -1,6 +1,6 @@
 # Domain — Infrastructure & Supply Chain
 
-Hunt infra, CI/CD, deps, and abuse controls. Shape adds cloud/tooling/sensitive probes.
+**Floor** for infra, CI/CD, deps, and abuse controls. Shape adds cloud/tooling/sensitive probes.
 
 ## Hunt
 
