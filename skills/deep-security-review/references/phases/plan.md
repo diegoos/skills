@@ -84,12 +84,12 @@ Each dispatched domain gets **slot 1 = its domain file** and **slot 2 = one shap
 
 **Dominant surface:** count entry points (API routes/webhooks vs browser pages). Prefer that tag. If tied: AuthZ/Injection prefer `api`; Secrets prefers `web`.
 
-**OWASP:** only if the user asks for an OWASP map, or the stack is unknown and the surface is public HTTP. If used, it **replaces** slot 2 for AuthZ or Injection (still ≤2 files).
+**OWASP:** only if the user asks for an OWASP map, or the stack is unknown and the surface is public HTTP. If used, it **replaces** slot 2 for AuthZ or Injection (load stays 1 domain + 0 or 1 shape).
 
 **Load:**
 
 1. Phase 1 stays on this file. Domain and shape files wait for hunt.
-2. Each hunter's **load** is the two paths listed for its domain (1 domain + 0 or 1 shape). Those files **complement** the hunt. After them, hunt in code; the model's security knowledge stays in play.
+2. Each hunter's **load** is the two paths listed for its domain (1 domain + 0 or 1 shape). Those files **complement** the hunt. After them, hunt in code; the model's security knowledge stays in play. More skill files still count as a valid pass.
 3. No matching tag for slot 2 → `"none"`.
 4. Keep domains separate (one hunter each).
 5. `examples/` is orchestrator-only (Phase 3 gates/FPs/worked cases, Phase 4 sample) — not a hunter path.
@@ -152,4 +152,4 @@ auth_model: Session cookie + JWT bearer; tenant from session, never body
 
 ## Completion criterion
 
-Threat model written (assets, actors, entry points, trust boundaries, 1–3 abuse_goals, auth_model, up to 15 first-hit hotspots, bypasses or `none found`); shape tags listed; every dispatched domain has ≤2 concrete paths (or `"none"` for slot 2). Open `hunt.md` when this criterion is met.
+Threat model written (assets, actors, entry points, trust boundaries, 1–3 abuse_goals, auth_model, up to 15 first-hit hotspots, bypasses or `none found`); shape tags listed; every dispatched domain has its load paths written (1 domain + 0 or 1 shape, or `"none"` for slot 2). Open `hunt.md` when this criterion is met.

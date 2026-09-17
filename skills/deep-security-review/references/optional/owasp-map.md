@@ -1,6 +1,6 @@
 # Optional — OWASP Map
 
-Load when the user asks for an OWASP map, or the stack is unknown and the surface is public HTTP. Replaces slot 2 for AuthZ or Injection (still ≤2 files).
+Load when the user asks for an OWASP map, or the stack is unknown and the surface is public HTTP. Replaces slot 2 for AuthZ or Injection (load stays 1 domain + 0 or 1 shape).
 
 **Awareness map only — not a coverage standard.** Does not change the dispatch algorithm. This file points; it does not rewrite domain/shape checks.
 

@@ -43,7 +43,7 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │       ├── templates/      # final report
 │   │       ├── domains/        # authz, injection, secrets, infra, business-llm
 │   │       ├── shapes/         # api, web, languages, cloud, llm, …
-│   │       ├── examples/       # gates, FP table, kept-vs-dropped (Phase 3)
+│   │       ├── examples/       # gates, FP table, kept-vs-dropped, report-sample
 │   │       └── optional/       # OWASP map (on request)
 │   ├── make-code/              # KISS / DRY / YAGNI / CC: write / refactor / improve
 │   │   ├── SKILL.md

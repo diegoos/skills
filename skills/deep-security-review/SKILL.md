@@ -18,7 +18,7 @@ metadata:
 
 **Invariants:** Domain hunts in parallel (serial fallback in `hunt.md`). Skill files **complement** the model's security knowledge. **floor** and **today** live in the Hunt bar. **Pass B** confirms; P0/P1 require **proven**. **regression gate** on suggested fixes. Lowest practical privilege.
 
-**Load:** Open a phase file when that phase starts. Hunter load: **1** domain + **0 or 1** shape (context; hunt in code after). Orchestrator-only paths: `plan.md`. Fix reads `make-code` when that skill is in the environment.
+**Load:** Open a phase file when that phase starts. Hunter load: **1** domain + **0 or 1** shape (context; hunt in code after). More skill files still count as a valid pass. Orchestrator-only: `plan.md`; `examples/` in Phase 3/4. Fix reads `make-code` when that skill is in the environment.
 
 ## Commands
 
