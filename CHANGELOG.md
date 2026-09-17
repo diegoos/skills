@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `make-code`: **CC** cap **20** (or the project bar). Floor **Comment** (concise operational comments, language convention) and **Breath** (blank line between distinct blocks). **Inform** replaces **Ask**: options and consequences on sensitive architecture, contract, data, or security.
+- `make-code`: model-invoked `description` leads with **Write** application code and one trigger per branch (implement/fix, simplify, named hotspot). Cuts KISS/DRY/CC identity from the always-on pointer.
+- `code-review-plus`: Fix and Quality use the make-code Floor **CC** cap when that skill is in the environment; the write-cap-10 override is gone.
 - Skill `metadata.version` bumps only when cutting a changelog release (same change, one bump per skill). Ordinary skill edits stay under `[Unreleased]` with the frontmatter version unchanged (`AGENTS.md`).
 - `code-review-plus`: hunt lists are a **floor** (single source: Hunt bar in `dispatch.md`). Cover them, then emit other in-pipeline issues that have a cost today and a pointable line. **Pass B** drops false positives. P0/P1 require **proven**. `likely` at hunt time becomes hardening unless Pass B proves it. Quality hunts Floor plus docs sync, dead code, and tests in the diff even when sourcing `make-code`. **CC** cap is **20** (or the project bar), including when Floor comes from `make-code`. Dependency review runs when a lockfile is in source.
 - `code-review-plus`: always runs its own Security hunter when Security is in `Pipelines`. The report may end with `/deep-security-review` when the slim pass cannot close the security question. The deeper skill stays unstarted; the slim hunter still runs.

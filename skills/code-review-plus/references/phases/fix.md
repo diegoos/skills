@@ -34,7 +34,7 @@ When **fix source** is `make-code`, each finding uses that skill's workflow on i
 - Branch: **write** (bug, vuln, new behavior) · **refactor** (same behavior) · **improve** only when the finding is Performance with a named hotspot
 - Trace, Climb, Apply, Prove
 - **Must NOT change** and the **fix acceptance gate** still bind
-- **CC** on new or rewritten functions: this skill's cap **20** (or the project's bar), not make-code's write cap of 10
+- **CC** on new or rewritten functions: make-code Floor cap (or the project's bar)
 
 When **fix source** is `slim-fallback`, step 3 of the Apply loop is **Clean fix** only.
 
