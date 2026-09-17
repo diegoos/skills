@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `global-rules.md`: slimmed to communication, same-model subagents, markdown (no prose hard-break), tools (`rg` / `fd`), blocked + git/secrets/production guardrails, conventional-commit rules, and output (STE100 + candid). Code judgment (*tight* ladder, YAGNI, surgical fix, *red* proof) moved to `make-code` so it is not always-on.
+- `global-rules.md`: slimmed to communication, same-model subagents, one-line prose, tools (`rg` / `fd`), blocked + git/secrets/production guardrails, conventional-commit rules, and output (STE100 + candid). Same rules rewritten in place: git co-located with a commit CORRECT/WRONG; code judgment (*tight* ladder, YAGNI, surgical fix, *red* proof) lives in `make-code` so it is not always-on.
 - Root `README.md`: Agent rules names that slim as the trade for `make-code`. The judgment-layer / *tight*-ladder framing is gone.
 - `make-code`: **CC** cap **20** (or the project bar). Floor **Comment** (concise operational comments, language convention) and **Breath** (blank line between distinct blocks). **Inform** replaces **Ask**: options and consequences on sensitive architecture, contract, data, or security.
 - `make-code`: model-invoked `description` leads with **Write** application code and one trigger per branch (implement/fix, simplify, named hotspot). Cuts KISS/DRY/CC identity from the always-on pointer.
