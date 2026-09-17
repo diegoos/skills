@@ -24,11 +24,15 @@ Collection of Markdown skills (`skills/<name>/SKILL.md`). Ship Markdown only —
 
 ## Changelog
 
-Record every notable change in `CHANGELOG.md` under `[Unreleased]` (Keep a Changelog sections as needed). Leave `[Unreleased]` in place until the user asks to cut a version. Leave `skills/<name>/SKILL.md` `metadata.version` unchanged while work sits in `[Unreleased]`. A new skill may set an initial `metadata.version`; bump it only on the next cut. The user may bump `metadata.version` before a changelog cut. When the user asks to cut a version, for each skill with entries in that release: compare the current `metadata.version` to that skill's frontmatter at the last dated `CHANGELOG.md` heading. If it is already newer, leave it. If it still matches the last-cut value, bump it once in the same change (one bump per skill per cut). Do not invent a changelog version to match a skill bump. No version arrow on Unreleased bullets.
+`CHANGELOG.md` is for consumers of a skill, an OpenCode agent, or `global-rules.md`. Record those changes under `[Unreleased]` (Keep a Changelog sections as needed). Skip `AGENTS.md` and other contributor-only repo policy.
+
+Leave `[Unreleased]` in place until the user asks to cut a version. Leave `skills/<name>/SKILL.md` `metadata.version` unchanged while work sits in `[Unreleased]`. A new skill may set an initial `metadata.version`; bump it only on the next cut. The user may bump `metadata.version` before a changelog cut. When the user asks to cut a version, for each skill with entries in that release: compare the current `metadata.version` to that skill's frontmatter at the last dated `CHANGELOG.md` heading. If it is already newer, leave it. If it still matches the last-cut value, bump it once in the same change (one bump per skill per cut). Do not invent a changelog version to match a skill bump. No version arrow on Unreleased bullets.
 
 CORRECT (skill edit): `[Unreleased]` gains a bullet; `metadata.version` in `SKILL.md` stays put.
 
 WRONG: Unreleased bullet with `0.1.0 → 0.2.0`; frontmatter bumped in the same skill edit.
+
+WRONG: Unreleased bullet for an `AGENTS.md` rewrite.
 
 CORRECT (cut): skill still at last-cut `0.1.0` → bump once. Skill already at `0.2.0` (user bump) → leave `0.2.0`.
 
@@ -45,4 +49,4 @@ Ambiguous skill behaviour or scope: stop and ask. Do not invent a second skill o
 1. Each changed `.md` path: the Commands lint exits 0
 2. Diff has no reflow-only edits; long instructional lines stay on one line
 3. Skill add/remove: `README.md` table and `docs/structure.md` tree updated in the same change
-4. `[Unreleased]` records the change; `metadata.version` unchanged unless this change is a version cut, and then only skills still at the last-cut value
+4. Consumer-facing change (skill, OpenCode agent, `global-rules.md`): `[Unreleased]` records it; `metadata.version` unchanged unless this change is a version cut, and then only skills still at the last-cut value. `AGENTS.md`-only: no changelog bullet
