@@ -1,6 +1,6 @@
 # Domain — Authentication & Authorization
 
-Hunt AuthN/AuthZ only. Shape file (if any) adds stack-specific probes. JWT verification defects live here (not in `api.md`).
+**Floor** for AuthN/AuthZ. Shape file (if any) adds stack-specific probes. JWT verification defects live here (not in `api.md`).
 
 ## Hunt
 

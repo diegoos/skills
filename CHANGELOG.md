@@ -9,10 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `code-review-plus`: any `/code-review-plus fix` (including `all` and IDs) reads `make-code` when that skill is in the environment, using write or refactor per finding, with a **CC** cap of 20. Without `make-code`, it uses Clean fix (`fix source: slim-fallback`).
-- `code-review-plus`: `/code-review-plus help` explains how the skill works (commands, review tiers, fix selection, memory). It only prints that explanation.
+- `code-review-plus`: any `/code-review-plus fix` (including `all` and IDs) reads `make-code` when that skill is in the environment. Each finding uses write or refactor. **CC** cap is 20. Without `make-code`, it uses Clean fix (`fix source: slim-fallback`).
+- `code-review-plus`: `/code-review-plus help` prints how the skill works (commands, review tiers, fix selection, memory). No review or edits.
 - `code-review-plus`: `/code-review-plus fix` applies P0, P1, and vuln, then names leftover IDs (`fix all` or `fix 2,5`). `fix all` applies every P0–P3 finding. `fix 2,3,6` applies those Findings IDs. Aliases `apply` / `implement` take the same remainder.
 - `code-review-plus`: Scope **delta** reuses the prior HEAD and a Skip list (knowns + prior Findings). The Quality hunter chooses `make-code` (Floor only, without Apply) or the built-in `quality.md`, and returns `quality_source`.
+- `deep-security-review`: `/deep-security-review fix` applies P0 and P1, then names leftover IDs (`fix all` or `fix 2,5`). `fix all` applies every P0–P3 finding (hardening included). `fix 2,3,6` applies those Findings IDs. Aliases `apply` / `implement` take the same remainder.
+- `deep-security-review`: any `/deep-security-review fix` (including `all` and IDs) reads `make-code` when that skill is in the environment. Each finding uses write or refactor. Without `make-code`, it uses Clean fix (`fix source: slim-fallback`) and prints the make-code Skill links URL.
+- `deep-security-review`: serial fallback when the harness has no subagent (carry list `location` + `title` + `domain`). Orchestrator-only `references/examples/report-sample.md`, used when Phase 4 skeleton fill is unclear.
+- `deep-security-review`: human `README.md` with commands, review vs fix flow, and relation to `code-review-plus`.
 
 ### Changed
 
@@ -21,15 +25,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `code-review-plus`: Fix and Quality use the make-code Floor **CC** cap when that skill is in the environment; the write-cap-10 override is gone.
 - Skill `metadata.version` bumps only when cutting a changelog release (same change, one bump per skill). Ordinary skill edits stay under `[Unreleased]` with the frontmatter version unchanged (`AGENTS.md`).
 - `code-review-plus`: hunt lists are a **floor** (single source: Hunt bar in `dispatch.md`). Cover them, then emit other in-pipeline issues that have a cost today and a pointable line. **Pass B** drops false positives. P0/P1 require **proven**. `likely` at hunt time becomes hardening unless Pass B proves it. Quality hunts Floor plus docs sync, dead code, and tests in the diff even when sourcing `make-code`. **CC** cap is **20** (or the project bar), including when Floor comes from `make-code`. Dependency review runs when a lockfile is in source.
-- `code-review-plus`: always runs its own Security hunter when Security is in `Pipelines`. The report may end with `/deep-security-review` when the slim pass cannot close the security question. The deeper skill stays unstarted; the slim hunter still runs.
+- `code-review-plus`: when Security is in `Pipelines`, this skill runs its own Security hunter. The report may end with `/deep-security-review` when that pass cannot close the security question.
 - `code-review-plus`: suggestions for `make-code` or `deep-security-review` include the GitHub URL (Skill links in `SKILL.md`; report / fix / help emit).
-- `deep-security-review`: Relation treats this skill as a user-invoked follow-up, or as a standalone review when security is the primary goal. It does not replace the `code-review-plus` Security hunter during a `code-review-plus` run.
+- `deep-security-review`: this skill is a user-invoked follow-up, or a standalone review when security is the primary goal. A `code-review-plus` run still uses CRP's Security hunter. Suggestions for `make-code` or `code-review-plus` include the GitHub URL (Skill links in `SKILL.md`; report / fix emit).
+- `deep-security-review`: `SKILL.md` is a router (commands, load, Done → phase READ). Domain checklists are a **floor**. Hunter **load** is 1 domain + 0 or 1 shape; after those files, the hunter works in the code. More skill files still count as a valid pass. Phase files open when the current criterion is met.
+- `deep-security-review`: report matches the `code-review-plus` skeleton: `## Review Summary`, six-column Overview (`Domain` in the Perspective slot), CRP P0–P3 headings, omit-empty, no P2/P3 hide-cap. Hardening is P2 in the table. Threat Model and Verification Gaps stay. Dual-bar fix: exploit path closed and `intended_behavior` preserved.
+- `deep-security-review`: OWASP map uses Top 10:2025 IDs. Infra hunts expanded supply chain (SBOM-when-present, signed/promote artifacts, install-script + publish token). Hunters cover exceptional conditions, chained AI/tool layers, and JSON/stream/`imports` signals.
+- `deep-security-review`: **Pass B** (three questions; `verification_note` cites files re-read) replaces the long verify checklist. `likely` is allowed at hunt time. Pass B confirms to **proven**, or the item becomes P2 hardening or is dropped. Confirmation gates cover chained layers, empty catch, SBOM/`#imports`, and chunked sanitizers. Hotspots are first-hit priority (up to 15). Hunters still cover the assigned domain.
 - `code-review-plus`: default pipelines are Correctness + Security + Quality. `trivial` drops Security unless the surface is sensitive; `large/sensitive` adds Architecture. Performance is isolated-only. Validator is Pass B (three questions); the extra P0 verifier subagent is gone. The report is Summary + Overview + Verdict and lists every kept finding. Serial carry is `location` + `title` + `pipeline`. Security and Quality shapes skip `web`/`api`.
 
 ### Removed
 
 - `code-review-plus`: persist `## Deferred`. Every hunter finding that survives verification goes in the report. After Fix, unapplied IDs still appear as `Deferred:` bullets in the Fix section.
 - `code-review-plus`: Phase 2.5 recurring false-positive table (examples stay in `kept-vs-dropped.md`). Report `### Verification` block and `P0 verifier: ran|skipped`.
+- `deep-security-review`: report `### Hardening notes` heading, seven-column Overview (Security column), and P2/P3 hide-caps. Hardening is P2 in the six-column table.
 
 ## [0.2.1] - 2026-09-08
 

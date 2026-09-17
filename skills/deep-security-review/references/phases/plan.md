@@ -4,7 +4,7 @@ Orchestrator-only. Build the threat model and `DispatchManifest` before any hunt
 
 ## Leading words
 
-- **hotspot** — concrete path or flow an attacker would hit first (≤15 in the manifest)
+- **hotspot** — concrete path or flow an attacker would hit first (up to 15 in the manifest; hunters still cover the assigned domain in scope)
 - **bypass** — dev/debug/setup surface that can skip AuthZ or expose privileged actions
 - **proven** — exploit path demonstrated by reading code at `file:line` today
 - **needs-runtime** — claim that requires deployed config, logs, or live traffic to settle
@@ -18,7 +18,7 @@ Orchestrator-only. Build the threat model and `DispatchManifest` before any hunt
 - Trust boundaries: browser/server, public/private, app/DB, app/LLM, LLM/tools, CI/runtime
 - abuse_goals: 1–3 concrete attacker outcomes tied to hotspots (not a parallel abuse_cases list)
 - auth_model: one sentence — how identity, session, and authority are established
-- hotspots: 1–15 concrete paths/flows (small reviews: the scoped files themselves)
+- hotspots: up to 15 first-hit paths (small reviews: the scoped files themselves; hunters still cover the assigned domain)
 - bypasses: dev/debug/setup surfaces, or `none found`
 ```
 
@@ -32,7 +32,7 @@ Orchestrator-only. Build the threat model and `DispatchManifest` before any hunt
 | Feature branch      | `git diff <base>...HEAD` (repo default base)      |
 | Pasted code         | Review directly                                   |
 
-## Detect shape tags (cheap signals — do not open domain/shape files yet)
+## Detect shape tags (cheap signals — Phase 1 stays on this file)
 
 | Signal                                                     | Tag          |
 | ---------------------------------------------------------- | ------------ |
@@ -68,6 +68,7 @@ Pick **at most one** language tag (`ts-js-node` | `python` | `php`). If polyglot
 | Shape `tooling`        | `./references/shapes/tooling.md`                    |
 | Optional OWASP         | `./references/optional/owasp-map.md`                |
 | Gates / FPs / examples | `./references/examples/kept-vs-dropped.md`          |
+| Report sample          | `./references/examples/report-sample.md`            |
 
 ## Reference Plan algorithm
 
@@ -83,19 +84,19 @@ Each dispatched domain gets **slot 1 = its domain file** and **slot 2 = one shap
 
 **Dominant surface:** count entry points (API routes/webhooks vs browser pages). Prefer that tag. If tied: AuthZ/Injection prefer `api`; Secrets prefers `web`.
 
-**OWASP:** only if the user asks for an OWASP map, or the stack is unknown and the surface is public HTTP. If used, it **replaces** slot 2 for AuthZ or Injection (still ≤2 files).
+**OWASP:** only if the user asks for an OWASP map, or the stack is unknown and the surface is public HTTP. If used, it **replaces** slot 2 for AuthZ or Injection (load stays 1 domain + 0 or 1 shape).
 
-**Hard caps:**
+**Load:**
 
-1. Orchestrator does not open `domains/` or `shapes/` in Phase 1.
-2. Each hunter reads at most the two paths listed for its domain.
+1. Phase 1 stays on this file. Domain and shape files wait for hunt.
+2. Each hunter's **load** is the two paths listed for its domain (1 domain + 0 or 1 shape). Those files **complement** the hunt. After them, hunt in code; the model's security knowledge stays in play. More skill files still count as a valid pass.
 3. No matching tag for slot 2 → `"none"`.
-4. Do not merge domains to save reads.
-5. `examples/` is orchestrator-only (Phase 3 gates/FPs/worked cases) — never a hunter path.
+4. Keep domains separate (one hunter each).
+5. `examples/` is orchestrator-only (Phase 3 gates/FPs/worked cases, Phase 4 sample) — not a hunter path.
 
 ## Codebase sweeps (only `scope.type: codebase`)
 
-Run exactly two orchestrator sweeps that feed **only** hotspots and bypasses — no architecture document:
+Run two orchestrator sweeps that feed hotspots and bypasses — not an architecture document. Hunters still cover the assigned domain in scope:
 
 1. Entry-point sweep — routes, APIs, webhooks, jobs, CLIs that touch auth or high-value data
 2. Trust-boundary / bypass sweep — browser↔server, public↔private, app↔LLM/tools, CI↔runtime, plus dev/debug/setup surfaces
@@ -115,7 +116,7 @@ threat_model:
   trust_boundaries: [string]
   abuse_goals: [string] # 1–3 concrete outcomes tied to hotspots
   auth_model: string # one sentence: identity + session + authority
-  hotspots: [string] # 1–15 paths/flows; small scopes may list the scoped files
+  hotspots: [string] # up to 15 first-hit paths; hunters still cover the assigned domain in scope
   bypasses: [string] # or ["none found"]
 shape_tags: [api, web, ts-js-node] # example; ≤1 language
 domains:
@@ -151,4 +152,4 @@ auth_model: Session cookie + JWT bearer; tenant from session, never body
 
 ## Completion criterion
 
-Threat model written (assets, actors, entry points, trust boundaries, 1–3 abuse_goals, auth_model, 1–15 hotspots, bypasses or `none found`); shape tags listed; every dispatched domain has ≤2 concrete paths (or `"none"` for slot 2). Do not start Phase 2 until this is done.
+Threat model written (assets, actors, entry points, trust boundaries, 1–3 abuse_goals, auth_model, up to 15 first-hit hotspots, bypasses or `none found`); shape tags listed; every dispatched domain has its load paths written (1 domain + 0 or 1 shape, or `"none"` for slot 2). Open `hunt.md` when this criterion is met.

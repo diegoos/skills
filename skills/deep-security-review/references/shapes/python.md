@@ -13,6 +13,7 @@ Type hints are not runtime validation. Crypto policy → `domains/secrets.md`.
 ## Deserialization & shell
 
 - Never `pickle` / `marshal` on untrusted data
+- JSON mapped onto classes: reject `__class__` / type-tag discriminators / lifecycle hooks that run on deserialize
 - `yaml.load` only with `SafeLoader`
 - `subprocess` without `shell=True`; argument arrays, not string interpolation
 - Temp files and path canonicalization for user filenames

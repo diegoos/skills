@@ -1,24 +1,26 @@
 # Optional — OWASP Map
 
-Load only when the user asks for an OWASP map, or the stack is unknown and the surface is public HTTP. Replaces slot 2 for AuthZ or Injection (still ≤2 files).
+Load when the user asks for an OWASP map, or the stack is unknown and the surface is public HTTP. Replaces slot 2 for AuthZ or Injection (load stays 1 domain + 0 or 1 shape).
 
 **Awareness map only — not a coverage standard.** Does not change the dispatch algorithm. This file points; it does not rewrite domain/shape checks.
 
+[OWASP Top 10:2025](https://top10.owasp.org/2025/) · [Introduction](https://top10.owasp.org/2025/0x00_2025-Introduction/). A03 is broader than CVE/SCA. A10 is broader than AuthZ fail-open.
+
 ## Category → where to hunt
 
-| OWASP theme                                                    | Primary domain                                                          | Shape hints                                      |
-| -------------------------------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------ |
-| Broken Access Control                                          | `domains/authz.md`                                                      | `shapes/api.md`, `shapes/web.md`                 |
-| Authentication Failures                                        | `domains/authz.md`                                                      | language + `shapes/web.md`                       |
-| Injection                                                      | `domains/injection.md`                                                  | language + `shapes/api.md`                       |
-| Cryptographic Failures                                         | `domains/secrets.md`                                                    | language + `shapes/cloud.md`                     |
-| Security Misconfiguration                                      | `domains/secrets.md` + `domains/infrastructure.md`                      | `shapes/cloud.md`, `shapes/web.md`               |
-| Software Supply Chain Failures                                 | `domains/infrastructure.md`                                             | `shapes/sensitive-flows.md`, `shapes/tooling.md` |
-| Insecure Design                                                | `domains/business-llm.md`                                               | `shapes/sensitive-flows.md`                      |
-| Integrity Failures                                             | `domains/infrastructure.md`                                             | `shapes/cloud.md`, `shapes/sensitive-flows.md`   |
-| Logging / Alerting Failures                                    | `domains/secrets.md`                                                    | `shapes/cloud.md`                                |
-| Exceptional Conditions                                         | `domains/authz.md` + `domains/injection.md` + `domains/business-llm.md` | language shapes                                  |
-| SSRF (theme under Broken Access Control; hunt stays Injection) | `domains/injection.md`                                                  | `shapes/api.md`, `shapes/web.md`                 |
+| ID        | OWASP theme                                                  | Primary domain                                                          | Shape hints                                      |
+| --------- | ------------------------------------------------------------ | ----------------------------------------------------------------------- | ------------------------------------------------ |
+| A01:2025  | Broken Access Control                                        | `domains/authz.md`                                                      | `shapes/api.md`, `shapes/web.md`                 |
+| A07:2025  | Authentication Failures                                      | `domains/authz.md`                                                      | language + `shapes/web.md`                       |
+| A05:2025  | Injection                                                    | `domains/injection.md`                                                  | language + `shapes/api.md`                       |
+| A04:2025  | Cryptographic Failures                                       | `domains/secrets.md`                                                    | language + `shapes/cloud.md`                     |
+| A02:2025  | Security Misconfiguration                                    | `domains/secrets.md` + `domains/infrastructure.md`                      | `shapes/cloud.md`, `shapes/web.md`               |
+| A03:2025  | Software Supply Chain Failures                               | `domains/infrastructure.md`                                             | `shapes/sensitive-flows.md`, `shapes/tooling.md` |
+| A06:2025  | Insecure Design                                              | `domains/business-llm.md`                                               | `shapes/sensitive-flows.md`                      |
+| A08:2025  | Software or Data Integrity Failures                          | `domains/infrastructure.md`                                             | `shapes/cloud.md`, `shapes/sensitive-flows.md`   |
+| A09:2025  | Security Logging and Alerting Failures                       | `domains/secrets.md`                                                    | `shapes/cloud.md`                                |
+| A10:2025  | Mishandling of Exceptional Conditions                        | `domains/authz.md` + `domains/injection.md` + `domains/business-llm.md` | language shapes                                  |
+| A01:2025  | SSRF (under Broken Access Control; hunt stays Injection)     | `domains/injection.md`                                                  | `shapes/api.md`, `shapes/web.md`                 |
 
 ## Quick verification reminders
 

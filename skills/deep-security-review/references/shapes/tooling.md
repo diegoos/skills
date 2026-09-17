@@ -1,7 +1,7 @@
 # Shape — Security Testing Tooling
 
 Use when the user asks for scanners, CI audit, or runnable verification.
-Tools support review; they do not replace threat modeling or AuthZ analysis.
+Tools support review; they do not replace threat modeling or AuthZ analysis. A clean scan is not a ship decision. Scanner absence is not a vulnerability.
 
 ## Tool selection (prefer repo/CI existing tools)
 

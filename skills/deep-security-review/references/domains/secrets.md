@@ -1,6 +1,6 @@
 # Domain — Secrets & Data Exposure
 
-Hunt secrets leakage, crypto policy, and sensitive-data exposure. Browser exploitation (DOM XSS, postMessage, clickjacking, CORS attack paths) lives in `shapes/web.md`.
+**Floor** for secrets leakage, crypto policy, and sensitive-data exposure. Browser exploitation (DOM XSS, postMessage, clickjacking, CORS attack paths) lives in `shapes/web.md`.
 
 ## Hunt
 
@@ -15,13 +15,16 @@ Hunt secrets leakage, crypto policy, and sensitive-data exposure. Browser exploi
 - Secrets live in a secret store or env — never committed or printed
 - Browser-exposed env vars are intentionally public
 - User-facing errors omit stack traces, SQL errors, tokens, and existence leaks
+- Catch blocks that surface stack/SQL errors to clients are recon (exceptional conditions)
 - Logs redact passwords, tokens, cookies, auth headers, card data, private prompts
+- Log formatters encode user-controlled fields (raw interpolation into log lines is log injection)
 - AuthZ failures and high-risk actions are audited with enough context
 - Sensitive fields encrypted/tokenized/redacted where appropriate
 - Exports authenticated, authorized, scoped, and audited
 - Cache headers prevent private pages/API responses in shared caches
-- Incomplete security headers without an exploit path → hardening note, not a vulnerability
+- Incomplete security headers without an exploit path → P2 hardening, not a vulnerability
 - Missing security audit/alert on auth failures or high-risk actions without an exploit path → Verification Gaps (not Findings P0–P3)
+- Log-injection encoding without an exploit path → Verification Gaps
 - On any secret leak: rotate-first, then investigate scope
 
 ## Red flags
