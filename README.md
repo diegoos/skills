@@ -8,7 +8,9 @@ Notable changes live in [CHANGELOG.md](CHANGELOG.md).
 
 ## Agent rules
 
-[global-rules.md](global-rules.md) is the global judgment layer. The operating stack is always: `global-rules.md` → repository `AGENTS.md` → workflow skills. Layered load: the tool loads the file globally, and the repo keeps its own operational `AGENTS.md`. Fused load: fold the base into the project's `AGENTS.md` with Commands, Permissions, and done criteria. Keep a single policy file in each scope.
+[global-rules.md](global-rules.md) is a slim always-on defaults file: direct replies, same model for subagents, no prose hard-breaks, prefer `rg` and `fd`, stop when blocked, git/secrets/production guardrails, conventional commits, and STE100/candid output.
+
+> That slim is the trade for [`make-code`](skills/make-code/): code judgment (*tight* ladder, YAGNI, surgical fix, *red* proof) loads only when writing or changing application code, not on every turn. Layered load: the tool loads the file globally, and the repo keeps its own operational `AGENTS.md`. Fused load: fold the base into the project's `AGENTS.md` with Commands, Permissions, and done criteria. Keep a single policy file in each scope.
 
 The same rules can live in `~/.codex/AGENTS.md` for Codex, `~/.claude/CLAUDE.md` for Claude, `~/.config/opencode/AGENTS.md` for OpenCode, or `~/.cursor/rules/agent-rules.md` for Cursor.
 

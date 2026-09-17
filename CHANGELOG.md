@@ -20,10 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `global-rules.md`: slimmed to communication, same-model subagents, one-line prose, tools (`rg` / `fd`), blocked + git/secrets/production guardrails, conventional-commit rules, and output (STE100 + candid). Same rules rewritten in place: git co-located with a commit CORRECT/WRONG; code judgment (*tight* ladder, YAGNI, surgical fix, *red* proof) lives in `make-code` so it is not always-on.
+- Root `README.md`: Agent rules names that slim as the trade for `make-code`. The judgment-layer / *tight*-ladder framing is gone.
 - `make-code`: **CC** cap **20** (or the project bar). Floor **Comment** (concise operational comments, language convention) and **Breath** (blank line between distinct blocks). **Inform** replaces **Ask**: options and consequences on sensitive architecture, contract, data, or security.
 - `make-code`: model-invoked `description` leads with **Write** application code and one trigger per branch (implement/fix, simplify, named hotspot). Cuts KISS/DRY/CC identity from the always-on pointer.
 - `code-review-plus`: Fix and Quality use the make-code Floor **CC** cap when that skill is in the environment; the write-cap-10 override is gone.
-- Skill `metadata.version` bumps only when cutting a changelog release (same change, one bump per skill). Ordinary skill edits stay under `[Unreleased]` with the frontmatter version unchanged (`AGENTS.md`).
 - `code-review-plus`: hunt lists are a **floor** (single source: Hunt bar in `dispatch.md`). Cover them, then emit other in-pipeline issues that have a cost today and a pointable line. **Pass B** drops false positives. P0/P1 require **proven**. `likely` at hunt time becomes hardening unless Pass B proves it. Quality hunts Floor plus docs sync, dead code, and tests in the diff even when sourcing `make-code`. **CC** cap is **20** (or the project bar), including when Floor comes from `make-code`. Dependency review runs when a lockfile is in source.
 - `code-review-plus`: when Security is in `Pipelines`, this skill runs its own Security hunter. The report may end with `/deep-security-review` when that pass cannot close the security question.
 - `code-review-plus`: suggestions for `make-code` or `deep-security-review` include the GitHub URL (Skill links in `SKILL.md`; report / fix / help emit).
@@ -36,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- `global-rules.md`: operating-stack preamble, *tight* ladder, *durable* vs *tight*, *surgical* fix-once, understanding-before-edit bar, ask-vs-assume, done checklist (*red* proof, visual checks), trust-boundary floor, fail-signal (do not weaken tests/hooks), and "respond in the user's language".
 - `code-review-plus`: persist `## Deferred`. Every hunter finding that survives verification goes in the report. After Fix, unapplied IDs still appear as `Deferred:` bullets in the Fix section.
 - `code-review-plus`: Phase 2.5 recurring false-positive table (examples stay in `kept-vs-dropped.md`). Report `### Verification` block and `P0 verifier: ran|skipped`.
 - `deep-security-review`: report `### Hardening notes` heading, seven-column Overview (Security column), and P2/P3 hide-caps. Hardening is P2 in the six-column table.
