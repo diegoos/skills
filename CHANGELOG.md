@@ -9,8 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `make-changelog`: *new skill*. Keep a Changelog 1.1.0. Commands `init`, `update`, `bump`. Scheme is the project's, otherwise SemVer. `init` writes the changelog and a standing block: one bullet under `[Unreleased]`, and a bump only when the user asks. Later notes follow that block. `metadata.version` → `0.1.0`. Root `README.md` lists it.
-- `make-changelog`: a tool-config `version` key (for example `.vscode/launch.json`) is the file schema, not the product version. An explicit monorepo asks once whether each package gets a changelog; the root file only links to the package that changed. Any other repo stays a normal project, and its standing block does not mention monorepo. `bump` and `bump version` cut `[Unreleased]` to the next version, or to a version token in the request, and reply `previous → new`. No commit or tag unless that request asked.
+- `make-changelog`: *new skill*. Keep a Changelog 1.1.0. Commands `init`, `update`, `bump`. The scheme is the project's; otherwise SemVer. `init` writes the changelog and a standing block: one bullet under `[Unreleased]`, and a bump only when the user asks. Later notes follow that block. `metadata.version` → `0.1.0`. Root `README.md` lists it.
+- `make-changelog`: a `version` key in tool config (for example `.vscode/launch.json`) is that file's schema, so a bump leaves it alone. An explicit monorepo asks once whether each package gets a changelog; the root file only links to the package that changed. A repo without that signal is a normal project, and its standing block has no monorepo sentence. `bump` and `bump version` cut `[Unreleased]` to the next version, or to a version token in the request, and reply `previous → new`. A commit or a tag happens only when that request asked.
+
+### Changed
+
+- `make-code`: Floor **Names** replaces **Comment**. The identifier carries the fact (`--hero-title-size`, `isRetryableStatus`). Every function (a declaration, a method, or an assigned arrow) and every class has one concise doc comment. The form comes from a documented neighbor of the same kind, or from the language standard (JSDoc, docstring, `///`, godoc) when no neighbor has one. A conditional comment states a constraint the predicate name cannot carry. An inline callback is a named predicate (`items.filter(isRetryableStatus)`). `metadata.version` → `0.3.0`.
+- `make-code`: Before new code, **Climb** answers whether this already exists and whether an existing method already does this job. A rung past the in-repo helper names the methods searched.
 
 ## [0.2.2] - 2026-09-17
 

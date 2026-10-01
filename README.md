@@ -110,4 +110,4 @@ Optional agents under `.opencode/agents/`. They are not part of the skills insta
 
 ### `code-review-plus` vs `deep-security-review`
 
-Each skill has its own job and they can complement each other. See [code-review-plus](skills/code-review-plus/README.md) and [deep-security-review](skills/deep-security-review/README.md).
+`/code-review-plus` runs its own Security hunter. Use `/deep-security-review` when security is the main goal, or after a `code-review-plus` report that suggests it. See [code-review-plus](skills/code-review-plus/README.md) and [deep-security-review](skills/deep-security-review/README.md).
