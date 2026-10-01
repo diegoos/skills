@@ -45,6 +45,11 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │       ├── shapes/         # api, web, languages, cloud, llm, …
 │   │       ├── examples/       # gates, FP table, kept-vs-dropped, report-sample
 │   │       └── optional/       # OWASP map (on request)
+│   ├── make-changelog/         # CHANGELOG.md: init / update / bump
+│   │   ├── SKILL.md
+│   │   ├── agents/openai.yaml
+│   │   └── references/
+│   │       └── standing.md     # Block for AGENTS.md / CLAUDE.md
 │   ├── make-code/              # KISS / DRY / YAGNI / CC: write / refactor / improve
 │   │   ├── SKILL.md
 │   │   └── agents/openai.yaml

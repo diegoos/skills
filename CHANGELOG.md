@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `make-changelog`: *new skill*. Keep a Changelog 1.1.0. Commands `init`, `update`, `bump`. Scheme is the project's, otherwise SemVer. `init` writes the changelog and a standing block: one bullet under `[Unreleased]`, and a bump only when the user asks. Later notes follow that block. `metadata.version` → `0.1.0`. Root `README.md` lists it.
+- `make-changelog`: a tool-config `version` key (for example `.vscode/launch.json`) is the file schema, not the product version. An explicit monorepo asks once whether each package gets a changelog; the root file only links to the package that changed. Any other repo stays a normal project, and its standing block does not mention monorepo. `bump` and `bump version` cut `[Unreleased]` to the next version, or to a version token in the request, and reply `previous → new`. No commit or tag unless that request asked.
+
 ## [0.2.2] - 2026-09-17
 
 ### Added
