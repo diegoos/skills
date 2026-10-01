@@ -48,7 +48,7 @@ CORRECT (cut): skill still at last-cut `0.1.0` → bump once. Skill already at `
 
 New skill: `skills/<name>/SKILL.md` (frontmatter `name` and `description`) plus `agents/openai.yaml`. Keep `SKILL.md` thin; depth goes in `references/` or `reference/`. Copy `skills/write-great-instructions/SKILL.md` and `skills/write-great-instructions/agents/openai.yaml`. User-invoked only: copy `skills/code-review-plus/SKILL.md` (`disable-model-invocation: true`) and `skills/code-review-plus/agents/openai.yaml` (`allow_implicit_invocation: false`). `interface.short_description` is 25–64 characters. ChatGPT picker fields: [optional metadata](https://learn.chatgpt.com/docs/build-skills#optional-metadata) when writing `agents/openai.yaml`. MCP `dependencies` only when the skill names a server.
 
-Add or remove a skill: `README.md` table and `docs/structure.md` tree in the same change, plus `[Unreleased]`.
+Add or remove a skill: `README.md` table and `docs/structure.md` tree in the same change, plus `[Unreleased]`. The Available skills cell is one plain sentence that says what the skill does. A reader understands it without the skill's commands or internal names. Update that sentence when the skill's job changes.
 
 Ambiguous skill behaviour or scope: stop and ask. Do not invent a second skill or a build toolchain.
 
@@ -56,5 +56,5 @@ Ambiguous skill behaviour or scope: stop and ask. Do not invent a second skill o
 
 1. Each changed `.md` path: `markdownlint -c .markdownlint.yaml <path>` exits 0
 2. Diff has no reflow-only edits; long instructional lines stay on one line
-3. Skill add/remove: `README.md` table and `docs/structure.md` tree updated in the same change
+3. Skill add/remove: `README.md` table and `docs/structure.md` tree updated in the same change. The table cell is one plain sentence a reader understands without the skill's commands or internal names
 4. Consumer-facing change (skill, OpenCode agent, `global-rules.md`): `[Unreleased]` records it; `metadata.version` unchanged unless this change is a version cut, and then only skills still at the last-cut value. `AGENTS.md`-only: no changelog bullet

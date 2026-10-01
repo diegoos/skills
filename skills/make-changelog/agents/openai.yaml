@@ -1,0 +1,6 @@
+interface:
+  display_name: "Make Changelog"
+  short_description: "Create and maintain CHANGELOG.md"
+
+policy:
+  allow_implicit_invocation: true
