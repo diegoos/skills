@@ -11,11 +11,11 @@ Notable changes live in [CHANGELOG.md](CHANGELOG.md).
 | Skill                                                        | What it does                                                                                                                                        |
 | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [write-great-instructions](skills/write-great-instructions/) | Writes the files an agent reads, such as `AGENTS.md`, `CLAUDE.md`, Cursor rules, and Copilot instructions.                                          |
-| [commit-message](skills/commit-message/)                     | Writes a [Conventional Commit](https://www.conventionalcommits.org/) from the git diff. One commit per concern, unless you ask for a single commit. |
 | [code-review-plus](skills/code-review-plus/)                 | Reviews a pull request or diff for bugs, security issues, and code quality, and can apply the fixes you pick.                                       |
 | [deep-security-review](skills/deep-security-review/)         | Reviews a change for security issues, builds a threat model, and rates what it finds.                                                               |
 | [make-changelog](skills/make-changelog/)                     | Keeps a changelog: creates it, records notable changes, and bumps the version only when you ask.                                                    |
 | [make-code](skills/make-code/)                               | Writes and fixes application code, and can simplify it or speed up a slow spot you name.                                                            |
+| [make-commits](skills/make-commits/)                         | Writes a commit from the git diff in the project's style, one per reason, or only the message when that is all you ask.                             |
 | [make-docs](skills/make-docs/)                               | Writes architecture docs and behavior specs, updates them after code changes, or records a decision.                                                |
 | [makefile-expert](skills/makefile-expert/)                   | Writes or reviews a GNU Make Makefile.                                                                                                              |
 | [markdown-writer](skills/markdown-writer/)                   | Writes Markdown that is easy to scan and that an agent can parse.                                                                                   |
@@ -58,7 +58,9 @@ Some skills load from intent:
 "Update the docs after these changes"            → make-docs (update)
 "Refresh the docs against current code"          → make-docs (refresh)
 "Record the decision to use Postgres"            → make-docs (adr)
-"Write a commit message for these changes"       → commit-message
+"Write a commit message for these changes"       → make-commits (draft)
+"Commit these changes"                           → make-commits (commit)
+"Amend the commit you just made"                 → make-commits (amend)
 "Add a BEM card component in SCSS"               → sass-with-bem (write)
 "Review these styles for BEM compliance"         → sass-with-bem (review)
 "Fix the formatting in this README"              → markdown-writer

@@ -9,13 +9,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `make-changelog`: *new skill*. Keep a Changelog 1.1.0. Commands `init`, `update`, `bump`. The scheme is the project's; otherwise SemVer. `init` writes the changelog and a standing block: one bullet under `[Unreleased]`, and a bump only when the user asks. Later notes follow that block. `metadata.version` → `0.1.0`. Root `README.md` lists it.
-- `make-changelog`: a `version` key in tool config (for example `.vscode/launch.json`) is that file's schema, so a bump leaves it alone. An explicit monorepo asks once whether each package gets a changelog; the root file only links to the package that changed. A repo without that signal is a normal project, and its standing block has no monorepo sentence. `bump` and `bump version` cut `[Unreleased]` to the next version, or to a version token in the request, and reply `previous → new`. A commit or a tag happens only when that request asked.
+- `make-changelog`: *new skill* for Keep a Changelog 1.1.0, with `init`, `update`, and `bump`, using the project's version scheme or SemVer (`metadata.version` → `0.1.0`), listed in the root `README.md`.
+- `make-changelog`: a `version` key in tool config, such as `.vscode/launch.json`, is that file's schema, so a bump leaves it unchanged.
+- `make-changelog`: an explicit monorepo asks once whether each package gets a changelog, and the root file only links to the package that changed.
+- `make-changelog`: a repo without that signal is a normal project, and its standing block has no monorepo sentence.
+- `make-changelog`: `bump` and `bump version` cut `[Unreleased]` to the next version, or to a version token in the request, and reply `previous → new`.
+- `make-changelog`: a commit or a tag is created only when the request asked for one.
 
 ### Changed
 
-- `make-code`: Floor **Names** replaces **Comment**. The identifier carries the fact (`--hero-title-size`, `isRetryableStatus`). Every function (a declaration, a method, or an assigned arrow) and every class has one concise doc comment. The form comes from a documented neighbor of the same kind, or from the language standard (JSDoc, docstring, `///`, godoc) when no neighbor has one. A conditional comment states a constraint the predicate name cannot carry. An inline callback is a named predicate (`items.filter(isRetryableStatus)`). `metadata.version` → `0.3.0`.
-- `make-code`: Before new code, **Climb** answers whether this already exists and whether an existing method already does this job. A rung past the in-repo helper names the methods searched.
+- `make-commits`: renamed from `commit-message`, with one local commit per concern (`metadata.version` → `0.3.0`).
+- `make-commits`: the subject is one clause of at most 72 characters, and the body adds the why only when that clause cannot hold it.
+- `make-commits`: a commit request stops at the local commit, and so does a request that also asks for `git push` or `git push --force`.
+- `make-commits`: the subject follows wording, language, or shape the user names, otherwise the last five non-merge subjects, keeping a `type:` prefix in that log's language and verb shape (`chore: updating docs`).
+- `make-commits`: an empty log, or a log with no shared shape, uses lowercase imperative Conventional Commits.
+- `make-code`: Floor `Names` replaces `Comment`, so the identifier states the fact and each function and class has one short doc comment (`metadata.version` → `0.3.0`).
+- `make-code`: before new code, `Climb` checks whether this already exists and whether an existing method already does the job, and a rung past the in-repo helper names the methods searched.
+
+### Removed
+
+- Skill name `commit-message` no longer resolves (`npx skills add diegoos/skills --skill commit-message`); use `--skill make-commits`.
 
 ## [0.2.2] - 2026-09-17
 
