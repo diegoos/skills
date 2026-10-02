@@ -44,6 +44,12 @@ WRONG: Unreleased bullet for an `AGENTS.md` rewrite.
 
 CORRECT (cut): skill still at last-cut `0.1.0` → bump once. Skill already at `0.2.0` (user bump) → leave `0.2.0`.
 
+A bullet names the skill and what changed for a consumer. One sentence. The procedure stays in `SKILL.md`.
+
+CORRECT (bullet): `make-commits`: renamed from `commit-message`, with one local commit per concern (`metadata.version` → `0.3.0`).
+
+WRONG: a bullet that also walks the skill's steps (draft, commit, amend, hooks, push).
+
 ## Structure
 
 New skill: `skills/<name>/SKILL.md` (frontmatter `name` and `description`) plus `agents/openai.yaml`. Keep `SKILL.md` thin; depth goes in `references/` or `reference/`. Copy `skills/write-great-instructions/SKILL.md` and `skills/write-great-instructions/agents/openai.yaml`. User-invoked only: copy `skills/code-review-plus/SKILL.md` (`disable-model-invocation: true`) and `skills/code-review-plus/agents/openai.yaml` (`allow_implicit_invocation: false`). `interface.short_description` is 25–64 characters. ChatGPT picker fields: [optional metadata](https://learn.chatgpt.com/docs/build-skills#optional-metadata) when writing `agents/openai.yaml`. MCP `dependencies` only when the skill names a server.
