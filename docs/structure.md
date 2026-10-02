@@ -18,9 +18,6 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │   └── references/
 │   │       ├── formats.md      # path, frontmatter, attach, adapter per harness
 │   │       └── patterns.md     # works vs anti-pattern smells
-│   ├── commit-message/         # Conventional Commits
-│   │   ├── SKILL.md
-│   │   └── agents/openai.yaml
 │   ├── code-review-plus/       # PR/diff review (bugs, security, quality)
 │   │   ├── SKILL.md            # Router: review vs fix|fix all|ids vs prune vs help
 │   │   ├── README.md           # Human: flow, memory, commands
@@ -45,7 +42,15 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │       ├── shapes/         # api, web, languages, cloud, llm, …
 │   │       ├── examples/       # gates, FP table, kept-vs-dropped, report-sample
 │   │       └── optional/       # OWASP map (on request)
+│   ├── make-changelog/         # CHANGELOG.md: init / update / bump
+│   │   ├── SKILL.md
+│   │   ├── agents/openai.yaml
+│   │   └── references/
+│   │       └── standing.md     # Block for AGENTS.md / CLAUDE.md
 │   ├── make-code/              # KISS / DRY / YAGNI / CC: write / refactor / improve
+│   │   ├── SKILL.md
+│   │   └── agents/openai.yaml
+│   ├── make-commits/           # Conventional Commits: draft / commit / amend
 │   │   ├── SKILL.md
 │   │   └── agents/openai.yaml
 │   ├── make-docs/              # Architecture + observable specs

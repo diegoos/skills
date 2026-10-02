@@ -1,0 +1,6 @@
+interface:
+  display_name: "Make Commits"
+  short_description: "One concern per commit, from the git diff"
+
+policy:
+  allow_implicit_invocation: true

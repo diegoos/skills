@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-02
+
+### Added
+
+- `make-changelog`: *new skill* for Keep a Changelog 1.1.0, with `init`, `update`, and `bump`, using the project's version scheme or SemVer (`metadata.version` → `0.1.0`), listed in the root `README.md`.
+- `make-changelog`: a `version` key in tool config, such as `.vscode/launch.json`, is that file's schema, so a bump leaves it unchanged.
+- `make-changelog`: an explicit monorepo asks once whether each package gets a changelog, and the root file only links to the package that changed.
+- `make-changelog`: a repo with no monorepo signal is a normal project, and its standing block has no monorepo sentence.
+- `make-changelog`: `bump` and `bump version` cut `[Unreleased]` to the next version, or to a version token in the request, and reply `previous → new`.
+- `make-changelog`: creates a commit or a tag only when the request asked for one.
+
+### Changed
+
+- `make-commits`: renamed from `commit-message`, with one local commit per concern (`metadata.version` → `0.3.0`).
+- `make-commits`: the subject is one clause of at most 72 characters, and the body explains why only when the subject cannot fit it.
+- `make-commits`: a commit request stops at the local commit, including a request that also asks for `git push` or `git push --force`.
+- `make-commits`: the subject uses the wording, language, or shape the user names, and otherwise follows the last five non-merge subjects, keeping a `type:` prefix in that log's language and verb shape (`chore: updating docs`).
+- `make-commits`: an empty log, or a log with no shared shape, uses lowercase imperative Conventional Commits.
+- `make-code`: Floor `Names` replaces `Comment`: a fact that fits in the identifier goes in the identifier, and each function and class has one short doc comment (`metadata.version` → `0.3.0`).
+- `make-code`: before new code, `Climb` checks for code that already exists and for a method that already does the job, and a rung past the in-repo helper names the methods searched.
+
+### Removed
+
+- Skill name `commit-message` no longer resolves (`npx skills add diegoos/skills --skill commit-message`); use `--skill make-commits`.
+
 ## [0.2.2] - 2026-09-17
 
 ### Added

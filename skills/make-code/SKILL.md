@@ -3,7 +3,7 @@ name: make-code
 description: >-
   Write application code. Use when implementing or fixing a feature, endpoint, or function; simplifying existing behavior; or speeding up a named hotspot (N+1, hot loop, extra I/O). Skip docs, agent instructions, Makefiles, and CSS-only restyles.
 metadata:
-  version: 0.2.0
+  version: 0.3.0
   author: "Diego Oliveira"
   tags:
     - code
@@ -28,9 +28,9 @@ Pick a **branch** and state it at the start of the run:
 ## Workflow
 
 1. **Classify.** Branch from the request. **Improve** only when a hotspot is named (profile, N+1, accidental quadratic, extra I/O or alloc in a hot loop, or the user named it). No hotspot → **refactor**, or ask. **Done when:** the branch is named; **improve** cites the hotspot.
-2. **Trace.** Name the problem, the entrypoints, the symbols you will change (a bug: the shared root those callers already hit), their callers (search every caller), the check that proves the change, and the convention source (nearest `AGENTS.md` / `CLAUDE.md` and one neighbor of the same kind, or `conventions: none`). Read existing docs. Reuse what already covers the need. **Done when:** those six are named, or **YAGNI** stops the work.
-3. **Climb.** Stop at the first rung that holds: (1) skip (2) in-repo helper (3) stdlib (4) platform (5) installed dependency (6) one line (7) minimum new code. **Done when:** the chosen rung is named.
-4. **Apply** the matching branch. **Done when:** that branch's criterion holds.
+2. **Trace.** Name the problem, the entrypoints, the symbols you will change (a bug: the shared root those callers already hit), their callers (search every caller), the check that proves the change, and the convention source (nearest `AGENTS.md` / `CLAUDE.md` and one neighbor of the same kind, or `conventions: none`). Read existing docs. **Done when:** those six are named, or **YAGNI** stops the work.
+3. **Climb.** Before new code, answer: does this already exist, does an existing method already do this job. Stop at the first rung that holds: (1) skip (2) in-repo helper (3) stdlib (4) platform (5) installed dependency (6) one line (7) minimum new code. **Done when:** the two answers are named and the chosen rung is named. A rung past (2) names the methods searched.
+4. **Apply** the matching branch under Floor. **Done when:** that branch's criterion holds and **Names** holds on the slice.
 5. **Prove.** Smallest *red* check of observable behavior. Mock only at the trust boundary (network, clock, filesystem, paid API). Call through real internals. Trivial one-liners need no extra test. **Done when:** **write** — the check is red before the slice and green after; **refactor** / **improve** — the same check stays green.
 
 ## Branch write
@@ -63,7 +63,7 @@ Keep behavior. Remove the named hotspot. Ship the cheap fast path (stdlib, one p
 
 **Match.** The diff follows naming, errors, imports, and function shape from the convention source Trace named. Personal preference loses. `conventions: none`: follow the Floor; do not invent a second style.
 
-**Comment.** Concise comments that explain the operation. Follow the project's language comment convention.
+**Names.** A fact that fits in an identifier is an identifier (`--hero-title-size`, `isRetryableStatus`). Every function (a declaration, a method, or an assigned arrow) and every class has one concise doc comment. Form comes from a documented neighbor of the same kind. No such neighbor: the language standard (JSDoc, docstring, `///`, godoc), one line on purpose. A conditional comment states a constraint the predicate name cannot carry. An inline callback is a named predicate (`items.filter(isRetryableStatus)`).
 
 **Breath.** Same-kind declarations stay together. A blank line sits between distinct blocks, after a closed `if`/`for`/`while`, and before `return`/`throw`. `else`, a continued line, and the `}` that closes the current block stay attached.
 
