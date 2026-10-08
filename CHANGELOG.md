@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `make-commits`: subjects default to the third-person present in the request's language, and bodies are one-line bullets used only for complex changes.
+- `make-code`: **Breath** puts a blank line between a declaration or assignment and the block after it, and after each closed `if`, loop, `switch`, `try`, or callback block.
 
 ### Removed
 

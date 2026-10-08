@@ -65,7 +65,7 @@ Keep behavior. Remove the named hotspot. Ship the cheap fast path (stdlib, one p
 
 **Names.** A fact that fits in an identifier is an identifier (`--hero-title-size`, `isRetryableStatus`). Every function (a declaration, a method, or an assigned arrow) and every class has one concise doc comment. Form comes from a documented neighbor of the same kind. No such neighbor: the language standard (JSDoc, docstring, `///`, godoc), one line on purpose. A conditional comment states a constraint the predicate name cannot carry. An inline callback is a named predicate (`items.filter(isRetryableStatus)`).
 
-**Breath.** Same-kind declarations stay together. A blank line sits between distinct blocks, after a closed `if`/`for`/`while`, and before `return`/`throw`. `else`, a continued line, and the `}` that closes the current block stay attached.
+**Breath.** Same-kind declarations stay together. A blank line separates a declaration or assignment from a block (`if`, loop, `switch`, `try`, or a callback call such as `forEach`), a closed block from the code after it, and any statement from `return`/`throw`. `else`, `catch`, `finally`, a continued line, and the `}` that closes the current block stay attached.
 
 ```js
 const trimmed = input.trim();
@@ -83,6 +83,28 @@ for (let index = 0; index < array.length; index++) {
 }
 
 return `${DEFAULT_SCHEME}${trimmed}`;
+```
+
+```ts
+let hasValidItem = false
+
+items.forEach((item) => {
+  hasValidItem ||= item.isValid
+})
+
+const container = document.querySelector<HTMLElement>(containerSelector)
+
+if (!container) {
+  console.error('Container not found:', containerSelector)
+  return
+}
+
+items = container.querySelectorAll<HTMLElement>(ITEM_SELECTOR)
+
+if (items.length === 0) {
+  console.error('No items found.')
+  return
+}
 ```
 
 **Balance.** *intent* outranks *fewest*. A **DRY** extract that hides the idea loses to **KISS**. Keep the helper whose name still carries a concept. Split unrelated work. Fewer lines only when a reader of the Match neighbor is faster.
