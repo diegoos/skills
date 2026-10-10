@@ -3,7 +3,7 @@ name: code-review-plus
 description: PR/diff review for bugs, security, and quality; one hunter on demand; fix, fix all, or fix by id; prune or help.
 disable-model-invocation: true
 metadata:
-  version: 0.7.0
+  version: 0.7.1
   author: "Diego Oliveira"
   tags:
     - code

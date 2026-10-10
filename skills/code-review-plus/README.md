@@ -28,7 +28,7 @@ Default pipelines:
 
 Performance runs only when isolated.
 
-Each hunter gets one perspective and at most one stack shape, picked by priority. Security and Quality skip `web`/`api` shapes because the Security perspective already covers that surface. Hunt lists are a **floor**: cover every listed item, then report other issues in that pipeline that have a cost today. The Quality hunter reads `make-code` when that skill is in the environment; otherwise it reads the built-in Floor in `quality.md` and the report says so. Either way it also covers docs sync, dead code, and tests already in the diff (`test-quality.md` when tests are in source).
+Each hunter gets one perspective and at most one stack shape, picked by priority. Security and Quality skip `web`/`api` shapes because the Security perspective already covers that surface. Hunt lists are a **floor**: cover every listed item, then report other issues in that pipeline that have a cost today. The Quality hunter reads `quality.md`, which opens `make-code` when that skill is in the environment; otherwise it hunts the default Floor in `quality.md` and the report says so. Either way it also covers docs sync, dead code, and tests already in the diff (`test-quality.md` when tests are in source).
 
 When the hunters return, the orchestrator checks every candidate against the code (Pass B), assigns severity, and puts every kept finding in the report. It writes memory under `docs/code-review/` in the reviewed repo, then replies with the report.
 
@@ -76,7 +76,7 @@ The next review reads those files. It is **delta** when a prior HEAD exists. Fix
 
 - [`SKILL.md`](SKILL.md): router (review vs fix vs prune vs help; hunter override on review)
 - [`references/phases/`](references/phases/): scope, dispatch, verify, synthesize, persist, knowns, fix, prune, help
-- [`references/perspectives/`](references/perspectives/): the five hunters (`quality.md` is the Floor fallback)
+- [`references/perspectives/`](references/perspectives/): the five hunters (`quality.md` is the Quality entry point and holds the default Floor)
 - [`references/shapes/`](references/shapes/): optional stack overlays
 - [`references/test-quality.md`](references/test-quality.md): tests already in the diff (Quality)
 - [`references/complexity.md`](references/complexity.md): cyclomatic vs cognitive load, YAGNI, CC Floor cap **20** (orchestrator, Pass B)

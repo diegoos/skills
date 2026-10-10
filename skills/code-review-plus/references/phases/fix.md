@@ -31,7 +31,7 @@ Before the Apply loop: if the make-code skill is available in this environment, 
 
 When **fix source** is `make-code`, each finding uses that skill's workflow on its slice:
 
-- Branch: **write** (bug, vuln, new behavior) · **refactor** (same behavior) · **improve** only when the finding is Performance with a named hotspot
+- Branch: **write** (bug, vuln, new behavior) · **refactor** (same behavior; a Performance finding with a named hotspot also uses refactor)
 - Trace, Climb, Apply, Prove
 - **Must NOT change** and the **fix acceptance gate** still bind
 - **CC** on new or rewritten functions: make-code Floor cap (or the project's bar)
