@@ -7,10 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `make-code`: human `README.md` with the branches, the five steps, and the Floor.
+
 ### Changed
 
 - `make-commits`: subjects default to the third-person present in the request's language, and bodies are one-line bullets used only for complex changes.
-- `make-code`: **Breath** puts a blank line between a declaration or assignment and the block after it, and after each closed `if`, loop, `switch`, `try`, or callback block.
+- `make-code`: **Blank lines** separate a declaration or assignment from a block (`if`, loop, `switch`, `try`, or a callback), a closed block from the code after it, and any statement from `return` or `throw`.
+- `make-code`: add lazy rules inspired by [Ponytail](https://github.com/DietrichGebert/ponytail) (scope question before building, fewest files, deletion over addition, root-cause bug fix, one runnable check, `ceiling:` marker); the `improve` branch is now `refactor` with a named hotspot.
+- `make-code`: comments are added only where the code cannot say the thing; restating, narrating, and section-label comments are skipped.
+- `code-review-plus`: the Quality hunter reads `quality.md`, which opens `make-code` when installed and otherwise uses its default Floor; a Performance fix uses refactor, since `make-code` has no improve branch.
 
 ### Removed
 

@@ -47,7 +47,7 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │   ├── agents/openai.yaml
 │   │   └── references/
 │   │       └── standing.md     # Block for AGENTS.md / CLAUDE.md
-│   ├── make-code/              # KISS / DRY / YAGNI / CC: write / refactor / improve
+│   ├── make-code/              # KISS / DRY / YAGNI / CC: write / refactor
 │   │   ├── SKILL.md
 │   │   └── agents/openai.yaml
 │   ├── make-commits/           # Conventional Commits: draft / commit / amend

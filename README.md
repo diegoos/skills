@@ -56,7 +56,7 @@ Some skills start from what you ask:
 "Write Cursor rules for our TSX components"      → write-great-instructions
 "Add an endpoint that lists orders"              → make-code (write)
 "This function is too nested"                    → make-code (refactor)
-"This loop is doing N+1 queries"                 → make-code (improve)
+"This loop is doing N+1 queries"                 → make-code (refactor, named hotspot)
 "Start a changelog for this project"             → make-changelog (init)
 "Record these changes in the changelog"          → make-changelog (update)
 "Bump the version"                               → make-changelog (bump)
