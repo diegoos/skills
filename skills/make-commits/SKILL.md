@@ -30,7 +30,7 @@ git rev-parse --abbrev-ref HEAD
 
 The path set is the staged paths when the user says staged, the named paths when the user names them, otherwise every path in status. Read each untracked text file. Note a binary path.
 
-**Done when:** the diff or the file contents of every path in the set have been read, the branch name is known, and Voice has the log's language, a `type:` prefix or none, and the verb shape — or the log is empty.
+**Done when:** the diff or the file contents of every path in the set have been read, the branch name is known, and Voice has the log's language, a `type:` prefix or none, the verb shape, and the body shape — or the log is empty.
 
 ## Partition
 
@@ -49,20 +49,20 @@ A path that still fits two groups after Together and Apart → ask once which gr
 
 ## Message
 
-The message describes that group's diff. **Voice** picks the language and the shape. First match wins.
+The message describes that group's diff. **Voice** picks the language, the verb shape, and the body shape. First match wins.
 
-**Concise.** The subject is one clause of at most 72 characters. The body adds only the why that clause cannot hold.
+**Concise.** The subject is one clause of at most 72 characters. Most commits need no body; see Body.
 
 1. **Ask.** Wording, language, or subject shape the user named. A part left open follows Log, then Default.
-2. **Log.** A shared set is at least three of the last five non-merge subjects, or every subject when fewer than three exist, with one language and one `type:` prefix choice (present or absent). The latest subject in that set sets verb shape, case, emoji, scope, trailers, and a trailing period. Keep a `type:` prefix, in that language and verb shape (`chore: updating docs`, `feat: improve performance on home page`). The type is one that set already uses; a concern with none there uses Types. No shared set → Default.
-3. **Default.** [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Lowercase imperative, a `type:` prefix, no emoji, no trailing period. Scope only when two groups would share a subject without it.
+2. **Log.** A shared set is at least three of the last five non-merge subjects, or every subject when fewer than three exist, with one language and one `type:` prefix choice (present or absent). The latest subject in that set sets verb shape, case, emoji, scope, trailers, and a trailing period. Keep a `type:` prefix, in that language and verb shape (`chore: update docs` in a bare-verb log, `chore: atualiza a documentação` in a Portuguese log). The type is one that set already uses; a concern with none there uses Types. The bodies of that set set the body shape. No shared set → Default.
+3. **Default.** [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). The language is the one the user wrote the request in. The verb is third-person present, saying what the commit does: pt `adiciona`, en `adds`. Lowercase, a `type:` prefix, no emoji, no trailing period. Scope only when two groups would share a subject without it.
 
 A `type:` subject uses the block below. No `type:` in the log → that log's subject shape.
 
 ```text
 <type>[optional scope][optional !]: <description>
 
-- [optional body]
+[optional body: "-" bullets]
 
 [optional footer]
 ```
@@ -71,7 +71,7 @@ A `type:` subject uses the block below. No `type:` in the log → that log's sub
 
 Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
 
-**Body.** The why, when the subject does not carry it. Required for a breaking change, a security fix, a data migration, or a revert. A revert names the reverted subject or sha. A second concern, or a smaller hunk in the same file, is named in the body. Wrap at 72 characters. Sentences. A `-` list when the caller has steps.
+**Body.** Only when the change is complex: breaking, a security fix, a data migration, a revert, or two or more areas a reviewer reads separately. Then one `-` bullet per area or file, the file in backticks, past tense, one line each, ending with a period. Five bullets at most; a larger change groups bullets by area. A second concern, or a smaller hunk in the same file, is named in a bullet. No hard wrap. A security fix, a data migration, or a revert: the first bullet says why. A revert names the reverted subject or sha.
 
 **Breaking.** On a `type:` subject, `type(scope)!:` plus a `BREAKING CHANGE:` footer. The body says what the caller must do.
 
@@ -80,10 +80,13 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`
 Default:
 
 ```text
-fix: validate the session before refresh
+feat: adds make-changelog skill
 
-- A refresh on an expired session minted a token for a signed-out user.
+- Added `skills/make-changelog/SKILL.md` and `agents/openai.yaml`.
+- Updated `README.md` and `docs/structure.md` to list it.
 ```
+
+**Done when:** the subject is at most 72 characters, Voice's language and verb shape hold, and any body is at most five one-line bullets.
 
 ## Branch draft
 

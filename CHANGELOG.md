@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `make-commits`: subjects default to the third-person present in the request's language, and bodies are one-line bullets used only for complex changes.
+
 ## [0.2.3] - 2026-10-02
 
 ### Added
