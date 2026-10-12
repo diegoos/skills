@@ -14,7 +14,7 @@ metadata:
 
 # Makefile expert
 
-GNU Make. A Makefile is a _graph_ of files plus last-mile _glue_ across tools. Long programs live in scripts; Make calls them.
+GNU Make. A Makefile is a *graph* of files plus last-mile *glue* across tools. Long programs live in scripts; Make calls them.
 
 Pick a **branch** and state it at the start of the run:
 
@@ -44,8 +44,8 @@ Load `variables.md` whenever the change sets or appends Make variables. Load bot
 
 1. **Keep the file GNU.** Name it `Makefile`. Use `GNUmakefile` only when GNU-only syntax must not be picked up by another `make`. **Done when:** the filename matches the dialect the recipes need.
 2. **Set specials.** Put `.DELETE_ON_ERROR:` and an explicit `.DEFAULT_GOAL` near the top. Glue defaults to `help`; compile defaults to `all` (or the one primary artifact). **Done when:** both lines exist.
-3. **Bind variables.** Overridable knobs with `?=`. Immediate values with `:=`. Append flags with `+=` so environment / command-line flags survive. See [variables.md](references/variables.md). **Done when:** every new variable has a _flavor_ and an override story (`make goal VAR=value`).
-4. **Name targets.** Glue: _namespace_ with `/` (`docker/build`). Compile: file paths for artifacts, phony names for actions (`all`, `clean`, `install`). **Done when:** every action is in `.PHONY` and glue names are a `/` _namespace_.
+3. **Bind variables.** Overridable knobs with `?=`. Immediate values with `:=`. Append flags with `+=` so environment / command-line flags survive. See [variables.md](references/variables.md). **Done when:** every new variable has a *flavor* and an override story (`make goal VAR=value`).
+4. **Name targets.** Glue: *namespace* with `/` (`docker/build`). Compile: file paths for artifacts, phony names for actions (`all`, `clean`, `install`). **Done when:** every action is in `.PHONY` and glue names are a `/` *namespace*.
 5. **Write small rules.** One purpose per target. Prerequisites name the work that must finish first. Loops and branching live in a script the recipe calls. **Done when:** each recipe is a short call to a tool or script.
 6. **Close the graph.** Every produced file is `$@`. The recipe updates `$@` on success and returns nonzero on failure. Directories that must exist are order-only (`|`). **Done when:** [graph.md](references/graph.md) (compile) or [glue.md](references/glue.md) (glue) checks that apply are true.
 
@@ -58,8 +58,8 @@ Report each failure with target or line. Stay on GNU Make unless the file is alr
 - [ ] Recipe lines begin with a tab
 - [ ] Each recipe line is a new shell. Shared state uses `&&` / `\` or `.ONESHELL:`
 - [ ] `$$` for shell dollars; `$(MAKE)` if a sub-make exists
-- [ ] _flavor_ is correct: `:=` unless deferral is required; `?=` for knobs; `+=` for flags
-- [ ] Glue targets use a `/` _namespace_ (`docker/build`)
+- [ ] *flavor* is correct: `:=` unless deferral is required; `?=` for knobs; `+=` for flags
+- [ ] Glue targets use a `/` *namespace* (`docker/build`)
 - [ ] File lists use `$(wildcard)` / `$(patsubst)`; complex logic is a script; expansion is ordinary `$(...)`
 - [ ] Compile: unique `$@` per config (debug vs release do not share a path); headers via `-MMD -MP` + `-include`
 - [ ] `install` prefixes paths with `$(DESTDIR)`; `BINDIR` stays a live prefix (`$(PREFIX)/bin`)
@@ -87,4 +87,4 @@ Report each failure with target or line. Stay on GNU Make unless the file is alr
 
 **Include over recurse.** Share rules with `include` / `-include`. If a sub-make is the only option, call `$(MAKE)` so flags propagate.
 
-**Hard guardrails.** Recipe lines are tabs. Glue target names are a `/` _namespace_. Expansion is ordinary `$(...)`. `CC` / `CFLAGS` / `CXXFLAGS` / `LDFLAGS` are appended or assigned with `?=` so environment and `make VAR=value` still win.
+**Hard guardrails.** Recipe lines are tabs. Glue target names are a `/` *namespace*. Expansion is ordinary `$(...)`. `CC` / `CFLAGS` / `CXXFLAGS` / `LDFLAGS` are appended or assigned with `?=` so environment and `make VAR=value` still win.
