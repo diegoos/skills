@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `make-commits`: subjects default to the third-person present in the request's language, and bodies are one-line bullets used only for complex changes.
 
+### Removed
+
+- `frontend-design-plus` no longer installs (`npx skills add diegoos/skills --skill frontend-design-plus`); the files live in `deprecated/frontend-design-plus`.
+
 ## [0.2.3] - 2026-10-02
 
 ### Added

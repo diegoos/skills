@@ -1,6 +1,6 @@
 # Structure
 
-Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (ChatGPT/Codex picker name, short blurb 25–64 characters, `allow_implicit_invocation`). Skills with `disable-model-invocation: true` set `allow_implicit_invocation: false`. Optional: `references/` or `reference/`, human `README.md`, `PATTERNS.md`.
+Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (ChatGPT/Codex picker name, short blurb 25–64 characters, `allow_implicit_invocation`). Skills with `disable-model-invocation: true` set `allow_implicit_invocation: false`. Optional: `references/` or `reference/`, human `README.md`, `PATTERNS.md`. A discontinued skill keeps that shape under `deprecated/<name>/` and is not installed.
 
 ```text
 .
@@ -73,17 +73,18 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │   ├── README.md           # Spec and lint pointers (human)
 │   │   ├── agents/openai.yaml
 │   │   └── references/         # frontmatter
-│   ├── frontend-design-plus/   # Visual frontend: greenfield / redesign / polish
-│   │   ├── SKILL.md
-│   │   ├── README.md
-│   │   ├── agents/openai.yaml
-│   │   └── reference/          # critique, DESIGN.md spec, Operate recipes
 │   └── sass-with-bem/          # BEM + Sass/SCSS
 │       ├── SKILL.md
 │       ├── agents/openai.yaml
 │       └── references/
 │           ├── conventions.md
 │           └── examples.md
+├── deprecated/                 # Discontinued skills; not installed
+│   └── frontend-design-plus/   # Visual frontend: greenfield / redesign / polish
+│       ├── SKILL.md
+│       ├── README.md
+│       ├── agents/openai.yaml
+│       └── reference/          # critique, DESIGN.md spec, Operate recipes
 └── .opencode/                  # Optional OpenCode agents (not part of the skills contract)
     └── agents/
         ├── ask.md              # Read-only
