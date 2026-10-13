@@ -1,8 +1,8 @@
-# Pipeline — Quality (slim Floor)
+# Pipeline — Quality
 
-Fallback when `make-code` is not in this environment. Hunt this Floor (review, no Apply). **CC** cap is **20** unless the project sets another bar (`../complexity.md`).
+If `make-code` is in this environment, READ it once and hunt its Floor (review, no Apply), and return `quality_source: make-code`. Otherwise hunt the default Floor below and return `quality_source: slim-fallback`. **CC** cap is **20** unless the project sets another bar (`../complexity.md`).
 
-**KISS** is the path. **DRY** is one representation, earned. **YAGNI** is the stop. **CC** is the local ceiling. **Match** and **Balance** decide naming and extract.
+**KISS** is the path. **DRY** is one representation, earned. **YAGNI** is the stop. **CC** is the local ceiling. **Match** and **Intent over fewest** decide naming and extract.
 
 ## Hunt for
 
@@ -11,7 +11,7 @@ Fallback when `make-code` is not in this environment. Hunt this Floor (review, n
 - **YAGNI** — provider, flag, or type tree with zero real callers in this diff. Speculative optimization is YAGNI (hot path → Performance)
 - **CC** — new or rewritten function above cap **20**, or the project's bar (`eslint complexity`, ruff `C901`, gocyclo). Linear validation, a flat `switch`, and Go `if err != nil` series are not a split trigger. Nesting ≥3 or a happy path a reader cannot state is the readability signal even when CC is at the cap
 - **Match** — naming, errors, imports, and function shape from a neighbor of the same kind (or nearest `AGENTS.md` / `CLAUDE.md`). Preference loses
-- **Balance** — intent outranks fewest lines. Keep the helper whose name still carries a concept
+- **Intent over fewest** — intent outranks fewest lines. Keep the helper whose name still carries a concept
 - Dead code after a full consumer search (alternate routes, raw envelopes, defensive helpers)
 - Docs sync when Phase 1 marked a documentable surface; skip inventing tutorials
 - Tests already in the diff: apply `test-quality.md` when that path is in this prompt. Missing tests → Correctness

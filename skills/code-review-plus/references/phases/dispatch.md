@@ -1,6 +1,6 @@
 # Phase 2 — Dispatch
 
-Dispatch each name in Phase 1 `Pipelines`. Orchestrator builds prompts; each hunter receives exactly one perspective and optionally one shape. Quality chooses `make-code` or `quality.md` from the prompt; the orchestrator does not detect which skill is installed.
+Dispatch each name in Phase 1 `Pipelines`. Orchestrator builds prompts; each hunter receives exactly one perspective and optionally one shape. Quality reads `./references/perspectives/quality.md`, which opens `make-code` when that skill is installed; the orchestrator does not detect it.
 
 Same model as the orchestrator. Hunters return CandidateFinding lists. Project lint / complexity / test commands that do not write are allowed. One hunter per perspective.
 
@@ -31,10 +31,8 @@ Run each name in Phase 1 `Pipelines` (one prompt per name).
 | Correctness  | `./references/perspectives/correctness.md`  |
 | Security     | `./references/perspectives/security.md`     |
 | Architecture | `./references/perspectives/architecture.md` |
-| Quality      | hunter chooses (Quality bar)                |
+| Quality      | `./references/perspectives/quality.md`      |
 | Performance  | `./references/perspectives/performance.md`  |
-
-Quality fallback path (named in the Quality bar, not auto-opened by the orchestrator): `./references/perspectives/quality.md`.
 
 ## Shape selection
 
@@ -75,9 +73,8 @@ Reference (read these skill paths, then the changed hunks, callees, and enough o
 - [Quality + tests in source only: ./references/test-quality.md]
 
 [Quality only — paste this block; omit for other hunters]
-Quality bar: if the make-code skill is available in this environment, READ it and hunt its Floor. Hunt (no Apply, Prove, or edit).
-Else READ ./references/perspectives/quality.md and hunt that Floor.
-Read exactly one of those two. For **CC**, use the make-code Floor cap when that skill is the Quality bar; else cap **20** on new or rewritten functions (or the project's bar).
+Quality bar: READ ./references/perspectives/quality.md and follow it. It opens the make-code skill when that skill is in this environment; otherwise it hunts its default Floor. Hunt (no Apply, Prove, or edit).
+For **CC**, use the cap that the Floor you hunt names (**20** on new or rewritten functions unless the project sets another bar).
 Always cover: the Floor; docs sync when Documentable surface is yes; dead code after a full consumer search; test-quality.md when that path is in this prompt; plus any other quality cost in this diff with today's pointable line.
 Return quality_source: make-code | slim-fallback with the candidate list.
 
