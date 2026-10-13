@@ -6,7 +6,6 @@ Notable changes live in [CHANGELOG.md](CHANGELOG.md).
 
 ## Available skills
 
-
 | Skill                                                        | What it does                                                                                                                   |
 | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
 | [write-great-instructions](skills/write-great-instructions/) | Writes the files an agent reads, such as `AGENTS.md`, `CLAUDE.md`, Cursor rules, and Copilot instructions.                     |
@@ -18,18 +17,27 @@ Notable changes live in [CHANGELOG.md](CHANGELOG.md).
 | [make-docs](skills/make-docs/)                               | Writes architecture docs and behavior specs, updates them after code changes, or records a decision.                           |
 | [makefile-expert](skills/makefile-expert/)                   | Writes or reviews a GNU Make Makefile.                                                                                         |
 | [markdown-writer](skills/markdown-writer/)                   | Writes Markdown that people can scan and an agent can parse.                                                                   |
-| [frontend-design-plus](skills/frontend-design-plus/)         | Builds or restyles a web page, screen, or component.                                                                           |
 | [sass-with-bem](skills/sass-with-bem/)                       | Writes or reviews Sass/SCSS that uses BEM class names.                                                                         |
 
-
 The agent follows each skill's `SKILL.md`. Some skills also include a `README.md` for people, a `PATTERNS.md`, or templates under `references/`.
+
+<details>
+<summary>Deprecated</summary>
+
+Archived under `deprecated/`. A normal `npx skills add` does not install these.
+
+| Skill                                                    | What it does                                                            |
+| -------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [frontend-design-plus](deprecated/frontend-design-plus/) | Archived. It used to build or restyle a web page, screen, or component. |
+
+</details>
 
 ## Quickstart
 
 Install with the [skills.sh](https://www.skills.sh/) CLI:
 
 ```bash
-# all skills in this repo
+# all skills under skills/
 npx skills add diegoos/skills
 
 # one skill
@@ -62,9 +70,6 @@ Some skills start from what you ask:
 "Add a BEM card component in SCSS"               → sass-with-bem (write)
 "Review these styles for BEM compliance"         → sass-with-bem (review)
 "Fix the formatting in this README"              → markdown-writer
-"Build a landing page for this product"          → frontend-design-plus (marketing, greenfield)
-"Restyle this dashboard without changing flows"  → frontend-design-plus (app UI, redesign)
-"Add a modal with loading and error states"      → frontend-design-plus (component)
 "Add a Makefile for docker and lint"             → makefile-expert (write, glue)
 "Review this Makefile for make -j"               → makefile-expert (review, compile)
 ```
@@ -97,14 +102,10 @@ The same rules can live in `~/.codex/AGENTS.md` for Codex, `~/.claude/CLAUDE.md`
 
 Optional agents under `.opencode/agents/`, separate from the skills install.
 
-
 | Agent      | Role                                                                                                             |
 | ---------- | ---------------------------------------------------------------------------------------------------------------- |
 | `ask`      | Read-only conversation and code analysis, without file edits, bash, or subagents.                                |
 | `reviewer` | Single-pass review of findings worth acting on. Complements `code-review-plus` (parallel multi-pipeline review). |
-
-
-
 
 ### `code-review-plus` vs `deep-security-review`
 

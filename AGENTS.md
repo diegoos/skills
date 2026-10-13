@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Collection of Markdown skills (`skills/<name>/SKILL.md`). Ship Markdown only: no package manager, build, or test suite. `.opencode/agents/` is optional OpenCode; it is not the skills install contract.
+Collection of Markdown skills (`skills/<name>/SKILL.md`). A discontinued skill is `deprecated/<name>/` and is not installed. Ship Markdown only: no package manager, build, or test suite. `.opencode/agents/` is optional OpenCode; it is not the skills install contract.
 
 ## Commands
 
@@ -12,11 +12,11 @@ MD013 is off (`.markdownlint.yaml`, `.editorconfig` `[*.md]`). One-line prose, l
 
 ## Boundaries
 
-| Mode             | Paths                                                                                                                                                      |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| WRITE            | `skills/**`, `docs/**`, `README.md`, `AGENTS.md`, `CHANGELOG.md`, `global-rules.md`, `.editorconfig`, `.markdownlint.yaml`, `.opencode/**`                 |
-| NEVER            | force-push or rewrite git history (both rewrite shared history)                                                                                            |
-| HUMAN_CHECKPOINT | publishing or removing a skill from the public registry; deleting a skill directory                                                                        |
+| Mode             | Paths                                                                                                                                                                         |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| WRITE            | `skills/**`, `deprecated/**`, `docs/**`, `README.md`, `AGENTS.md`, `CHANGELOG.md`, `global-rules.md`, `skills.sh.json`, `.editorconfig`, `.markdownlint.yaml`, `.opencode/**` |
+| NEVER            | force-push or rewrite git history (both rewrite shared history)                                                                                                               |
+| HUMAN_CHECKPOINT | publishing a skill to the public registry; deleting a skill directory                                                                                                         |
 
 ## Precedence
 
@@ -54,7 +54,9 @@ WRONG: a bullet that also walks the skill's steps (draft, commit, amend, hooks, 
 
 New skill: `skills/<name>/SKILL.md` (frontmatter `name` and `description`) plus `agents/openai.yaml`. Keep `SKILL.md` thin; depth goes in `references/` or `reference/`. Copy `skills/write-great-instructions/SKILL.md` and `skills/write-great-instructions/agents/openai.yaml`. User-invoked only: copy `skills/code-review-plus/SKILL.md` (`disable-model-invocation: true`) and `skills/code-review-plus/agents/openai.yaml` (`allow_implicit_invocation: false`). `interface.short_description` is 25–64 characters. ChatGPT picker fields: [optional metadata](https://learn.chatgpt.com/docs/build-skills#optional-metadata) when writing `agents/openai.yaml`. MCP `dependencies` only when the skill names a server.
 
-Add or remove a skill: `README.md` table and `docs/structure.md` tree in the same change, plus `[Unreleased]`. The Available skills cell is one plain sentence that says what the skill does. A reader understands it without the skill's commands or internal names. Update that sentence when the skill's job changes.
+Add a skill: `README.md` table and `docs/structure.md` tree in the same change, plus `[Unreleased]`. The Available skills cell is one plain sentence that says what the skill does. A reader understands it without the skill's commands or internal names. Update that sentence when the skill's job changes.
+
+Deprecate a skill: move `skills/<name>/` to `deprecated/<name>/` and leave the skill files unchanged. In the same change, move the README row into the collapsed Deprecated `details`, drop its usage lines, move the `docs/structure.md` entry under `deprecated/`, drop the name from `skills.sh.json`, and add one `[Unreleased]` Removed bullet. `deprecated/` is outside the skills.sh search roots, so `npx skills add` does not install it. Do not delete the directory. Do not bump `metadata.version`.
 
 Ambiguous skill behaviour or scope: stop and ask. Do not invent a second skill or a build toolchain.
 
@@ -62,5 +64,5 @@ Ambiguous skill behaviour or scope: stop and ask. Do not invent a second skill o
 
 1. Each changed `.md` path: `markdownlint -c .markdownlint.yaml <path>` exits 0
 2. Diff has no reflow-only edits; long instructional lines stay on one line
-3. Skill add/remove: `README.md` table and `docs/structure.md` tree updated in the same change. The table cell is one plain sentence a reader understands without the skill's commands or internal names
+3. Skill add or deprecate: `README.md` and `docs/structure.md` match `skills/` and `deprecated/` in the same change. Deprecate also drops the name from `skills.sh.json`. The Available skills cell is one plain sentence a reader understands without the skill's commands or internal names
 4. Consumer-facing change (skill, OpenCode agent, `global-rules.md`): `[Unreleased]` records it; `metadata.version` unchanged unless this change is a version cut, and then only skills still at the last-cut value. `AGENTS.md`-only: no changelog bullet
