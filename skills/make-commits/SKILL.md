@@ -3,7 +3,7 @@ name: make-commits
 description: >-
   Draft a message, create a commit, or amend HEAD. Use when the user asks for a commit message, asks to commit, or asks to amend.
 metadata:
-  version: 0.3.0
+  version: 0.4.0
   author: "Diego Oliveira"
   tags:
     - git
@@ -14,7 +14,7 @@ metadata:
 
 One **concern** per commit. Name the branch at the start: **draft** (the message only), **commit**, or **amend**.
 
-**Invariants.** Leave git config untouched. A missing `user.name` or `user.email` stops the run before any commit. Hooks run. `--no-verify` only when the user asks for it. End at the local commit. NEVER run `git push`, including `--force`, even when the request also asks to push. A pull request or a reset needs its own request.
+**Invariants.** Every git fact comes from a `git` command in the shell. A path under `.git/` stays unopened, and that leaves the `git` command to run. Keep the existing git config. A commit that reports a missing `user.name` or `user.email` stops the run. Hooks run. `--no-verify` only when the user asks for it. End at the local commit. NEVER run `git push`, including `--force`, even when the request also asks to push. A pull request or a reset needs its own request.
 
 ## Survey
 
@@ -24,13 +24,21 @@ Run in parallel:
 git status --porcelain
 git diff --staged
 git diff
-git log -5 --no-merges --format=%B
+git log -8 --no-merges --format='%h%x09%s'
 git rev-parse --abbrev-ref HEAD
 ```
 
-The path set is the staged paths when the user says staged, the named paths when the user names them, otherwise every path in status. Read each untracked text file. Note a binary path.
+The path set is the staged paths when the user says staged, the named paths when the user names them, otherwise every path in status. Read each untracked text file in the set. Note a binary path.
 
-**Done when:** the diff or the file contents of every path in the set have been read, the branch name is known, and Voice has the log's language, a `type:` prefix or none, the verb shape, and the body shape — or the log is empty.
+**Sample.** Take subjects after the tab, from the top, until there are three. A subject `Squashed commit of the following:` is the template from `git merge --squash`. Replace it with the lines this command prints:
+
+```bash
+git log -1 --format='%b' <hash> | awk '/^commit [0-9a-f]+$/{p=1;next} p && /^    [^[:space:]]/{sub(/^    /,""); print; p=0}' | head -n 3
+```
+
+A template that prints nothing adds nothing. Continue down the log. When `awk` is missing, the subject is the first indented line of each `commit <hex>` block in that body.
+
+**Done when:** the diff or the file contents of every path in the set have been read, the branch name is known, and the sample has at most three subject lines — or the log is empty. No sample line is `Squashed commit of the following:`.
 
 ## Partition
 
@@ -49,15 +57,15 @@ A path that still fits two groups after Together and Apart → ask once which gr
 
 ## Message
 
-The message describes that group's diff. **Voice** picks the language, the verb shape, and the body shape. First match wins.
+The message describes that group's diff. **Voice** picks the language and the subject shape from the sample. First match wins.
 
 **Concise.** The subject is one clause of at most 72 characters. Most commits need no body; see Body.
 
 1. **Ask.** Wording, language, or subject shape the user named. A part left open follows Log, then Default.
-2. **Log.** A shared set is at least three of the last five non-merge subjects, or every subject when fewer than three exist, with one language and one `type:` prefix choice (present or absent). The latest subject in that set sets verb shape, case, emoji, scope, trailers, and a trailing period. Keep a `type:` prefix, in that language and verb shape (`chore: update docs` in a bare-verb log, `chore: atualiza a documentação` in a Portuguese log). The type is one that set already uses; a concern with none there uses Types. The bodies of that set set the body shape. No shared set → Default.
-3. **Default.** [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). The language is the one the user wrote the request in. The verb is third-person present, saying what the commit does: pt `adiciona`, en `adds`. Lowercase, a `type:` prefix, no emoji, no trailing period. Scope only when two groups would share a subject without it.
+2. **Log.** A set of sample lines shares one language and one `type:` choice (present or absent). Two lines are enough. One line is enough when it is the only line. Copy the newest line in that set: verb, case, emoji, scope, trailing period, and a `type:` prefix when the set has one (`chore: update docs`, `chore: atualiza a documentação`). The type is one that set uses; a concern with none there uses Types. No set → Default.
+3. **Default.** Conventional Commits. The language is the one the user wrote the request in. The verb is third-person present, saying what the commit does: pt `adiciona`, en `adds`. Lowercase, a `type:` prefix, no emoji, no trailing period. Scope only when two groups would share a subject without it.
 
-A `type:` subject uses the block below. No `type:` in the log → that log's subject shape.
+A subject with a `type:` prefix uses the block below. A sample with no `type:` prefix keeps that subject shape.
 
 ```text
 <type>[optional scope][optional !]: <description>
@@ -75,16 +83,7 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`
 
 **Breaking.** On a `type:` subject, `type(scope)!:` plus a `BREAKING CHANGE:` footer. The body says what the caller must do.
 
-**Footer.** `Closes #n` or `Refs #n` uses a number the request or the branch name already states. Any other trailer matches the log.
-
-Default:
-
-```text
-feat: adds make-changelog skill
-
-- Added `skills/make-changelog/SKILL.md` and `agents/openai.yaml`.
-- Updated `README.md` and `docs/structure.md` to list it.
-```
+**Footer.** `Closes #n` or `Refs #n` uses a number the request or the branch name already states.
 
 **Done when:** the subject is at most 72 characters, Voice's language and verb shape hold, and any body is at most five one-line bullets.
 
