@@ -15,6 +15,7 @@ Notable changes live in [CHANGELOG.md](CHANGELOG.md).
 | [make-code](skills/make-code/)                               | Writes and fixes application code, and can simplify it or speed up a slow spot you name.                                       |
 | [make-commits](skills/make-commits/)                         | Writes a commit from the git diff in the project's style, one commit per reason, or only the message when that is all you ask. |
 | [make-docs](skills/make-docs/)                               | Writes architecture docs and behavior specs, updates them after code changes, or records a decision.                           |
+| [make-skill](skills/make-skill/)                             | Writes or edits an AI agent skill so the agent follows the same process on every run.                                          |
 | [makefile-expert](skills/makefile-expert/)                   | Writes or reviews a GNU Make Makefile.                                                                                         |
 | [markdown-writer](skills/markdown-writer/)                   | Writes Markdown that people can scan and an agent can parse.                                                                   |
 | [sass-with-bem](skills/sass-with-bem/)                       | Writes or reviews Sass/SCSS that uses BEM class names.                                                                         |
@@ -64,6 +65,8 @@ Some skills start from what you ask:
 "Update the docs after these changes"            → make-docs (update)
 "Refresh the docs against current code"          → make-docs (refresh)
 "Record the decision to use Postgres"            → make-docs (adr)
+"Create a skill for reviewing SQL migrations"    → make-skill
+"Tighten the description and steps in this skill" → make-skill
 "Write a commit message for these changes"       → make-commits (draft)
 "Commit these changes"                           → make-commits (commit)
 "Amend the commit you just made"                 → make-commits (amend)

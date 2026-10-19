@@ -9,10 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `make-skill`: *new skill* that creates, edits, splits, tightens, and debugs AI agent skills, with a worked example and a copyable template (`metadata.version` → `0.1.0`), listed in the root `README.md`.
 - `make-code`: human `README.md` with the branches, the five steps, and the Floor.
 
 ### Changed
 
+- `write-great-instructions`: the description skips writing an agent skill (`SKILL.md`) and points to `make-skill`.
 - `make-commits`: subjects default to the third-person present in the request's language, and bodies are one-line bullets used only for complex changes.
 - `make-code`: **Blank lines** separate a declaration or assignment from a block (`if`, loop, `switch`, `try`, or a callback), a closed block from the code after it, and any statement from `return` or `throw`.
 - `make-code`: add lazy rules inspired by [Ponytail](https://github.com/DietrichGebert/ponytail) (scope question before building, fewest files, deletion over addition, root-cause bug fix, one runnable check, `ceiling:` marker); the `improve` branch is now `refactor` with a named hotspot.
