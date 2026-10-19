@@ -11,6 +11,7 @@
         "make-code",
         "make-commits",
         "make-docs",
+        "make-skill",
         "makefile-expert",
         "markdown-writer",
         "sass-with-bem",

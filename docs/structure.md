@@ -65,6 +65,19 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │       ├── language.md     # suite language lock
 │   │       ├── anti-slop.md    # docs prose tells
 │   │       └── template-*.md   # architecture, ADR, specs, …
+│   ├── make-skill/             # Reference for authoring and editing agent skills
+│   │   ├── SKILL.md            # Workflow: repeat, invocation, description, structure, steps, prune, cases, check
+│   │   ├── cases.md            # Trigger and functional cases for this skill
+│   │   ├── README.md           # What the skill does, and the files
+│   │   ├── agents/openai.yaml
+│   │   ├── assets/
+│   │   │   └── SKILL.template.md # Minimal skill to copy
+│   │   └── references/
+│   │       ├── evaluation.md   # Trials, iteration, claimed gains
+│   │       ├── example.md      # Request to finished skill, weak and strong at each step
+│   │       ├── example-router.md # User invocation, a router, and a shared reference
+│   │       ├── mechanics.md    # Frontmatter, layout, dependencies, inputs and outputs, failures, scripts, security
+│   │       └── principles.md   # Authority for pointers, criteria, leading words, negation, pruning
 │   ├── makefile-expert/        # GNU Make: write / review
 │   │   ├── SKILL.md
 │   │   ├── agents/openai.yaml
