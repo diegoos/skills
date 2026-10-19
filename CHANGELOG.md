@@ -15,11 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `write-great-instructions`: the description skips writing an agent skill (`SKILL.md`) and points to `make-skill`.
+- `make-code`: a speed request without a named hotspot asks once and stops; the run reports the branch, the rung, and the check.
+- `make-code`: Trace fills six fields, and KISS, CC, and Match cannot be skipped.
+- `make-code`: every run prefers the lightest, cheapest path that meets the request (`metadata.version` → `0.5.0`).
 - `make-commits`: subjects default to the third-person present in the request's language, and bodies are one-line bullets used only for complex changes (`metadata.version` → `0.4.0`).
 - `make-commits`: language and subject shape follow the newest commit subjects, including the messages kept inside a squash commit.
 - `make-commits`: a trailer is `Closes` or `Refs` only when the request or the branch name already has the number.
 - `make-commits`: repository facts come from `git` commands in the terminal, and the `.git/` directory stays unopened.
-- `make-code`: **Blank lines** separate a declaration or assignment from a block (`if`, loop, `switch`, `try`, or a callback), a closed block from the code after it, and any statement from `return` or `throw`.
+- `make-code`: **Blank lines** separate a declaration or assignment from a block (`if`, loop, `switch`, `try`, or a callback), a closed block from the code after it, and a statement from `return` or `throw`, while a guard that only logs and returns keeps those two lines together.
 - `make-code`: add lazy rules inspired by [Ponytail](https://github.com/DietrichGebert/ponytail) (scope question before building, fewest files, deletion over addition, root-cause bug fix, one runnable check, `ceiling:` marker); the `improve` branch is now `refactor` with a named hotspot.
 - `make-code`: comments are added only where the code cannot say the thing; restating, narrating, and section-label comments are skipped.
 - `code-review-plus`: the Quality hunter reads `quality.md`, which opens `make-code` when installed and otherwise uses its default Floor; a Performance fix uses refactor, since `make-code` has no improve branch.
