@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `write-great-instructions`: the description skips writing an agent skill (`SKILL.md`) and points to `make-skill`.
 - `make-commits`: subjects default to the third-person present in the request's language, and bodies are one-line bullets used only for complex changes.
+- `make-commits`: language and subject shape follow recent commit subjects, including the messages kept inside a squash commit.
 - `make-code`: **Blank lines** separate a declaration or assignment from a block (`if`, loop, `switch`, `try`, or a callback), a closed block from the code after it, and any statement from `return` or `throw`.
 - `make-code`: add lazy rules inspired by [Ponytail](https://github.com/DietrichGebert/ponytail) (scope question before building, fewest files, deletion over addition, root-cause bug fix, one runnable check, `ceiling:` marker); the `improve` branch is now `refactor` with a named hotspot.
 - `make-code`: comments are added only where the code cannot say the thing; restating, narrating, and section-label comments are skipped.

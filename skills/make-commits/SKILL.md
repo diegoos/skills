@@ -24,13 +24,21 @@ Run in parallel:
 git status --porcelain
 git diff --staged
 git diff
-git log -5 --no-merges --format=%B
+git log -8 --no-merges --format='%h%x09%s'
 git rev-parse --abbrev-ref HEAD
 ```
 
 The path set is the staged paths when the user says staged, the named paths when the user names them, otherwise every path in status. Read each untracked text file. Note a binary path.
 
-**Done when:** the diff or the file contents of every path in the set have been read, the branch name is known, and Voice has the log's language, a `type:` prefix or none, the verb shape, and the body shape — or the log is empty.
+**Sample.** The subject after the tab, newest first, eight lines at most. `--no-merges` keeps a squash commit: `git merge --squash` leaves a later `git commit` with one parent (`--max-parents=1`). A subject `Squashed commit of the following:` is the template line stored in `$GIT_DIR/SQUASH_MSG`. Replace that line with the subjects in the body, from the top, and stop at eight sample lines:
+
+```bash
+git log -1 --format='%b' <hash>
+```
+
+Each block starts with `commit` and a hex oid. The subject is the first indented line of that block. A block with no indented line adds nothing. Continue with the next log line.
+
+**Done when:** the diff or the file contents of every path in the set have been read, the branch name is known, and the sample is those subject lines — or the log is empty. No sample line is `Squashed commit of the following:`.
 
 ## Partition
 
@@ -49,15 +57,15 @@ A path that still fits two groups after Together and Apart → ask once which gr
 
 ## Message
 
-The message describes that group's diff. **Voice** picks the language, the verb shape, and the body shape. First match wins.
+The message describes that group's diff. **Voice** picks the language and the subject shape from the sample. First match wins.
 
 **Concise.** The subject is one clause of at most 72 characters. Most commits need no body; see Body.
 
 1. **Ask.** Wording, language, or subject shape the user named. A part left open follows Log, then Default.
-2. **Log.** A shared set is at least three of the last five non-merge subjects, or every subject when fewer than three exist, with one language and one `type:` prefix choice (present or absent). The latest subject in that set sets verb shape, case, emoji, scope, trailers, and a trailing period. Keep a `type:` prefix, in that language and verb shape (`chore: update docs` in a bare-verb log, `chore: atualiza a documentação` in a Portuguese log). The type is one that set already uses; a concern with none there uses Types. The bodies of that set set the body shape. No shared set → Default.
+2. **Log.** Read the sample once. A shared set is at least three of those lines, or every line when fewer than three exist, with one language and one `type:` prefix choice (present or absent). The newest line in that set sets verb shape, case, emoji, scope, and a trailing period. Keep a `type:` prefix, in that language and verb shape (`chore: update docs` in a bare-verb log, `chore: atualiza a documentação` in a Portuguese log). The type is one that set already uses; a concern with none there uses Types. No shared set → Default.
 3. **Default.** [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). The language is the one the user wrote the request in. The verb is third-person present, saying what the commit does: pt `adiciona`, en `adds`. Lowercase, a `type:` prefix, no emoji, no trailing period. Scope only when two groups would share a subject without it.
 
-A `type:` subject uses the block below. No `type:` in the log → that log's subject shape.
+A `type:` subject uses the block below. No `type:` in the sample → that sample's subject shape.
 
 ```text
 <type>[optional scope][optional !]: <description>
@@ -75,7 +83,7 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`
 
 **Breaking.** On a `type:` subject, `type(scope)!:` plus a `BREAKING CHANGE:` footer. The body says what the caller must do.
 
-**Footer.** `Closes #n` or `Refs #n` uses a number the request or the branch name already states. Any other trailer matches the log.
+**Footer.** `Closes #n` or `Refs #n` uses a number the request or the branch name already states. Any other trailer comes from `git log -1 --format='%b' <hash>` on the newest sample commit, and only when that commit's own subject is the sample line.
 
 Default:
 
