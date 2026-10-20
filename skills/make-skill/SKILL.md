@@ -26,7 +26,7 @@ Work in this order. Finish a step when its **Done when** holds, then take the ne
 7. [Write the cases](#write-the-cases).
 8. [Check the draft](#check-the-draft).
 
-A new skill walks all eight. A failed trigger walks Write the description, Write the cases, and Check the draft. A rushed step walks Write the steps, Write the cases, and Check the draft. A tightening walks Prune, Write the cases, and Check the draft. A split walks all eight steps for each resulting skill. The failed-trigger and rushed-step routes open [Iterate](references/evaluation.md#iterate) before the edit.
+A new skill walks all eight. A failed trigger walks Write the description, Write the cases, and Check the draft. A rushed step walks Write the steps, Write the cases, and Check the draft. A tightening walks Prune, Write the cases, and Check the draft. A split walks all eight steps for each resulting skill. On every route, Write the cases decides whether this run writes `cases.md`. The failed-trigger and rushed-step routes open [Iterate](references/evaluation.md#iterate) before the edit.
 
 Read [`references/example.md`](references/example.md) when this is the first skill of the session, or when the draft fails the check.
 
@@ -38,11 +38,11 @@ Read [`references/example.md`](references/example.md) when this is the first ski
 - **Completion criterion**: the condition that shows a step is done.
 - **Collection**: a set of skills the request names.
 
-[`references/principles.md`](references/principles.md) is the authority for pointers, completion criteria, leading words, negation, and pruning.
+[`references/principles.md`](references/principles.md) is the authority for pointers, completion criteria, leading words, negation, pruning, and size.
 
 ## Rules for every step
 
-Record a missing detail as an assumption and keep drafting. Ask only when the answer changes the outcome and no safe default exists. List a check you cannot run as not run, and finish the rest. Creating and editing files inside the skill folder can proceed. Deleting a skill folder, publishing, or sending waits for approval of that action. The user's instructions come first, then the host or team rules, then this guide.
+Record a missing detail as an assumption and keep drafting. Ask only when the answer changes the outcome and no safe default exists. Name a check you cannot run, and finish the rest. The reply says what a step needs said, in the agent's own shape. Creating and editing files inside the skill folder can proceed. Deleting a skill folder, publishing, or sending waits for approval of that action. The user's instructions come first, then the host or team rules, then this guide.
 
 ## Find the repeat
 
@@ -62,13 +62,13 @@ Mark a workaround for a current model limit as a capability, and review it when 
 
 Read [What earns a skill](references/principles.md#what-earns-a-skill) when the request could be a prompt, always-on instructions, or a skill.
 
-**Done when:** one sentence names the procedure around one verb, or on an edit names the procedure the skill already repeats, and the reply classifies the request as a skill, a prompt, or an always-on instruction.
+**Done when:** one sentence names the procedure around one verb, or on an edit names the procedure the skill already repeats. The run treats the request as a skill, a prompt, or an always-on instruction. When it is a prompt or an always-on instruction, the reply says so and no skill file is written.
 
 ## Choose invocation
 
 Choose model invocation when the agent must reach the skill on its own. The description stays in context on every turn. Choose user invocation when only a person starts it, and set `disable-model-invocation: true` where the client supports it. The person then carries the index, and the description costs nothing. The two budgets are under [Two budgets](references/principles.md#two-budgets).
 
-Read [Invocation and the human index](references/principles.md#invocation-and-the-human-index) when many user-invoked skills need a router, or when skills share reference material. Read [`references/example-router.md`](references/example-router.md) when the choice is user invocation, a router, or a shared reference. State that choice in the skill and in the report.
+Read [Invocation and the human index](references/principles.md#invocation-and-the-human-index) when many user-invoked skills need a router, or when skills share reference material. Read [`references/example-router.md`](references/example-router.md) when the choice is user invocation, a router, or a shared reference. Put that choice in the skill.
 
 **Done when:** the mode matches who must reach the skill, and a router or a shared reference is named when the skill needs one.
 
@@ -92,17 +92,15 @@ Strong: "Reviews a migration for data loss. Use when the user asks to check a mi
 
 ## Structure the skill
 
-Keep what every branch needs in `SKILL.md`. Put a branch's depth behind a pointer that names the file and when to read it, and sharpen that wording before you move the material inline. Keep references one level below `SKILL.md`, keep one concept under one heading, and keep `SKILL.md` under about 500 lines. When a reference still never opens, remove the file.
-
-The reasons are under [Pointers](references/principles.md#pointers), [Information hierarchy](references/principles.md#information-hierarchy), and [Co-location and sprawl](references/principles.md#co-location-and-sprawl). Copy [`assets/SKILL.template.md`](assets/SKILL.template.md) when you start a file.
+A new skill is `SKILL.md` with the quality floor: one verb, a description that can trigger, and a checkable criterion on each step. Keep `SKILL.md` under about 500 lines. Add `references/` when a branch needs text the other steps do not use. Add `scripts/` when a step must be exact. Add `cases.md` when the user asks for cases, tests, or validation. Those files combine in any set. Read [Size to the work](references/principles.md#size-to-the-work) before you add or remove a file. Copy [`assets/SKILL.template.md`](assets/SKILL.template.md) for the `SKILL.md` core. The reasons for a pointer are under [Pointers](references/principles.md#pointers), [Information hierarchy](references/principles.md#information-hierarchy), and [Co-location and sprawl](references/principles.md#co-location-and-sprawl).
 
 - Read [`references/mechanics.md`](references/mechanics.md) before the name, the frontmatter, and the paths.
-- Read [Inputs and outputs](references/mechanics.md#inputs-and-outputs) when you declare what the skill receives and returns.
+- Read [Copy when the step needs it](references/mechanics.md#copy-when-the-step-needs-it) when a step uses an input, the caller checks a shape, a nearby task could match, or a required input can be missing.
 - Read [Security and state changes](references/mechanics.md#security-and-state-changes) before a step deletes, publishes, or sends.
-- Read [Scripts](references/mechanics.md#scripts) when the work must be exact.
+- Read [Scripts](references/mechanics.md#scripts) when a step must be exact.
 - Read a local convention only when the request names a collection or a client.
 
-**Done when:** what every branch needs stays in `SKILL.md`. Each branch with depth has a pointer that names its file and its condition. A skill with no such branch has no pointer.
+**Done when:** a new skill's files are the ones this step adds, an existing skill's files match [Size to the work](references/principles.md#size-to-the-work), and `SKILL.md` stays under about 500 lines.
 
 ## Write the steps
 
@@ -117,11 +115,10 @@ End every step on a criterion the agent can check, and write the demand into it 
 ### Failure
 
 - Every path ends as a result, a named assumption, or a blocked report that names the next action.
-- Name each tool, package, credential, and file a step needs, where the value comes from, and the fallback when it is missing.
-- When a step calls a service or the network, bound every retry, then report. Those counts are in [Failure handling](references/mechanics.md#failure-handling).
+- When a step can lose an input, a tool, or a service, add a guard (a fallback, a retry bound, or a blocked exit) and name where the value comes from. The retry counts are in [Failure handling](references/mechanics.md#failure-handling).
 - A subagent or a fresh session is a helper. The step still finishes when the helper is absent.
 
-**Done when:** every step has a checkable criterion that forces the full work, states the behavior to perform, and ends in a result, a named assumption, or a blocked report.
+**Done when:** every step has a checkable criterion that forces the full work, states the behavior to perform, and ends in a result, a named assumption, or a blocked report. A guard appears on each step that can lose an input, a tool, or a service.
 
 ## Prune
 
@@ -131,26 +128,27 @@ Delete a sentence that would leave the agent's decision unchanged, and keep each
 
 ## Write the cases
 
-For a new skill, or when the description changed, write three requests that should trigger, three that share words and ask for another job, and two functional cases, one edge and one trap. When the request names a collection, one of those near-miss requests is a sibling skill's trigger. Judge a trigger request from the description alone. Record `request | should trigger | author | trial`, and for a functional case `prompt | inputs | expected result | assertion | trial`. `author` is `pass` when that reading matches `should trigger`, and `fail` when it does not. `trial` is `pass`, `fail`, or `not run`, and only a clean session fills `pass` or `fail`. An edit that leaves the description unchanged keeps the cases the change can break. Keep the cases in `cases.md` beside `SKILL.md`, as an input rather than a reference, and name that file in the report. The 10–20 suite and the three-run trial are in [`references/evaluation.md`](references/evaluation.md), and they open on the trigger route.
+`cases.md` appears when the user asks for cases, tests, or validation, or when the folder already has the file. When the folder already has it, update the cases the change can break. When a wrong result does not show in the criterion and reading the draft is not enough, suggest the file once, in one sentence, and continue the route. When the run writes the file, the records come from [Cases file](references/evaluation.md#cases-file), and this skill's `cases.md` stays in this folder. The three-run trial and turning feedback into cases open when `cases.md` is part of this run, in [`references/evaluation.md`](references/evaluation.md). The 10–20 suite opens when a clean-session trigger trial is `fail`, and then those requests are the trigger records. An `author` miss is fixed in the description. Without the file, the failure stays in the reply.
 
-**Done when:** the set matches the route, each record has those fields, `author` comes from the description alone, `trial` is `not run` unless a clean session filled it, and the report names `cases.md`.
+**Done when:** `cases.md` is in the folder only because the user asked or the folder already had it, and a file this run writes matches [Cases file](references/evaluation.md#cases-file).
 
 ## Check the draft
 
-This gate judges. Whole-draft checks and trials are in [`references/evaluation.md`](references/evaluation.md). Answer every question. A no on a step this route walks sends that step back. A no on a step this route skips stays in the report. When the next pass returns the same no, record it and finish.
+This gate judges. Whole-draft checks and trials are in [`references/evaluation.md`](references/evaluation.md). Answer every question. A no on a step this route walks sends that step back. A no on a step this route skips stays in the reply. A `not run` leaves the step in place. When the next pass returns the same no, record it and finish.
 
-- Does the description match the invocation: triggers when the agent chooses the skill, a skip clause when a nearby task could match, and a one-line summary when only a person starts it?
+- Does the description match the invocation: third person, a "Use when…" clause, under 1,024 characters, and the job verb first, then the main trigger, when the agent chooses the skill; a skip clause when a nearby task could match; and a one-line summary with no trigger list when only a person starts it?
 - Can the agent tell, from each criterion alone, when the step is done, and does the demand force the full work?
-- Does each pointer name its file and its condition? Does every branch with depth sit behind one, and does a skill with no such branch have no pointer?
-- Does the skill name its inputs, its output, and the blocked exit for a missing required input?
-- Does every dependency have a fallback or a named exit?
+- When the folder has `references/`, does each pointer name its file and its condition, and does every branch with depth sit behind one? When the folder has no `references/`, the check is `not run`.
+- When a step uses an input, does the skill name it? When the caller checks a shape, does the skill name the output? When a required input can be missing, does the skill name the blocked exit? When none of these hold, the check is `not run`.
+- When a step can lose an input, a tool, or a service, does that step have a fallback, a retry bound, or a blocked exit? When no step can lose one, the check is `not run`.
 - Would every line change a decision, and does each fact that makes a step apply to the right case remain?
 - Does the skill stay general unless the request named a context?
-- Do the cases from [Write the cases](#write-the-cases) match the route?
-- For a new skill, has one clean-session creation trial run, and has the load been checked, or does `residual risk` start with `trigger reliability unverified`? A trigger check is `pass` or `fail` only when that session filled `trial`. Otherwise the check is `not run`. The load order is the Baseline bullet in [`references/evaluation.md`](references/evaluation.md).
-- For a change that claims a gain, is the evidence in [Claimed gains](references/evaluation.md#claimed-gains) present, or is the gain named `hypothesis`?
+- When this run writes `cases.md`, or the folder already has it, does the file match [Cases file](references/evaluation.md#cases-file)? When the file is absent, the check is `not run`.
+- Has a clean-session trial run when `cases.md` is part of this run, or when the description shares words with a neighbor skill? When that required trial did not run, the reply says the trigger was not checked. When the trial is not required, the reply leaves that unsaid. A trigger was checked only when that session ran it. The load check is the Baseline bullet in [`references/evaluation.md`](references/evaluation.md).
+- For a change that claims a gain, is the evidence in [Claimed gains](references/evaluation.md#claimed-gains) present, or does the reply say the gain was not measured?
+- Does `SKILL.md` stay under about 500 lines?
 - Do the frontmatter and the paths follow [`references/mechanics.md`](references/mechanics.md)? Each `path#anchor` file exists, each anchor matches a heading, and `name` matches the folder.
 
-End with `residual risk` (`none` when nothing stays unchecked), `route` (`new skill`, `failed trigger`, `rushed step`, `split`, or `tightening`), `files written`, `checks` (`pass` or `fail`, and the answer), `not run`, `assumptions`, `placement` (the values are in [Layout and paths](references/mechanics.md#layout-and-paths)), and `gain`, in that order. Read [`references/evaluation.md`](references/evaluation.md) when you tune a description, when the one trial fails, or when a failure needs a classified fix.
+The reply names the files written, any check that did not run, any assumption, where the skill was placed, and a gain when one is claimed. Read [`references/evaluation.md`](references/evaluation.md) when you tune a description, when the one trial fails, or when a failure needs a classified fix.
 
-**Done when:** each question has an answer, every no is in the report, no skipped step was rewritten, the same no did not start another pass, and a claimed gain meets [Claimed gains](references/evaluation.md#claimed-gains) or is named `hypothesis`.
+**Done when:** each question has an answer, every no is in the reply, no skipped step was rewritten, the same no did not start another pass, and a claimed gain meets [Claimed gains](references/evaluation.md#claimed-gains) or the reply says the gain was not measured.

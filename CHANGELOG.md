@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `make-skill`: *new skill* that creates, edits, splits, tightens, and debugs AI agent skills, with a worked example and a copyable template (`metadata.version` → `0.1.0`), listed in the root `README.md`.
+- `make-skill`: *new skill* that creates, edits, splits, tightens, and debugs AI agent skills, starting from `SKILL.md` and adding files or `cases.md` when the work or the request needs them, with a worked example and a copyable template (`metadata.version` → `0.1.0`), listed in the root `README.md`.
 - `make-code`: human `README.md` with the branches, the five steps, and the Floor.
 
 ### Changed
