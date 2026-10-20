@@ -12,16 +12,13 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 The system SHALL {observable behavior from this tree}.
 
-#### Scenario: {Happy path, named}
-
-- GIVEN {precondition}
-- WHEN {action}
-- THEN {result}
-
-#### Scenario: {Edge or error case, named}
-
-- GIVEN {precondition}
-- WHEN {action}
-- THEN {result}
+- **Scenario:** {Happy path, named}
+  - GIVEN {precondition}
+  - WHEN {action}
+  - THEN {result}
+- **Scenario:** {Edge or error case, named}
+  - GIVEN {precondition}
+  - WHEN {action}
+  - THEN {result}
 
 Write only requirements confirm accepted. Each SHALL has at least one scenario that exercises it. BCP 14 keywords stay English and ALL CAPS.

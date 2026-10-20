@@ -1,6 +1,6 @@
 # Survey
 
-Collect evidence. Do not write `docs/`. Read existing docs first (README, `docs/`, `AGENTS.md`, `CONTRIBUTING.md` if present).
+Collect evidence. Leave `docs/` unchanged until confirm accepts the brief. Read existing docs first (README, `docs/`, `AGENTS.md`, `CONTRIBUTING.md` if present).
 
 ## Size verdict
 
@@ -10,7 +10,7 @@ Record one size before dispatch:
 - **medium / large:** several packages, multiple entry points, or a non-trivial deploy graph. Dispatch all three hunters.
 - **monorepo:** more than one deployable or publishable unit with its own boundary. Dispatch all three hunters. Nearest `docs/` wins per unit after confirm.
 
-Cite one fact for the verdict (package count, `cmd/` binaries, workspace members). The verdict is confirm material, not a sentence in `docs/`.
+Cite one fact for the verdict (package count, `cmd/` binaries, workspace members). Record the verdict in the confirm brief.
 
 ## Dispatch (medium / large / monorepo)
 
@@ -18,13 +18,13 @@ Launch **up to 3** hunters in parallel. Same model as the orchestrator. Read-onl
 
 | Hunter | Path |
 | ------ | ---- |
-| structure | `./references/hunters/structure.md` |
-| behavior | `./references/hunters/behavior.md` |
-| voice | `./references/hunters/voice.md` |
+| structure | `references/hunters/structure.md` |
+| behavior | `references/hunters/behavior.md` |
+| voice | `references/hunters/voice.md` |
 
 On **update** with a scoped diff, pass changed paths in the brief and still use these hunter files (omit a hunter whose lens has no changed path).
 
-Orchestrator-only (never hunter paths): `./references/anti-slop.md`, `./references/language.md`, `./references/examples/`, `./references/template-*.md`, `./references/phases/confirm.md`, `generate.md`, `verify.md`.
+Orchestrator-only (never hunter paths): `references/anti-slop.md`, `references/language.md`, `references/examples/`, `references/template-*.md`, `references/phases/confirm.md`, `references/phases/generate.md`, `references/phases/verify.md`.
 
 ## Serial fallback (no subagent)
 
@@ -40,13 +40,17 @@ Survey this repository from the [HUNTER] lens only.
 Brief (from orchestrator):
 [size verdict + entry paths + monorepo units if any + existing-docs paths + optional changed-path scope]
 
-Reference (read ONLY this path, then read the codebase):
-- [hunter path]
+Reference (read only this path from the make-docs skill folder, then read the codebase):
+- references/hunters/[HUNTER].md
 
-Return the YAML schema from that hunter file. Cite paths. Put anything the code does not show in unknowns. Invent no quality numbers, no SLO, no API that is not in the tree.
+Return the YAML schema from that hunter file. Cite paths. Put anything the code does not show in unknowns. A quality number, an SLO, or an API that is not in the tree stays out of the YAML.
 
-Do not write files under docs/. Do not open other files under references/. Read-only. Same model as the orchestrator.
+Return YAML only. Leave `docs/` unchanged. Open no other file under this skill's `references/`. Read-only. Same model as the orchestrator.
 ```
+
+## Hunter miss
+
+A hunter that returns no YAML runs once more. A second miss records that lens under `unknowns` and the survey continues with the lenses that returned. When every required hunter misses twice, stop and report those lenses. The next action is to rerun survey.
 
 ## Evidence pack (orchestrator merge)
 
@@ -60,4 +64,4 @@ After hunters return (or after the solo small survey), the orchestrator holds:
 
 ## Completion criterion
 
-Size verdict recorded with one cited fact. Existing docs read. Evidence pack holds stack, runtime, entry points, deploy (or `unknown`), auth only if present, every behavioral domain named by feature, voice language candidate with sources, and an `unknowns` list. Every hunter required by the size has returned, or `hunters: none` is recorded for small.
+Size verdict recorded with one cited fact. Existing docs read. Evidence pack holds stack, runtime, entry points, deploy (or `unknown`), auth only if present, every behavioral domain named by feature, voice language candidate with sources, and an `unknowns` list. Every hunter required by the size has returned or is named as a double miss, or `hunters: none` is recorded for small. A total miss stops on the report above.

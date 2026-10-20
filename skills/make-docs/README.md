@@ -19,6 +19,8 @@ Works for services, CLIs, libraries, workers, and monorepos.
 
 The orchestrator surveys the repo with up to three read-only hunters (structure, behavior, voice). It stops and asks what it understood, whether that is correct, and numbered questions for anything it did not understand. It writes `docs/` only after that gate.
 
+When the request names no branch and `docs/` already exists, the run asks which branch to use. A missing `docs/` starts explore.
+
 Hunters collect evidence. They leave writing to the orchestrator. The suite uses one language, taken from existing docs unless you name another. Each claim cites a path, an observable command, or a config. Skip a section the survey did not earn, and do not explain that omission in the files.
 
 One topic per heading. Put commands in backticks. Stop heading depth at `h3`. Architecture names units and durable entry points. Skip a dump of source files. Design history belongs in ADRs.
