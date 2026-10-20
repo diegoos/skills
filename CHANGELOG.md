@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `make-commits`: language and subject shape follow the newest commit subjects, including the messages kept inside a squash commit.
 - `make-commits`: a trailer is `Closes` or `Refs` only when the request or the branch name already has the number.
 - `make-commits`: repository facts come from `git` commands in the terminal, and the `.git/` directory stays unopened.
+- `make-commits`: the description is third person, and a request that only pushes, opens a pull request, or resets history does not start the skill.
+- `make-commits`: a subject scope is the group's area when recent subjects use a scope.
+- `make-commits`: a staged hunk stays as staged when the request commits what is staged, and a staged path outside the commit keeps that index state.
+- `make-commits`: a failed `git` command stops the run before any commit.
 - `make-code`: **Blank lines** separate a declaration or assignment from a block (`if`, loop, `switch`, `try`, or a callback), a closed block from the code after it, and a statement from `return` or `throw`, while a guard that only logs and returns keeps those two lines together.
 - `make-code`: add lazy rules inspired by [Ponytail](https://github.com/DietrichGebert/ponytail) (scope question before building, fewest files, deletion over addition, root-cause bug fix, one runnable check, `ceiling:` marker); the `improve` branch is now `refactor` with a named hotspot.
 - `make-code`: comments are added only where the code cannot say the thing; restating, narrating, and section-label comments are skipped.
