@@ -1,7 +1,7 @@
 ---
 name: make-code
 description: >-
-  Write application code. Use when implementing or fixing a feature, endpoint, or function; simplifying existing behavior; or speeding up a slow path (N+1, hot loop, extra I/O). Skip when the task is documentation, an agent instruction file, a skill, a Makefile, a CSS-only restyle, or a review that does not ask for an edit.
+  Writes application code. Use when implementing or fixing a feature, endpoint, or function; simplifying or refactoring existing behavior; or speeding up a slow path (make it faster, N+1, hot loop, extra I/O). Skip when the task is documentation, an agent instruction file, a skill, a Makefile, a CSS-only restyle, or a review that does not ask for an edit.
 metadata:
   version: 0.5.0
   author: "Diego Oliveira"
@@ -17,9 +17,9 @@ metadata:
 
 # Make code
 
-Prefer the simplest, lightest, cheapest path that meets the request: less code, an existing tool, and no extra machinery. The Floor and the check still hold.
-
 Write or change application code. Each run picks one branch and keeps the Floor.
+
+Prefer the simplest, lightest, cheapest path that meets the request: less code, an existing tool, and no extra machinery. The Floor and the check still hold.
 
 - New behavior (feature or fix) → **write**
 - Same behavior, simpler, or faster on a named hotspot → **refactor**
@@ -42,21 +42,9 @@ Write or change application code. Each run picks one branch and keeps the Floor.
    - `convention`: the nearest `AGENTS.md` or `CLAUDE.md`, plus one neighbor of the same kind, or `conventions: none`. The doc that specifies this behavior, or `docs: none`
 
    **Done when:** `problem`, `entrypoints`, `symbols`, `callers`, `check`, and `convention` are filled, or the run names an existing symbol that already covers the request and stops with no edit. A sensitive choice names the options, the option built, and the assumption.
-3. **Climb.** Before new code, answer whether this behavior already exists and whether an existing method already does this job. Stop at the first rung that holds: (1) skip (2) in-repo helper (3) stdlib (4) platform (5) installed dependency (6) one line (7) minimum new code. A new dependency is the last resort, after rung 5 fails. **Done when:** both answers and the chosen rung are named. Rung (2) names the helper. A rung past (2) names the methods searched. A new dependency names the rung 5 search that failed. Rung (1) adds no new code.
-4. **Apply** the matching branch under the Floor. **Done when:** that branch's criterion holds. KISS, CC, and Match hold on the slice. DRY, YAGNI, Comments, Blank lines, Intent over fewest, Tight performance, and Non-negotiables each hold, or the same line names that heading and why it is skipped.
+3. **Climb.** Before new code, answer whether this behavior already exists and whether an existing method already does this job. Stop at the first rung that holds: (1) skip (2) in-repo helper (3) stdlib (4) platform (5) installed dependency (6) one line (7) minimum new code. A new dependency is the last resort, after rung 5 fails. **Done when:** both answers and the chosen rung are named. Rung (2) names the helper. A rung past (2) names the methods searched. When workspace search is unavailable, that rung is the first that holds in the files already open, the line says the wider search did not run, and the run adds no dependency. A new dependency names the rung 5 search that failed. Rung (1) adds no new code.
+4. **Apply** the matching branch under the Floor. **Done when:** that branch's criterion holds. KISS, CC, Match, and Blank lines hold on the slice. DRY, YAGNI, Comments, Intent over fewest, Tight performance, and Non-negotiables each hold, or the same line names that heading and why it is skipped.
 5. **Prove.** Run the smallest check of observable behavior that fails when the logic breaks. Use the project's test command when one exists (package script, Makefile, or the neighbor's test). Otherwise use a plain assert or a self-check file. Mock only at a trust boundary (network, clock, filesystem, or paid API). Call the real internals. **Done when:** `write` shows the check red before the slice and green after. `refactor` shows that same check green before the edit and after it, and when none existed the run adds one that passes before the edit. A trivial one-liner states why it has no check. When the check cannot run, the run reports `check: not run` and the reason.
-
-## Output
-
-One line: `branch | rung | check`.
-
-`branch` is `write` or `refactor`. `rung` is the Climb name. `check` is `red-then-green`, `stayed-green`, `none (<reason>)`, or `not run (<reason>)`.
-
-When a corner cuts a real limit, add a line: `ceiling: <limit>; upgrade: <path>`.
-
-When Trace stops because a symbol already covers the request, the line is `branch | skip | none (covered by <symbol>)`.
-
-When `request` does not name the behavior or the code, ask once and make no edit until it does. When the run cannot ask, stop and name the missing request. When a speed request has no hotspot, ask once which limit to remove and make no edit until the user names it. When the run cannot ask, stop and name the missing hotspot.
 
 ## Branch write
 
@@ -84,9 +72,20 @@ Preserve behavior. Flatten with guard clauses before an extract. Extract only un
 
 **Comments.** Put a fact in the identifier when it fits (`isRetryableStatus`). An inline callback is a named predicate (`items.filter(isRetryableStatus)`). A function or class whose name does not carry the contract gets one short doc comment: the contract, the units, the errors, or the side effect. Take the form from a documented neighbor of the same kind; with no neighbor, use the language standard (JSDoc, docstring, `///`, or godoc), one line on the purpose. A comment that stays states a constraint the name cannot carry. Leave out a comment that restates the line, narrates a step, labels a section, or records history.
 
-**Blank lines.** Same-kind declarations stay together. A blank line separates a declaration or assignment from a following block (`if`, loop, `switch`, `try`) or callback call (`forEach`), and a closed block from the code after it. A `return` or `throw` that follows another statement in the same block has a blank line before it. A guard whose body is a diagnostic and a `return` or `throw` keeps those lines together. `else`, `catch`, `finally`, a continued line, and the `}` that closes the current block stay on the next line. An inline `if` that keeps the `return` on the same line keeps the blank line after it, but multiples of the same kind stay together.
+**Blank lines.** A declaration or assignment and the `if` after it have one blank line between them. That holds for a brace body and for a same-line `return`. This blank line stays in the slice when a neighbor omits it. Consecutive inline `if`s of the same kind stay on adjacent lines and share that one leading blank line. A blank line separates that run from a following declaration, block, or `return`/`throw`. Same-kind declarations stay together. A blank line also separates a declaration or assignment from a following loop, `switch`, `try`, or callback call (`forEach`), and a closed block from the code after it. A `return` or `throw` that follows another statement in the same block has a blank line before it. A guard whose body is a diagnostic and a `return` or `throw` keeps those lines together. `else`, `catch`, `finally`, a continued line, and the `}` that closes the current block stay on the next line.
 
 ```js
+const input = 'test';
+
+if (input) {
+  return input;
+}
+
+const flag = true;
+
+if (flag) return flag;
+if (!flag) return '';
+
 const trimmed = input.trim();
 
 if (!trimmed) {
@@ -95,20 +94,14 @@ if (!trimmed) {
   return '';
 }
 
-const itsTrue = true;
-
-if (itsTrue) return 'true';
-
-const itsFalse = false;
-
-if (!itsFalse) return 'false';
-
 items.forEach((item) => {
   seen.push(item.id);
 });
 
 return trimmed;
 ```
+
+**Done when:** every declaration or assignment followed by an `if` has a blank line before that `if`, and every run of same-kind inline `if`s has no blank line inside the run.
 
 **Intent over fewest.** Intent outranks fewest lines. This is the exception to **DRY**: a shared helper that hides the idea loses to a helper whose name still carries a concept. Split unrelated work. Fewer lines stay when the result still matches the neighbor's shape and the name still carries the concept.
 
