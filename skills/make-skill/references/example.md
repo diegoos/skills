@@ -2,6 +2,19 @@
 
 A full pass from a request to a skill. Read it when this is the first skill of the session, or when a draft fails the check in [`SKILL.md`](../SKILL.md).
 
+## Contents
+
+- [Find the repeat](#find-the-repeat)
+- [Choose invocation](#choose-invocation)
+- [Write the description](#write-the-description)
+- [Structure the skill](#structure-the-skill)
+- [Write the steps](#write-the-steps)
+- [Prune](#prune)
+- [Write the cases](#write-the-cases)
+- [Check](#check)
+- [Resulting skill](#resulting-skill)
+- [Editing a skill](#editing-a-skill)
+
 The request: "Write a skill that reviews database migrations for data loss before we merge them."
 
 ## Find the repeat
@@ -22,7 +35,9 @@ Strong: "Reviews a database migration for data-loss risks. Use when the user ask
 ## Structure the skill
 
 Weak: one `SKILL.md` that also holds the rollback catalog, plus a line that says "see the references."
-Strong: the steps stay in `SKILL.md`. The catalog is a lookup the agent can run, so it stays out. This skill has no branch depth, so `SKILL.md` holds everything and has no pointer.
+Strong: the steps stay in `SKILL.md`. The catalog is a lookup the agent can run, so it stays out. The input and the blocked exit stay because the migration file can be missing. This skill has no branch depth, so it has no pointer.
+
+The same run adds a file when `SKILL.md` cannot hold the work, or when the user asks. A catalog that does not fit the steps becomes a reference. A verdict that must be exact becomes a script. `cases.md` is written when the user asks for cases, tests, or validation.
 
 ## Write the steps
 
@@ -42,7 +57,7 @@ Strong: delete both clauses. The criterion already forces a verdict on every ris
 
 ## Write the cases
 
-The requests and the two functional cases in Check are `cases.md`, beside `SKILL.md`. The report names that file.
+The table in [Check](#check) is a reading of this example. It did not become a file. This example makes no suggestion of `cases.md`.
 
 ## Check
 
@@ -63,7 +78,7 @@ Trap. Prompt: review a migration that drops `users.email` and adds `notes`, a co
 
 ## Resulting skill
 
-The check table reads this description. Row 5 is `pass`.
+The check table reads this description. Row 5 is `pass`. The skill is `SKILL.md`, with an input and a blocked exit because the migration file can be missing.
 
 ```markdown
 ---
@@ -96,3 +111,5 @@ When the request has no migration file, stop with a blocked report that names th
 ## Editing a skill
 
 The description in [Write the description](#write-the-description) left row 5 `fail`, because `review` and `migration` also fit a runbook. The skip in the resulting skill names that neighbor, so the row is `pass`.
+
+A skill that already has `references/` keeps that file. A tightening of that skill keeps `references/`.

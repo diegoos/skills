@@ -34,4 +34,4 @@ The three skills need the same severity scale.
 
 Weak: paste the scale into each skill.
 
-Strong: one file outside the three, and each skill points to it with the condition for opening it. A model-invoked skill that holds only the scale is the other fit, when other skills must reach it. State the choice in the skill and in the report.
+Strong: one file outside the three, and each skill points to it with the condition for opening it. A model-invoked skill that holds only the scale is the other fit, when other skills must reach it. Put that choice in the skill.

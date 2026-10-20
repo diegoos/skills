@@ -1,6 +1,21 @@
 # Principles
 
-This file is the authority for pointers, completion criteria, leading words, negation, and pruning. When [`SKILL.md`](../SKILL.md) and this file disagree on those topics, follow this file. Other sections are the test behind a decision [`SKILL.md`](../SKILL.md) states in one sentence. Read the section when you make that decision, or when a trial shows a rush, drift, or a missed trigger. Each section gives the force, the test, and what the test changes.
+This file is the authority for pointers, completion criteria, leading words, negation, pruning, and size. When [`SKILL.md`](../SKILL.md) and this file disagree on those topics, follow this file. Other sections are the test behind a decision [`SKILL.md`](../SKILL.md) states in one sentence. Read the section when you make that decision, or when a trial shows a rush, drift, or a missed trigger. Each section gives the force, the test, and what the test changes.
+
+## Contents
+
+- [What earns a skill](#what-earns-a-skill)
+- [Two budgets](#two-budgets)
+- [Pointers](#pointers)
+- [Information hierarchy](#information-hierarchy)
+- [Co-location and sprawl](#co-location-and-sprawl)
+- [Size to the work](#size-to-the-work)
+- [Completion criteria](#completion-criteria)
+- [Splitting](#splitting)
+- [Invocation and the human index](#invocation-and-the-human-index)
+- [Leading words](#leading-words)
+- [Negation](#negation)
+- [Pruning](#pruning)
 
 ## What earns a skill
 
@@ -44,6 +59,18 @@ Push too little down, and the top bloats. Push too much down, and the agent miss
 **Co-location** keeps a concept's definition, rules, and caveats under one heading, so that reading one part brings its neighbors with it. Scattering breaks a concept into fragments. Duplication repeats one meaning in two places. These are different faults. Co-location fixes scattering. Deleting one copy fixes duplication.
 
 **Sprawl** is a document that is too long, even when every line is live and unique. Attention thins across the excess, and each extra line has to stay relevant. The cure is the hierarchy: disclose reference behind pointers, and split by branch or by sequence, so that each path carries only what it needs.
+
+## Size to the work
+
+Depth for [Structure the skill](../SKILL.md#structure-the-skill). Read it when you add or remove a file, or when a draft has an empty file.
+
+An extra file keeps the quality floor.
+
+An existing skill keeps the files the folder already has. The route applies the rules of each file that is present. Add a file when the user asked, or when the change does not fit the files the folder has. Remove a reference that never opens. When the user asked to simplify, remove the files the user named. A second pass of the gate keeps the files this run already chose.
+
+Add `assets/` when a step needs a block the template leaves out.
+
+- **`references/`.** Each file holds one concept, one folder below `SKILL.md`.
 
 ## Completion criteria
 

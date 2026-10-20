@@ -2,22 +2,33 @@
 
 Reference for [`SKILL.md`](../SKILL.md). Read the section that matches the work.
 
+## Contents
+
+- [Frontmatter and names](#frontmatter-and-names)
+- [Layout and paths](#layout-and-paths)
+- [Dependencies](#dependencies)
+- [Inputs and outputs](#inputs-and-outputs)
+- [Copy when the step needs it](#copy-when-the-step-needs-it)
+- [Failure handling](#failure-handling)
+- [Scripts](#scripts)
+- [Security and state changes](#security-and-state-changes)
+
 ## Frontmatter and names
 
 - Required keys: `name` and `description`. Every other key is optional.
 - `name` matches `^[a-z0-9]+(-[a-z0-9]+)*$` and has 1 to 64 characters: lowercase letters, digits, and hyphens, with no leading, trailing, or doubled hyphen. It equals the folder name. Name the skill for its job, as a verb phrase (`make-skill`) or a gerund (`reviewing-migrations`). Avoid vague names (`helper`, `utils`), vendor or model names, version suffixes (`-v2`), and names another skill already uses. When several skills share a domain, give them one shared prefix, such as `db-review-migrations` and `db-plan-indexes`.
 - `description`: 1 to 1,024 characters, with no angle-bracket tags, and inline backticks stay valid. The rules in [`SKILL.md`](../SKILL.md) apply.
-- Copy [`../assets/SKILL.template.md`](../assets/SKILL.template.md) when you start a skill. It has inputs, an output, and a blocked exit.
+- Copy [`../assets/SKILL.template.md`](../assets/SKILL.template.md) when you start a skill. The template is frontmatter, one sentence, and steps with **Done when**. Copy an input, an output, a skip clause, or a blocked exit from [Copy when the step needs it](#copy-when-the-step-needs-it) when that block's condition holds.
 - Optional keys: `license` (an SPDX identifier is preferred), `compatibility` (up to 500 characters, only for a real environment requirement), `metadata` (pairs; some clients read only text, such as `version` and `author`), `allowed-tools` (a space-separated list), and `disable-model-invocation` (true when only a person starts the skill). Use `allowed-tools` and `disable-model-invocation` only where the client reads them. The skill keeps working in clients that ignore those two keys.
 
 ## Layout and paths
 
-- Keep the layout portable: `SKILL.md`, plus optional `references/`, `scripts/`, `assets/`, and `cases.md`. A human README may sit beside `SKILL.md`. `cases.md` is an input, not a reference. Use descriptive names, one topic per file, and forward slashes (`references/finance.md`).
+- Keep the layout portable: `SKILL.md`, plus optional `references/`, `scripts/`, `assets/`, and `cases.md`. A human README may sit beside `SKILL.md`. `cases.md` is an input beside `SKILL.md`, written when the user asks for cases, tests, or validation, or when the folder already has the file. It stays out of `references/`. Use descriptive names, one topic per file, and forward slashes (`references/finance.md`).
 - Start a reference over 100 lines with a table of contents.
 - Keep references inside the folder when you can: a folder copied alone then carries everything it needs. A shared reference may sit outside the folder when a group of skills uses it. Name its location, the condition for reaching it, and what breaks if it moves. Files that a task reads, such as a checklist, are inputs, not references.
 - Resolve each path in the text against the skill folder. A `path#anchor` matches a heading that exists. The agent can run from another directory.
 - Discovery paths depend on the client. Test where the skill runs when you can. If you cannot, list the test under checks not run.
-- Where the skill lives follows the request, then the paths the client documents, then one question. Record `placement` as `from the request` or `from client docs` for those. When the run cannot ask, write it where the repository already keeps skills and record `placement` as `assumption`. When that place is missing too, block and name the destination that is missing.
+- Where the skill lives follows the request, then the paths the client documents, then one question. The reply says where the skill was placed. When the run cannot ask, write it where the repository already keeps skills, and say that this was an assumption. When that place is missing too, block and name the destination that is missing.
 
 ## Dependencies
 
@@ -32,6 +43,40 @@ Reference for [`SKILL.md`](../SKILL.md). Read the section that matches the work.
 - Show one short example when style matters. Move long code to `scripts/` or `assets/`.
 - Keep a short template inline. Move a long template to `assets/` and point to it.
 
+## Copy when the step needs it
+
+Copy a block when its condition holds.
+The template leaves these blocks out.
+The rules for an input, an output, and a blocked exit are in [Inputs and outputs](#inputs-and-outputs).
+
+Skip clause, when a nearby task could match:
+
+````markdown
+Skip when a nearby task would match by mistake.
+````
+
+Inputs, when a step uses an input:
+
+````markdown
+## Inputs
+
+- `input-name` (type, required or optional): where the value comes from.
+````
+
+Output, when the caller checks a shape:
+
+````markdown
+## Output
+
+One short result the caller can check.
+````
+
+Blocked exit, when a required input can be missing:
+
+````markdown
+When a required input is missing and the run cannot ask, stop and report the missing input as the next thing to provide.
+````
+
 ## Failure handling
 
 A step that calls a service or the network uses the failed-check, service-outage, and authorization bounds. Any other step omits them.
@@ -44,6 +89,8 @@ A step that calls a service or the network uses the failed-check, service-outage
 - Every report names three things: what failed, what was skipped, and the next action.
 
 ## Scripts
+
+A script can sit with or without `references/`.
 
 - Use a script for work that must be exact: calculation, parsing, validation, migration, or a rigid format. Instructions are the default.
 - Say how the agent uses the script. "Execute `scripts/check.py` with these arguments" runs it, and only its output enters the context. "Read `scripts/check.py` for the algorithm" loads the source.
