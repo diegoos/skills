@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `make-changelog`: a run names its branch before writing, a bump asks which file to cut before it writes a heading, and the description skips a commit, Markdown lint, other docs, unrelated instruction edits, and writing a skill.
 - `write-great-instructions`: the description skips writing an agent skill (`SKILL.md`) and points to `make-skill`.
 - `make-code`: a declaration or assignment has a blank line before the following `if`, braced or on one line; consecutive inline `if`s stay on adjacent lines, and Blank lines cannot be skipped.
 - `make-code`: the description is third person and also matches a refactor or a make-it-faster request; when workspace search is unavailable, Climb uses the files already open and adds no dependency.
