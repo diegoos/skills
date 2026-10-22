@@ -80,7 +80,9 @@ Prefer `$(wildcard)` / `$(patsubst)` / suffix replacement over `$(shell ls ...)`
 
 ## Install layout
 
-Overridable dirs, `DESTDIR` only in the recipe:
+Declare `PREFIX`, `BINDIR`, `DATADIR`, and `MANDIR` only when a recipe copies files onto the system. `DESTDIR` appears only in that recipe.
+
+Overridable dirs:
 
 ```makefile
 PREFIX ?= /usr/local
@@ -94,4 +96,4 @@ install: program
 	install -m 755 program $(DESTDIR)$(BINDIR)/program
 ```
 
-`DESTDIR` is a recipe prefix only. Packaging tools pass it at install; `BINDIR` stays a live prefix path (`$(PREFIX)/bin`).
+Packaging tools pass `DESTDIR` at install. `BINDIR` stays a live prefix path (`$(PREFIX)/bin`).
