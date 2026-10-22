@@ -18,7 +18,7 @@ Notable changes live in [CHANGELOG.md](CHANGELOG.md).
 | [make-skill](skills/make-skill/)                             | Writes or edits an AI agent skill so the agent follows the same process on every run.                                          |
 | [makefile-expert](skills/makefile-expert/)                   | Writes or reviews a GNU Make Makefile.                                                                                         |
 | [markdown-writer](skills/markdown-writer/)                   | Writes Markdown that people can scan and an agent can parse.                                                                   |
-| [sass-with-bem](skills/sass-with-bem/)                       | Writes or reviews Sass/SCSS that uses BEM class names.                                                                         |
+| [sass-with-bem](skills/sass-with-bem/)                       | Writes Sass/SCSS so each component rule compiles to one BEM class.                                                             |
 
 The agent follows each skill's `SKILL.md`. Some skills also include a `README.md` for people, a `PATTERNS.md`, or templates under `references/`.
 
@@ -70,8 +70,7 @@ Some skills start from what you ask:
 "Write a commit message for these changes"       → make-commits (draft)
 "Commit these changes"                           → make-commits (commit)
 "Amend the commit you just made"                 → make-commits (amend)
-"Add a BEM card component in SCSS"               → sass-with-bem (write)
-"Review these styles for BEM compliance"         → sass-with-bem (review)
+"Add a BEM card component in SCSS"               → sass-with-bem
 "Fix the formatting in this README"              → markdown-writer
 "Add a Makefile for docker and lint"             → makefile-expert (write, glue)
 "Review this Makefile for make -j"               → makefile-expert (review, compile)

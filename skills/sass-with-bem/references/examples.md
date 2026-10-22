@@ -1,8 +1,10 @@
 # BEM + Sass — examples
 
-Shapes only. Rules: [`SKILL.md`](../SKILL.md), [`conventions.md`](conventions.md).
+Shapes only. The rules are in [`SKILL.md`](../SKILL.md) and [`conventions.md`](conventions.md).
 
-## Card + button (composition, flat `&`)
+## Card and button
+
+The card owns its title. The button is its own block. The loading state is a second class.
 
 ```html
 <article class="card card--highlight">
@@ -14,38 +16,38 @@ Shapes only. Rules: [`SKILL.md`](../SKILL.md), [`conventions.md`](conventions.md
 
 ```scss
 .card {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 16px;
+  background-color: $color-surface;
+  border-radius: $radius-2;
+  padding: $space-4;
 
   &__title {
-    font-size: 1.2rem;
+    font-size: $font-size-md;
 
     &--large {
-      font-size: 1.5rem;
+      font-size: $font-size-lg;
     }
   }
 
   &__body {
-    color: #333;
+    color: $color-text;
   }
 
   &--highlight {
-    border: 2px solid #ffaa00;
+    border-color: $color-accent;
   }
 }
 
 .button {
   display: inline-block;
-  padding: 8px 16px;
+  padding: $space-2 $space-4;
 
   &--primary {
-    background: #06c;
-    color: #fff;
+    background-color: $color-accent;
+    color: $color-on-accent;
   }
 
   &.is-loading {
-    opacity: 0.6;
+    opacity: $opacity-muted;
     pointer-events: none;
   }
 }
@@ -53,21 +55,32 @@ Shapes only. Rules: [`SKILL.md`](../SKILL.md), [`conventions.md`](conventions.md
 .nav {
   &__link {
     &:hover {
-      color: #111;
+      color: $color-text;
     }
 
     &:focus-visible {
-      outline: 2px solid #06c;
+      outline: $outline-focus;
     }
   }
 }
 ```
 
-→ `.card__title--large`, `.button.is-loading`, `.nav__link:hover` — still **flat** class chains.
+Compiled: `.card__title--large`, `.button--primary`, `.button.is-loading`, `.nav__link:hover`, `.nav__link:focus-visible`.
 
-## Form field (axiom: tight vs composed)
+## Blocks inside a block
 
-Tight — input/label only make sense together:
+The header, the logo, and the nav each stand alone, so each is a block.
+
+```html
+<header class="header">
+  <a class="logo" href="/">...</a>
+  <nav class="nav">...</nav>
+</header>
+```
+
+## Tight field
+
+The input and the label exist only inside this field, so they are elements. The `id` pairs the label. A control that is reused alone is its own block (`.input`, `.label`) inside a shell block.
 
 ```html
 <div class="form-field">
@@ -75,5 +88,3 @@ Tight — input/label only make sense together:
   <label class="form-field__label" for="agree">I agree</label>
 </div>
 ```
-
-Reusable alone → separate blocks (`.input`, `.label`) composed in a shell.

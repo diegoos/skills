@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `sass-with-bem`: writes Sass so each compiled component rule is one BEM class.
+- `sass-with-bem`: applies whenever the work touches Sass/SCSS that uses BEM.
 - `makefile-expert`: each phony target has its own `.PHONY` line immediately above it, so a long list of targets stays next to each rule.
 - `makefile-expert`: `PREFIX`, `BINDIR`, and `DESTDIR` apply only when `install` copies files, and a missing `make` ends the dry run with that tool named.
 - `makefile-expert`: a review with no Makefile stops and names the missing file.
