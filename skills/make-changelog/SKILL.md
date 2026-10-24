@@ -3,7 +3,7 @@ name: make-changelog
 description: >-
   Maintains CHANGELOG.md in Keep a Changelog form. Use when the user asks to start a changelog, add or record an entry, update the changelog, bump a version, cut a release, or release a version. Skip when the task is only to commit, amend, tag, or publish, or when it is to format or lint Markdown, to write architecture or behavior docs, to edit agent instructions for a reason other than the changelog, or to write a skill.
 metadata:
-  version: 0.1.0
+  version: 0.2.0
   author: "Diego Oliveira"
   tags:
     - changelog
