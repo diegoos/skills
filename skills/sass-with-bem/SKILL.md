@@ -3,7 +3,7 @@ name: sass-with-bem
 description: >-
   Writes BEM Sass (.scss, .sass) whenever the work touches a stylesheet that uses BEM. Use when the work writes, edits, or fixes .scss, .sass, scss, or sass whose classes are BEM (block, block__element, block--modifier), or the user mentions BEM, bem, a block, an element, a modifier, nesting, a partial, or styles in that Sass. Skip when the Sass does not use BEM, the task is only a review or audit, application logic with no stylesheet and no BEM class, a visual redesign with no stylesheet, plain CSS with no BEM class, Tailwind or utility classes, CSS modules, styled-components, or a pull-request review for bugs or security.
 metadata:
-  version: 0.1.0
+  version: 0.2.0
   author: "Diego Oliveira"
   tags:
     - sass
