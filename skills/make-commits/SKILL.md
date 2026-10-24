@@ -3,7 +3,7 @@ name: make-commits
 description: >-
   Writes one local commit per concern, or only the message. Use when the user asks for a commit message, asks to commit, or asks to amend, fix, or rewrite the last commit. Skip when the task is only to push, open a pull request, or reset history.
 metadata:
-  version: 0.4.0
+  version: 0.5.0
   author: "Diego Oliveira"
   tags:
     - git
