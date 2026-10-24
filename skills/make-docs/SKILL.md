@@ -3,7 +3,7 @@ name: make-docs
 description: >-
   Writes architecture docs and observable behavior specs under `docs/`. Use when the user asks to document a codebase, write architecture docs or behavior specs, explore a repo for documentation, sync or update docs after changes, refresh or regenerate stale docs against current code, or record an ADR or architecture decision. Skip when the task is an agent instruction file, a changelog, a skill, application code, or Markdown outside that suite.
 metadata:
-  version: 0.3.0
+  version: 0.4.0
   author: "Diego Oliveira"
   tags:
     - docs
