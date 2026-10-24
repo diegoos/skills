@@ -3,7 +3,7 @@ name: makefile-expert
 description: >-
   Author or review GNU Make Makefiles: last-mile glue, incremental/parallel graphs, variable flavors. Use when writing, editing, or reviewing a Makefile, GNUmakefile, make targets, recipes, .PHONY, or a `make` invocation. Branches: write, review.
 metadata:
-  version: 0.0.1
+  version: 0.2.0
   author: "Diego Oliveira"
   tags:
     - makefile
