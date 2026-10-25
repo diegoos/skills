@@ -1,51 +1,34 @@
 # BEM + Sass — conventions
 
-Load when naming, 7-1 layout, or tokens need more than [`SKILL.md`](../SKILL.md) Essentials.
+Rules past the pattern in [`SKILL.md`](../SKILL.md). Shapes are in [`examples.md`](examples.md).
 
-## Naming detail
+## Namespace
 
-| Entity   | Form                              | Rule                                         |
-| -------- | --------------------------------- | -------------------------------------------- |
-| Block    | `.block`                          | Standalone; no `__` / `--` in the block name |
-| Element  | `.block__element`                 | Part of one block; no standalone meaning     |
-| Modifier | `.block--mod` / `.block__el--mod` | Extra class on the same node as the base     |
+Add a prefix only when the project already uses one (`c-`, `l-`, and the same form). A new project uses a bare block name.
 
-Optional namespace only if the project already uses one (`c-`, `l-`, …). Do not invent prefixes.
+## Parent modifier
 
-Block-level modifiers may style children (`.block--mod .block__el`) per official BEM. Prefer an element modifier or a new block when that keeps selectors **flat**; use the parent-modifier form only when the variant truly cascades inside one block instance.
+A block modifier may style a child as `.block--mod .block__el`. Prefer an element modifier, or a new block, so the selector stays one class. Use the descendant only when that variant cascades inside one instance of the block.
 
-## HTML + composition
-
-```html
-<div class="card card--highlight">...</div>
-<span class="card__title card__title--large">...</span>
-
-<header class="header">
-  <a class="logo" href="/">...</a>
-  <nav class="nav">...</nav>
-</header>
-```
-
-Style `.card__title` directly (not `.card .card__title` or `.card h2`). Keep parts as elements only when they are never reused outside that block.
-
-## Directory structure (7-1)
+## Layout
 
 ```txt
 sass/
-├── abstracts/    # variables, functions, mixins (emit no CSS)
-├── vendors/      # third-party
-├── base/         # reset, global typography, html/body
-├── layout/       # grid, header, footer, shells
-├── components/   # one partial per reusable BEM block
-├── pages/        # page- or route-specific
-└── main.scss     # entrypoint
+├── abstracts/    # variables, functions, mixins only
+├── vendors/
+├── base/
+├── layout/
+├── components/   # one partial per block
+├── pages/
+└── main.scss
 ```
 
-Root folder name follows the project; the internal map stays the same. Flat partials are fine under ~12 files; then migrate to 7-1.
+The root folder name follows the project. This internal map stays.
 
-Entrypoint order: `abstracts` → `vendors` → `base` → `layout` → `components` → `pages`. Prefer `@use` / `@forward`; keep `@import` only on legacy trees.
+Flat partials are the layout under 12 partials. Use this map when the tree is already 7-1, or when this change reaches 12 partials. A layout the repo documents stays.
 
-## Tokens and mixins
+Entrypoint order: `abstracts` → `vendors` → `base` → `layout` → `components` → `pages`. A new tree uses `@use` and `@forward`. An existing `@import` tree stays on `@import`.
 
-Centralize color, space, typography, radius, and motion in `abstracts/`.
-Component partials reference tokens; magic values get a one-line comment. Mixins for repeated patterns (reduced-motion, truncate) — they do not hide BEM names.
+## Tokens
+
+Color, space, typography, radius, and motion live in `abstracts/`. A component partial uses those tokens. A one-off value gets a one-line comment. A mixin repeats a pattern such as reduced motion or truncation. The mixin keeps the BEM class name in the partial.

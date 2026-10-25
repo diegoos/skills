@@ -87,7 +87,7 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │   ├── README.md           # Spec and lint pointers (human)
 │   │   ├── agents/openai.yaml
 │   │   └── references/         # frontmatter
-│   └── sass-with-bem/          # BEM + Sass/SCSS
+│   └── sass-with-bem/          # Write Sass/SCSS with flat BEM
 │       ├── SKILL.md
 │       ├── agents/openai.yaml
 │       └── references/

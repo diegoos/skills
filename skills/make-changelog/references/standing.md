@@ -9,7 +9,7 @@ An existing `## Changelog` heading gets only the missing sentences. A release-to
 ```markdown
 ## Changelog
 
-Record notable changes in the root `CHANGELOG.md` under `[Unreleased]`: one concise bullet in the matching Keep a Changelog section (Added, Changed, Deprecated, Removed, Fixed, Security). Omit empty sections. Bump a version only when the user explicitly asks. Never bump on your own.
+Record notable changes in the root `CHANGELOG.md` under `[Unreleased]`: one concise bullet in the matching Keep a Changelog section (Added, Changed, Deprecated, Removed, Fixed, Security). Omit empty sections. Bump a version only when the user explicitly asks.
 ```
 
 ## Monorepo, per package
@@ -17,7 +17,7 @@ Record notable changes in the root `CHANGELOG.md` under `[Unreleased]`: one conc
 ```markdown
 ## Changelog
 
-This repo is a monorepo. Each package has its own `CHANGELOG.md`. The root `CHANGELOG.md` only names the package that changed and links to that file. Record the notable detail in the package file, under `[Unreleased]`. Bump a version only when the user explicitly asks. Never bump on your own.
+This repo is a monorepo. Each package has its own `CHANGELOG.md`. The root `CHANGELOG.md` only names the package that changed and links to that file. Record the notable detail in the package file, under `[Unreleased]`. Bump a version only when the user explicitly asks.
 ```
 
 ## Monorepo, root only
@@ -25,7 +25,7 @@ This repo is a monorepo. Each package has its own `CHANGELOG.md`. The root `CHAN
 ```markdown
 ## Changelog
 
-This repo is a monorepo. One root `CHANGELOG.md` covers every package. Name the package in the bullet. Bump a version only when the user explicitly asks. Never bump on your own.
+This repo is a monorepo. One root `CHANGELOG.md` covers every package. Name the package in the bullet. Bump a version only when the user explicitly asks.
 ```
 
 ## Where

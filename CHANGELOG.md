@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `sass-with-bem`: writes Sass so each compiled component rule is one BEM class.
+- `sass-with-bem`: applies whenever the work touches Sass/SCSS that uses BEM.
+- `makefile-expert`: each phony target has its own `.PHONY` line immediately above it, so a long list of targets stays next to each rule.
+- `makefile-expert`: `PREFIX`, `BINDIR`, and `DESTDIR` apply only when `install` copies files, and a missing `make` ends the dry run with that tool named.
+- `makefile-expert`: a review with no Makefile stops and names the missing file.
+- `make-changelog`: a run names its branch before writing, a bump asks which file to cut before it writes a heading, and the description skips a commit, Markdown lint, other docs, unrelated instruction edits, and writing a skill.
 - `write-great-instructions`: the description skips writing an agent skill (`SKILL.md`) and points to `make-skill`.
 - `make-code`: a declaration or assignment has a blank line before the following `if`, braced or on one line; consecutive inline `if`s stay on adjacent lines, and Blank lines cannot be skipped.
 - `make-code`: the description is third person and also matches a refactor or a make-it-faster request; when workspace search is unavailable, Climb uses the files already open and adds no dependency.
@@ -24,6 +30,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `make-commits`: language and subject shape follow the newest commit subjects, including the messages kept inside a squash commit.
 - `make-commits`: a trailer is `Closes` or `Refs` only when the request or the branch name already has the number.
 - `make-commits`: repository facts come from `git` commands in the terminal, and the `.git/` directory stays unopened.
+- `make-commits`: the description is third person, and a request that only pushes, opens a pull request, or resets history does not start the skill.
+- `make-commits`: a subject scope is the group's area when recent subjects use a scope.
+- `make-commits`: a staged hunk stays as staged when the request commits what is staged, and a staged path outside the commit keeps that index state.
+- `make-commits`: a failed `git` command stops the run before any commit.
 - `make-code`: **Blank lines** separate a declaration or assignment from a block (`if`, loop, `switch`, `try`, or a callback), a closed block from the code after it, and a statement from `return` or `throw`, while a guard that only logs and returns keeps those two lines together.
 - `make-code`: add lazy rules inspired by [Ponytail](https://github.com/DietrichGebert/ponytail) (scope question before building, fewest files, deletion over addition, root-cause bug fix, one runnable check, `ceiling:` marker); the `improve` branch is now `refactor` with a named hotspot.
 - `make-code`: comments are added only where the code cannot say the thing; restating, narrating, and section-label comments are skipped.

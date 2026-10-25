@@ -1,9 +1,9 @@
 ---
 name: sass-with-bem
 description: >-
-  BEM + Sass/SCSS with flat compiled selectors. Use when writing or reviewing .scss/.sass or BEM classes in markup. Branches: write, review.
+  Writes BEM Sass (.scss, .sass) whenever the work touches a stylesheet that uses BEM. Use when the work writes, edits, or fixes .scss, .sass, scss, or sass whose classes are BEM (block, block__element, block--modifier), or the user mentions BEM, bem, a block, an element, a modifier, nesting, a partial, or styles in that Sass. Skip when the Sass does not use BEM, the task is only a review or audit, application logic with no stylesheet and no BEM class, a visual redesign with no stylesheet, plain CSS with no BEM class, Tailwind or utility classes, CSS modules, styled-components, or a pull-request review for bugs or security.
 metadata:
-  version: 0.1.0
+  version: 0.2.0
   author: "Diego Oliveira"
   tags:
     - sass
@@ -12,46 +12,26 @@ metadata:
     - sass-with-bem
 ---
 
-# BEM + Sass (SCSS)
+# Sass with BEM
 
-Sass organizes the source; compiled CSS stays **flat** — one class selector per component rule.
+Write Sass so each compiled component rule is one class. `&` may build that class name.
 
-**Precedence:** human override or local repo doc > this skill > personal habit > generic framework examples.
+When a repo style doc covers the same rule, follow the doc and name the file.
 
-Pick a **branch** and state it at the start of the run:
+Load [`references/conventions.md`](references/conventions.md) when you judge layout, tokens, a namespace, or a parent-modifier descendant.
+Load [`references/examples.md`](references/examples.md) when the change adds a block, an element, or a modifier.
 
-- author / change styles or BEM classes → **write**
-- audit styles for BEM → **review**
+## Inputs
 
-Load [`conventions.md`](references/conventions.md) when naming, 7-1 layout, or tokens need more than Essentials. Load [`examples.md`](references/examples.md) on **write** when a concrete shape helps.
+- `request` (text, required): the work that touches the Sass. It comes from the user message.
+- `styles` (files, optional): the `.scss`, `.sass`, and markup already in scope. They come from the workspace or the message. An empty tree is valid.
 
-## Branch A — write
+## Steps
 
-1. **Discover the style tree.** Entrypoint, layout (7-1 / flat / legacy), import style (`@use` preferred; `@import` only if already legacy). No structure → create the 7-1 map in `conventions.md`. **Done when:** entrypoint path, layout shape, and import style are recorded.
-2. **Name the surface.** Apply the **axiom** and prefer **composition**. Design variant → `--modifier`. Runtime / JS → `is-` / `has-*`. **Done when:** every new class matches Pattern (plus optional existing namespace / `is-` / `has-*` / `js-`); no `block__a__b`.
-3. **Author SCSS.** Nest with `&` only to build BEM names; output stays **flat**. Cap at block → element → element-modifier. Tokens from `abstracts/`; one partial per block; wire new partials into the entrypoint.
-   **Done when:** markup has base + modifier together; selectors are single-class (plus intentional `.block.is-active`); tokens used; `prefers-reduced-motion` if motion was added.
-4. **Verify.** Run Branch B against the change. **Done when:** every applicable checklist item is true.
+1. **Discover.** Find the entrypoint, the layout (7-1, flat partials, or the repo's documented layout), and the import style (`@use` or `@import`). **Done when:** those three facts are named, or the run states `tree: none` and the assumption that new files use `@use` and flat partials. When the request names no Sass or BEM change and no BEM Sass is in scope, stop and ask what to write. When workspace search is unavailable, name the open files, state that the rest of the tree was not searched, and leave every other file unchanged.
+2. **Write** the Sass and the markup for this request. Match the tree from Discover. `tree: none` adds the partials this request needs and wires them at one entrypoint with `@use`. A new partial in an existing tree uses that tree's import style. Follow Pattern, Composition, Flat nesting, and States. **Done when:** those files are saved; every class this request adds or edits satisfies Pattern, Composition, Flat nesting, and States; a parent-modifier descendant is only the exception in [`references/conventions.md`](references/conventions.md); each value uses a token or a one-line comment; each new partial is wired from the entrypoint; the tree matches the layout rule in [`references/conventions.md`](references/conventions.md); motion added in this change includes `prefers-reduced-motion`.
 
-## Branch B — review
-
-Report each failure with selector/path. Stay on the repo’s methodology.
-
-- [ ] Classes only for components (no `id`, no tag-as-component)
-- [ ] No `block__a__b`; deep subtrees are new blocks
-- [ ] Modifiers in HTML include the base class
-- [ ] Compiled CSS is **flat** (no `.block .block__el` cascade)
-- [ ] Variants use `--*`; transient states use `is-` / `has-*`
-- [ ] Values from central tokens (or one-line local exception)
-- [ ] One partial per block (or clearly named layout)
-- [ ] Tree is 7-1 or the repo’s documented legacy layout
-- [ ] Motion respects `prefers-reduced-motion` when applicable
-
-**Done when:** every applicable item is checked; each failure cites a selector or file.
-
-## Essentials (every branch)
-
-### Pattern
+## Pattern
 
 ```txt
 block
@@ -60,30 +40,38 @@ block--modifier
 block__element--modifier
 ```
 
-Lowercase, digits, hyphens. Classes only. Modifier always with its base class.
+Lowercase, digits, and hyphens. A component selector is a class. An `id` that only pairs a label stays. A modifier is a second class on the same node as its base (`class="block block--modifier"`).
 
-### Axiom
+## Composition
 
-1. One context only → **element**.
-2. Many contexts → independent **block**.
-3. Blocks nest blocks; never `block__a__b` — extract a block (**composition**).
+1. One context only → element.
+2. Many contexts → its own block.
+3. A block contains blocks. The chain stops at one element.
 
-### Nesting → flat
+The rule selector is `.block__element`.
 
-`&__el` / `&--mod` append suffixes; compiled selectors stay single-class. See [`examples.md`](references/examples.md).
+## Flat nesting
 
-### States vs modifiers
+`&__element` and `&--modifier` append to the parent name.
 
-| Kind           | Form            | Use                    |
-| -------------- | --------------- | ---------------------- |
-| Design variant | `--*`           | theme, size, layout    |
-| Transient / JS | `is-*`, `has-*` | active, open, loading  |
-| JS hook only   | `js-*`          | no presentational SCSS |
+```scss
+.card {
+  &__title {
+    color: $color-text;
+  }
 
-### Scope
+  &--highlight {
+    border-color: $color-accent;
+  }
+}
+```
 
-- **WRITE:** style-tree SCSS; BEM classes in markup for the same feature.
-- **READ:** entrypoint, tokens/abstracts, existing class patterns.
-- **NEVER:** change methodology unprompted; emit CSS from `abstracts/`; ship a modifier without its base class.
+This compiles to `.card__title` and `.card--highlight`. A block `&--modifier` sits as a sibling of `&__element`. An element `&--modifier` stays inside that `&__element`.
 
-New writing uses `&` nesting; output stays **flat**. Refactor legacy only inside the requested scope.
+## States
+
+| Kind | Form | Use |
+| --- | --- | --- |
+| Design variant | `--*` | theme, size, layout |
+| Transient | `is-*`, `has-*` | active, open, loading |
+| JS hook | `js-*` | presentational rules stay on the BEM class |

@@ -9,11 +9,11 @@ Name action targets with `/`: `docker/build`, `test/unit`. Put one namespace per
 `:` inside a target name breaks prerequisite edges. Make parses `docker:build: docker:deps` as other syntax and skips the dependency. Hyphens are readable but do not group as well in `help` output.
 
 ```makefile
-.PHONY: docker/build docker/push
-
+.PHONY: docker/build
 docker/build: ## Build the image
 	docker build -t example/app:$(TAG) .
 
+.PHONY: docker/push
 docker/push: docker/build ## Push the image
 	docker push example/app:$(TAG)
 ```

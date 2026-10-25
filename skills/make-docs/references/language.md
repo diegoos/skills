@@ -22,7 +22,7 @@ Requirement keywords follow [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119.ht
 
 Tokens: MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, NOT RECOMMENDED, MAY, OPTIONAL.
 
-Each spec file includes the incorporation sentence from `./references/template-spec.md` near the top.
+Each spec file includes the incorporation sentence from `references/template-spec.md` near the top.
 
 ## Inheritance
 

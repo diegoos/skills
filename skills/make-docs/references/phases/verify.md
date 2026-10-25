@@ -1,6 +1,6 @@
 # Verify
 
-Shared by explore, update, refresh, and adr. Load `./references/language.md` and `./references/anti-slop.md`. Load `./references/examples/generic-vs-earned.md` when a sentence looks portable or names this skill.
+Shared by explore, update, refresh, and adr. Load `references/language.md` and `references/anti-slop.md`. Load `references/examples/generic-vs-earned.md` when a sentence looks portable or names this skill.
 
 ## Checks
 
@@ -13,7 +13,7 @@ Shared by explore, update, refresh, and adr. Load `./references/language.md` and
 - Cross-references resolve.
 - Every ADR written this run names a *why*, with gains, costs, and rejected alternatives.
 - Canonical always-on (root `AGENTS.md` if present, else the one always-on instruction file already in the repo) has a single when-to-read pointer to `docs/README.md`. Adapters do not repeat it. The index is not pasted into that file. Missing always-on: skip; do not create `AGENTS.md`.
-- Every documentation has no empty sections.
+- Every section has body text or a table row from evidence.
 - Commands in the suite sit in backticks. Heading depth stops at `h3`. Architecture does not inventory files or narrate design history (that is the ADR).
 
 ## Completion criterion
