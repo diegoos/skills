@@ -41,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- `deep-security-review` no longer installs (`npx skills add diegoos/skills --skill deep-security-review`); the files live in `deprecated/deep-security-review`.
 - `frontend-design-plus` no longer installs (`npx skills add diegoos/skills --skill frontend-design-plus`); the files live in `deprecated/frontend-design-plus`.
 
 ### Fixed

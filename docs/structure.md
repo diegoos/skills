@@ -30,19 +30,8 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │       ├── test-quality.md # tests already in the diff (Quality)
 │   │       ├── dependency-review.md
 │   │       ├── remedies.md
-│   │       └── templates/      # final report
-   │   ├── deep-security-review/   # Deep security review
-   │   │   ├── SKILL.md
-   │   │   ├── README.md           # Human: commands, flow, vs code-review-plus
-   │   │   ├── agents/openai.yaml
-│   │   └── references/
-│   │       ├── phases/         # plan, hunt, verify-and-synthesize, fix
-│   │       ├── templates/      # final report
-│   │       ├── domains/        # authz, injection, secrets, infra, business-llm
-│   │       ├── shapes/         # api, web, languages, cloud, llm, …
-│   │       ├── examples/       # gates, FP table, kept-vs-dropped, report-sample
-│   │       └── optional/       # OWASP map (on request)
-│   ├── make-changelog/         # CHANGELOG.md: init / update / bump
+   │   │       └── templates/      # final report
+   │   ├── make-changelog/         # CHANGELOG.md: init / update / bump
 │   │   ├── SKILL.md
 │   │   ├── agents/openai.yaml
 │   │   └── references/
@@ -94,6 +83,17 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │           ├── conventions.md
 │           └── examples.md
 ├── deprecated/                 # Discontinued skills; not installed
+│   ├── deep-security-review/   # Deep security review
+│   │   ├── SKILL.md
+│   │   ├── README.md           # Human: commands, flow, vs code-review-plus
+│   │   ├── agents/openai.yaml
+│   │   └── references/
+│   │       ├── phases/         # plan, hunt, verify-and-synthesize, fix
+│   │       ├── templates/      # final report
+│   │       ├── domains/        # authz, injection, secrets, infra, business-llm
+│   │       ├── shapes/         # api, web, languages, cloud, llm, …
+│   │       ├── examples/       # gates, FP table, kept-vs-dropped, report-sample
+│   │       └── optional/       # OWASP map (on request)
 │   └── frontend-design-plus/   # Visual frontend: greenfield / redesign / polish
 │       ├── SKILL.md
 │       ├── README.md
