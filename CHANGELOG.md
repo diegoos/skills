@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `write-great-instructions`: the description skips writing an agent skill (`SKILL.md`) and points to `make-skill`.
 - `make-code`: a declaration or assignment has a blank line before the following `if`, braced or on one line; consecutive inline `if`s stay on adjacent lines, and Blank lines cannot be skipped.
 - `make-code`: the description is third person and also matches a refactor or a make-it-faster request; when workspace search is unavailable, Climb uses the files already open and adds no dependency.
+- `code-review-plus`: removes the `deep-security-review` suggestion, Skill links, and install command from the review output and references.
 - `make-code`: a speed request without a named hotspot asks once and stops; the run reports the branch, the rung, and the check.
 - `make-code`: Trace fills six fields, and KISS, CC, and Match cannot be skipped.
 - `make-code`: every run prefers the lightest, cheapest path that meets the request (`metadata.version` → `0.5.0`).

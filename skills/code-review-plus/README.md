@@ -84,4 +84,4 @@ The next review reads those files. It is **delta** when a prior HEAD exists. Fix
 
 ## Security run
 
-This skill always uses its own Security hunter. When the report suggests a deeper pass, use [`deep-security-review`](https://github.com/diegoos/skills/tree/main/skills/deep-security-review).
+This skill always uses its own Security hunter.

@@ -36,14 +36,11 @@ Each hunter covers its **floor** and may add other in-pipeline issues with today
 
 Quality reads `make-code` when that skill is in the environment; otherwise it uses the built-in Floor and the report says so. <https://github.com/diegoos/skills/tree/main/skills/make-code>
 
-This skill always uses its own Security hunter. The report may end with `/deep-security-review` when a deeper pass is warranted. <https://github.com/diegoos/skills/tree/main/skills/deep-security-review>
-
 Sibling skills: <https://github.com/diegoos/skills/tree/main/skills>
 
-To install `make-code` and `deep-security-review` skills, you can use `skills` cli:
+To install `make-code` skill, you can use `skills` cli:
 
 ```bash
-npx skills add https://github.com/diegoos/skills --skill deep-security-review
 npx skills add https://github.com/diegoos/skills --skill make-code
 ```
 

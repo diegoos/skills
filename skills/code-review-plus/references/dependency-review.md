@@ -17,5 +17,3 @@ Prefer existing utilities over a new dependency.
 - Prefer one dependency (or a small related group) per change
 - Review the lockfile diff; do not hand-edit the lockfile
 - Suite green before and after when tests exist
-
-Supply-chain beyond this file feeds the report-end `/deep-security-review` line when warranted (`report.md`).

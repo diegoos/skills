@@ -88,14 +88,9 @@ Prerequisite: a review report in this conversation, a `docs/code-review/` memory
 
 ## Skill links
 
-When suggesting `make-code` or `deep-security-review`, include that GitHub URL. Catalog only when naming the collection.
+When suggesting `make-code`, include that GitHub URL. Catalog only when naming the collection.
 
 | Skill                  | URL                                                                        |
 | ---------------------- | -------------------------------------------------------------------------- |
 | make-code              | <https://github.com/diegoos/skills/tree/main/skills/make-code>             |
-| deep-security-review   | <https://github.com/diegoos/skills/tree/main/skills/deep-security-review>  |
 | catalog                | <https://github.com/diegoos/skills/tree/main/skills>                       |
-
-## Relation to `deep-security-review`
-
-This skill always runs its own Security hunter when Security is in `Pipelines`. Leave `deep-security-review` unstarted. When the slim pass cannot close the security question for this change, the report ends with a `/deep-security-review` suggestion plus its Skill links URL (`report.md`).
