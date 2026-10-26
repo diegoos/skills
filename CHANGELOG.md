@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `make-code`: a declaration or assignment has a blank line before the following `if`, braced or on one line; consecutive inline `if`s stay on adjacent lines, and Blank lines cannot be skipped.
 - `make-code`: the description is third person and also matches a refactor or a make-it-faster request; when workspace search is unavailable, Climb uses the files already open and adds no dependency.
 - `code-review-plus`: removes the `deep-security-review` suggestion, Skill links, and install command from the review output and references.
+- `code-review-plus`: the Security hunter follows a context → compare → trace method with a high-confidence bar instead of a checklist, and Pass B checks every Security candidate against a list of known non-findings.
 - `make-code`: a speed request without a named hotspot asks once and stops; the run reports the branch, the rung, and the check.
 - `make-code`: Trace fills six fields, and KISS, CC, and Match cannot be skipped.
 - `make-code`: every run prefers the lightest, cheapest path that meets the request (`metadata.version` → `0.5.0`).
@@ -43,6 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - `deep-security-review` no longer installs (`npx skills add diegoos/skills --skill deep-security-review`); the files live in `deprecated/deep-security-review`.
+- `code-review-plus`: the unused `web` and `api` shapes and stack tags; Security takes only the `llm` shape.
 - `frontend-design-plus` no longer installs (`npx skills add diegoos/skills --skill frontend-design-plus`); the files live in `deprecated/frontend-design-plus`.
 
 ### Fixed

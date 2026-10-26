@@ -55,7 +55,6 @@ Record `Pipelines` as the hunter names that will run. Isolated (SKILL.md named o
 
 From paths/extensions and content cues in the review source, record zero or more:
 
-- `web`, `api`
 - `ts` (TypeScript/JavaScript/Node), `py` (Python), `go` (Go), `rs` (Rust)
 - `llm` when the diff touches prompts, tool/function calling, agent loops, or RAG context assembly
 
@@ -104,7 +103,7 @@ Pipelines: Correctness, Security, Quality | … (names that will run)
 Isolated: yes | no
 Mode: fresh | delta
 Skip: file:line … | none
-Stack tags: web | api | ts | py | go | rs | llm | (none)
+Stack tags: ts | py | go | rs | llm | (none)
 Documentable surface: yes | no
 Lockfile in source: yes | no
 Tests in source: yes | no

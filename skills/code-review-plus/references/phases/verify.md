@@ -2,7 +2,7 @@
 
 Reject false positives after all pipelines return. Only candidates that survive Pass B enter synthesis.
 
-When keep/drop is unclear, read `../examples/kept-vs-dropped.md`. When a candidate is about branching, nesting, a complexity score, speculative abstraction, or YAGNI, also read `../complexity.md`.
+When keep/drop is unclear, read `../examples/kept-vs-dropped.md`. Check every Security candidate against § Security precedents in that file. When a candidate is about branching, nesting, a complexity score, speculative abstraction, or YAGNI, also read `../complexity.md`.
 
 ## Intake
 
@@ -18,7 +18,7 @@ Drop immediately if those fields are missing, speculative, or `location` is on P
 
 Re-open `file:line` plus callers, middleware, shared helpers, and consumers as needed. Three questions on **every** remaining candidate:
 
-1. Does the break, exploit, or today's cost hold on reading the code, with a pointable `file:line`?
+1. Does the break, exploit, or today's cost hold on reading the code, with a pointable `file:line`? For Security: at the lowest privilege that reaches it, with no existing control at a cited line that blocks it.
 2. Does this contradict another candidate or a likely "What Looks Good" strength?
 3. Would the suggested fix pass the **regression gate** (minimal, local, respects what-must-not-change)?
 

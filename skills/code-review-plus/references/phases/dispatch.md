@@ -40,8 +40,6 @@ Pick at most one shape for a hunter from Phase 1 stack tags:
 
 | Tag | Path                                                |
 | --- | --------------------------------------------------- |
-| web | `./references/shapes/web.md`                        |
-| api | `./references/shapes/api.md`                        |
 | ts  | `./references/shapes/typescript-javascript-node.md` |
 | py  | `./references/shapes/python.md`                     |
 | go  | `./references/shapes/go.md`                         |
@@ -56,8 +54,8 @@ Omit shapes.
 
 Count changed paths (or lines on a language tie). At most **one** shape per hunter:
 
-1. **Security / Quality:** `llm` if that tag is present, else the majority language tag (`ts` \| `py` \| `go` \| `rs`). Omit when none apply. `web` and `api` stay off (Security perspective already covers that surface).
-2. **Correctness / Architecture / Performance:** language tags only (`ts` \| `py` \| `go` \| `rs`). Majority of changed paths. If two languages tie, pick the one with more changed lines. Omit when none apply. `web`, `api`, and `llm` stay off.
+1. **Security:** `llm` if that tag is present. Otherwise omit.
+2. **Quality / Correctness / Architecture / Performance:** language tags only (`ts` \| `py` \| `go` \| `rs`). Majority of changed paths. If two languages tie, pick the one with more changed lines. Omit when none apply. `llm` stays off.
 
 ## Subagent prompt template
 

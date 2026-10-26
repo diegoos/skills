@@ -42,17 +42,9 @@ If Phase 1 marked lockfile in source, read `../dependency-review.md` and fold de
 - Quality with today's cost is P2/P3 maintainability. Complexity scores: `../complexity.md`.
 - Hardening (CSP, HSTS, pagination, `.catch()` on a floating promise) is follow-up, not a merge block.
 
-## Security classification
+## Security level
 
-For each security finding, also classify:
-
-| Level    | Meaning                                                 |
-| -------- | ------------------------------------------------------- |
-| CRITICAL | Exploitable in production with high impact today        |
-| HIGH     | Significant risk with a concrete path; needs prompt fix |
-| MEDIUM   | Defense-in-depth gap, lower immediate risk              |
-
-Include: scenario, impact, data provenance, recommended mitigation.
+Derive it from severity: P0 = CRITICAL, P1 = HIGH, P2 = MEDIUM, P3 = LOW. An authorization bypass with a concrete data or privilege gain is P1 or higher. Include: scenario, impact, data provenance, recommended mitigation.
 
 ## Required fields per finding
 
