@@ -11,17 +11,17 @@ If Phase 1 marked lockfile in source, read `../dependency-review.md` and fold de
 3. Categorize: assign exactly one category
 4. Prioritize: map category + impact to P0/P1/P2/P3
 5. Attach **regression_risk** on every kept finding's suggested fix
-6. Self-consistency: "What Looks Good" agrees with findings
-7. Strengths: 1–2 specific wins that do not contradict findings, or omit the section
-8. Tests in source **and** Quality in `Pipelines`: answer the three Test quality questions (useful / efficient / removable)
-9. Verified unused code (all consumers checked) goes to Dead Code, not P0–P3, unless it also breaks behavior today
-10. Copy `quality_source` from the Quality hunter when Quality ran
+6. Strengths: 1–2 specific wins that do not contradict findings, or omit the section
+7. Tests in source **and** Quality in `Pipelines`: answer the three Test quality questions (useful / efficient / removable)
+8. Verified unused code (all consumers checked) goes to Dead Code, not P0–P3, unless it also breaks behavior today
+9. Copy `quality_source` from the Quality hunter when Quality ran
 
 ## Categories
 
 | Category                         | Definition                                                                      | Typical severity |
 | -------------------------------- | ------------------------------------------------------------------------------- | ---------------- |
-| **Current vulnerability/bug**    | Exploitable or reproducible breakage today, with a pointable line               | P0/P1            |
+| **Vulnerability**                | Exploitable security issue today, with a pointable line                         | P0/P1            |
+| **Bug**                          | Reproducible breakage today, with a pointable line                              | P0/P1            |
 | **Hardening / defense-in-depth** | Not exploitable today; protects against future evolution or hypothetical caller | P2               |
 | **Maintainability / style**      | Fragile, duplicated, inconsistent; no functional impact                         | P2/P3            |
 
@@ -41,15 +41,12 @@ If Phase 1 marked lockfile in source, read `../dependency-review.md` and fold de
 - Structural default P2; P1 when this change worsens structure today. Name a remedy from `../remedies.md` or mark follow-up with high `regression_risk`.
 - Quality with today's cost is P2/P3 maintainability. Complexity scores: `../complexity.md`.
 - Hardening (CSP, HSTS, pagination, `.catch()` on a floating promise) is follow-up, not a merge block.
-
-## Security level
-
-Derive it from severity: P0 = CRITICAL, P1 = HIGH, P2 = MEDIUM, P3 = LOW. An authorization bypass with a concrete data or privilege gain is P1 or higher. Include: scenario, impact, data provenance, recommended mitigation.
+- An authorization bypass with a concrete data or privilege gain is P1 or higher.
 
 ## Required fields per finding
 
 1. Exact **file:line**
-2. **Category** (vulnerability/bug, hardening, maintainability)
+2. **Category** (vulnerability, bug, hardening, maintainability)
 3. **Why it is exploitable/breaks/costs today** — concrete path with a pointable line
 4. **Data provenance** when it is a security issue
 5. **Severity** per tables above

@@ -2,6 +2,13 @@
 
 Read this file when Pass B is unsure whether to keep or drop a candidate, and read § Security precedents for every Security candidate. Do not preload.
 
+## Contents
+
+- [Dropped (classic false positives)](#dropped-classic-false-positives)
+- [Kept (true positives)](#kept-true-positives)
+- [Security precedents](#security-precedents)
+- [Stack examples](#stack-examples)
+
 ## Dropped (classic false positives)
 
 ### CSRF on one route; global middleware covers it

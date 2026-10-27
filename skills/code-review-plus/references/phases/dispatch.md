@@ -1,12 +1,23 @@
 # Phase 2 — Dispatch
 
-Dispatch each name in Phase 1 `Pipelines`. Orchestrator builds prompts; each hunter receives exactly one perspective and optionally one shape. Quality reads `./references/perspectives/quality.md`, which opens `make-code` when that skill is installed; the orchestrator does not detect it.
+Dispatch each name in Phase 1 `Pipelines`, one prompt per name. Orchestrator builds prompts; each hunter receives exactly one perspective and optionally one shape. Quality reads `./references/perspectives/quality.md`, which opens `make-code` when that skill is installed; the orchestrator does not detect it.
 
 Same model as the orchestrator. Hunters return CandidateFinding lists. Project lint / complexity / test commands that do not write are allowed. One hunter per perspective.
 
+## Contents
+
+- [Hunt bar](#hunt-bar)
+- [Serial fallback (no subagent)](#serial-fallback-no-subagent)
+- [Perspective paths](#perspective-paths)
+- [Shape selection](#shape-selection)
+- [Subagent prompt template](#subagent-prompt-template)
+- [CandidateFinding schema](#candidatefinding-schema)
+- [Orchestrator-only refs (not hunter paths)](#orchestrator-only-refs-not-hunter-paths)
+- [Completion criterion](#completion-criterion)
+
 ## Hunt bar
 
-Cover the perspective (and shape) as a **floor**, then emit any other in-pipeline issue when **today**'s cost is pointable at `file:line`. `likely` is allowed at hunt time; **Pass B** confirms. P0/P1 require **proven**. An empty list is valid when this pipeline found nothing.
+Cover the perspective (and shape) as a **floor** (Security's floor is its Method), then emit any other in-pipeline issue when **today**'s cost is pointable at `file:line`. `likely` is allowed at hunt time; **Pass B** confirms. P0/P1 require **proven**. An empty list is valid when this pipeline found nothing.
 
 ## Serial fallback (no subagent)
 
@@ -16,7 +27,7 @@ If the harness has no subagent, run the names **in series** (one perspective at 
 
 Carry is orchestrator storage. The next hunter still receives only its own perspective (prompt template below). Deduplicate in Phase 2.5.
 
-Run each name in Phase 1 `Pipelines` (one prompt per name).
+Prompt rules:
 
 - No shared findings until Phase 2.5 (serial carry list is orchestrator memory, not hunter input)
 - Each prompt includes: scope summary (compact) + perspective path + optional shape path
@@ -83,7 +94,7 @@ Return CandidateFinding list (YAML or bullets):
 - location: file:line
 - pipeline: Correctness | Security | Architecture | Quality | Performance
 - title: short title
-- category_hint: vulnerability | hardening | maintainability
+- category_hint: vulnerability | bug | hardening | maintainability
 - exploit_or_break_path: why it breaks, is exploitable, or costs today (concrete path)
 - data_provenance: user | llm | backend | n/a
 - evidence_level: proven | likely
@@ -104,7 +115,7 @@ On `Mode: delta`, hunt hunks since the prior HEAD. Skip listed `file:line` unles
 location: path/file.ts:42
 pipeline: Correctness
 title: Unhandled JSON.parse crash
-category_hint: vulnerability
+category_hint: bug
 exploit_or_break_path: Malformed HTTP body → JSON.parse throws → worker process exits
 data_provenance: user
 evidence_level: proven
@@ -119,7 +130,7 @@ Hunters receive only the prompt template paths (Quality also may open `make-code
 - `./references/dependency-review.md` during Phase 3 when Phase 1 marked lockfile in source (gate in synthesize.md)
 - `./references/remedies.md` during Phase 3 when a kept finding is structural. Name the move from that file on `suggested_fix`
 - `./references/complexity.md` during Phase 2.5 when a candidate is about branching, nesting, a complexity score, or YAGNI
-- `./references/examples/*` during validator doubt, optional eval notes, or report sample
+- `./references/examples/*` during Pass B doubt, optional eval notes, or report sample
 - `./references/phases/persist.md` during Phase 4.5
 - `./references/phases/knowns.md` when the user dismisses a finding
 

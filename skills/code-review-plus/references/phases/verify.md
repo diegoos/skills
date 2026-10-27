@@ -1,4 +1,4 @@
-# Phase 2.5 — Validator
+# Phase 2.5 — Verify
 
 Reject false positives after all pipelines return. Only candidates that survive Pass B enter synthesis.
 
@@ -14,23 +14,23 @@ Confirm each candidate still carries:
 
 Drop immediately if those fields are missing, speculative, or `location` is on Phase 1 `Skip` and that path's behavior did not change.
 
-## Pass B — validator
+## Pass B
 
 Re-open `file:line` plus callers, middleware, shared helpers, and consumers as needed. Three questions on **every** remaining candidate:
 
 1. Does the break, exploit, or today's cost hold on reading the code, with a pointable `file:line`? For Security: at the lowest privilege that reaches it, with no existing control at a cited line that blocks it.
-2. Does this contradict another candidate or a likely "What Looks Good" strength?
+2. Does this contradict another candidate?
 3. Would the suggested fix pass the **regression gate** (minimal, local, respects what-must-not-change)?
 
 Drop or downgrade any item that fails. Future-only risks become hardening, not blockers. Keep maintainability when today's cost is pointable, including Quality extras the Floor did not name. Keep a real issue when `pipeline` is a mismatch; synthesize assigns category. Dead-code after a full consumer search goes to Dead Code, not P0. Formatter/linter style stays unflagged unless the line is broken or unsafe today.
 
 `likely` with a pointable line: re-read. Confirm → **proven**. Line holds but the path is still incomplete → keep as hardening (not P0/P1). No line today → drop.
 
-On residual ambiguity (middleware vs route, framework return shape, `needs-runtime` borderline): downgrade or mark unverified. Pass B decides on this candidate set.
+On residual ambiguity (middleware vs route, framework return shape, a break only runtime can prove): downgrade or mark unverified. Pass B decides on this candidate set.
 
 ### P0 bar
 
-P0 is an exploit/break path reconfirmed today with a pointable `file:line` after Pass B. Maintainability, YAGNI-without-a-hole, verified unused code, and `needs-runtime` without proof in code stay below P0 (unverified or hardening). P0 and P1 require `evidence_level: proven`.
+P0 is an exploit/break path reconfirmed today with a pointable `file:line` after Pass B. Maintainability, YAGNI-without-a-hole, verified unused code, and a break only runtime can prove stay below P0 (unverified or hardening). P0 and P1 require `evidence_level: proven`.
 
 ## Verification artifact (required per candidate)
 

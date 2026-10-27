@@ -1,12 +1,11 @@
 ---
 name: code-review-plus
-description: PR/diff review for bugs, security, and quality; one hunter on demand; fix, fix all, or fix by id; prune or help.
+description: Reviews a PR or diff for bugs, security, and quality, and applies selected findings.
 disable-model-invocation: true
 metadata:
   version: 0.7.1
   author: "Diego Oliveira"
   tags:
-    - code
     - code review
     - security review
     - pr
@@ -15,9 +14,9 @@ metadata:
 
 # Code Review Plus
 
-**Branches:** review (default) → pipelines by tier → validator → synthesize → persist → emit. Fix applies findings with a **regression gate**. Prune drops old `docs/code-review/` files. Help explains the skill.
+**Branches:** review (default) → pipelines by tier → verify (Pass B) → synthesize → report → persist → emit. Fix applies findings with an **acceptance gate**. Prune drops old `docs/code-review/` files. Help explains the skill.
 
-**Invariants:** One hunter per pipeline. **floor** and **today** live in the Hunt bar (`dispatch.md`). **Pass B** drops false positives; P0/P1 require **proven**. **delta** reads persist. **regression gate** on suggested fixes.
+**Invariants:** One hunter per pipeline. **floor** and **today** live in the Hunt bar (`dispatch.md`). **Pass B** drops false positives; P0/P1 require **proven**. **delta** when a prior review recorded HEAD. **regression gate** on suggested fixes.
 
 **Reference budget:** Open a phase file when that phase starts. Hunter load: **1** perspective + **0 or 1** shape. Quality bar, shapes, and orchestrator-only paths: `dispatch.md`. Fix reads `make-code` when that skill is in the environment.
 
@@ -67,8 +66,6 @@ Done for each phase is the completion criterion in its READ file. Open the next 
 | Phase | Done when                                                                                          | READ                         |
 | ----- | -------------------------------------------------------------------------------------------------- | ---------------------------- |
 | Fix   | Selected findings applied or deferred; `## Fix` filled; default **selection** names leftover IDs   | `./references/phases/fix.md` |
-
-Prerequisite: a review report in this conversation, a `docs/code-review/` memory file, or an explicit finding list. If none exist, ask. Leave the finding list empty until the user provides one.
 
 ### Branch prune
 

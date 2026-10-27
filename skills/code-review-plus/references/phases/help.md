@@ -21,7 +21,7 @@ Code Review Plus reviews a PR or diff for bugs, security, and quality. Invoke it
 | `/code-review-plus fix 2,3,6` | Apply those Findings IDs (spaces also work) |
 | `/code-review-plus prune` | Drop old `docs/code-review/` files (count first) |
 
-`apply` and `implement` are aliases of `fix` (same remainder: empty, `all`, or IDs). Phrases `code quality`, `page performance`, and `only` + a hunter isolate that hunter. Two hunter names without `only` stay a full review. `/code-review-plus security` is this skill's Security hunter.
+`apply` and `implement` are aliases of `fix` (same remainder: empty, `all`, or IDs). Phrases `code quality`, `page performance`, and `only` + a hunter isolate that hunter. Two hunter names without `only` stay a full review.
 
 ## Review
 

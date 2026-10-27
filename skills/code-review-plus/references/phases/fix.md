@@ -2,6 +2,17 @@
 
 Invoked only by `/code-review-plus fix` (aliases `apply`, `implement`), with an optional **selection**. Open `docs/code-review/` in the **reviewed** repo. This file is the only skill reference for this branch.
 
+## Contents
+
+- [Selection](#selection)
+- [Resolve targets](#resolve-targets)
+- [Make-code](#make-code)
+- [Apply loop](#apply-loop)
+- [Clean fix](#clean-fix)
+- [Fix acceptance gate](#fix-acceptance-gate)
+- [After all targets](#after-all-targets)
+- [Completion criterion](#completion-criterion)
+
 ## Selection
 
 Parse the remainder after `fix` \| `apply` \| `implement` (case-insensitive). First matching row wins:
@@ -108,7 +119,7 @@ Remaining: 2 (P2), 5 (P3), 6 (P2)
 
 Omit that block when no leftover IDs remain. **all** and **ids** omit it.
 
-Skip review pipelines. The next `/code-review-plus` is **delta**: closed paths plus new P0/P1 on the fix hunks. Do not re-dispatch the full hunter set.
+Skip review pipelines. The next `/code-review-plus` runs as **delta** (`scope.md` § Prior memory).
 
 ## Completion criterion
 

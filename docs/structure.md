@@ -30,8 +30,8 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │       ├── test-quality.md # tests already in the diff (Quality)
 │   │       ├── dependency-review.md
 │   │       ├── remedies.md
-   │   │       └── templates/      # final report
-   │   ├── make-changelog/         # CHANGELOG.md: init / update / bump
+│   │       └── templates/      # final report
+│   ├── make-changelog/         # CHANGELOG.md: init / update / bump
 │   │   ├── SKILL.md
 │   │   ├── agents/openai.yaml
 │   │   └── references/

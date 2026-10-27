@@ -71,7 +71,7 @@ flowchart TD
 These files belong in the reviewed repo, not in this skill folder. The skill does not commit them.
 
 - `docs/code-review/YYYY-MM-DD-HH-MM.md`: findings from that review. `/code-review-plus fix` adds a `## Fix` section on first apply.
-- `docs/code-review/knowns.md`: created when you mark a finding as a false positive or out of scope
+- `docs/code-review/knowns.md`: created when you mark a finding as a false positive or won't-fix
 
 The next review reads those files and runs as delta when a prior HEAD exists. Fix loads findings from this conversation or from that memory, reads `## Fix` for already-closed items, and updates the same file. Bare `fix` applies P0, P1, and vuln, then names leftover IDs. Any `fix` reads `make-code` when that skill is in the environment (write or refactor per finding; Clean fix otherwise). After a fix, the next `/code-review-plus` is delta (closed paths plus new P0/P1).
 

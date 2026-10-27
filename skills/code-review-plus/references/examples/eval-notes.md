@@ -12,7 +12,7 @@ Pipelines: …
 Tier: trivial | normal | large/sensitive
 Mode: fresh | delta
 Shapes: … | none
-quality source: make-code | slim-fallback | skipped
+quality source: make-code | slim-fallback (omit when Quality did not run)
 
 False positive that survived Pass B? (one line or "none")
 True positive wrongly dropped/downgraded? (one line or "none")

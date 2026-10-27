@@ -53,12 +53,6 @@ If the **reviewed repo** is read-only, record the gap under Notes and still emit
 
 Phase 4.5 is done when the file exists (or the read-only gap is stated). Only then send the Phase 4 skeleton as the user-facing reply.
 
-## Fix branch
-
-The fix branch loads Findings from this conversation or from `docs/code-review/`, then reads `## Fix` to skip work already done. Instructions live in the fix branch (`/code-review-plus fix`). Write one timestamped file per review.
-
-To drop old timestamped files: `/code-review-plus prune`.
-
 ## Completion criterion
 
 The timestamped review file is written with Findings, Notes, and Mode (Test quality only when tests are in source and Quality ran; `quality source` when Quality ran; `## Fix` only after the first apply), or the read-only gap is stated. The report is ready to emit.

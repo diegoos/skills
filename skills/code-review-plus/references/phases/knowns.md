@@ -1,6 +1,6 @@
 # Known items
 
-Orchestrator-only. Open when the user marks a finding as a false positive or out of scope. Confirm the row in that turn.
+Orchestrator-only. Open when the user marks a finding as a false positive or won't-fix. Confirm the row in that turn.
 
 Create `docs/code-review/knowns.md` in the **reviewed** repo if it is missing. `knowns.md` stays; prune and persist do not delete it.
 

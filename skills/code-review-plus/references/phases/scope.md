@@ -2,6 +2,18 @@
 
 Establish intent, review source, dispatch tier, `Pipelines`, and stack tags before any pipeline runs.
 
+## Contents
+
+- [Intent questions](#intent-questions)
+- [Identify what to review](#identify-what-to-review)
+- [Change sizing](#change-sizing)
+- [Dispatch tier (checkable)](#dispatch-tier-checkable)
+- [Stack tags](#stack-tags)
+- [Prior memory](#prior-memory)
+- [Tests first](#tests-first)
+- [Context summary (required for Phase 2)](#context-summary-required-for-phase-2)
+- [Completion criterion](#completion-criterion)
+
 ## Intent questions
 
 Answer before dispatching:
@@ -13,7 +25,7 @@ Answer before dispatching:
 - What should NOT change?
 ```
 
-Record `What should NOT change` in concrete terms (APIs, contracts, UX, callers). The fix branch uses it as the **regression gate**.
+Record `What should NOT change` in concrete terms (APIs, contracts, UX, callers). The **regression gate** (Pass B, synthesize) and the fix **acceptance gate** check fixes against it.
 
 If a PR/commit description exists in context, note whether the first line stands alone as a summary of the change.
 
@@ -26,6 +38,8 @@ If a PR/commit description exists in context, note whether the first line stands
 | Feature branch      | `git diff <base>...HEAD` (use repo's default base)           |
 | Pasted code         | Review directly                                              |
 | Large diff          | Prioritize: new files → modified logic → config → formatting |
+
+No source (empty diff, no named files, no pasted code): say there is nothing to review and stop.
 
 ## Change sizing
 
@@ -71,7 +85,7 @@ If `docs/code-review/` exists in the reviewed repo:
 1. Read `docs/code-review/knowns.md` when present.
 2. Read the latest timestamped review file (`YYYY-MM-DD-HH-MM.md`, not `knowns.md`). Read `## Findings`.
 
-Skip a known false-positive or won't-fix unless the cited path's behavior changed. When a prior review recorded HEAD, set `Mode: delta` and focus this pass on the hunks since that commit. A prior `isolated` Pipelines line covers only the hunters it lists.
+Skip a known false-positive or won't-fix unless the cited path's behavior changed. When a prior review recorded HEAD, set `Mode: delta` and focus this pass on the hunks since that commit. When that file has `## Fix`, hunt the hunks in the files listed under Closed, and keep only new P0/P1 from them. A prior `isolated` Pipelines line covers only the hunters it lists.
 
 Build `Skip` from knowns + prior Findings whose cited path's behavior did not change. Record `Knowns`, `Prior review`, `Mode`, and `Skip` in the context summary (or `none`).
 
@@ -118,4 +132,4 @@ Do not fill `quality_source` here; the Quality hunter returns it.
 
 ## Completion criterion
 
-Scope answers written; review source, sizing, oversized, tier, `Pipelines` names, `Isolated`, `Mode`, `Skip`, stack tags, documentable surface, and lockfile-in-source identified; knowns and prior review read or recorded as none; context summary ready for Phase 2.
+Scope answers written; review source, sizing, oversized, tier, `Pipelines` names, `Isolated`, `Mode`, `Skip`, stack tags, documentable surface, and lockfile-in-source identified; knowns and prior review read or recorded as none; context summary ready for Phase 2. Or no source exists, and the run stopped with nothing to review.
