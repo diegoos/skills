@@ -23,7 +23,7 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │   ├── README.md           # Human: flow, memory, commands
 │   │   ├── agents/openai.yaml
 │   │   └── references/
-│   │       ├── phases/         # scope, dispatch, verify, synthesize, persist, knowns, fix, prune, help
+│   │       ├── phases/         # save, scope, dispatch, verify, synthesize, persist, knowns, fix, prune, help
 │   │       ├── perspectives/   # correctness, security, architecture, quality, performance
 │   │       ├── shapes/         # ts/js/node, python, go, rust, llm (optional, ≤1 per hunter)
 │   │       ├── examples/       # kept-vs-dropped, report-sample

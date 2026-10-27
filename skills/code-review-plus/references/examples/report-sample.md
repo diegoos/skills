@@ -18,10 +18,10 @@ Checks: not run
 
 ### Findings Overview
 
-| ID  | Severity | Category        | Perspective | File                  | Issue                       |
-| --- | -------- | --------------- | ----------- | --------------------- | --------------------------- |
-| 1   | 🔴 P0    | bug             | Correctness | webhook-handler.ts:42 | Unhandled JSON.parse crash  |
-| 2   | 🟡 P2    | maintainability | Quality     | webhook-handler.ts:89 | Mixed validation/processing |
+| ID  | Severity | Category        | Perspective | File                  | Issue                       | Origin |
+| --- | -------- | --------------- | ----------- | --------------------- | --------------------------- | ------ |
+| 1   | 🔴 P0    | bug             | Correctness | webhook-handler.ts:42 | Unhandled JSON.parse crash  | new    |
+| 2   | 🟡 P2    | maintainability | Quality     | webhook-handler.ts:89 | Mixed validation/processing | new    |
 
 ### P0 — Critical (must fix before merge)
 

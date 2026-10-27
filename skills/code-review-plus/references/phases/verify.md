@@ -2,7 +2,7 @@
 
 Reject false positives after all pipelines return. Only candidates that survive Pass B enter synthesis.
 
-When keep/drop is unclear, read `../examples/kept-vs-dropped.md`. Check every Security candidate against § Security precedents in that file. When a candidate is about branching, nesting, a complexity score, speculative abstraction, or YAGNI, also read `../complexity.md`.
+When keep/drop is unclear, read `./references/examples/kept-vs-dropped.md`. Check every Security candidate against § Security precedents in that file. When a candidate is about branching, nesting, a complexity score, speculative abstraction, or YAGNI, also read `./references/complexity.md`.
 
 ## Intake
 
@@ -22,7 +22,7 @@ Re-open `file:line` plus callers, middleware, shared helpers, and consumers as n
 2. Does this contradict another candidate?
 3. Would the suggested fix pass the **regression gate** (minimal, local, respects what-must-not-change)?
 
-Drop or downgrade any item that fails. Future-only risks become hardening, not blockers. Keep maintainability when today's cost is pointable, including Quality extras the Floor did not name. Keep a real issue when `pipeline` is a mismatch; synthesize assigns category. Dead-code after a full consumer search goes to Dead Code, not P0. Formatter/linter style stays unflagged unless the line is broken or unsafe today.
+Drop or downgrade any item that fails. When two candidates contradict, keep the one the re-read code supports and drop the other with that reason. Future-only risks become hardening, not blockers. Keep maintainability when today's cost is pointable, including Quality extras the Floor did not name. Keep a real issue when `pipeline` is a mismatch; synthesize assigns category. Dead-code after a full consumer search goes to Dead Code, not P0. Formatter/linter style stays unflagged unless the line is broken or unsafe today.
 
 `likely` with a pointable line: re-read. Confirm → **proven**. Line holds but the path is still incomplete → keep as hardening (not P0/P1). No line today → drop.
 
@@ -47,7 +47,7 @@ Pass B is complete only when `verification_note` cites what was re-read (`file` 
 
 ## Post-report calibration (optional)
 
-If the user asks to calibrate this review, follow `../examples/eval-notes.md` in the conversation (write a file in the reviewed repo only if they ask).
+If the user asks to calibrate this review, follow `./references/examples/eval-notes.md` in the conversation (write a file in the reviewed repo only if they ask).
 
 ## Completion criterion
 

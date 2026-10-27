@@ -14,18 +14,18 @@ metadata:
 
 # Code Review Plus
 
-**Branches:** review (default) → pipelines by tier → verify (Pass B) → synthesize → report → persist → emit. Fix applies findings with an **acceptance gate**. Prune drops old `docs/code-review/` files. Help explains the skill.
+**Branches:** review (default) → save choice → pipelines by tier → verify (Pass B) → synthesize → report → persist → emit. Fix applies findings with an **acceptance gate**. Prune drops old `docs/code-review/` files. Help explains the skill.
 
-**Invariants:** One hunter per pipeline. **floor** and **today** live in the Hunt bar (`dispatch.md`). **Pass B** drops false positives; P0/P1 require **proven**. **delta** when a prior review recorded HEAD. **regression gate** on suggested fixes.
+**Invariants:** One hunter per pipeline. **floor** and **today** live in the Hunt bar (`./references/phases/dispatch.md`). **Pass B** drops false positives; P0/P1 require **proven**. **delta** when a prior review recorded HEAD. **regression gate** on suggested fixes. **Save** (file or session) is asked once per session.
 
-**Reference budget:** Open a phase file when that phase starts. Hunter load: **1** perspective + **0 or 1** shape. Quality bar, shapes, and orchestrator-only paths: `dispatch.md`. Fix reads `make-code` when that skill is in the environment.
+**Reference budget:** Open a phase file when that phase starts. Hunter load: **1** perspective + **0 or 1** shape. Quality bar, shapes, and orchestrator-only paths: `./references/phases/dispatch.md`. Fix reads `make-code` when that skill is in the environment. Paths in references resolve from the skill folder.
 
 ## Commands
 
 | Invocation                         | Branch     | Behavior                                                      |
 | ---------------------------------- | ---------- | ------------------------------------------------------------- |
-| `/code-review-plus`                | **review** | Phases 1→4.5; pipelines by tier                               |
-| `/code-review-plus <hunter>`       | **review** | Phases 1→4.5; that hunter only                                |
+| `/code-review-plus`                | **review** | Phases 0→4.5; pipelines by tier                               |
+| `/code-review-plus <hunter>`       | **review** | Phases 0→4.5; that hunter only                                |
 | `/code-review-plus fix`            | **fix**    | P0, P1, and vuln; then remaining-ID hints                     |
 | `/code-review-plus fix all`        | **fix**    | every P0–P3 finding (nits included)                           |
 | `/code-review-plus fix <ids>`      | **fix**    | those Findings IDs (`2,3,6` or `2 3 6`)                       |
@@ -36,9 +36,9 @@ Hunter names (case-insensitive): `correctness` \| `security` \| `architecture` \
 
 Parse the text after `/code-review-plus` (first reserved token wins):
 
-1. `fix` \| `apply` \| `implement` → **fix**; remainder is the **selection** (`all` \| finding IDs \| empty default). Open `fix.md`
+1. `fix` \| `apply` \| `implement` → **fix**; remainder is the **selection** (`all` \| finding IDs \| empty default). Open `./references/phases/fix.md`
 2. `prune` → **prune**
-3. `help` → **help**. Open `help.md`
+3. `help` → **help**. Open `./references/phases/help.md`
 4. Two or more hunter names and no `only` → **review**, pipelines by tier
 5. A hunter name as the first token → **review**, `Pipelines` = that hunter
 6. Else, case-insensitive phrases: `code quality` → Quality; `page performance` → Performance; `only` + a hunter name → that hunter
@@ -48,18 +48,19 @@ When the user marks a finding as a false positive or won't-fix, READ `./referenc
 
 ## Definition of Done
 
-Done for each phase is the completion criterion in its READ file. Open the next phase file when that criterion is met. Emit the report when Phase 4.5 is done.
+Done for each phase is the completion criterion in its READ file. Open the next phase file when that criterion is met.
 
 ### Branch review
 
 | Phase        | Done when                                                                                   | READ                                |
 | ------------ | ------------------------------------------------------------------------------------------- | ----------------------------------- |
+| 0 Save       | `Save` recorded as file or session; asked once per session                                  | `./references/phases/save.md`       |
 | 1 Scope      | Intent + source + sizing + tier + Pipelines + Isolated + tags + knowns + context ready      | `./references/phases/scope.md`      |
 | 2 Dispatch   | Each Pipelines name returned (empty list valid); shapes recorded when attached              | `./references/phases/dispatch.md`   |
 | 2.5 Verify   | Every candidate has status + cited note                                                     | `./references/phases/verify.md`     |
 | 3 Synthesize | Surviving findings have required fields + severity and go in the report                     | `./references/phases/synthesize.md` |
 | 4 Report     | Skeleton filled (not yet sent)                                                              | `./references/templates/report.md`  |
-| 4.5 Persist  | `docs/code-review/<timestamp>.md` written (or read-only gap stated); then emit the skeleton | `./references/phases/persist.md`    |
+| 4.5 Persist  | File written, session ledger filled, or read-only gap stated; then emit the skeleton        | `./references/phases/persist.md`    |
 
 ### Branch fix (`fix` \| `apply` \| `implement`)
 
@@ -82,6 +83,7 @@ Done for each phase is the completion criterion in its READ file. Open the next 
 ## Rules
 
 - Report secrets as `file:line` + type only; redact values in the report and in fixes
+- When the conversation is compacted, keep a short findings history in the summary: the `Save` choice and, for the newest review, each finding's ID, severity, `file:line`, and status (open, closed, deferred, or known)
 
 ## Skill links
 

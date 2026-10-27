@@ -25,12 +25,12 @@ If the harness has no subagent, run the names **in series** (one perspective at 
 
 **Carry list.** After each pipeline returns, append each candidate's `location`, `title`, and `pipeline` (Quality also `quality_source`). A pipeline with no candidates still records `pipeline: … (none)` (Quality: also `quality_source`). Restate that compact list before starting the next pipeline. Auto-compact drops earlier hunts: restore from that restated list first, then continue. Mid-series with no restated block for a finished pipeline is a failed dispatch; rebuild from the last restated block before the next hunt.
 
-Carry is orchestrator storage. The next hunter still receives only its own perspective (prompt template below). Deduplicate in Phase 2.5.
+Carry is orchestrator storage. The next hunter still receives only its own perspective (prompt template below). Deduplicate in Phase 3.
 
 Prompt rules:
 
 - No shared findings until Phase 2.5 (serial carry list is orchestrator memory, not hunter input)
-- Each prompt includes: scope summary (compact) + perspective path + optional shape path
+- Each prompt includes: scope summary (compact; leave out `Save`, `Prior findings`, and `Closed paths`) + perspective path + optional shape path
 - Quality also receives `./references/test-quality.md` when Quality is in `Pipelines` and Phase 1 marked **tests in source**
 - Quality prompt includes the Quality bar block below; other hunters omit it
 - Report which shapes were attached (for the report `shapes:` line), including on `normal`

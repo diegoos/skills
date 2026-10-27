@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `make-skill`: *new skill* that creates, edits, splits, tightens, and debugs AI agent skills, starting from `SKILL.md` and adding files or `cases.md` when the work or the request needs them, with a worked example and a copyable template (`metadata.version` → `0.1.0`), listed in the root `README.md`.
 - `make-code`: human `README.md` with the branches, the five steps, and the Floor.
+- `code-review-plus`: a review first asks, once per session, whether to save the report, and a session-only run keeps findings, fixes, and knowns in a ledger in the conversation that later review and fix calls read, and a compaction keeps a short findings history.
 
 ### Changed
 
@@ -28,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `code-review-plus`: a delta review after a fix rechecks the closed paths and keeps only new P0/P1 there, an empty review source stops the run, and findings use one category set (vulnerability, bug, hardening, maintainability).
 - `make-code`: a speed request without a named hotspot asks once and stops; the run reports the branch, the rung, and the check.
 - `make-code`: Trace fills six fields, and KISS, CC, and Match cannot be skipped.
+- `code-review-plus`: a new review marks each finding as new or prior and carries open prior findings (re-checking only those of the hunters that ran), prior memory applies only to the same branch and survives a rebase, dismissed findings stay closed, and the reviewer decides whether a verified P1 blocks the merge.
 - `make-code`: every run prefers the lightest, cheapest path that meets the request (`metadata.version` → `0.5.0`).
 - `make-commits`: subjects default to the third-person present in the request's language, and bodies are one-line bullets used only for complex changes (`metadata.version` → `0.4.0`).
 - `make-commits`: language and subject shape follow the newest commit subjects, including the messages kept inside a squash commit.

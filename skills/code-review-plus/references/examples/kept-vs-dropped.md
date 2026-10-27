@@ -1,6 +1,6 @@
 # Examples — kept vs dropped
 
-Read this file when Pass B is unsure whether to keep or drop a candidate, and read § Security precedents for every Security candidate. Do not preload.
+Pass B reads this file (`./references/phases/verify.md` says when). Do not preload.
 
 ## Contents
 
@@ -74,7 +74,7 @@ Read this file when Pass B is unsure whether to keep or drop a candidate, and re
 | ----------------------------------------------------------------------------- | ------------------------------------------------------------------ |
 | DoS, resource exhaustion, missing rate limit, memory or FD leak               | Drop                                                               |
 | Missing headers, CSP, or non-session cookie flags; no exploit path            | Hardening at most                                                  |
-| Outdated dependency or advisory                                               | `../dependency-review.md` owns it                                  |
+| Outdated dependency or advisory                                               | `./references/dependency-review.md` owns it                        |
 | Attack needs control of env vars, CLI flags, or deploy config                 | Drop                                                               |
 | Attack needs guessing a UUID or other random id                               | Drop                                                               |
 | XSS in React/JSX with no `dangerouslySetInnerHTML` or other raw sink          | Drop                                                               |
