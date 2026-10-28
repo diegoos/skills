@@ -1,8 +1,8 @@
-# Phase 2.5 — Validator
+# Phase 2.5 — Verify
 
 Reject false positives after all pipelines return. Only candidates that survive Pass B enter synthesis.
 
-When keep/drop is unclear, read `../examples/kept-vs-dropped.md`. When a candidate is about branching, nesting, a complexity score, speculative abstraction, or YAGNI, also read `../complexity.md`.
+When keep/drop is unclear, read `./references/examples/kept-vs-dropped.md`. Check every Security candidate against § Security precedents in that file (default verdicts). When a candidate is about branching, nesting, a complexity score, speculative abstraction, or YAGNI, also read `./references/complexity.md`.
 
 ## Intake
 
@@ -12,25 +12,25 @@ Confirm each candidate still carries:
 - `exploit_or_break_path` with a pointable line today (break, exploit, or cost)
 - `suggested_fix` that is minimal and local when possible
 
-Drop immediately if those fields are missing, speculative, or `location` is on Phase 1 `Skip` and that path's behavior did not change.
+Fill a missing field from the re-read. Drop immediately when no pointable line exists today, the path is speculative, or `location` is on Phase 1 `Skip` and that path's behavior did not change.
 
-## Pass B — validator
+## Pass B
 
 Re-open `file:line` plus callers, middleware, shared helpers, and consumers as needed. Three questions on **every** remaining candidate:
 
-1. Does the break, exploit, or today's cost hold on reading the code, with a pointable `file:line`?
-2. Does this contradict another candidate or a likely "What Looks Good" strength?
-3. Would the suggested fix pass the **regression gate** (minimal, local, respects what-must-not-change)?
+1. Does the break, exploit, or today's cost hold on reading the code, with a pointable `file:line`? For Security: at the lowest privilege that reaches it, with no existing control at a cited line that blocks it.
+2. Does this contradict another candidate?
+3. Would the suggested fix pass the **regression gate** (minimal, local, respects what-must-not-change), and does `regression_risk` name what it can break?
 
-Drop or downgrade any item that fails. Future-only risks become hardening, not blockers. Keep maintainability when today's cost is pointable, including Quality extras the Floor did not name. Keep a real issue when `pipeline` is a mismatch; synthesize assigns category. Dead-code after a full consumer search goes to Dead Code, not P0. Formatter/linter style stays unflagged unless the line is broken or unsafe today.
+Drop or downgrade any item that fails. When two candidates contradict, keep the one the re-read code supports and drop the other with that reason. Future-only risks become hardening, not blockers. Keep maintainability when today's cost is pointable, including Quality extras the Floor did not name. Keep a real issue when `pipeline` is a mismatch; synthesize assigns category. Dead-code after a full consumer search goes to Dead Code, not P0. Formatter/linter style stays unflagged unless the line is broken or unsafe today.
 
 `likely` with a pointable line: re-read. Confirm → **proven**. Line holds but the path is still incomplete → keep as hardening (not P0/P1). No line today → drop.
 
-On residual ambiguity (middleware vs route, framework return shape, `needs-runtime` borderline): downgrade or mark unverified. Pass B decides on this candidate set.
+On residual ambiguity (middleware vs route, framework return shape, a break only runtime can prove): downgrade or mark unverified. Pass B decides on this candidate set.
 
 ### P0 bar
 
-P0 is an exploit/break path reconfirmed today with a pointable `file:line` after Pass B. Maintainability, YAGNI-without-a-hole, verified unused code, and `needs-runtime` without proof in code stay below P0 (unverified or hardening). P0 and P1 require `evidence_level: proven`.
+P0 is an exploit/break path reconfirmed today with a pointable `file:line` after Pass B. Maintainability, YAGNI-without-a-hole, verified unused code, and a break only runtime can prove stay below P0 (unverified or hardening). P0 and P1 require `evidence_level: proven`.
 
 ## Verification artifact (required per candidate)
 
@@ -47,7 +47,7 @@ Pass B is complete only when `verification_note` cites what was re-read (`file` 
 
 ## Post-report calibration (optional)
 
-If the user asks to calibrate this review, follow `../examples/eval-notes.md` in the conversation (write a file in the reviewed repo only if they ask).
+If the user asks to calibrate this review, follow `./references/examples/eval-notes.md` in the conversation (write a file in the reviewed repo only if they ask).
 
 ## Completion criterion
 

@@ -1,8 +1,8 @@
-# Pipeline — Performance
+# Hunter — Performance
 
 Hunt hot-path cost, unbounded work, and UI churn.
 
-For profiling guidance, use `performance-optimization` when available. Speculative optimization without a named hotspot is Quality YAGNI.
+Speculative optimization without a named hotspot is Quality YAGNI.
 
 ## Hunt for
 

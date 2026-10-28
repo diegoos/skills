@@ -18,7 +18,7 @@ The first reserved token (`fix` / `apply` / `implement` / `prune` / `help`) wins
 
 ## How it works
 
-The orchestrator scopes the change: intent, size, dispatch tier, stack tags, and the `Pipelines` that will run. When `docs/code-review/knowns.md` and a previous review file exist, it reads them. Known false positives stay closed unless the cited path changed. A prior isolated review covers only the hunters it listed. If a prior review recorded a HEAD, this pass is **delta** and hunts hunks since that commit.
+First, the skill asks once per session whether to save the report under `docs/code-review/` or keep it in this session only. Then the orchestrator scopes the change: intent, size, dispatch tier, stack tags, and the `Pipelines` that will run. It reads the prior memory: the newest session ledger, or `knowns.md` and the newest review file for this branch. Known false positives stay closed unless the cited path changed. A prior isolated review covers only the hunters it listed. If a prior review recorded a HEAD that is still in this branch's history, this pass is delta and hunts the hunks since that commit. Open findings from that review stay in the table, so none drops out unfixed. The hunters that ran re-check their own, the orchestrator re-checks those owned by a hunter the tier skips, and dismissed findings stay closed.
 
 Default pipelines:
 
@@ -28,37 +28,43 @@ Default pipelines:
 
 Performance runs only when isolated.
 
-Each hunter gets one perspective and at most one stack shape, picked by priority. Security and Quality skip `web`/`api` shapes because the Security perspective already covers that surface. Hunt lists are a **floor**: cover every listed item, then report other issues in that pipeline that have a cost today. The Quality hunter reads `quality.md`, which opens `make-code` when that skill is in the environment; otherwise it hunts the default Floor in `quality.md` and the report says so. Either way it also covers docs sync, dead code, and tests already in the diff (`test-quality.md` when tests are in source).
+Each hunter gets one perspective and at most one stack shape, picked by priority. Security gets the `llm` shape only; the other hunters get the majority language shape. The Security perspective has no hunt list; it gives the hunter a method and a confidence bar. The other hunt lists are a floor: the hunter covers every listed item, then reports other issues in its scope that have a cost today. A clear issue owned by a hunter that did not run is reported too; an isolated review reports it only at P0/P1 level. The Quality hunter reads `quality.md`, which opens `make-code` when that skill is in the environment; otherwise it hunts the default Floor in `quality.md` and the report says so. Either way it also covers docs sync, dead code, and tests already in the diff (`test-quality.md` when tests are in source).
 
-When the hunters return, the orchestrator checks every candidate against the code (Pass B), assigns severity, and puts every kept finding in the report. It writes memory under `docs/code-review/` in the reviewed repo, then replies with the report.
+When the hunters return, the orchestrator checks every candidate against the code (Pass B), assigns severity, and puts every kept finding in the report. It marks each finding as new or prior, writes the memory (a file under `docs/code-review/` or a session ledger at the end of the reply), then replies with the report.
 
 ## Flow
 
 ```mermaid
 flowchart TD
   invoke[Invoke by name]
-  invoke -->|no subcommand| scope[1 Scope]
-  invoke -->|hunter token or isolate phrase| scope
-  invoke -->|fix apply implement| fix[Fix branch]
+  invoke -->|no subcommand| save{"0 Save report? (once per session)"}
+  invoke -->|hunter token or isolate phrase| save
+  save -->|file or session| scope[1 Scope]
+  invoke -->|fix, apply, implement| fix[Fix branch]
   invoke -->|prune| prune[Prune memory]
   invoke -->|help| help[Help reply]
-  scope --> mode{Prior persist?}
+  scope --> mode{Prior review recorded HEAD?}
   mode -->|no| fresh[Mode fresh]
   mode -->|yes| delta[Mode delta]
-  fresh --> dispatch[2 Dispatch hunters]
+  fresh --> dispatch["2 Dispatch: Pipelines by tier or one hunter"]
   delta --> dispatch
-  dispatch --> verify[2_5 Validator]
+  dispatch --> verify["2.5 Verify: Pass B"]
   verify --> synth[3 Synthesize]
-  synth --> persist[4_5 Write docs/code-review]
+  synth --> report["4 Report: fill skeleton"]
+  report --> persist["4.5 Persist: file or session ledger"]
   persist --> emit[Reply to user]
-  emit -->|user marks FP or skip| knowns[Update knowns.md]
+  emit -->|"user marks FP or won't-fix"| knowns[Update knowns.md]
   emit -->|user asks fix| fix
-  fix --> fillFix[Fill Fix section]
-  persist -->|next invoke| delta
+  fix --> load{Findings in conversation or memory?}
+  load -->|none| askList[Ask for findings]
+  load -->|yes| apply[Apply selection with acceptance gate]
+  apply --> fillFix[Fill Fix section]
+  persist -.->|next invoke| delta
+  fillFix -.->|next invoke| delta
   prune --> count[Count review files]
   count -->|zero| stop[Stop]
   count -->|one or more| ask[Ask keep 3, 5, all, or N]
-  ask --> dropOld[Delete older files]
+  ask --> dropOld[Delete older files, keep knowns.md]
 ```
 
 ## Review memory
@@ -66,22 +72,20 @@ flowchart TD
 These files belong in the reviewed repo, not in this skill folder. The skill does not commit them.
 
 - `docs/code-review/YYYY-MM-DD-HH-MM.md`: findings from that review. `/code-review-plus fix` adds a `## Fix` section on first apply.
-- `docs/code-review/knowns.md`: created when you mark a finding as a false positive or out of scope
+- `docs/code-review/knowns.md`: created when you mark a finding as a false positive or won't-fix
 
-The next review reads those files. It is **delta** when a prior HEAD exists. Fix loads findings from this conversation or from that memory, reads `## Fix` for already-closed items, and updates the same file. Bare `fix` applies P0, P1, and vuln, then names leftover IDs. Any `fix` reads `make-code` when that skill is in the environment (write or refactor per finding; Clean fix otherwise). After a fix, the next `/code-review-plus` is delta (closed paths plus new P0/P1).
+When you choose not to save, nothing is written in the repo. The same memory lives in a session ledger at the end of each reply, and later review, fix, and knowns calls in that session update it.
+
+The next review reads those files and runs as delta when a prior HEAD exists. Fix loads findings from this conversation or from that memory, reads `## Fix` for already-closed items, and updates the same file. Bare `fix` applies P0, P1, and vuln, then names leftover IDs. Any `fix` reads `make-code` when that skill is in the environment (make-code picks write or refactor per finding; Clean fix otherwise). Each fix re-reads the callers, contracts, and tests in `regression_risk` and reports any risk left: what can break, where, and how to check it. After a fix, the next `/code-review-plus` is delta: it re-checks closed paths, keeps new P0/P1 there, and keeps any regression at a risk the fix stated.
 
 `/code-review-plus prune` counts timestamped review files first, then asks whether to keep the last 3, the last 5, delete all, or keep a number you type. `knowns.md` stays.
 
 ## Files
 
 - [`SKILL.md`](SKILL.md): router (review vs fix vs prune vs help; hunter override on review)
-- [`references/phases/`](references/phases/): scope, dispatch, verify, synthesize, persist, knowns, fix, prune, help
+- [`references/phases/`](references/phases/): save, scope, dispatch, verify, synthesize, persist, knowns, fix, prune, help
 - [`references/perspectives/`](references/perspectives/): the five hunters (`quality.md` is the Quality entry point and holds the default Floor)
 - [`references/shapes/`](references/shapes/): optional stack overlays
 - [`references/test-quality.md`](references/test-quality.md): tests already in the diff (Quality)
-- [`references/complexity.md`](references/complexity.md): cyclomatic vs cognitive load, YAGNI, CC Floor cap **20** (orchestrator, Pass B)
+- [`references/complexity.md`](references/complexity.md): cyclomatic vs cognitive load, YAGNI, CC Floor cap 20 (orchestrator, Pass B)
 - [`references/templates/report.md`](references/templates/report.md): report skeleton
-
-## Security run
-
-This skill always uses its own Security hunter. When the report suggests a deeper pass, use [`deep-security-review`](https://github.com/diegoos/skills/tree/main/skills/deep-security-review).

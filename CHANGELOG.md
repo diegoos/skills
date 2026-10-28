@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `make-skill`: *new skill* that creates, edits, splits, tightens, and debugs AI agent skills, starting from `SKILL.md` and adding files or `cases.md` when the work or the request needs them, with a worked example and a copyable template (`metadata.version` → `0.1.0`), listed in the root `README.md`.
 - `make-code`: human `README.md` with the branches, the five steps, and the Floor.
+- `code-review-plus`: a review first asks, once per session, whether to save the report, and a session-only run keeps findings, fixes, and knowns in a ledger in the conversation that later review and fix calls read, and a compaction keeps a short findings history.
 
 ### Changed
 
@@ -23,8 +24,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `write-great-instructions`: the description skips writing an agent skill (`SKILL.md`) and points to `make-skill`.
 - `make-code`: a declaration or assignment has a blank line before the following `if`, braced or on one line; consecutive inline `if`s stay on adjacent lines, and Blank lines cannot be skipped.
 - `make-code`: the description is third person and also matches a refactor or a make-it-faster request; when workspace search is unavailable, Climb uses the files already open and adds no dependency.
+- `code-review-plus`: removes the `deep-security-review` suggestion, Skill links, and install command from the review output and references.
+- `code-review-plus`: the Security hunter follows a context → compare → trace method with a high-confidence bar instead of a checklist, and Pass B checks every Security candidate against a list of known non-findings.
+- `code-review-plus`: a delta review after a fix rechecks the closed paths and keeps only new P0/P1 there, an empty review source stops the run, and findings use one category set (vulnerability, bug, hardening, maintainability).
 - `make-code`: a speed request without a named hotspot asks once and stops; the run reports the branch, the rung, and the check.
 - `make-code`: Trace fills six fields, and KISS, CC, and Match cannot be skipped.
+- `code-review-plus`: a hunter reports a clear issue owned by a hunter that did not run, Security precedents are defaults that a concrete exploit overrides, fixes run the full `make-code` workflow with the suggested fix as a hint, findings stay short and direct while each regression risk is explained with what, where, and how to check, and the report puts run metadata on one line.
+- `code-review-plus`: the next review re-checks findings owned by a hunter the tier skips and keeps any regression at a risk a fix stated, the session ledger keeps finding details and survives compaction whole, Security skips are defaults, and an isolated review reports another hunter's issue only at P0/P1 level.
+- `code-review-plus`: Pass B fills a missing candidate field instead of dropping it, intent comes from the PR text and the diff before asking, a fix that fails the gate twice is reverted and deferred, a check that failed before the fix no longer blocks it, and project checks still run after make-code's own check.
+- `code-review-plus`: a new review marks each finding as new or prior and carries open prior findings (re-checking only those of the hunters that ran), prior memory applies only to the same branch and survives a rebase, dismissed findings stay closed, and the reviewer decides whether a verified P1 blocks the merge.
 - `make-code`: every run prefers the lightest, cheapest path that meets the request (`metadata.version` → `0.5.0`).
 - `make-commits`: subjects default to the third-person present in the request's language, and bodies are one-line bullets used only for complex changes (`metadata.version` → `0.4.0`).
 - `make-commits`: language and subject shape follow the newest commit subjects, including the messages kept inside a squash commit.
@@ -42,11 +50,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - `deep-security-review` no longer installs (`npx skills add diegoos/skills --skill deep-security-review`); the files live in `deprecated/deep-security-review`.
+- `code-review-plus`: the unused `web` and `api` shapes and stack tags; Security takes only the `llm` shape.
 - `frontend-design-plus` no longer installs (`npx skills add diegoos/skills --skill frontend-design-plus`); the files live in `deprecated/frontend-design-plus`.
-
-### Fixed
-
-- `make-code`: the human README no longer lists `cases.md`, which is not in the skill folder.
 
 ## [0.2.3] - 2026-10-02
 

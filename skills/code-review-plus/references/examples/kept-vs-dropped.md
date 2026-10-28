@@ -1,6 +1,13 @@
 # Examples — kept vs dropped
 
-Read this file only when Pass B is unsure whether to keep or drop a candidate. Do not preload.
+Pass B reads this file (`./references/phases/verify.md` says when). Do not preload.
+
+## Contents
+
+- [Dropped (classic false positives)](#dropped-classic-false-positives)
+- [Kept (true positives)](#kept-true-positives)
+- [Security precedents](#security-precedents)
+- [Stack examples](#stack-examples)
 
 ## Dropped (classic false positives)
 
@@ -45,6 +52,41 @@ Read this file only when Pass B is unsure whether to keep or drop a candidate. D
 
 - **Signal:** Handler mutates privileged state; no auth check on route; global middleware does not match this path.
 - **Why keep:** Concrete auth gap today. Point to the handler line and the middleware matcher that misses it.
+
+### Authenticated lookup by id without owner or tenant scope
+
+- **Signal:** Route requires login, then loads a record by the id from the request and returns or mutates it.
+- **Why keep:** Any user reads or changes another tenant's record today (IDOR). Fix: scope the query by owner or tenant; return 403/404.
+
+### `catch` around a permission check that grants access
+
+- **Signal:** Permission lookup throws or times out; the `catch` continues or returns allow.
+- **Why keep:** Reachable error path plus privilege gain (fail-open). Fix: deny on any authorization failure.
+
+### Tool authorization only in the system prompt
+
+- **Signal:** Prompt says "do not call admin tools"; the server runs the tool with service credentials and no per-user check.
+- **Why keep:** Untrusted content steers the model to an action the caller cannot take through the normal API. Fix: authorize each tool call in server code for the caller.
+
+## Security precedents
+
+Each verdict is a default. Override it only when the re-read shows a concrete attacker → entry → gain in this diff, and say why in `verification_note`.
+
+| Pattern                                                                       | Default verdict                                                    |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| DoS, resource exhaustion, missing rate limit, memory or FD leak               | Drop unless one untrusted request crashes or stalls the service    |
+| Missing headers, CSP, or non-session cookie flags; no exploit path            | Hardening at most                                                  |
+| Outdated dependency or advisory                                               | `./references/dependency-review.md` owns it                        |
+| Attack needs control of env vars, CLI flags, or deploy config                 | Drop                                                               |
+| Attack needs guessing a UUID or other random id                               | Drop                                                               |
+| XSS in React/JSX with no `dangerouslySetInnerHTML` or other raw sink          | Drop                                                               |
+| Missing authz, SSRF, or path traversal in browser-only code                   | Drop; the server enforces                                          |
+| Open redirect, tabnabbing, XS-Leaks, prototype pollution                      | Drop unless it leaks a token or session                            |
+| Logging non-secret, non-PII data; log spoofing                                | Drop. Secrets, tokens, request headers, or PII in logs: keep       |
+| Theoretical race or timing attack                                             | Drop unless the interleaving and the gain are concrete             |
+| Command injection in a shell script or CI workflow                            | Keep only with a concrete path for untrusted input                 |
+| TypeScript types treated as runtime validation                                | Not a control; keep the finding when no runtime check exists       |
+| Helper named `auth()` treated as authorization                                | AuthN is not AuthZ; require owner or tenant proof at the data line |
 
 ## Stack examples
 

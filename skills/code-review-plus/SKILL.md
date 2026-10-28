@@ -1,12 +1,11 @@
 ---
 name: code-review-plus
-description: PR/diff review for bugs, security, and quality; one hunter on demand; fix, fix all, or fix by id; prune or help.
+description: Reviews a PR or diff for bugs, security, and quality, and applies selected findings.
 disable-model-invocation: true
 metadata:
   version: 0.7.1
   author: "Diego Oliveira"
   tags:
-    - code
     - code review
     - security review
     - pr
@@ -15,18 +14,20 @@ metadata:
 
 # Code Review Plus
 
-**Branches:** review (default) → pipelines by tier → validator → synthesize → persist → emit. Fix applies findings with a **regression gate**. Prune drops old `docs/code-review/` files. Help explains the skill.
+**Branches:** review (default) → save choice → pipelines by tier → verify (Pass B) → synthesize → report → persist → emit. Fix applies findings with an **acceptance gate**. Prune drops old `docs/code-review/` files. Help explains the skill.
 
-**Invariants:** One hunter per pipeline. **floor** and **today** live in the Hunt bar (`dispatch.md`). **Pass B** drops false positives; P0/P1 require **proven**. **delta** reads persist. **regression gate** on suggested fixes.
+**Invariants:** One hunter per pipeline. **floor** and **today** live in the Hunt bar (`./references/phases/dispatch.md`). **Pass B** drops false positives; P0/P1 require **proven**. **delta** when a prior review recorded HEAD. **regression gate** on suggested and applied fixes. **Save** (file or session) is asked once per session.
 
-**Reference budget:** Open a phase file when that phase starts. Hunter load: **1** perspective + **0 or 1** shape. Quality bar, shapes, and orchestrator-only paths: `dispatch.md`. Fix reads `make-code` when that skill is in the environment.
+**Terms:** a hunter reviews one perspective. The `pipeline` field and the report's `Perspective` column name the hunter.
+
+**Reference budget:** Open a phase file when that phase starts. Hunter load: **1** perspective + **0 or 1** shape. Quality bar, shapes, and orchestrator-only paths: `./references/phases/dispatch.md`. Fix reads `make-code` when that skill is in the environment. Paths in references resolve from the skill folder.
 
 ## Commands
 
 | Invocation                         | Branch     | Behavior                                                      |
 | ---------------------------------- | ---------- | ------------------------------------------------------------- |
-| `/code-review-plus`                | **review** | Phases 1→4.5; pipelines by tier                               |
-| `/code-review-plus <hunter>`       | **review** | Phases 1→4.5; that hunter only                                |
+| `/code-review-plus`                | **review** | Phases 0→4.5; pipelines by tier                               |
+| `/code-review-plus <hunter>`       | **review** | Phases 0→4.5; that hunter only                                |
 | `/code-review-plus fix`            | **fix**    | P0, P1, and vuln; then remaining-ID hints                     |
 | `/code-review-plus fix all`        | **fix**    | every P0–P3 finding (nits included)                           |
 | `/code-review-plus fix <ids>`      | **fix**    | those Findings IDs (`2,3,6` or `2 3 6`)                       |
@@ -37,9 +38,9 @@ Hunter names (case-insensitive): `correctness` \| `security` \| `architecture` \
 
 Parse the text after `/code-review-plus` (first reserved token wins):
 
-1. `fix` \| `apply` \| `implement` → **fix**; remainder is the **selection** (`all` \| finding IDs \| empty default). Open `fix.md`
+1. `fix` \| `apply` \| `implement` → **fix**; remainder is the **selection** (`all` \| finding IDs \| empty default). Open `./references/phases/fix.md`
 2. `prune` → **prune**
-3. `help` → **help**. Open `help.md`
+3. `help` → **help**. Open `./references/phases/help.md`
 4. Two or more hunter names and no `only` → **review**, pipelines by tier
 5. A hunter name as the first token → **review**, `Pipelines` = that hunter
 6. Else, case-insensitive phrases: `code quality` → Quality; `page performance` → Performance; `only` + a hunter name → that hunter
@@ -49,26 +50,25 @@ When the user marks a finding as a false positive or won't-fix, READ `./referenc
 
 ## Definition of Done
 
-Done for each phase is the completion criterion in its READ file. Open the next phase file when that criterion is met. Emit the report when Phase 4.5 is done.
+Done for each phase is the completion criterion in its READ file. Open the next phase file when that criterion is met.
 
 ### Branch review
 
 | Phase        | Done when                                                                                   | READ                                |
 | ------------ | ------------------------------------------------------------------------------------------- | ----------------------------------- |
+| 0 Save       | `Save` recorded as file or session; asked once per session                                  | `./references/phases/save.md`       |
 | 1 Scope      | Intent + source + sizing + tier + Pipelines + Isolated + tags + knowns + context ready      | `./references/phases/scope.md`      |
 | 2 Dispatch   | Each Pipelines name returned (empty list valid); shapes recorded when attached              | `./references/phases/dispatch.md`   |
 | 2.5 Verify   | Every candidate has status + cited note                                                     | `./references/phases/verify.md`     |
 | 3 Synthesize | Surviving findings have required fields + severity and go in the report                     | `./references/phases/synthesize.md` |
 | 4 Report     | Skeleton filled (not yet sent)                                                              | `./references/templates/report.md`  |
-| 4.5 Persist  | `docs/code-review/<timestamp>.md` written (or read-only gap stated); then emit the skeleton | `./references/phases/persist.md`    |
+| 4.5 Persist  | File written, session ledger filled, or read-only gap stated; then emit the skeleton        | `./references/phases/persist.md`    |
 
 ### Branch fix (`fix` \| `apply` \| `implement`)
 
 | Phase | Done when                                                                                          | READ                         |
 | ----- | -------------------------------------------------------------------------------------------------- | ---------------------------- |
 | Fix   | Selected findings applied or deferred; `## Fix` filled; default **selection** names leftover IDs   | `./references/phases/fix.md` |
-
-Prerequisite: a review report in this conversation, a `docs/code-review/` memory file, or an explicit finding list. If none exist, ask. Leave the finding list empty until the user provides one.
 
 ### Branch prune
 
@@ -85,17 +85,14 @@ Prerequisite: a review report in this conversation, a `docs/code-review/` memory
 ## Rules
 
 - Report secrets as `file:line` + type only; redact values in the report and in fixes
+- Write short and direct unless the user asks for detail. A finding still gives a fix run what it needs: `file:line`, the break path, the fix direction, and `regression_risk`. A real regression risk is the exception: explain what can break, where, and how to check it
+- When the conversation is compacted, keep a short findings history in the summary: the `Save` choice and, for the newest review, each finding's ID, severity, `file:line`, and status (open, closed, deferred, or known). With `Save: session`, keep the newest Session ledger verbatim; it is the only memory
 
 ## Skill links
 
-When suggesting `make-code` or `deep-security-review`, include that GitHub URL. Catalog only when naming the collection.
+When suggesting `make-code`, include that GitHub URL. Catalog only when naming the collection.
 
 | Skill                  | URL                                                                        |
 | ---------------------- | -------------------------------------------------------------------------- |
 | make-code              | <https://github.com/diegoos/skills/tree/main/skills/make-code>             |
-| deep-security-review   | <https://github.com/diegoos/skills/tree/main/skills/deep-security-review>  |
 | catalog                | <https://github.com/diegoos/skills/tree/main/skills>                       |
-
-## Relation to `deep-security-review`
-
-This skill always runs its own Security hunter when Security is in `Pipelines`. Leave `deep-security-review` unstarted. When the slim pass cannot close the security question for this change, the report ends with a `/deep-security-review` suggestion plus its Skill links URL (`report.md`).

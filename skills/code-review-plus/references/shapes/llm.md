@@ -1,15 +1,12 @@
-# Shape — LLM / agent surface (PR review)
+# Shape — LLM / agent surface
 
-Hunt prompt and tool-boundary issues in this diff at PR-review depth.
+Treat the model as an untrusted component. Prompts, retrieved documents, and tool output can carry attacker instructions.
 
-## Hunt for
+## Ask
 
-- Untrusted user or retrieved content concatenated into system/developer prompts without a clear boundary
-- Tool / function / MCP output treated as trusted instruction or code without validation
-- Secrets, tokens, or PII placed in prompts, tool args, or model-facing logs in this diff
-- Missing separation of user vs system roles (or equivalent) where the framework supports it
-- Exfiltration path: model-chosen tool args that can send secrets or private data to an external sink
+- Can untrusted content make the model call a tool or reach data that the caller cannot reach through the normal API?
+- Does server code authorize each tool call for the current user and tenant? A system prompt is not a control.
+- Do model output or tool arguments reach an HTML, SQL, shell, file, or network sink without the checks applied to user input?
+- Are secrets or other users' data sent to the model or to model-facing logs?
 
-## Pass A
-
-Report secrets as `file:line` + type only. Hardening without a path today stays category hardening.
+User content inside a prompt is not a finding alone. Keep it when it leads to an action or a data gain above.
