@@ -40,27 +40,21 @@ Dead Code and Test quality "removable" stay ask-before-delete; they are not in *
 
 Before the Apply loop: if the make-code skill is available in this environment, READ it once and set **fix source** `make-code`. Else set **fix source** `slim-fallback`.
 
-When **fix source** is `make-code`, each finding uses that skill's workflow on its slice:
+When **fix source** is `make-code`, each target finding is one make-code request: the `file:line`, the break path, **Must NOT change**, `regression_risk`, and the suggested fix as a hint. make-code runs all its own steps on that slice and picks its branch and its fix. The Apply loop rules and the **fix acceptance gate** still bind. Fold make-code's report for each finding into the fix summary, one line per finding.
 
-- Branch: **write** (bug, vuln, new behavior) · **refactor** (same behavior; a Performance finding with a named hotspot also uses refactor)
-- Trace, Climb, Apply, Prove
-- **Must NOT change** and the **fix acceptance gate** still bind
-- **CC** on new or rewritten functions: make-code Floor cap (or the project's bar)
-
-When **fix source** is `slim-fallback`, step 3 of the Apply loop is **Clean fix** only.
+When **fix source** is `slim-fallback`, step 2 of the Apply loop uses **Clean fix**.
 
 ## Apply loop
 
 For each target finding (one at a time, or one atomic cluster that must ship together):
 
-1. Re-read the cited `file:line`. Take the break path, suggested fix, and `regression_risk` from the report in this conversation, else from `## Details`; derive any that are missing from the re-read.
-2. Apply a **clean minimal local fix** that closes the issue and respects **Must NOT change** from the memory file or the report (Review Summary). Scope = finding path + callers you must touch; no drive-by work outside the finding.
-3. Follow **make-code** Apply when **fix source** is `make-code`; else follow **Clean fix** below.
-4. Redact secret values in commits, comments, and logs; rotate out-of-band if the finding was a leaked secret.
-5. Do not relax auth or validation to make checks pass.
-6. Inspect the fix's own diff and re-read touched callers.
-7. Run project checks when they exist (test / lint / typecheck / format).
-8. Run the **fix acceptance gate** before marking the finding closed.
+1. Re-read the cited `file:line`. Take the break path, suggested fix, and `regression_risk` from the report in this conversation, else from `## Details`; derive any that are missing from the re-read. The suggested fix is a hint; the goal is to close the break path.
+2. Fix the finding and respect **Must NOT change** from the memory or the report (Review Summary). `make-code`: run it as in **Make-code**. `slim-fallback`: apply a minimal local fix per **Clean fix**. Scope = finding path + callers you must touch + the check make-code adds; no drive-by work outside the finding.
+3. Redact secret values in commits, comments, and logs; rotate out-of-band if the finding was a leaked secret.
+4. Do not relax auth or validation to make checks pass.
+5. Regression check: inspect the fix's own diff, then re-read every caller, contract, and test that `regression_risk` names, plus the callers of each changed symbol. Note each behavior that can still change.
+6. Run project checks when they exist (test / lint / typecheck / format). With make-code, its check counts as the test; still run the other checks.
+7. Run the **fix acceptance gate** before marking the finding closed.
 
 ## Clean fix
 
@@ -80,10 +74,11 @@ The finding is closed only when all are true:
 - The original break/exploit path no longer holds on reading the code today
 - No new demonstrable P0/P1 break or vuln was introduced by this fix
 - Documented intentional design and named what-must-not-change still hold
-- The edit matches make-code Floor when **fix source** is `make-code`; else it matches **Clean fix**
-- Checks that were run passed, or failures are explained and fixed before continuing
+- Every caller, contract, and test from the regression check still holds, or the remaining risk is stated
+- make-code's criteria hold when **fix source** is `make-code`; else the edit matches **Clean fix**
+- Checks that were run pass, or every failure is fixed when this fix caused it and stated when it failed before the fix
 
-If the gate fails: revert or narrow the fix, then retry. Do not proceed to the next finding while a gate failure remains open.
+If the gate fails: revert or narrow the fix, then retry. After two failed attempts, revert the fix and defer the finding with the reason. Do not proceed to the next finding while a gate failure remains open.
 
 ## After all targets
 
@@ -95,6 +90,7 @@ Fill `## Fix` on the memory from Resolve targets: the file, or the Session ledge
 - Closed: [ID / severity / file] …
 - Deferred: [ID + why] … | none
 - Open: [ID] … | none
+- Risks: [ID: what can break · where] … | none
 - Checks: ran … | not run …
 - fix source: make-code | slim-fallback
 ```
@@ -103,11 +99,12 @@ Open lists every other kept ID not in Closed or Deferred. The next review re-che
 
 If the memory is missing (read-only gap, no persist, or no ledger), say so in the summary and still report closed vs deferred vs already closed (break path gone, no edit).
 
-Also report to the user:
+Also report to the user, and omit an item that is empty:
 
 - Closed findings (ID / severity / file)
 - Already closed, no edit (ID + why the path is gone)
 - Deferred findings (and why)
+- Regression risks: for each fix that can still change a caller, contract, or test, what can break, where (`file:line`), and how it was checked or how to check it
 - Checks run vs not run
 - Unknown IDs skipped (when **selection** is **ids**)
 - `fix source: make-code | slim-fallback`. When slim-fallback, last line: make-code was not in this environment; fixes used this skill's Clean fix. <https://github.com/diegoos/skills/tree/main/skills/make-code>
@@ -126,4 +123,4 @@ Skip review pipelines. The next `/code-review-plus` runs as **delta** (`./refere
 
 ## Completion criterion
 
-Every finding in the **selection** is closed (gate passed), skipped because the break path is already gone, or explicitly deferred. Unknown IDs named when **ids**. No new demonstrable P0/P1 left by the fixes. The memory's `## Fix` section (file or Session ledger) is updated with Closed, Deferred, and Open (or the missing-memory gap is stated), including **fix source**. Summary of closed vs skipped vs deferred delivered. Slim-fallback summary includes the make-code Skill links URL. **default** summary includes leftover IDs plus `fix all` and `fix <ids>` when leftovers exist.
+Every finding in the **selection** is closed (gate passed), skipped because the break path is already gone, or explicitly deferred. Unknown IDs named when **ids**. No new demonstrable P0/P1 left by the fixes. Each remaining regression risk is stated with what, where, and how to check. The memory's `## Fix` section (file or Session ledger) is updated with Closed, Deferred, and Open (or the missing-memory gap is stated), including **fix source**. Summary of closed vs skipped vs deferred delivered. Slim-fallback summary includes the make-code Skill links URL. **default** summary includes leftover IDs plus `fix all` and `fix <ids>` when leftovers exist.

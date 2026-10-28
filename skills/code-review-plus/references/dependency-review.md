@@ -7,7 +7,7 @@ Orchestrator-only. Open when `package.json`, lockfile, or equivalent manifest is
 - Does the existing stack or stdlib already solve this?
 - Size / bundle impact proportional to the need?
 - Actively maintained (recent commits, open issues)?
-- Known vulns (`npm audit` / equivalent) and compatible license?
+- Known vulns (`npm audit` / equivalent) and compatible license? When the audit cannot run, record it under `Checks: not run`.
 
 Prefer existing utilities over a new dependency.
 

@@ -10,9 +10,9 @@ If Phase 1 marked lockfile in source, read `./references/dependency-review.md` a
 2. Deduplicate: same `file:line` + same cause = one finding
 3. Categorize: assign exactly one category
 4. Prioritize: map category + impact to P0/P1/P2/P3
-5. Origin: a finding that matches a `Prior findings` entry (same file and cause) is `prior <old ID>`; every other finding is `new`
-6. Re-check each `open` prior finding that no finding matched and whose Perspective is in `Pipelines`: re-read its `file:line` and callers. Break holds → carry it with its prior severity, category, and details (derive missing ones from the re-read), Origin `prior <old ID>`, and a `verification_note`. Break gone → count it as closed since the prior review. Carry every other unmatched `open` prior finding unchanged, with Origin `prior <old ID>, not re-checked`. `closed` and `known` prior findings are not carried
-7. In a `Closed paths` file, keep a `new` finding only at P0/P1; count the rest as dropped
+5. Origin: a finding that matches a `Prior findings` entry (same file and cause) is `prior <old ID>`; a finding at a `Fix risks` location that the fix caused is `regression of fix <ID>`; every other finding is `new`
+6. Re-check each `open` prior finding that no finding matched and whose Perspective is in `Pipelines` or, with `Isolated: no`, is a hunter this tier does not run: re-read its `file:line` and callers. Break holds → carry it with its prior severity, category, and details (derive missing ones from the re-read), Origin `prior <old ID>`, and a `verification_note`. Break gone → count it as closed since the prior review. Carry every other unmatched `open` prior finding unchanged, with Origin `prior <old ID>, not re-checked`. `closed` and `known` prior findings are not carried
+7. In a `Closed paths` file, keep a `new` finding only at P0/P1; keep a `regression of fix <ID>` finding at any severity; count the rest as dropped
 8. Attach **regression_risk** on every kept finding's suggested fix
 9. Strengths: 1–2 specific wins that do not contradict findings, or omit the section
 10. Tests in source **and** Quality in `Pipelines`: answer the three Test quality questions (useful / efficient / removable)
@@ -44,7 +44,7 @@ If Phase 1 marked lockfile in source, read `./references/dependency-review.md` a
 - Every `kept` / `downgraded` finding goes in the report. Order by impact.
 - Structural default P2; P1 when this change worsens structure today. Name a remedy from `./references/remedies.md` or mark follow-up with high `regression_risk`.
 - Quality with today's cost is P2/P3 maintainability. Complexity scores: `./references/complexity.md`.
-- Hardening (CSP, HSTS, pagination, `.catch()` on a floating promise) is follow-up, not a merge block.
+- Hardening (CSP, HSTS, a missing guard with no break today) is follow-up, not a merge block. Missing pagination or an unhandled promise rejection that breaks today is a bug.
 - An authorization bypass with a concrete data or privilege gain is P1 or higher.
 
 ## Required fields per finding
@@ -54,16 +54,17 @@ If Phase 1 marked lockfile in source, read `./references/dependency-review.md` a
 3. **Why it is exploitable/breaks/costs today** — concrete path with a pointable line
 4. **Data provenance** when it is a security issue
 5. **Severity** per tables above
-6. **Proposed fix** — minimal and local when possible; consistent with existing logic and intentional design. If not verified to compile/pass, say so.
-7. **regression_risk** — callers, contracts, tests, or Phase 1 "what must NOT change" the fix could alter. If a safe fix is not local, mark structural risk and prefer follow-up over a must-fix structural change.
+6. **Proposed fix** — minimal and local when possible; consistent with existing logic and intentional design. One or two sentences that tell a fix run what to change. If not verified to compile/pass, say so.
+7. **regression_risk** — each caller, contract, test, or Phase 1 "what must NOT change" item the fix can alter, with `file:line` when known. `none` only after the re-read found no consumer at risk. If a safe fix is not local, mark structural risk and prefer follow-up over a must-fix structural change.
 8. **verification_note** — why it survived Pass B
-9. **Origin** — `new` or `prior <old ID>`
+9. **Origin** — `new`, `prior <old ID>`, or `regression of fix <ID>`
 
 ## Regression gate (on suggested fixes)
 
 - Prefer a **minimal local fix** over a broad refactor
 - Name what must stay true after the fix
 - Structural or cross-cutting fixes → follow-up unless the finding is P0 and no local fix exists
+- When the fix can break a caller, contract, test, or Must NOT change item, the finding explains it: what breaks, where (`file:line`), and the check that shows it still holds. This is the one part of a finding that takes full detail
 
 ## Approval standard
 

@@ -1,4 +1,4 @@
-# Pipeline — Performance
+# Hunter — Performance
 
 Hunt hot-path cost, unbounded work, and UI churn.
 

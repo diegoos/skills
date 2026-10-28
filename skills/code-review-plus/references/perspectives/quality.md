@@ -1,4 +1,4 @@
-# Pipeline — Quality
+# Hunter — Quality
 
 If `make-code` is in this environment, READ it once and hunt its Floor (review, no Apply), and return `quality_source: make-code`. Otherwise hunt the default Floor below and return `quality_source: slim-fallback`. **CC** cap is **20** unless the project sets another bar (`./references/complexity.md`).
 
@@ -16,7 +16,7 @@ If `make-code` is in this environment, READ it once and hunt its Floor (review, 
 - Docs sync when Phase 1 marked a documentable surface; skip inventing tutorials
 - Tests already in the diff: apply `./references/test-quality.md` when that path is in this prompt. Missing tests → Correctness
 
-Layer and module boundary breaks → Architecture. N+1 and demonstrated hot paths → Performance.
+Layer and module boundary breaks → Architecture. N+1 and demonstrated hot paths → Performance. When that hunter is not in `Pipelines`, report the issue with `pipeline` set to it (isolated: only a P0/P1-level break).
 
 ## Pass A
 

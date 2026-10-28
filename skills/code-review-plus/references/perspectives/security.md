@@ -1,4 +1,4 @@
-# Pipeline — Security
+# Hunter — Security
 
 Review this diff as a senior security engineer. Report vulnerabilities that this diff introduces or makes reachable, with a real exploit path today. A pre-existing issue stays out unless this diff makes it reachable.
 
@@ -18,6 +18,6 @@ Common classes: injection, authentication or authorization bypass, secrets and c
 - `exploit_or_break_path` names attacker → entry → gain at a pointable `file:line`.
 - Read middleware and shared guards before a route finding.
 - A concrete weak point in this diff whose exploit path is incomplete today → `category_hint: hardening`.
-- Skip: DoS and resource exhaustion, missing rate limits, generic best-practice hardening with no weak point in this diff, dependency advisories (`dependency-review.md` owns them), test-only files.
+- Skip: DoS and resource exhaustion (unless one untrusted request crashes or stalls the service), missing rate limits, generic best-practice hardening with no weak point in this diff, dependency advisories (the orchestrator's dependency review owns them), test-only files. Each skip is a default: raise the issue when this diff makes the attack and the gain concrete (for example, no attempt limit on a short OTP).
 - Report secrets as `file:line` + type only.
 - `suggested_fix` fails closed. Note `regression_risk` for auth contracts and shared middleware.

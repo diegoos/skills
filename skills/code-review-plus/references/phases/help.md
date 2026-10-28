@@ -32,7 +32,7 @@ The orchestrator sizes the change and picks a tier:
 - **large/sensitive** — those three plus Architecture
 - **Performance** — isolated only (`/code-review-plus performance`)
 
-Each hunter covers its **floor** (Security follows a method instead) and may add other in-pipeline issues with today's `file:line`. **Pass B** drops false positives. Every kept finding goes in the report (empty table is valid). A later run is **delta** when a prior HEAD exists, and marks each finding as new or prior.
+Each hunter covers its **floor** (Security follows a method instead) and may add other issues in its scope with today's `file:line`, or a clear issue owned by a hunter that did not run (isolated: only a P0/P1-level break). **Pass B** drops false positives. Every kept finding goes in the report (empty table is valid). A later run is **delta** when a prior HEAD exists, and marks each finding as new or prior.
 
 Quality reads `make-code` when that skill is in the environment; otherwise it uses the built-in Floor and the report says so. <https://github.com/diegoos/skills/tree/main/skills/make-code>
 

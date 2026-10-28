@@ -70,9 +70,11 @@ Pass B reads this file (`./references/phases/verify.md` says when). Do not prelo
 
 ## Security precedents
 
-| Pattern                                                                       | Verdict                                                            |
+Each verdict is a default. Override it only when the re-read shows a concrete attacker → entry → gain in this diff, and say why in `verification_note`.
+
+| Pattern                                                                       | Default verdict                                                    |
 | ----------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| DoS, resource exhaustion, missing rate limit, memory or FD leak               | Drop                                                               |
+| DoS, resource exhaustion, missing rate limit, memory or FD leak               | Drop unless one untrusted request crashes or stalls the service    |
 | Missing headers, CSP, or non-session cookie flags; no exploit path            | Hardening at most                                                  |
 | Outdated dependency or advisory                                               | `./references/dependency-review.md` owns it                        |
 | Attack needs control of env vars, CLI flags, or deploy config                 | Drop                                                               |

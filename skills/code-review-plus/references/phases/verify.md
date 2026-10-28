@@ -2,7 +2,7 @@
 
 Reject false positives after all pipelines return. Only candidates that survive Pass B enter synthesis.
 
-When keep/drop is unclear, read `./references/examples/kept-vs-dropped.md`. Check every Security candidate against § Security precedents in that file. When a candidate is about branching, nesting, a complexity score, speculative abstraction, or YAGNI, also read `./references/complexity.md`.
+When keep/drop is unclear, read `./references/examples/kept-vs-dropped.md`. Check every Security candidate against § Security precedents in that file (default verdicts). When a candidate is about branching, nesting, a complexity score, speculative abstraction, or YAGNI, also read `./references/complexity.md`.
 
 ## Intake
 
@@ -12,7 +12,7 @@ Confirm each candidate still carries:
 - `exploit_or_break_path` with a pointable line today (break, exploit, or cost)
 - `suggested_fix` that is minimal and local when possible
 
-Drop immediately if those fields are missing, speculative, or `location` is on Phase 1 `Skip` and that path's behavior did not change.
+Fill a missing field from the re-read. Drop immediately when no pointable line exists today, the path is speculative, or `location` is on Phase 1 `Skip` and that path's behavior did not change.
 
 ## Pass B
 
@@ -20,7 +20,7 @@ Re-open `file:line` plus callers, middleware, shared helpers, and consumers as n
 
 1. Does the break, exploit, or today's cost hold on reading the code, with a pointable `file:line`? For Security: at the lowest privilege that reaches it, with no existing control at a cited line that blocks it.
 2. Does this contradict another candidate?
-3. Would the suggested fix pass the **regression gate** (minimal, local, respects what-must-not-change)?
+3. Would the suggested fix pass the **regression gate** (minimal, local, respects what-must-not-change), and does `regression_risk` name what it can break?
 
 Drop or downgrade any item that fails. When two candidates contradict, keep the one the re-read code supports and drop the other with that reason. Future-only risks become hardening, not blockers. Keep maintainability when today's cost is pointable, including Quality extras the Floor did not name. Keep a real issue when `pipeline` is a mismatch; synthesize assigns category. Dead-code after a full consumer search goes to Dead Code, not P0. Formatter/linter style stays unflagged unless the line is broken or unsafe today.
 

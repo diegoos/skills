@@ -16,7 +16,9 @@ metadata:
 
 **Branches:** review (default) → save choice → pipelines by tier → verify (Pass B) → synthesize → report → persist → emit. Fix applies findings with an **acceptance gate**. Prune drops old `docs/code-review/` files. Help explains the skill.
 
-**Invariants:** One hunter per pipeline. **floor** and **today** live in the Hunt bar (`./references/phases/dispatch.md`). **Pass B** drops false positives; P0/P1 require **proven**. **delta** when a prior review recorded HEAD. **regression gate** on suggested fixes. **Save** (file or session) is asked once per session.
+**Invariants:** One hunter per pipeline. **floor** and **today** live in the Hunt bar (`./references/phases/dispatch.md`). **Pass B** drops false positives; P0/P1 require **proven**. **delta** when a prior review recorded HEAD. **regression gate** on suggested and applied fixes. **Save** (file or session) is asked once per session.
+
+**Terms:** a hunter reviews one perspective. The `pipeline` field and the report's `Perspective` column name the hunter.
 
 **Reference budget:** Open a phase file when that phase starts. Hunter load: **1** perspective + **0 or 1** shape. Quality bar, shapes, and orchestrator-only paths: `./references/phases/dispatch.md`. Fix reads `make-code` when that skill is in the environment. Paths in references resolve from the skill folder.
 
@@ -83,7 +85,8 @@ Done for each phase is the completion criterion in its READ file. Open the next 
 ## Rules
 
 - Report secrets as `file:line` + type only; redact values in the report and in fixes
-- When the conversation is compacted, keep a short findings history in the summary: the `Save` choice and, for the newest review, each finding's ID, severity, `file:line`, and status (open, closed, deferred, or known)
+- Write short and direct unless the user asks for detail. A finding still gives a fix run what it needs: `file:line`, the break path, the fix direction, and `regression_risk`. A real regression risk is the exception: explain what can break, where, and how to check it
+- When the conversation is compacted, keep a short findings history in the summary: the `Save` choice and, for the newest review, each finding's ID, severity, `file:line`, and status (open, closed, deferred, or known). With `Save: session`, keep the newest Session ledger verbatim; it is the only memory
 
 ## Skill links
 

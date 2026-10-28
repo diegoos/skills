@@ -16,7 +16,7 @@ Establish intent, review source, dispatch tier, `Pipelines`, and stack tags befo
 
 ## Intent questions
 
-Answer before dispatching:
+Answer before dispatching, from the PR or commit text and the diff. Mark an inferred answer as an inference, and ask the user only when the intent cannot be inferred:
 
 ```txt
 - What is this change trying to accomplish?
@@ -86,13 +86,13 @@ The memory is the newest Session ledger in this conversation (`./references/phas
 2. Read the latest review whose `Branch:` matches the current branch: the newest Session ledger, else the newest timestamped file (`YYYY-MM-DD-HH-MM.md`, not `knowns.md`). Read `## Findings` and `## Fix`.
 3. Without git, use that review only when its `Source` names the same files. Otherwise record `Prior review: none`.
 
-From the latest review, build `Prior findings`: each ID with `file:line`, title, and status. IDs under Closed in `## Fix` are `closed`; IDs whose location is in knowns are `known`; every other ID is `open`. `Closed paths` lists the files of the `closed` IDs.
+From the latest review, build `Prior findings`: each ID with `file:line`, title, and status. IDs under Closed in `## Fix` are `closed`; IDs whose location is in knowns are `known`; every other ID is `open`. `Closed paths` lists the files of the `closed` IDs. `Fix risks` lists each `Risks:` entry from `## Fix` (ID, what can break, where).
 
 - `Mode: delta` when the latest review recorded a HEAD that is an ancestor of the current HEAD (`git merge-base --is-ancestor <prior HEAD> HEAD`): focus this pass on the hunks since that commit. Otherwise `Mode: fresh`. After a rebase or amend, `Prior findings` still apply.
 - `Skip`: knowns and `closed` prior findings, each only while its cited path's behavior is unchanged. `open` prior findings stay off `Skip`; Phase 3 matches or re-checks them.
 - A prior isolated `Pipelines` line covers only the hunters it lists.
 
-Record `Knowns`, `Prior review`, `Mode`, `Skip`, `Prior findings`, and `Closed paths` in the context summary (`none` when empty).
+Record `Knowns`, `Prior review`, `Mode`, `Skip`, `Prior findings`, `Closed paths`, and `Fix risks` in the context summary (`none` when empty).
 
 ## Tests first
 
@@ -132,10 +132,11 @@ Prior review: stem / HEAD / none
 Save: file | session
 Prior findings: ID file:line open | closed | known … | none
 Closed paths: file … | none
+Fix risks: ID: what can break · where … | none
 ```
 
 Do not fill `quality_source` here; the Quality hunter returns it.
 
 ## Completion criterion
 
-Scope answers written; review source, sizing, oversized, tier, `Pipelines` names, `Isolated`, `Mode`, `Skip`, stack tags, documentable surface, and lockfile-in-source identified; knowns, prior review, `Prior findings`, and `Closed paths` read or recorded as none; context summary ready for Phase 2. Or no source exists, and the run stopped with nothing to review.
+Scope answers written; review source, sizing, oversized, tier, `Pipelines` names, `Isolated`, `Mode`, `Skip`, stack tags, documentable surface, and lockfile-in-source identified; knowns, prior review, `Prior findings`, `Closed paths`, and `Fix risks` read or recorded as none; context summary ready for Phase 2. Or no source exists, and the run stopped with nothing to review.
