@@ -1,4 +1,4 @@
-# Pipeline — Correctness
+# Hunter — Correctness
 
 Hunt logical errors, edge cases, and type issues.
 

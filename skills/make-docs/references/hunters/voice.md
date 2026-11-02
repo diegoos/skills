@@ -23,4 +23,8 @@ glossary_terms_in_use: []  # terms already in README/docs
 unknowns: []               # mix with no majority, or no prose to sample
 ```
 
-A mix with no majority is an unknown, not a blended candidate. Do not pick a language to be helpful.
+A mix with no majority is an unknown. Leave `language_candidate` empty until confirm records the user's choice.
+
+## Completion criterion
+
+`language_candidate` is a BCP 47 tag with at least one source, or `unknowns` names the mix or the empty sample. `mix_detected` is `yes` or `no`.

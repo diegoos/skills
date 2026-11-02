@@ -4,28 +4,22 @@ Load only if the Phase 4 skeleton fill is unclear. Do not preload during review.
 
 ## Review Summary
 
-Webhook handler. One verified P0 correctness issue before merging. One hardening item listed as P2 follow-up. Verified 3, dropped 1 (CSRF covered by global middleware), downgraded 0.
+Webhook handler. One verified P0 correctness issue before merging. One maintainability item listed as P2 follow-up. Verified 2, dropped 1 (CSRF covered by global middleware), downgraded 0.
 
 Must NOT change: HTTP 2xx contract for valid payloads; idempotency key behavior.
 
-Pipelines: Correctness, Security, Quality (tier: normal); shapes: ts (Correctness, Quality)
-
-Mode: fresh
-
-quality source: slim-fallback
-
-Checks: not run
+Run: Correctness, Security, Quality (tier: normal); shapes: ts (Correctness, Quality) · Mode: fresh · quality source: slim-fallback · Checks: not run
 
 ### Findings Overview
 
-| ID  | Severity | Category  | Perspective | File                  | Issue                       |
-| --- | -------- | --------- | ----------- | --------------------- | --------------------------- |
-| 1   | 🔴 P0    | bug       | Correctness | webhook-handler.ts:42 | Unhandled JSON.parse crash  |
-| 2   | 🟡 P2    | hardening | Quality     | webhook-handler.ts:89 | Mixed validation/processing |
+| ID  | Severity | Category        | Perspective | File                  | Issue                       | Origin |
+| --- | -------- | --------------- | ----------- | --------------------- | --------------------------- | ------ |
+| 1   | 🔴 P0    | bug             | Correctness | webhook-handler.ts:42 | Unhandled JSON.parse crash  | new    |
+| 2   | 🟡 P2    | maintainability | Quality     | webhook-handler.ts:89 | Mixed validation/processing | new    |
 
 ### P0 — Critical (must fix before merge)
 
-**webhook-handler.ts:42** — Request body passed to `JSON.parse()` without try-catch. Malformed payload crashes the worker. Category: current bug. Provenance: direct user input (HTTP body). Regression risk: error response shape for this route; existing happy-path tests.
+**webhook-handler.ts:42** — Request body passed to `JSON.parse()` without try-catch. Malformed payload crashes the worker. Category: bug. Provenance: direct user input (HTTP body). Fix: catch the parse error and return 400. Regression risk: valid payloads must still return 2xx (Must NOT change); the happy-path tests in `webhook-handler.test.ts` show it.
 
 ```typescript
 let payload;
@@ -38,12 +32,12 @@ try {
 
 ### P2 — Suggestions (optional improvements)
 
-**webhook-handler.ts:89** — Validation and processing mixed in one function; a reader cannot state the happy path without simulating both. Category: maintainability. Suggested fix: extract validation with a responsibility name. Regression risk: error response shape for invalid payloads.
+**webhook-handler.ts:89** — Validation and processing mixed in one function; a reader cannot state the happy path without simulating both. Category: maintainability. Fix: extract validation with a responsibility name. Regression risk: error response shape for invalid payloads.
 
 ### Verdict
 
 Request changes — one verified P0 before merge. Quality follow-up is optional.
 
-To apply: `/code-review-plus fix` (P0, P1, vuln) · `/code-review-plus fix all` · `/code-review-plus fix 2` (ids). Aliases: `apply`, `implement`.
+To apply: `/code-review-plus fix` (P0, P1, vuln) · `/code-review-plus fix all` · `/code-review-plus fix 2` (ids).
 
 make-code was not in this environment; Quality used the built-in Floor. <https://github.com/diegoos/skills/tree/main/skills/make-code>

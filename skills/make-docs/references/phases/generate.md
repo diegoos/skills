@@ -1,6 +1,6 @@
 # Generate
 
-Write the confirmed file list. Load, for each file, its template from the SKILL.md table, plus `./references/language.md` and `./references/anti-slop.md`. Hunters do not run in this phase.
+Write the confirmed file list. Load, for each file, its template from the Templates table in SKILL.md, plus `references/language.md` and `references/anti-slop.md`. This phase does not dispatch hunters.
 
 ## Order
 

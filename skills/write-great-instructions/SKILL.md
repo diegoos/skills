@@ -1,9 +1,9 @@
 ---
 name: write-great-instructions
 description: >-
-  Write or edit agent instruction files (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, Cursor `.mdc` rules, Copilot instructions, and other harness instruction files). Use when creating, drafting, or editing those files, or when the user wants better agent instructions for a repo.
+  Write or edit agent instruction files (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, Cursor `.mdc` rules, Copilot instructions, and other harness instruction files). Use when creating, drafting, or editing those files, or when the user wants better agent instructions for a repo. Skip writing an agent skill (SKILL.md); use make-skill.
 metadata:
-  version: 0.5.0
+  version: 0.5.1
   author: "Diego Oliveira"
   tags:
     - instructions

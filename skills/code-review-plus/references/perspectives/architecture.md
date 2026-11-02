@@ -1,4 +1,4 @@
-# Pipeline — Architecture
+# Hunter — Architecture
 
 Hunt structural alignment, boundaries, and pattern consistency. YAGNI, naming, and CC belong to Quality.
 

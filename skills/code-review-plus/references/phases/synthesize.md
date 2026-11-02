@@ -2,7 +2,7 @@
 
 Assign categories, severity, and required finding fields after Pass B verification.
 
-If Phase 1 marked lockfile in source, read `../dependency-review.md` and fold dependency findings that survive the same evidence bar.
+If Phase 1 marked lockfile in source, read `./references/dependency-review.md` and fold dependency findings that survive the same evidence bar.
 
 ## Steps
 
@@ -10,18 +10,22 @@ If Phase 1 marked lockfile in source, read `../dependency-review.md` and fold de
 2. Deduplicate: same `file:line` + same cause = one finding
 3. Categorize: assign exactly one category
 4. Prioritize: map category + impact to P0/P1/P2/P3
-5. Attach **regression_risk** on every kept finding's suggested fix
-6. Self-consistency: "What Looks Good" agrees with findings
-7. Strengths: 1–2 specific wins that do not contradict findings, or omit the section
-8. Tests in source **and** Quality in `Pipelines`: answer the three Test quality questions (useful / efficient / removable)
-9. Verified unused code (all consumers checked) goes to Dead Code, not P0–P3, unless it also breaks behavior today
-10. Copy `quality_source` from the Quality hunter when Quality ran
+5. Origin: a finding that matches a `Prior findings` entry (same file and cause) is `prior <old ID>`; a finding at a `Fix risks` location that the fix caused is `regression of fix <ID>`; every other finding is `new`
+6. Re-check each `open` prior finding that no finding matched and whose Perspective is in `Pipelines` or, with `Isolated: no`, is a hunter this tier does not run: re-read its `file:line` and callers. Break holds → carry it with its prior severity, category, and details (derive missing ones from the re-read), Origin `prior <old ID>`, and a `verification_note`. Break gone → count it as closed since the prior review. Carry every other unmatched `open` prior finding unchanged, with Origin `prior <old ID>, not re-checked`. `closed` and `known` prior findings are not carried
+7. In a `Closed paths` file, keep a `new` finding only at P0/P1; keep a `regression of fix <ID>` finding at any severity; count the rest as dropped
+8. Attach **regression_risk** on every kept finding's suggested fix
+9. Strengths: 1–2 specific wins that do not contradict findings, or omit the section
+10. Tests in source **and** Quality in `Pipelines`: answer the three Test quality questions (useful / efficient / removable)
+11. Verified unused code (all consumers checked) goes to Dead Code, not P0–P3, unless it also breaks behavior today
+12. Copy `quality_source` from the Quality hunter when Quality ran
+13. When `Prior findings` is not `none`, count carried, closed since, and new findings for the Review Summary
 
 ## Categories
 
 | Category                         | Definition                                                                      | Typical severity |
 | -------------------------------- | ------------------------------------------------------------------------------- | ---------------- |
-| **Current vulnerability/bug**    | Exploitable or reproducible breakage today, with a pointable line               | P0/P1            |
+| **Vulnerability**                | Exploitable security issue today, with a pointable line                         | P0/P1            |
+| **Bug**                          | Reproducible breakage today, with a pointable line                              | P0/P1            |
 | **Hardening / defense-in-depth** | Not exploitable today; protects against future evolution or hypothetical caller | P2               |
 | **Maintainability / style**      | Fragile, duplicated, inconsistent; no functional impact                         | P2/P3            |
 
@@ -38,43 +42,34 @@ If Phase 1 marked lockfile in source, read `../dependency-review.md` and fold de
 
 - P0/P1 require **proven** (P0 bar in verify.md). Surviving `likely` is P2 hardening or lower.
 - Every `kept` / `downgraded` finding goes in the report. Order by impact.
-- Structural default P2; P1 when this change worsens structure today. Name a remedy from `../remedies.md` or mark follow-up with high `regression_risk`.
-- Quality with today's cost is P2/P3 maintainability. Complexity scores: `../complexity.md`.
-- Hardening (CSP, HSTS, pagination, `.catch()` on a floating promise) is follow-up, not a merge block.
-
-## Security classification
-
-For each security finding, also classify:
-
-| Level    | Meaning                                                 |
-| -------- | ------------------------------------------------------- |
-| CRITICAL | Exploitable in production with high impact today        |
-| HIGH     | Significant risk with a concrete path; needs prompt fix |
-| MEDIUM   | Defense-in-depth gap, lower immediate risk              |
-
-Include: scenario, impact, data provenance, recommended mitigation.
+- Structural default P2; P1 when this change worsens structure today. Name a remedy from `./references/remedies.md` or mark follow-up with high `regression_risk`.
+- Quality with today's cost is P2/P3 maintainability. Complexity scores: `./references/complexity.md`.
+- Hardening (CSP, HSTS, a missing guard with no break today) is follow-up, not a merge block. Missing pagination or an unhandled promise rejection that breaks today is a bug.
+- An authorization bypass with a concrete data or privilege gain is P1 or higher.
 
 ## Required fields per finding
 
 1. Exact **file:line**
-2. **Category** (vulnerability/bug, hardening, maintainability)
+2. **Category** (vulnerability, bug, hardening, maintainability)
 3. **Why it is exploitable/breaks/costs today** — concrete path with a pointable line
 4. **Data provenance** when it is a security issue
 5. **Severity** per tables above
-6. **Proposed fix** — minimal and local when possible; consistent with existing logic and intentional design. If not verified to compile/pass, say so.
-7. **regression_risk** — callers, contracts, tests, or Phase 1 "what must NOT change" the fix could alter. If a safe fix is not local, mark structural risk and prefer follow-up over a must-fix structural change.
+6. **Proposed fix** — minimal and local when possible; consistent with existing logic and intentional design. One or two sentences that tell a fix run what to change. If not verified to compile/pass, say so.
+7. **regression_risk** — each caller, contract, test, or Phase 1 "what must NOT change" item the fix can alter, with `file:line` when known. `none` only after the re-read found no consumer at risk. If a safe fix is not local, mark structural risk and prefer follow-up over a must-fix structural change.
 8. **verification_note** — why it survived Pass B
+9. **Origin** — `new`, `prior <old ID>`, or `regression of fix <ID>`
 
 ## Regression gate (on suggested fixes)
 
 - Prefer a **minimal local fix** over a broad refactor
 - Name what must stay true after the fix
 - Structural or cross-cutting fixes → follow-up unless the finding is P0 and no local fix exists
+- When the fix can break a caller, contract, test, or Must NOT change item, the finding explains it: what breaks, where (`file:line`), and the check that shows it still holds. This is the one part of a finding that takes full detail
 
 ## Approval standard
 
-Approve (or Approve with follow-ups) when there is no verified P0, even if P2/P3 remain. Preference without today's cost stays off the report.
+Request changes when a verified P0 exists. With a verified P1 and no P0, choose Request changes or Approve with follow-ups by the P1's impact on this merge, and state the reason in the Verdict. Otherwise Approve, or Approve with follow-ups when P2/P3 remain. Carried prior findings count like new ones. Findings with Origin `prior <old ID>, not re-checked` stay in the table and out of the verdict. Preference without today's cost stays off the report.
 
 ## Completion criterion
 
-Every surviving finding has all required fields including `regression_risk` and appears in the report. Dropped counts from Phase 2.5 remain available for the summary. `quality_source` is ready for the report when Quality ran.
+Every surviving finding has all required fields including `regression_risk` and Origin, and appears in the report. Every `open` prior finding is matched, carried, or counted as closed. Dropped counts from Phase 2.5 remain available for the summary. `quality_source` is ready for the report when Quality ran.

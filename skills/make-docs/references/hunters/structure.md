@@ -33,3 +33,7 @@ unknowns: []               # what this lens cannot see
 ```
 
 Cite a path on every filled field. `unknowns` become confirm questions. A quality number, SLO, or container that is not in the tree stays out of this YAML.
+
+## Completion criterion
+
+Every filled field cites a path. `views_earned` lists only a view the tree supports. Missing deploy is `unknown`. Missing auth is `absent`.

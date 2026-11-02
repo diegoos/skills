@@ -16,26 +16,26 @@ Answer in the report `### Test quality` section and in the memory file when test
 
 For each new or changed test, name the production change that would make **this** test fail, and whether that change is a **bug** or an **intentional decision**.
 
-- Cannot name a bug → KEEP (useless / coverage theater)
-- Only a decision fails it (constant, exact wording, private shape) → KEEP (change detector)
-- Expected value reuses the code under test or its helpers → KEEP (mirror assertion)
-- Asserts source text / "symbol stays removed" → KEEP (behavior, not text)
+- Cannot name a bug → finding (useless / coverage theater)
+- Only a decision fails it (constant, exact wording, private shape) → finding (change detector)
+- Expected value reuses the code under test or its helpers → finding (mirror assertion)
+- Asserts source text / "symbol stays removed" → finding (behavior, not text)
 
 ## Gate B — Exercise the real thing
 
-- Assert on a mock, `*-mock` test id, or a test that fails if you unmock → KEEP (mock-as-SUT)
+- Assert on a mock, `*-mock` test id, or a test that fails if you unmock → finding (mock-as-SUT)
 - Mock is allowed when the dependency is slow or external, sits below the side effects the test needs, mirrors the full real structure, and earns **no** assertion
-- Setup of mocks/fixtures larger than the assertion, with no reason for the mock → KEEP
-- Method on a production class called only from tests → KEEP (move to test util)
-- Fake that accepts anything / one spy for success, error, and malformed → KEEP (wrong branch can pass)
+- Setup of mocks/fixtures larger than the assertion, with no reason for the mock → finding
+- Method on a production class called only from tests → finding (move to test util)
+- Fake that accepts anything / one spy for success, error, and malformed → finding (wrong branch can pass)
 
 ## Gate C — Mutation check
 
 Mentally mutate production. At least one test in the diff should fail for each realistic mutation: wrong constant or argument; wrong branch; missing side effect; empty/default return; missing validation for zero, empty, nil, unauthorized, or malformed.
 
-A mutation nothing catches → KEEP (unprotected or tautological). Asking to **add** a missing case is Correctness when no test exists; Quality flags tests that would still pass.
+A mutation nothing catches → finding (unprotected or tautological). Asking to **add** a missing case is Correctness when no test exists; Quality flags tests that would still pass.
 
-## KEEP (finding)
+## Finding
 
 - Horizontal pile: many new tests in one imagined layer, same generic fixture, weak tie to the path this diff opened
 - Vague name (`test_works`, `test1`) or `"and"` joining two behaviors
@@ -47,7 +47,7 @@ A mutation nothing catches → KEEP (unprotected or tautological). Asking to **a
 
 Typical severity: P3 maintainability; P2 when the test is the only claimed proof and a mutation survives, or mock-as-SUT hides a break. Suggested fix: strengthen the assertion, drop the mock-as-SUT, split, or delete the useless test (ask first).
 
-## DROP
+## Not a finding
 
 - Mock of slow/external I/O with complete fixtures and no assert on the mock
 - Narrow characterization test that names a surprising upstream assumption

@@ -22,7 +22,7 @@ Guard clauses and early returns flatten nesting. They are a remedy. A higher CC 
 
 | Situation                                                                                                                         | Action                                                                 |
 | --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| CC 1–20, or readable with nesting < 3                                                                                             | Skip CC                                                                |
+| CC ≤ 20, nesting < 3, and readable                                                                                                | Skip CC                                                                |
 | New or substantially rewritten function, hard to follow, **and** nesting ≥3 in the same function                                  | Keep as maintainability; name a remedy                                 |
 | Diff **increased** nesting or mixed booleans, even if CC stays ≤ 20                                                               | Keep on the readability signal                                         |
 | CC > 20 on touched new/rewritten code                                                                                             | Keep; ask for a local split, table, or tests — not a wholesale rewrite |
@@ -54,4 +54,4 @@ Use a complexity tool the repo already runs. Conflicting numbers: report both; k
 
 ## Remedies (smallest first)
 
-Guard clauses → extract with a responsibility name → lookup / dispatcher → named predicate → polymorphism only when the same switch appears in 2+ places. Phase 3 names the move from `remedies.md`.
+Phase 3 names the smallest move from `./references/remedies.md`.

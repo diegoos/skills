@@ -1,9 +1,9 @@
 ---
 name: make-code
 description: >-
-  Write application code. Use when implementing or fixing a feature, endpoint, or function; simplifying existing behavior; or speeding up a named hotspot (N+1, hot loop, extra I/O). Skip docs, agent instructions, Makefiles, and CSS-only restyles.
+  Writes or changes code with the least new code: reuses what the project has, adds nothing unasked, and finishes every place the change reaches. Use before any code edit, in any language: building or adding a feature, endpoint, function, component, or script; fixing a bug or a failing test; refactoring, simplifying, or cleaning up code; making code faster (N+1, hot loop, extra I/O); or when the user asks for the simplest solution, less code, YAGNI, or less over-engineering. Skip documentation, agent instruction files, skills, Makefiles, CSS-only restyles, and reviews that do not ask for an edit.
 metadata:
-  version: 0.3.0
+  version: 0.4.0
   author: "Diego Oliveira"
   tags:
     - code
@@ -17,80 +17,93 @@ metadata:
 
 # Make code
 
-Application code under **KISS**, **DRY**, **YAGNI**, and **CC**. **KISS** is the path. **DRY** is one representation, earned. **YAGNI** is the stop. **CC** is the local ceiling.
+Act as the developer who must maintain this code next year. Your work is judged by what you leave out. Use what the project already has, add nothing the request does not ask for, and finish every part the change touches. Spend effort on understanding the problem, not on writing more code.
 
-Pick a **branch** and state it at the start of the run:
+## Before you write
 
-- new behavior (feature, fix) → **write**
-- same behavior, simpler → **refactor**
-- same behavior, faster → **improve** (only with a named hotspot)
+Read the code the change touches and one neighbor of the same kind, and search the callers of each symbol you change that other files use. Read only as deep as the change reaches: a fix inside one function needs that function, not the whole project. The scope is every place the change must reach (callers, tests, fixtures, config, and exports) and what it could break (data lost or exposed, a caller that stops working). Give a new or changed data structure its shape before the logic.
 
-## Workflow
+## The smallest complete change
 
-1. **Classify.** Branch from the request. **Improve** only when a hotspot is named (profile, N+1, accidental quadratic, extra I/O or alloc in a hot loop, or the user named it). No hotspot → **refactor**, or ask. **Done when:** the branch is named; **improve** cites the hotspot.
-2. **Trace.** Name the problem, the entrypoints, the symbols you will change (a bug: the shared root those callers already hit), their callers (search every caller), the check that proves the change, and the convention source (nearest `AGENTS.md` / `CLAUDE.md` and one neighbor of the same kind, or `conventions: none`). Read existing docs. **Done when:** those six are named, or **YAGNI** stops the work.
-3. **Climb.** Before new code, answer: does this already exist, does an existing method already do this job. Stop at the first rung that holds: (1) skip (2) in-repo helper (3) stdlib (4) platform (5) installed dependency (6) one line (7) minimum new code. **Done when:** the two answers are named and the chosen rung is named. A rung past (2) names the methods searched.
-4. **Apply** the matching branch under Floor. **Done when:** that branch's criterion holds and **Names** holds on the slice.
-5. **Prove.** Smallest *red* check of observable behavior. Mock only at the trust boundary (network, clock, filesystem, paid API). Call through real internals. Trivial one-liners need no extra test. **Done when:** **write** — the check is red before the slice and green after; **refactor** / **improve** — the same check stays green.
+Take the first option that fully works:
 
-## Branch write
+1. Does it need to exist? Skip what nobody asked for, and name it in one line. A vague request gets the smallest version that does the core job. When existing code already does it, name that code and make no edit.
+2. Is it already in this codebase? Search, then use it the way the surrounding code does.
+3. The standard library or the platform, unless the project has its own. A house component beats a native widget.
+4. An installed dependency. Never add one for a few lines.
+5. One line that a reader gets at a glance.
+6. The minimum new code, in the file that owns the concern.
 
-Do the *simplest thing* that could work. One slice. A bug is one change at the shared root.
+- Be lazy about the solution, never about the change: update every place in the scope. Between working options of equal size, take the one that is correct on the edge cases. A one-liner that needs decoding is not short.
+- Subtract first: remove what the change makes useless, then add.
+- A bug fix reproduces the bug, then fixes the root cause once, in the function that owns it. A guard that only hides the symptom is not a fix.
+- When the patch needs a special case for one caller (a parameter, a branch, or a copied path), reshape the touched code so the new behavior is the normal path.
+- A simplification flattens with guard clauses before it extracts.
+- A speed change starts from the hotspot: a profile, the one the user named, or one you find on the path (an N+1, an accidental quadratic, I/O in a loop). It removes that hotspot and keeps no type whose only job is the old path. When no hotspot shows, say so and name what to measure.
+- Code you move or merge keeps its error handling and validation.
 
-**Done when:** the requested behavior is observable; every new or rewritten function is **CC** ≤ 20 (or the project's bar); no type or file exists that this slice does not call.
+## Check
 
-## Branch refactor
+New non-trivial logic (a branch, a loop, a parser, money, security, or a new script) leaves one small test in the shape of the project's tests, or an assert-based self-check when the project has no tests. A bug fix's test fails before the fix and passes after it. A trivial change needs no new test. The test calls the code the way its user does and fails when the result is wrong. Mock only at a trust boundary (network, clock, filesystem, or paid API). Write no tool of your own to measure the code.
 
-Preserve behavior. Prefer deletion. Flatten with guard clauses before extract. Extract only with a responsibility name.
+## Floor
 
-**Done when:** behavior matches the original (proof from Prove); every touched function is **CC** ≤ 20 (or the project's bar); a reader of the Match neighbor is faster; every extract or inline obeys **Balance**.
+**KISS.** The simplest path that meets the request, with no extra machinery. Few files, one concern each.
 
-## Branch improve
+**DRY.** One decision lives in one place. Two helpers that do the same job become one. Extract on the second real duplicate, under a name that carries a responsibility. Copies that mean different things stay copies.
 
-Keep behavior. Remove the named hotspot. Ship the cheap fast path (stdlib, one pass, no N+1, no accidental quadratic). A cache, pool, or index only when that hotspot is measured or the user named it.
+**YAGNI.** Another caller, provider, or flag waits for its own request. Write no interface with one implementation, factory with one product, wrapper that only passes calls through, type conversion, option, config key, boilerplate, or code "for later". Keep values in the form the platform gives you. A branch that the request's own rules make unreachable is dead code.
 
-**Done when:** the named hotspot is gone; behavior matches the original (proof from Prove); no new type exists solely to hold the old slower path.
+**CC.** Decision points + 1 (`if`, loops, `case`, `catch`, `??`, `||`, `&&`, `?.`, ternary). Cap **20** on new or rewritten functions unless the project sets another bar. A linear validation chain or a flat `switch` is not a split trigger.
 
-## Floor (every branch)
+**Match.** Follow the naming, errors, imports, function shape, and layers of the convention and the neighbor. The project wins over a preference, except **Blank lines**, which you write even where the neighbor omits them.
 
-**KISS.** The *simplest thing* that could work. Essential path first. Types, files, knobs, and layers exist when this request uses them. Same-size options: the edge-case-correct one.
+**Comments.** Put a fact in a name when it fits (`isRetryableStatus`, `items.filter(isRetryableStatus)`). Comment only the why that the code cannot show, in one line. A function whose name does not carry its contract gets one short doc comment in the form of a documented neighbor. Write no comment that restates a line, narrates a step, labels a section, or records history.
 
-**DRY.** One authoritative representation per piece of knowledge. The second real duplicate earns extract; the first stays. Extract to a responsibility name. Copies that mean different things stay copies.
-
-**YAGNI.** Build the need in this request. The extra caller, provider, or flag arrives with its own request.
-
-**CC.** Decision points + 1 (`if`, loops, `case`, `catch`, `??`, `||`, `&&`, `.?`, boolean short-circuit, ternary). `else` = 0. Cap **20** on new or rewritten functions unless the project sets another bar (`eslint complexity`, ruff `C901`, gocyclo, etc). Keep branches visible (guard clauses, named predicates). A linear validation chain or a flat `switch` is not a split trigger. Use the project's existing complexity command when one exists.
-
-**Match.** The diff follows naming, errors, imports, and function shape from the convention source Trace named. Personal preference loses. `conventions: none`: follow the Floor; do not invent a second style.
-
-**Names.** A fact that fits in an identifier is an identifier (`--hero-title-size`, `isRetryableStatus`). Every function (a declaration, a method, or an assigned arrow) and every class has one concise doc comment. Form comes from a documented neighbor of the same kind. No such neighbor: the language standard (JSDoc, docstring, `///`, godoc), one line on purpose. A conditional comment states a constraint the predicate name cannot carry. An inline callback is a named predicate (`items.filter(isRetryableStatus)`).
-
-**Breath.** Same-kind declarations stay together. A blank line sits between distinct blocks, after a closed `if`/`for`/`while`, and before `return`/`throw`. `else`, a continued line, and the `}` that closes the current block stay attached.
+**Blank lines.** On every line you add or rewrite, put one blank line before an `if`, a loop, a `switch`, a `try`, or a callback call that follows a declaration or assignment; before a `return` or `throw` that follows another statement in its block; and after a closed block (a `}` or the end of an indented body) or a run of inline `if`s. Inline `if`s of the same kind stay adjacent. In a file that omits these blank lines, still write them on your lines: never copy the file's spacing for a line you write, and leave untouched lines as they are.
 
 ```js
-const trimmed = input.trim();
+const user = find(id);
 
-if (!trimmed) {
-  return '';
+if (!user) return null;
+if (!user.active) return null;
+
+const items = load(user);
+
+items.forEach((item) => {
+  seen.add(item.id);
+});
+
+if (!items.length) {
+  log("empty");
+
+  return [];
 }
 
-if (/^https?:\/\//i.test(trimmed)) {
-  return trimmed;
-}
-
-for (let index = 0; index < array.length; index++) {
-  const element = array[index];
-}
-
-return `${DEFAULT_SCHEME}${trimmed}`;
+return items;
 ```
 
-**Balance.** *intent* outranks *fewest*. A **DRY** extract that hides the idea loses to **KISS**. Keep the helper whose name still carries a concept. Split unrelated work. Fewer lines only when a reader of the Match neighbor is faster.
+An edit to a file without the blank lines, where the first three lines were already there:
 
-**Tight performance.** Default is the cheap fast path. Speculative optimization is **YAGNI** — that work belongs on **improve** with a named hotspot.
+```python
+total = 0
+for item in items:
+    total += item.price
 
-**Keep.** Understanding before the diff. Validation and fail-closed at trust boundaries. Errors that prevent data loss. Secrets and authorization. Accessibility. Platform calibration (clocks, sensors). Anything the user named. A non-trivial change with no *red* check is unfinished. An authorized corner that cuts a real limit: mark `ceiling: <limit>; upgrade: <path>`.
+discount = rate(user)
 
-## Inform
+if discount:
+    total -= discount
 
-Inform the user of the options and the consequences of each when the choice is sensitive architecture, a contract, data, or security. For a small reversible choice, pick the *simplest thing* and state the assumption.
+return total
+```
+
+**Intent over fewest.** A helper whose name carries a concept beats fewer lines. Split by job, never by line count, and never into helpers that exist only to make a function shorter.
+
+**Tight performance.** Write the cheap shape on the first pass. Run no query, request, or file read inside a loop: load once before it, batch, or join. Use a set or a map for repeated lookups. Let the database filter, sort, count, and paginate. Make one pass when one is enough, and stream input that can be large. A cache, a pool, an index, a worker, or concurrency waits for a named hotspot.
+
+**Non-negotiables.** Never cut these: validation at trust boundaries (check outside data where it enters, parse it once, and trust it inside), errors that prevent data loss, secrets and authorization, accessibility, platform calibration, and anything the user named. Never silence the compiler, the type checker, or the linter to pass (`any`, `@ts-ignore`, `# noqa`, `//nolint`). Only the user authorizes a cut. A shortcut with a known limit gets a `ceiling: <limit>; upgrade: <path>` comment at the cut.
+
+## Reply
+
+End the reply with one or two lines: what you skipped or did not check, and any risk the user must know. Repeat each `ceiling:` comment there. When existing code already covers the request, name that code instead. When you could not search the workspace, say that callers were not searched.

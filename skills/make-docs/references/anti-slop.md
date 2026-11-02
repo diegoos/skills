@@ -14,7 +14,7 @@ A number (latency, availability, RPS, memory) lands only when config, a test, or
 
 ## Skill meta stays in chat
 
-The artifact describes the system. Confirm holds size, assumptions, and skipped files. Drop any sentence that names this skill, narrates the suite being generated, or justifies an omission ("left out of scope", "the full suite was generated", "suite premise"). Worked drop: `./references/examples/generic-vs-earned.md`.
+The artifact describes the system. Confirm holds size, assumptions, and skipped files. Drop any sentence that names this skill, narrates the suite being generated, or justifies an omission ("left out of scope", "the full suite was generated", "suite premise"). Worked drop: `references/examples/generic-vs-earned.md`.
 
 ## Tells
 

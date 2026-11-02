@@ -26,4 +26,8 @@ api_surface:               # none, or protocol + evidence path
 unknowns: []               # ambiguous, dead, or test-only behavior
 ```
 
-Cite a path on every requirement. Put compound or guessed behavior in `unknowns`. Invent no endpoint or flag that the tree does not expose.
+Cite a path on every requirement. Put compound or guessed behavior in `unknowns`. An endpoint or flag that the tree does not expose stays out of the YAML.
+
+## Completion criterion
+
+Every domain is a feature name. Each candidate SHALL is one observable with a path. Compound, dead, or unseen behavior is in `unknowns`.

@@ -1,6 +1,6 @@
 # Structure
 
-Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (ChatGPT/Codex picker name, short blurb 25–64 characters, `allow_implicit_invocation`). Skills with `disable-model-invocation: true` set `allow_implicit_invocation: false`. Optional: `references/` or `reference/`, human `README.md`, `PATTERNS.md`.
+Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (ChatGPT/Codex picker name, short blurb 25–64 characters, `allow_implicit_invocation`). Skills with `disable-model-invocation: true` set `allow_implicit_invocation: false`. Optional: `references/` or `reference/`, human `README.md`, `PATTERNS.md`. A discontinued skill keeps that shape under `deprecated/<name>/` and is not installed.
 
 ```text
 .
@@ -23,31 +23,21 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │   ├── README.md           # Human: flow, memory, commands
 │   │   ├── agents/openai.yaml
 │   │   └── references/
-│   │       ├── phases/         # scope, dispatch, verify, synthesize, persist, knowns, fix, prune, help
+│   │       ├── phases/         # save, scope, dispatch, verify, synthesize, persist, knowns, fix, prune, help
 │   │       ├── perspectives/   # correctness, security, architecture, quality, performance
-│   │       ├── shapes/         # web, api, ts/js/node, python, go, rust, llm (optional, ≤1 per hunter)
+│   │       ├── shapes/         # ts/js/node, python, go, rust, llm (optional, ≤1 per hunter)
 │   │       ├── examples/       # kept-vs-dropped, report-sample
 │   │       ├── test-quality.md # tests already in the diff (Quality)
 │   │       ├── dependency-review.md
 │   │       ├── remedies.md
 │   │       └── templates/      # final report
-   │   ├── deep-security-review/   # Deep security review
-   │   │   ├── SKILL.md
-   │   │   ├── README.md           # Human: commands, flow, vs code-review-plus
-   │   │   ├── agents/openai.yaml
-│   │   └── references/
-│   │       ├── phases/         # plan, hunt, verify-and-synthesize, fix
-│   │       ├── templates/      # final report
-│   │       ├── domains/        # authz, injection, secrets, infra, business-llm
-│   │       ├── shapes/         # api, web, languages, cloud, llm, …
-│   │       ├── examples/       # gates, FP table, kept-vs-dropped, report-sample
-│   │       └── optional/       # OWASP map (on request)
 │   ├── make-changelog/         # CHANGELOG.md: init / update / bump
 │   │   ├── SKILL.md
 │   │   ├── agents/openai.yaml
 │   │   └── references/
 │   │       └── standing.md     # Block for AGENTS.md / CLAUDE.md
-│   ├── make-code/              # KISS / DRY / YAGNI / CC: write / refactor / improve
+│   ├── make-code/              # Least new code: scope, reuse order, check, Floor
+│   │   ├── README.md           # Human: reuse order, check, floor, files
 │   │   ├── SKILL.md
 │   │   └── agents/openai.yaml
 │   ├── make-commits/           # Conventional Commits: draft / commit / amend
@@ -64,6 +54,19 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │       ├── language.md     # suite language lock
 │   │       ├── anti-slop.md    # docs prose tells
 │   │       └── template-*.md   # architecture, ADR, specs, …
+│   ├── make-skill/             # Reference for authoring and editing agent skills
+│   │   ├── SKILL.md            # Workflow: repeat, invocation, description, files, steps, prune, cases, check
+│   │   ├── cases.md            # Trigger and functional cases for this skill
+│   │   ├── README.md           # What the skill does, and the files
+│   │   ├── agents/openai.yaml
+│   │   ├── assets/
+│   │   │   └── SKILL.template.md # Minimal skill to copy
+│   │   └── references/
+│   │       ├── evaluation.md   # Trials, iteration, claimed gains
+│   │       ├── example.md      # Request to finished skill, weak and strong at each step
+│   │       ├── example-router.md # User invocation, a router, and a shared reference
+│   │       ├── mechanics.md    # Frontmatter, layout, dependencies, inputs and outputs, failures, scripts, security
+│   │       └── principles.md   # Authority for pointers, criteria, leading words, negation, pruning, size
 │   ├── makefile-expert/        # GNU Make: write / review
 │   │   ├── SKILL.md
 │   │   ├── agents/openai.yaml
@@ -73,17 +76,29 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │   ├── README.md           # Spec and lint pointers (human)
 │   │   ├── agents/openai.yaml
 │   │   └── references/         # frontmatter
-│   ├── frontend-design-plus/   # Visual frontend: greenfield / redesign / polish
-│   │   ├── SKILL.md
-│   │   ├── README.md
-│   │   ├── agents/openai.yaml
-│   │   └── reference/          # critique, DESIGN.md spec, Operate recipes
-│   └── sass-with-bem/          # BEM + Sass/SCSS
+│   └── sass-with-bem/          # Write Sass/SCSS with flat BEM
 │       ├── SKILL.md
 │       ├── agents/openai.yaml
 │       └── references/
 │           ├── conventions.md
 │           └── examples.md
+├── deprecated/                 # Discontinued skills; not installed
+│   ├── deep-security-review/   # Deep security review
+│   │   ├── SKILL.md
+│   │   ├── README.md           # Human: commands, flow, vs code-review-plus
+│   │   ├── agents/openai.yaml
+│   │   └── references/
+│   │       ├── phases/         # plan, hunt, verify-and-synthesize, fix
+│   │       ├── templates/      # final report
+│   │       ├── domains/        # authz, injection, secrets, infra, business-llm
+│   │       ├── shapes/         # api, web, languages, cloud, llm, …
+│   │       ├── examples/       # gates, FP table, kept-vs-dropped, report-sample
+│   │       └── optional/       # OWASP map (on request)
+│   └── frontend-design-plus/   # Visual frontend: greenfield / redesign / polish
+│       ├── SKILL.md
+│       ├── README.md
+│       ├── agents/openai.yaml
+│       └── reference/          # critique, DESIGN.md spec, Operate recipes
 └── .opencode/                  # Optional OpenCode agents (not part of the skills contract)
     └── agents/
         ├── ask.md              # Read-only

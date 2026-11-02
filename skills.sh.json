@@ -7,11 +7,10 @@
       "description": "Personal skills that I use in my projects.",
       "skills": [
         "code-review-plus",
-        "deep-security-review",
-        "frontend-design-plus",
         "make-code",
         "make-commits",
         "make-docs",
+        "make-skill",
         "makefile-expert",
         "markdown-writer",
         "sass-with-bem",

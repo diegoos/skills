@@ -1,8 +1,8 @@
-# Pipeline — Quality (slim Floor)
+# Hunter — Quality
 
-Fallback when `make-code` is not in this environment. Hunt this Floor (review, no Apply). **CC** cap is **20** unless the project sets another bar (`../complexity.md`).
+If `make-code` is in this environment, READ it once and hunt its Floor (review, no Apply), and return `quality_source: make-code`. Otherwise hunt the default Floor below and return `quality_source: slim-fallback`. Hunt **Lean** in both cases. **CC** cap is **20** unless the project sets another bar (`./references/complexity.md`).
 
-**KISS** is the path. **DRY** is one representation, earned. **YAGNI** is the stop. **CC** is the local ceiling. **Match** and **Balance** decide naming and extract.
+**KISS** is the path. **DRY** is one representation, earned. **YAGNI** is the stop. **CC** is the local ceiling. **Match** and **Intent over fewest** decide naming and extract. **Lean** is the code this diff did not need to write.
 
 ## Hunt for
 
@@ -11,13 +11,28 @@ Fallback when `make-code` is not in this environment. Hunt this Floor (review, n
 - **YAGNI** — provider, flag, or type tree with zero real callers in this diff. Speculative optimization is YAGNI (hot path → Performance)
 - **CC** — new or rewritten function above cap **20**, or the project's bar (`eslint complexity`, ruff `C901`, gocyclo). Linear validation, a flat `switch`, and Go `if err != nil` series are not a split trigger. Nesting ≥3 or a happy path a reader cannot state is the readability signal even when CC is at the cap
 - **Match** — naming, errors, imports, and function shape from a neighbor of the same kind (or nearest `AGENTS.md` / `CLAUDE.md`). Preference loses
-- **Balance** — intent outranks fewest lines. Keep the helper whose name still carries a concept
+- **Intent over fewest** — intent outranks fewest lines. Keep the helper whose name still carries a concept
 - Dead code after a full consumer search (alternate routes, raw envelopes, defensive helpers)
 - Docs sync when Phase 1 marked a documentable surface; skip inventing tutorials
-- Tests already in the diff: apply `test-quality.md` when that path is in this prompt. Missing tests → Correctness
+- Tests already in the diff: apply `./references/test-quality.md` when that path is in this prompt. Missing tests → Correctness
 
-Layer and module boundary breaks → Architecture. N+1 and demonstrated hot paths → Performance.
+## Lean
+
+New code in this diff that a smaller change would have avoided. Each item names the existing path or the lines to delete.
+
+- **Reuse** — new code re-implements an in-repo helper, the standard library, the platform, or an installed dependency. A new dependency that does what a few lines or the platform already do. Name the path to use instead
+- **Pass-through** — an interface with one implementation, a factory with one product, a wrapper that only forwards calls, or a type conversion the platform's own form did not need
+- **Unused surface** — an option, flag, config key, parameter, or export the diff adds and no caller uses; code "for later"; a branch the diff's own rules make unreachable
+- **Merge** — near-copies in the diff that must change together
+- **Split** — one function or class doing unrelated jobs, so it is hard to read or test. Split by job, never by line count, and never into helpers that exist only to make a function shorter
+
+Layer and module boundary breaks → Architecture. N+1 and demonstrated hot paths → Performance. When that hunter is not in `Pipelines`, report the issue with `pipeline` set to it (isolated: only a P0/P1-level break).
 
 ## Pass A
 
-`exploit_or_break_path` names today's cost (reader cannot state the happy path, zero callers, unused after consumer search, test that never fails, Match miss, or another quality cost with a pointable line). Configured formatter/linter owns style. Suggested fix preserves error paths. Note `regression_risk` for public names and shared helpers.
+`exploit_or_break_path` names today's cost with a concrete case: the line, and what it costs a reader or a maintainer now (reader cannot state the happy path, zero callers, unused after consumer search, test that never fails, Match miss, code a Lean item removes). No case, no finding. No style taste and no "consider". Configured formatter/linter owns style.
+
+- Before you call code unused, search the whole tree for it, including tests, fixtures, config, and string or dynamic references.
+- A `ceiling:` comment that names its limit is a decision, not a finding, unless the expected load already crosses that limit.
+- The suggested fix is the smallest one that works. Prefer a fix that deletes code, and name the lines it removes. Never suggest a new layer, framework, or config the problem does not need. The fix preserves error paths and validation.
+- Note `regression_risk` for public names and shared helpers.

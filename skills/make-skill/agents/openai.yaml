@@ -1,0 +1,6 @@
+interface:
+  display_name: "Make Skill"
+  short_description: "Create and edit predictable AI agent skills"
+
+policy:
+  allow_implicit_invocation: true

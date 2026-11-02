@@ -2,9 +2,21 @@
 
 Establish intent, review source, dispatch tier, `Pipelines`, and stack tags before any pipeline runs.
 
+## Contents
+
+- [Intent questions](#intent-questions)
+- [Identify what to review](#identify-what-to-review)
+- [Change sizing](#change-sizing)
+- [Dispatch tier (checkable)](#dispatch-tier-checkable)
+- [Stack tags](#stack-tags)
+- [Prior memory](#prior-memory)
+- [Tests first](#tests-first)
+- [Context summary (required for Phase 2)](#context-summary-required-for-phase-2)
+- [Completion criterion](#completion-criterion)
+
 ## Intent questions
 
-Answer before dispatching:
+Answer before dispatching, from the PR or commit text and the diff. Mark an inferred answer as an inference, and ask the user only when the intent cannot be inferred:
 
 ```txt
 - What is this change trying to accomplish?
@@ -13,7 +25,7 @@ Answer before dispatching:
 - What should NOT change?
 ```
 
-Record `What should NOT change` in concrete terms (APIs, contracts, UX, callers). The fix branch uses it as the **regression gate**.
+Record `What should NOT change` in concrete terms (APIs, contracts, UX, callers). The **regression gate** (Pass B, synthesize) and the fix **acceptance gate** check fixes against it.
 
 If a PR/commit description exists in context, note whether the first line stands alone as a summary of the change.
 
@@ -26,6 +38,8 @@ If a PR/commit description exists in context, note whether the first line stands
 | Feature branch      | `git diff <base>...HEAD` (use repo's default base)           |
 | Pasted code         | Review directly                                              |
 | Large diff          | Prioritize: new files → modified logic → config → formatting |
+
+No source (empty diff, no named files, no pasted code): say there is nothing to review and stop.
 
 ## Change sizing
 
@@ -55,7 +69,6 @@ Record `Pipelines` as the hunter names that will run. Isolated (SKILL.md named o
 
 From paths/extensions and content cues in the review source, record zero or more:
 
-- `web`, `api`
 - `ts` (TypeScript/JavaScript/Node), `py` (Python), `go` (Go), `rs` (Rust)
 - `llm` when the diff touches prompts, tool/function calling, agent loops, or RAG context assembly
 
@@ -67,16 +80,19 @@ Mark **lockfile in source** when the review source includes `package.json`, a lo
 
 ## Prior memory
 
-If `docs/code-review/` exists in the reviewed repo:
+The memory is the newest Session ledger in this conversation (`./references/phases/persist.md` § Session ledger). Without one, it is `docs/code-review/` in the reviewed repo.
 
-1. Read `docs/code-review/knowns.md` when present.
-2. Read the latest timestamped review file (`YYYY-MM-DD-HH-MM.md`, not `knowns.md`). Read `## Findings`.
+1. Read knowns: the ledger `## Knowns`, plus `docs/code-review/knowns.md` when present.
+2. Read the latest review whose `Branch:` matches the current branch: the newest Session ledger, else the newest timestamped file (`YYYY-MM-DD-HH-MM.md`, not `knowns.md`). Read `## Findings` and `## Fix`.
+3. Without git, use that review only when its `Source` names the same files. Otherwise record `Prior review: none`.
 
-Skip a known false-positive or won't-fix unless the cited path's behavior changed. When a prior review recorded HEAD, set `Mode: delta` and focus this pass on the hunks since that commit. A prior `isolated` Pipelines line covers only the hunters it lists.
+From the latest review, build `Prior findings`: each ID with `file:line`, title, and status. IDs under Closed in `## Fix` are `closed`; IDs whose location is in knowns are `known`; every other ID is `open`. `Closed paths` lists the files of the `closed` IDs. `Fix risks` lists each `Risks:` entry from `## Fix` (ID, what can break, where).
 
-Build `Skip` from knowns + prior Findings whose cited path's behavior did not change. Record `Knowns`, `Prior review`, `Mode`, and `Skip` in the context summary (or `none`).
+- `Mode: delta` when the latest review recorded a HEAD that is an ancestor of the current HEAD (`git merge-base --is-ancestor <prior HEAD> HEAD`): focus this pass on the hunks since that commit. Otherwise `Mode: fresh`. After a rebase or amend, `Prior findings` still apply.
+- `Skip`: knowns and `closed` prior findings, each only while its cited path's behavior is unchanged. `open` prior findings stay off `Skip`; Phase 3 matches or re-checks them.
+- A prior isolated `Pipelines` line covers only the hunters it lists.
 
-No persist or no prior HEAD → `Mode: fresh`. `Skip: none` when the skip list is empty.
+Record `Knowns`, `Prior review`, `Mode`, `Skip`, `Prior findings`, `Closed paths`, and `Fix risks` in the context summary (`none` when empty).
 
 ## Tests first
 
@@ -104,7 +120,7 @@ Pipelines: Correctness, Security, Quality | … (names that will run)
 Isolated: yes | no
 Mode: fresh | delta
 Skip: file:line … | none
-Stack tags: web | api | ts | py | go | rs | llm | (none)
+Stack tags: ts | py | go | rs | llm | (none)
 Documentable surface: yes | no
 Lockfile in source: yes | no
 Tests in source: yes | no
@@ -113,10 +129,14 @@ Sizing: small | medium | large
 Oversized: yes | no
 Knowns: … | none
 Prior review: stem / HEAD / none
+Save: file | session
+Prior findings: ID file:line open | closed | known … | none
+Closed paths: file … | none
+Fix risks: ID: what can break · where … | none
 ```
 
 Do not fill `quality_source` here; the Quality hunter returns it.
 
 ## Completion criterion
 
-Scope answers written; review source, sizing, oversized, tier, `Pipelines` names, `Isolated`, `Mode`, `Skip`, stack tags, documentable surface, and lockfile-in-source identified; knowns and prior review read or recorded as none; context summary ready for Phase 2.
+Scope answers written; review source, sizing, oversized, tier, `Pipelines` names, `Isolated`, `Mode`, `Skip`, stack tags, documentable surface, and lockfile-in-source identified; knowns, prior review, `Prior findings`, `Closed paths`, and `Fix risks` read or recorded as none; context summary ready for Phase 2. Or no source exists, and the run stopped with nothing to review.

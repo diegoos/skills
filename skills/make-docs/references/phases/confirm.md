@@ -1,6 +1,6 @@
 # Confirm
 
-Gate before any write to `docs/`. Load `./references/language.md` when building the brief. The brief lives in chat, never in `docs/`.
+Gate before any write to `docs/`. Load `references/language.md` when building the brief. The brief lives in chat, never in `docs/`.
 
 ## Brief (fixed shape)
 
@@ -36,7 +36,7 @@ Ask and wait. Do not couple to a specific questionnaire widget.
 
 Proceed without this gate only when the user said so **in this conversation** and `unknowns` is empty. A silent Agent-mode run is not that signal.
 
-Assumptions, size verdicts, and skipped files stay in this chat. They do not become a suite-premise paragraph in the artifact. Worked drop: `./references/examples/generic-vs-earned.md`.
+Assumptions, size verdicts, and skipped files stay in this chat. They do not become a suite-premise paragraph in the artifact. Worked drop: `references/examples/generic-vs-earned.md`.
 
 ## Completion criterion
 
