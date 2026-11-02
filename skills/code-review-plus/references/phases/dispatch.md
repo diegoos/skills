@@ -84,7 +84,7 @@ Reference (read these skill paths, then the changed hunks, callees, and enough o
 [Quality only — paste this block; omit for other hunters]
 Quality bar: READ ./references/perspectives/quality.md and follow it. It opens the make-code skill when that skill is in this environment; otherwise it hunts its default Floor. Hunt (no Apply, Prove, or edit).
 For **CC**, use the cap that the Floor you hunt names (**20** on new or rewritten functions unless the project sets another bar).
-Always cover: the Floor; docs sync when Documentable surface is yes; dead code after a full consumer search; test-quality.md when that path is in this prompt; plus any other quality cost in this diff with today's pointable line.
+Always cover: the Floor; the Lean list in quality.md; docs sync when Documentable surface is yes; dead code after a full consumer search; test-quality.md when that path is in this prompt; plus any other quality cost in this diff with today's pointable line.
 Return quality_source: make-code | slim-fallback with the candidate list.
 
 Cover the **floor**. Also emit other issues in this hunter's scope when today's cost is pointable at file:line. A clear issue whose owner hunter is not in Pipelines: report it with pipeline set to that owner; do not hunt for more. Isolated: yes → only a P0/P1-level break. An empty list is valid when this hunter found nothing.

@@ -40,7 +40,7 @@ Dead Code and Test quality "removable" stay ask-before-delete; they are not in *
 
 Before the Apply loop: if the make-code skill is available in this environment, READ it once and set **fix source** `make-code`. Else set **fix source** `slim-fallback`.
 
-When **fix source** is `make-code`, each target finding is one make-code request: the `file:line`, the break path, **Must NOT change**, `regression_risk`, and the suggested fix as a hint. make-code runs all its own steps on that slice and picks its branch and its fix. The Apply loop rules and the **fix acceptance gate** still bind. Fold make-code's report for each finding into the fix summary, one line per finding.
+When **fix source** is `make-code`, each target finding is one make-code request: the `file:line`, the break path, **Must NOT change**, `regression_risk`, and the suggested fix as a hint. make-code applies its rules to that slice and picks the smallest fix. The Apply loop rules and the **fix acceptance gate** still bind. Fold make-code's report for each finding into the fix summary, one line per finding.
 
 When **fix source** is `slim-fallback`, step 2 of the Apply loop uses **Clean fix**.
 
@@ -49,11 +49,11 @@ When **fix source** is `slim-fallback`, step 2 of the Apply loop uses **Clean fi
 For each target finding (one at a time, or one atomic cluster that must ship together):
 
 1. Re-read the cited `file:line`. Take the break path, suggested fix, and `regression_risk` from the report in this conversation, else from `## Details`; derive any that are missing from the re-read. The suggested fix is a hint; the goal is to close the break path.
-2. Fix the finding and respect **Must NOT change** from the memory or the report (Review Summary). `make-code`: run it as in **Make-code**. `slim-fallback`: apply a minimal local fix per **Clean fix**. Scope = finding path + callers you must touch + the check make-code adds; no drive-by work outside the finding.
+2. Fix the finding and respect **Must NOT change** from the memory or the report (Review Summary). `make-code`: run it as in **Make-code**. `slim-fallback`: apply a minimal local fix per **Clean fix**. Scope = finding path + callers you must touch + the test make-code leaves; no drive-by work outside the finding.
 3. Redact secret values in commits, comments, and logs; rotate out-of-band if the finding was a leaked secret.
 4. Do not relax auth or validation to make checks pass.
 5. Regression check: inspect the fix's own diff, then re-read every caller, contract, and test that `regression_risk` names, plus the callers of each changed symbol. Note each behavior that can still change.
-6. Run project checks when they exist (test / lint / typecheck / format). With make-code, its check counts as the test; still run the other checks.
+6. Run project checks when they exist (test / lint / typecheck / format). With make-code, the test it leaves counts as the test; still run the other checks.
 7. Run the **fix acceptance gate** before marking the finding closed.
 
 ## Clean fix

@@ -1,6 +1,6 @@
 interface:
   display_name: "Make Code"
-  short_description: "KISS, DRY, YAGNI, CC: work, right, then fast"
+  short_description: "Write or change code with the least new code"
 
 policy:
   allow_implicit_invocation: true
