@@ -16,7 +16,7 @@ metadata:
 
 **Branches:** review (default) → save choice → pipelines by tier → verify (Pass B) → synthesize → report → persist → emit. Fix applies findings with an **acceptance gate**. Prune drops old `docs/code-review/` files. Help explains the skill.
 
-**Invariants:** One hunter per pipeline. **floor** and **today** live in the Hunt bar (`./references/phases/dispatch.md`). **Pass B** drops false positives; P0/P1 require **proven**. **delta** when a prior review recorded HEAD. **regression gate** on suggested and applied fixes. **Save** (file or session) is asked once per session.
+**Invariants:** One hunter per pipeline. **floor** and **today** live in the Hunt bar (`./references/phases/dispatch.md`). **Pass B** drops false positives; P0/P1 require **proven**. **delta** when a prior review recorded HEAD. **regression gate** on suggested and applied fixes. **Save** (file or session) is asked once per session. **One turn:** a branch runs to its last Done criterion in one turn; a phase boundary, a nested skill's reply step, or an announced next step does not end it. Stop early only for a question a phase file names.
 
 **Terms:** a hunter reviews one perspective. The `pipeline` field and the report's `Perspective` column name the hunter.
 
