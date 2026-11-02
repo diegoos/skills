@@ -3,7 +3,7 @@ name: make-code
 description: >-
   Writes or changes code with the least new code: reuses what the project has, adds nothing unasked, and finishes every place the change reaches. Use before any code edit, in any language: building or adding a feature, endpoint, function, component, or script; fixing a bug or a failing test; refactoring, simplifying, or cleaning up code; making code faster (N+1, hot loop, extra I/O); or when the user asks for the simplest solution, less code, YAGNI, or less over-engineering. Skip documentation, agent instruction files, skills, Makefiles, CSS-only restyles, and reviews that do not ask for an edit.
 metadata:
-  version: 0.5.0
+  version: 0.4.0
   author: "Diego Oliveira"
   tags:
     - code

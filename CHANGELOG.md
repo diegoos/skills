@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-02
+
 ### Added
 
 - `make-skill`: *new skill* that creates, edits, splits, tightens, and debugs AI agent skills, starting from `SKILL.md` and adding files or `cases.md` when the work or the request needs them, with a worked example and a copyable template (`metadata.version` → `0.1.0`), listed in the root `README.md`.
@@ -15,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `make-code`: one short procedure replaces the write and refactor branches: the run lists every place the change must reach, takes the first of six options that fully works (skip, reuse, standard library, installed dependency, one line, minimum code), avoids named over-building patterns, adds one small test only for non-trivial logic, and ends the reply with what it skipped and the risk (`metadata.version` → `0.5.0`).
+- `make-code`: one short procedure replaces the write and refactor branches: the run lists every place the change must reach, takes the first of six options that fully works (skip, reuse, standard library, installed dependency, one line, minimum code), avoids named over-building patterns, adds one small test only for non-trivial logic, and ends the reply with what it skipped and the risk (`metadata.version` → `0.4.0`).
 - `make-code`: the description asks for the skill before any code edit in any language and names the everyday triggers (add, fix, refactor, clean up, speed up).
 - `make-code`: the run guides instead of stopping: a speed request with no named hotspot looks for one on the path, a failed fix no longer halts the run, and the project's own rules decide when its tests and linter run.
 - `make-code`: the run reads only as deep as the change reaches and searches callers only for symbols that other files use.
@@ -30,7 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `makefile-expert`: `PREFIX`, `BINDIR`, and `DESTDIR` apply only when `install` copies files, and a missing `make` ends the dry run with that tool named.
 - `makefile-expert`: a review with no Makefile stops and names the missing file.
 - `make-changelog`: a run names its branch before writing, a bump asks which file to cut before it writes a heading, and the description skips a commit, Markdown lint, other docs, unrelated instruction edits, and writing a skill.
-- `write-great-instructions`: the description skips writing an agent skill (`SKILL.md`) and points to `make-skill`.
+- `write-great-instructions`: the description skips writing an agent skill (`SKILL.md`) and points to `make-skill` (`metadata.version` → `0.5.1`).
+- `make-docs`: a request with no branch name and an existing `docs/` asks which branch to run, a hunter that returns no YAML runs once more before its lens becomes an unknown, and the adr branch ends with the verify checks (`metadata.version` → `0.4.0`).
 - `code-review-plus`: removes the `deep-security-review` suggestion, Skill links, and install command from the review output and references.
 - `code-review-plus`: the Security hunter follows a context → compare → trace method with a high-confidence bar instead of a checklist, and Pass B checks every Security candidate against a list of known non-findings.
 - `code-review-plus`: a delta review after a fix rechecks the closed paths and keeps only new P0/P1 there, an empty review source stops the run, and findings use one category set (vulnerability, bug, hardening, maintainability).
