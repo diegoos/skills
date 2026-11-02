@@ -11,7 +11,7 @@ Notable changes live in [CHANGELOG.md](CHANGELOG.md).
 | [write-great-instructions](skills/write-great-instructions/) | Writes the files an agent reads, such as `AGENTS.md`, `CLAUDE.md`, Cursor rules, and Copilot instructions.                     |
 | [code-review-plus](skills/code-review-plus/)                 | Reviews a pull request or diff for bugs, security issues, and code quality, and can apply the fixes you pick.                  |
 | [make-changelog](skills/make-changelog/)                     | Keeps a changelog: creates it, records notable changes, and bumps the version only when you ask.                               |
-| [make-code](skills/make-code/)                               | Writes and fixes application code, and can simplify it or speed up a slow spot you name.                                       |
+| [make-code](skills/make-code/)                               | Writes, fixes, simplifies, and speeds up code with the least new code, reusing what the project already has.                   |
 | [make-commits](skills/make-commits/)                         | Writes a commit from the git diff in the project's style, one commit per reason, or only the message when that is all you ask. |
 | [make-docs](skills/make-docs/)                               | Writes architecture docs and behavior specs, updates them after code changes, or records a decision.                           |
 | [make-skill](skills/make-skill/)                             | Writes or edits an AI agent skill so the agent follows the same process on every run.                                          |
@@ -55,9 +55,9 @@ Some skills start from what you ask:
 "Write an AGENTS.md for this project"            → write-great-instructions
 "Tighten this CLAUDE.md"                         → write-great-instructions
 "Write Cursor rules for our TSX components"      → write-great-instructions
-"Add an endpoint that lists orders"              → make-code (write)
-"This function is too nested"                    → make-code (refactor)
-"This loop is doing N+1 queries"                 → make-code (refactor, named hotspot)
+"Add an endpoint that lists orders"              → make-code
+"This function is too nested"                    → make-code
+"This loop is doing N+1 queries"                 → make-code (named hotspot)
 "Start a changelog for this project"             → make-changelog (init)
 "Record these changes in the changelog"          → make-changelog (update)
 "Bump the version"                               → make-changelog (bump)

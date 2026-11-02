@@ -10,11 +10,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `make-skill`: *new skill* that creates, edits, splits, tightens, and debugs AI agent skills, starting from `SKILL.md` and adding files or `cases.md` when the work or the request needs them, with a worked example and a copyable template (`metadata.version` → `0.1.0`), listed in the root `README.md`.
-- `make-code`: human `README.md` with the branches, the five steps, and the Floor.
+- `make-code`: human `README.md` with the reuse order, the check, and the Floor.
 - `code-review-plus`: a review first asks, once per session, whether to save the report, and a session-only run keeps findings, fixes, and knowns in a ledger in the conversation that later review and fix calls read, and a compaction keeps a short findings history.
 
 ### Changed
 
+- `make-code`: one short procedure replaces the write and refactor branches: the run lists every place the change must reach, takes the first of six options that fully works (skip, reuse, standard library, installed dependency, one line, minimum code), avoids named over-building patterns, adds one small test only for non-trivial logic, and ends the reply with what it skipped and the risk (`metadata.version` → `0.5.0`).
+- `make-code`: the description asks for the skill before any code edit in any language and names the everyday triggers (add, fix, refactor, clean up, speed up).
+- `make-code`: the run guides instead of stopping: a speed request with no named hotspot looks for one on the path, a failed fix no longer halts the run, and the project's own rules decide when its tests and linter run.
+- `make-code`: the run reads only as deep as the change reaches and searches callers only for symbols that other files use.
+- `make-code`: Blank lines apply on the first pass to every added or rewritten line, even in a file that omits them, with one blank line before a control statement that follows a declaration, before a `return` or `throw`, and after a closed block.
+- `make-code`: Tight performance writes the cheap shape first (no query or file read inside a loop, a set or map for repeated lookups, filtering and paging in the database), and a cache, pool, or index waits for a named hotspot.
+- `make-code`: comments appear only where the code cannot say the thing, and a comment that restates a line, narrates a step, or labels a section is left out.
+- `code-review-plus`: a fix through `make-code` no longer names a write or refactor branch, and the Quality hunter also hunts lean findings (reuse, pass-through layers, unused surface, near-copies, mixed jobs) with a concrete case for each.
 - `sass-with-bem`: writes Sass so each compiled component rule is one BEM class.
 - `sass-with-bem`: applies whenever the work touches Sass/SCSS that uses BEM.
 - `makefile-expert`: each phony target has its own `.PHONY` line immediately above it, so a long list of targets stays next to each rule.
@@ -22,18 +30,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `makefile-expert`: a review with no Makefile stops and names the missing file.
 - `make-changelog`: a run names its branch before writing, a bump asks which file to cut before it writes a heading, and the description skips a commit, Markdown lint, other docs, unrelated instruction edits, and writing a skill.
 - `write-great-instructions`: the description skips writing an agent skill (`SKILL.md`) and points to `make-skill`.
-- `make-code`: a declaration or assignment has a blank line before the following `if`, braced or on one line; consecutive inline `if`s stay on adjacent lines, and Blank lines cannot be skipped.
-- `make-code`: the description is third person and also matches a refactor or a make-it-faster request; when workspace search is unavailable, Climb uses the files already open and adds no dependency.
 - `code-review-plus`: removes the `deep-security-review` suggestion, Skill links, and install command from the review output and references.
 - `code-review-plus`: the Security hunter follows a context → compare → trace method with a high-confidence bar instead of a checklist, and Pass B checks every Security candidate against a list of known non-findings.
 - `code-review-plus`: a delta review after a fix rechecks the closed paths and keeps only new P0/P1 there, an empty review source stops the run, and findings use one category set (vulnerability, bug, hardening, maintainability).
-- `make-code`: a speed request without a named hotspot asks once and stops; the run reports the branch, the rung, and the check.
-- `make-code`: Trace fills six fields, and KISS, CC, and Match cannot be skipped.
 - `code-review-plus`: a hunter reports a clear issue owned by a hunter that did not run, Security precedents are defaults that a concrete exploit overrides, fixes run the full `make-code` workflow with the suggested fix as a hint, findings stay short and direct while each regression risk is explained with what, where, and how to check, and the report puts run metadata on one line.
 - `code-review-plus`: the next review re-checks findings owned by a hunter the tier skips and keeps any regression at a risk a fix stated, the session ledger keeps finding details and survives compaction whole, Security skips are defaults, and an isolated review reports another hunter's issue only at P0/P1 level.
 - `code-review-plus`: Pass B fills a missing candidate field instead of dropping it, intent comes from the PR text and the diff before asking, a fix that fails the gate twice is reverted and deferred, a check that failed before the fix no longer blocks it, and project checks still run after make-code's own check.
 - `code-review-plus`: a new review marks each finding as new or prior and carries open prior findings (re-checking only those of the hunters that ran), prior memory applies only to the same branch and survives a rebase, dismissed findings stay closed, and the reviewer decides whether a verified P1 blocks the merge.
-- `make-code`: every run prefers the lightest, cheapest path that meets the request (`metadata.version` → `0.5.0`).
 - `make-commits`: subjects default to the third-person present in the request's language, and bodies are one-line bullets used only for complex changes (`metadata.version` → `0.4.0`).
 - `make-commits`: language and subject shape follow the newest commit subjects, including the messages kept inside a squash commit.
 - `make-commits`: a trailer is `Closes` or `Refs` only when the request or the branch name already has the number.
@@ -42,10 +45,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `make-commits`: a subject scope is the group's area when recent subjects use a scope.
 - `make-commits`: a staged hunk stays as staged when the request commits what is staged, and a staged path outside the commit keeps that index state.
 - `make-commits`: a failed `git` command stops the run before any commit.
-- `make-code`: **Blank lines** separate a declaration or assignment from a block (`if`, loop, `switch`, `try`, or a callback), a closed block from the code after it, and a statement from `return` or `throw`, while a guard that only logs and returns keeps those two lines together.
-- `make-code`: add lazy rules inspired by [Ponytail](https://github.com/DietrichGebert/ponytail) (scope question before building, fewest files, deletion over addition, root-cause bug fix, one runnable check, `ceiling:` marker); the `improve` branch is now `refactor` with a named hotspot.
-- `make-code`: comments are added only where the code cannot say the thing; restating, narrating, and section-label comments are skipped.
-- `code-review-plus`: the Quality hunter reads `quality.md`, which opens `make-code` when installed and otherwise uses its default Floor; a Performance fix uses refactor, since `make-code` has no improve branch.
 
 ### Removed
 

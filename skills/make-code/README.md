@@ -1,41 +1,28 @@
 # Make code
 
-Writes, simplifies, and speeds up application code. Each run picks one branch and works through five steps.
+Makes the code change you ask for with as little new code as possible. It uses what your project already has, adds nothing you did not ask for, and still updates every place the change touches.
 
-## Branches
+Use it for any code edit: a new feature, a bug fix, a refactor, or a slow path. It does not write docs, agent instructions, skills, Makefiles, or CSS-only restyles, and it reviews code only when you ask for an edit.
 
-| Branch | Use it for | Done when |
-| --- | --- | --- |
-| write | A feature, endpoint, function, or bug fix | The behavior is observable, and new functions stay under the CC cap |
-| refactor | The same behavior, simpler | Behavior matches the original, and touched functions stay under the CC cap |
-| refactor with a hotspot | The same behavior, faster, on a named or measured hotspot | The hotspot is gone, and no new type exists only for the old slow path |
+## How it works
 
-The skill does not cover docs, agent instructions, skills, Makefiles, CSS-only restyles, or a review that does not ask for an edit.
+1. It reads the code the change touches and lists what the change must reach: callers, tests, fixtures, config, and exports.
+2. It takes the first option that works: skip it, reuse code from the project, use the standard library or an installed dependency, write one clear line, or write the minimum new code. When existing code already does the job, it says so and edits nothing.
+3. A bug fix goes to the root cause, so a guard that only hides the symptom does not count. A speed request starts from the slow spot you name or one it finds, such as an N+1 query.
+4. New logic with a branch, a loop, a parser, money, or security gets one small test. A trivial change gets none. Your project's rules decide when its tests and linter run, and [`code-review-plus`](../code-review-plus/README.md) runs them on a fix.
+5. The reply ends with what it skipped and any risk you should know.
 
-## Steps
+## Code rules
 
-1. Classify. Pick the branch. A speed run needs a named hotspot, such as a profile result, an N+1 query, or extra I/O in a hot loop. Without one, ask once which limit to remove and make no edit until the user names it. Stop when the run cannot ask.
-2. Trace. Fill six fields: problem, entrypoints, symbols, callers, check, and convention. When an existing symbol already covers the request, stop with no edit.
-3. Climb. Before new code, try each rung in order: skip, an in-repo helper, the standard library, the platform, an installed dependency, one line, then minimum new code. A new dependency is the last resort. When workspace search is unavailable, the rung comes from files already open, the run says the wider search did not run, and it adds no dependency.
-4. Apply. Write the change under the Floor. KISS, CC, and Match hold. Any other Floor heading that does not apply names itself and the reason on the same line.
-5. Prove. Run the smallest check of observable behavior that fails when the logic breaks. A write run goes red, then green. A refactor stays green before the edit and after it.
+- KISS, DRY, and YAGNI: the simplest path, one place for each decision, and nothing built for later, such as an interface with one implementation, a wrapper that only passes calls through, or an option nobody uses.
+- New or rewritten functions stay at a cyclomatic complexity of 20 or less, unless your project sets its own limit.
+- The code follows the naming, errors, imports, and structure of the code around it.
+- Comments explain only the why that the code cannot show.
+- A blank line goes before an `if` or loop that follows a declaration, before a `return` or `throw` that follows another statement, and after a closed block. This holds even when the rest of the file skips it.
+- The first version is already cheap: no query or file read inside a loop, and a cache or index waits for a measured slow spot.
+- It never cuts input validation, error handling that prevents data loss, security, accessibility, or anything you asked for, and it never silences the compiler or linter.
 
-The run ends with one line: `branch | rung | check`.
-
-## The Floor
-
-- KISS: the simplest, lightest, cheapest path that meets the request. Less code, an existing tool, and no extra machinery.
-- DRY: one representation per piece of knowledge. Extract on the second real duplicate. Copies that mean different things stay separate.
-- YAGNI: build what the request needs, nothing for a future caller.
-- CC: decision points plus one. The cap is 20 for new or rewritten functions, unless the project sets its own limit.
-- Match: follow the naming, errors, imports, and shape of neighboring code.
-- Comments: add a doc comment only when a name cannot carry the contract. Skip comments that repeat the code or label sections.
-- Blank lines: a declaration or assignment has a blank line before the following `if`, braced or on one line. Consecutive inline `if`s stay on adjacent lines. A blank line also separates a block from the code after it, and a statement from `return` or `throw`. A guard that only logs and returns keeps those two lines together.
-- Intent over fewest: keep a helper when its name carries a concept. Fewer lines stay when the result still matches the neighbor and the name still carries the concept.
-- Tight performance: the cheap fast path by default. Caches, pools, and indexes wait for a named hotspot.
-- Non-negotiables: validate at trust boundaries, keep errors that prevent data loss, protect secrets and authorization, keep accessibility and platform calibration, and honor what you named.
-
-When a shortcut cuts a real limit, mark it with a `ceiling: <limit>; upgrade: <path>` comment.
+A shortcut with a known limit gets a `ceiling: <limit>; upgrade: <path>` comment in the code, and the reply repeats it.
 
 ## Files
 
@@ -45,7 +32,7 @@ When a shortcut cuts a real limit, mark it with a `ceiling: <limit>; upgrade: <p
 
 ## Related
 
-[`code-review-plus`](../code-review-plus/README.md) reads this skill when it is installed, in its Quality hunter and fix branch. Without it, the Quality hunter uses its own default Floor, and the report says so.
+[`code-review-plus`](../code-review-plus/README.md) reads this skill when it is installed, in its Quality hunter and its fix branch. Without it, the Quality hunter uses its own default rules, and the report says so.
 
 ## Install
 
