@@ -2,6 +2,8 @@
 
 Invoked only by `/code-review-plus fix` (aliases `apply`, `implement`), with an optional **selection**. Open the memory: the newest Session ledger in this conversation when this session recorded `Save: session`, else `docs/code-review/` in the **reviewed** repo. This file is the only skill reference for this branch.
 
+**One turn.** This branch runs in one turn: Apply loop → After all targets → user summary. The user summary is the last message of the turn. Do not end the turn earlier: a passed gate, a check run, a make-code report, a repo side edit, or an announced next step is not the end. Stop early only to ask a question this file names (Resolve targets step 4).
+
 ## Contents
 
 - [Selection](#selection)
@@ -40,7 +42,7 @@ Dead Code and Test quality "removable" stay ask-before-delete; they are not in *
 
 Before the Apply loop: if the make-code skill is available in this environment, READ it once and set **fix source** `make-code`. Else set **fix source** `slim-fallback`.
 
-When **fix source** is `make-code`, each target finding is one make-code request: the `file:line`, the break path, **Must NOT change**, `regression_risk`, and the suggested fix as a hint. make-code applies its rules to that slice and picks the smallest fix. The Apply loop rules and the **fix acceptance gate** still bind. Fold make-code's report for each finding into the fix summary, one line per finding.
+When **fix source** is `make-code`, each target finding is one make-code request: the `file:line`, the break path, **Must NOT change**, `regression_risk`, and the suggested fix as a hint. make-code applies its rules to that slice and picks the smallest fix. The Apply loop rules and the **fix acceptance gate** still bind. Skip make-code's `Reply` step per finding: do not end the turn after a finding. Keep its skipped and risk lines, and fold them into the fix summary, one line per finding.
 
 When **fix source** is `slim-fallback`, step 2 of the Apply loop uses **Clean fix**.
 
@@ -81,6 +83,12 @@ The finding is closed only when all are true:
 If the gate fails: revert or narrow the fix, then retry. After two failed attempts, revert the fix and defer the finding with the reason. Do not proceed to the next finding while a gate failure remains open.
 
 ## After all targets
+
+Do these steps in order, in the same turn as the last fix:
+
+1. Repo side edits that the reviewed repo's own rules require for the fixes (for example a `CHANGELOG.md` entry). Skip when the repo has no such rule.
+2. Fill `## Fix` on the memory, as below.
+3. Send the user summary, as below. It ends the turn.
 
 Fill `## Fix` on the memory from Resolve targets: the file, or the Session ledger when `Save: session` (re-emit the whole ledger at the end of the summary). Create the heading after `## Findings` when it is missing. Merge with Closed/Deferred/Open already there (keep prior Closed IDs that still hold). Replace `_(none yet)_` when an older file still has that placeholder. Write one timestamped file per review.
 
@@ -123,4 +131,4 @@ Skip review pipelines. The next `/code-review-plus` runs as **delta** (`./refere
 
 ## Completion criterion
 
-Every finding in the **selection** is closed (gate passed), skipped because the break path is already gone, or explicitly deferred. Unknown IDs named when **ids**. No new demonstrable P0/P1 left by the fixes. Each remaining regression risk is stated with what, where, and how to check. The memory's `## Fix` section (file or Session ledger) is updated with Closed, Deferred, and Open (or the missing-memory gap is stated), including **fix source**. Summary of closed vs skipped vs deferred delivered. Slim-fallback summary includes the make-code Skill links URL. **default** summary includes leftover IDs plus `fix all` and `fix <ids>` when leftovers exist.
+Every finding in the **selection** is closed (gate passed), skipped because the break path is already gone, or explicitly deferred. Unknown IDs named when **ids**. No new demonstrable P0/P1 left by the fixes. Each remaining regression risk is stated with what, where, and how to check. The memory's `## Fix` section (file or Session ledger) is updated with Closed, Deferred, and Open (or the missing-memory gap is stated), including **fix source**. Summary of closed vs skipped vs deferred delivered. Slim-fallback summary includes the make-code Skill links URL. **default** summary includes leftover IDs plus `fix all` and `fix <ids>` when leftovers exist. Repo side edits, `## Fix`, and the summary happen in the same turn as the last fix, and the summary is the last message.

@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `make-code`: Blank lines apply on the first pass to every added or rewritten line, even in a file that omits them, with one blank line before a control statement that follows a declaration, before a `return` or `throw`, and after a closed block.
 - `make-code`: Tight performance writes the cheap shape first (no query or file read inside a loop, a set or map for repeated lookups, filtering and paging in the database), and a cache, pool, or index waits for a named hotspot.
 - `make-code`: comments appear only where the code cannot say the thing, and a comment that restates a line, narrates a step, or labels a section is left out.
+- `code-review-plus`: a review or fix runs to its end in one turn, and a fix writes repo side edits, `## Fix`, and the summary in order instead of stopping after make-code's reply or after the first of those steps.
 - `code-review-plus`: a fix through `make-code` no longer names a write or refactor branch, and the Quality hunter also hunts lean findings (reuse, pass-through layers, unused surface, near-copies, mixed jobs) with a concrete case for each.
 - `sass-with-bem`: writes Sass so each compiled component rule is one BEM class.
 - `sass-with-bem`: applies whenever the work touches Sass/SCSS that uses BEM.
