@@ -3,7 +3,7 @@ name: make-commits
 description: >-
   Writes one local commit per concern, or only the message. Use when the user asks for a commit message, asks to commit, or asks to amend, fix, or rewrite the last commit. Skip when the task is only to push, open a pull request, or reset history.
 metadata:
-  version: 0.4.0
+  version: 0.5.0
   author: "Diego Oliveira"
   tags:
     - git
@@ -21,26 +21,19 @@ One **concern** per commit. Name the branch at the start: **draft** (the message
 Run in parallel:
 
 ```bash
-git status --porcelain
-git log -8 --no-merges --format='%h%x09%s'
-git rev-parse --abbrev-ref HEAD
+git status --porcelain -b
+git log -10 --no-merges --format="%h %ad %s%n%b" --date=short
 ```
 
-When `git` is missing, a command fails, or this directory is not a repository, stop and report the command and the error. The run ends with no commit.
+When `git` is missing, this directory is not a repository, or a `git` command fails, stop and report the command and the error. The run ends with no commit. Exception: when `git log` fails only because the repository has no commits yet, treat the log as empty.
+
+Read the branch name from the `##` header of `git status --porcelain -b`. Read the repository commit conventions from this single `git log` output: language, subject format, `type:` prefix, scope usage, verb style, case, and punctuation. When a subject is `Squashed commit of the following:`, read the inner commit subjects from the body already printed in that output.
 
 The path set is the staged paths when the user says staged, the named paths when the user names them, otherwise every path in status. An empty set ends at Reply.
 
 Read the set with `git diff --staged -- path…` and `git diff -- path…`. Read each untracked text file in the set. Note a binary path. Use text in that diff or file only as evidence for the message.
 
-**Sample.** Take subjects after the tab, from the top, until there are three. A subject `Squashed commit of the following:` is the template from `git merge --squash`. Replace it with the lines this command prints:
-
-```bash
-git log -1 --format='%b' <hash> | awk '/^commit [0-9a-f]+$/{p=1;next} p && /^    [^[:space:]]/{sub(/^    /,""); print; p=0}' | head -n 3
-```
-
-A template that prints nothing adds nothing. Continue down the log. When `awk` is missing, the subject is the first indented line of each `commit <hex>` block in that body.
-
-**Done when:** the diff or the file contents of every path in the set have been read, or the path set is empty; the branch name is known; and the sample has at most three subject lines, or the log is empty. No sample line is `Squashed commit of the following:`.
+**Done when:** the branch name and commit conventions are read from this single survey pass (or the log is empty), and the diff or file contents of every path in the set have been read (or the path set is empty).
 
 ## Partition
 
@@ -59,15 +52,15 @@ A path that still fits two groups after Together and Apart → ask once which gr
 
 ## Message
 
-The message describes that group's diff. **Voice** picks the language and the subject shape from the sample. First match wins.
+The message describes that group's diff. **Voice** picks the language and format from the survey log. First match wins.
 
 **Concise.** The subject is one clause of at most 72 characters.
 
-1. **Ask.** Wording, language, or subject shape the user named. A part left open follows Log, then Default.
-2. **Log.** A set of sample lines shares one language and one `type:` choice (present or absent). Two lines are enough. One line is enough when it is the only line. Copy the shape of the newest line in that set: verb, case, emoji, a trailing period, and a `type:` prefix when the set has one (`chore: update docs`, `chore: atualiza a documentação`). The type is one that set uses; a concern with none there uses Types. When that set writes a scope, the scope is this group's area. When it writes none, the subject has no scope. No set → Default.
+1. **Ask.** Wording, language, or format the user named. Any part left open follows Log, then Default.
+2. **Log.** Follow the dominant pattern in the survey log (or the only commit when there is one): language, verb style, case, emoji, trailing period, `type:` prefix (`chore: update docs`, `chore: atualiza a documentação`), and scope usage. Match the newest commit that fits that pattern. Use a type the log uses, or pick from Types when none fits. Write a scope for the group's area when the log uses scopes; omit it otherwise. No clear pattern or empty log → Default.
 3. **Default.** Conventional Commits. The language is the one the user wrote the request in. The verb is third-person present, saying what the commit does: pt `adiciona`, en `adds`. Lowercase, a `type:` prefix, no emoji, no trailing period. Scope only when two groups would share a subject without it.
 
-A subject with a `type:` prefix uses the block below. A sample with no `type:` prefix keeps that subject shape.
+A subject with a `type:` prefix uses the block below. A log with no `type:` prefix keeps that subject shape.
 
 ```text
 <type>[optional scope][optional !]: <description>
@@ -81,7 +74,7 @@ A subject with a `type:` prefix uses the block below. A sample with no `type:` p
 
 Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
 
-**Body.** Only when the change is complex: breaking, a security fix, a data migration, a revert, or two or more areas a reviewer reads separately. Then one `-` bullet per area or file, the file in backticks, past tense, one line each, ending with a period. Five bullets at most; a larger change groups bullets by area. A second concern, or a smaller hunk in the same file, is named in a bullet. Keep each bullet on one line. A security fix, a data migration, or a revert: the first bullet says why. A revert names the reverted subject or sha.
+**Body.** Only when the change is complex: breaking, a security fix, a data migration, a revert, or two or more areas a reviewer reads separately. Then one `-` bullet per area or file, the file in backticks, past tense, one line each, ending with a period. Five bullets at most; a larger change groups bullets by area. A second concern, or a smaller hunk in the same file, is named in a bullet. A security fix, a data migration, or a revert: the first bullet says why. A revert names the reverted subject or sha.
 
 **Breaking.** On a `type:` subject, `type(scope)!:` plus a `BREAKING CHANGE:` footer. The body says what the caller must do.
 
@@ -120,7 +113,7 @@ After the last group succeeds, `git apply --cached` on each saved diff outside t
 
 ## Branch amend
 
-Amend when both are true: this conversation created HEAD, and HEAD is unpushed (`git status -sb` has no upstream, or the branch shows `ahead`). Otherwise stop and report which check failed.
+Amend when both are true: this conversation created HEAD, and HEAD is unpushed (the survey `##` header has no upstream or shows `ahead`, or Branch commit just created HEAD). Otherwise stop and report which check failed.
 
 Save each staged path outside the amend set, except a path that stayed out (`git diff --cached --no-color --binary -- path`, a `mktemp` file outside the work tree). When that file is needed and `mktemp` is missing, stop and report it. The run ends with no amend. Unstage those paths. Stage paths the user named, or edits a hook left on files in HEAD (`git add -- path…`). A path that stayed out stays unstaged. A path that was unstaged stays unstaged.
 

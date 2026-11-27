@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `make-commits`: reads branch status and repository commit conventions in one survey pass (`git status --porcelain -b` and a single `git log -10 --no-merges --format="%h %ad %s%n%b" --date=short`), removing extra `git log` and `awk` lookups.
+
 ## [0.3.0] - 2026-11-02
 
 ### Added
