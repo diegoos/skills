@@ -9,6 +9,7 @@ Notable changes live in [CHANGELOG.md](CHANGELOG.md).
 | Skill                                                        | What it does                                                                                                                   |
 | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
 | [write-great-instructions](skills/write-great-instructions/) | Writes the files an agent reads, such as `AGENTS.md`, `CLAUDE.md`, Cursor rules, and Copilot instructions.                     |
+| [code-review](skills/code-review/)                           | Reviews a pull request, diff, commit, or files in one fast read-only pass for bugs, security issues, and code quality.         |
 | [code-review-plus](skills/code-review-plus/)                 | Reviews a pull request or diff for bugs, security issues, and code quality, and can apply the fixes you pick.                  |
 | [make-changelog](skills/make-changelog/)                     | Keeps a changelog: creates it, records notable changes, and bumps the version only when you ask.                               |
 | [make-code](skills/make-code/)                               | Writes, fixes, simplifies, and speeds up code with the least new code, reusing what the project already has.                   |
@@ -79,6 +80,8 @@ Some skills start from what you ask:
 User-invoked only (`disable-model-invocation`). Call by name:
 
 ```text
+/code-review                   → fast single-pass review (uncommitted changes, or current branch vs base)
+/code-review <PR|commit|branch>→ fast single-pass review of a PR, commit, branch, or file path
 /code-review-plus              → PR/diff review (Correctness, Security, Quality by default)
 /code-review-plus quality      → Quality hunter only (also: correctness, security, architecture, performance)
 /code-review-plus fix          → P0, P1, and vuln from the last report; leftover IDs printed (aliases: apply, implement)
@@ -87,6 +90,8 @@ User-invoked only (`disable-model-invocation`). Call by name:
 /code-review-plus prune        → drop old docs/code-review review files (count first, then choose)
 /code-review-plus help         → explain how the skill works
 ```
+
+See [`code-review` vs `code-review-plus`](skills/code-review/README.md#code-review-vs-code-review-plus) to pick between the two review skills.
 
 Harnesses also accept forms like `/make-docs explore`.
 

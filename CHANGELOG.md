@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `code-review`: *new skill* for fast, single-pass, read-only code review (PRs, diffs, commits, or files) without subagents or saved reports, using `make-code` as an optional quality Floor (`metadata.version` → `0.1.0`), listed in the root `README.md`.
+
 ### Changed
 
 - `make-commits`: reads branch status and repository commit conventions in one survey pass (`git status --porcelain -b` and a single `git log -10 --no-merges --format="%h %ad %s%n%b" --date=short`), removing extra `git log` and `awk` lookups.

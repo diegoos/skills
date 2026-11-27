@@ -18,6 +18,12 @@ Every skill under `skills/<name>/` ships `SKILL.md` and `agents/openai.yaml` (Ch
 │   │   └── references/
 │   │       ├── formats.md      # path, frontmatter, attach, adapter per harness
 │   │       └── patterns.md     # works vs anti-pattern smells
+│   ├── code-review/            # Fast single-pass PR/diff/commit review (bugs, security, quality)
+│   │   ├── SKILL.md            # Single-pass workflow: scope, 5-axis hunt, self-verify, report
+│   │   ├── README.md           # Human: usage, flow, vs code-review-plus
+│   │   ├── agents/openai.yaml
+│   │   └── references/
+│   │       └── checklists.md   # Optional cues: security, false positives, performance, remedies, deps
 │   ├── code-review-plus/       # PR/diff review (bugs, security, quality)
 │   │   ├── SKILL.md            # Router: review vs fix|fix all|ids vs prune vs help
 │   │   ├── README.md           # Human: flow, memory, commands

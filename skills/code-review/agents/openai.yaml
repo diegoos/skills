@@ -1,0 +1,6 @@
+interface:
+  display_name: "Code Review"
+  short_description: "Fast single-pass code review for bugs, security, and quality"
+
+policy:
+  allow_implicit_invocation: false
